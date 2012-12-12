@@ -32,9 +32,50 @@ var Generator = module.exports = function Generator() {
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
+function checkTestacular(){
+  try {
+    var testacular = require('testacular'),
+        colors = require('colors'); //just for syntastic sugar
+
+    //TODO: check a global dependency instead of harcoding it.
+    //also know the minimum usable version. For now using the latest version (0.4.0).
+    function isLowerVersion(current, minimum) {
+      var i, min, cur;
+
+      current = current.split('.');
+      minimum = minimum.split('.');
+
+      for (i in minimum) {
+        cur = parseInt(current[i], 10);
+        min = parseInt(minimum[i], 10);
+        
+        if (cur < min) {
+          return true;
+        } else if (cur > min) {
+          return false;
+        }
+      }
+      return false
+    }
+    if(isLowerVersion(testacular.VERSION, '0.4.0')) {
+      console.log('\n✖ Testacular [outdated]\n'.yellow +
+      '  You\'re ready to go and start using Angular but your testing skills are getting\n'.grey +
+      '  rusty! Update it, run '.grey + 'sudo npm update -g testacular' + ' in your terminal.'.grey);
+    }
+  } catch (err) {
+    //only bother if it's not installed
+    console.log('\n✖ Testacular [not installed]\n'.red +
+    '  You\'re ready to go and start using Angular but if you\'re planning to \n'.grey +
+    '  unit testing (and why you wouldn\'t?) you need Testacular to run '.grey + 'yeoman test\n' + 
+    '  This is usually fixed running '.grey + 'sudo npm install -g testacular' + ' in your terminal.'.grey);
+  } 
+}
+
 Generator.prototype.askFor = function askFor(argument) {
   var cb = this.async();
   var self = this;
+
+  checkTestacular();
 
   var prompts = [{
     name: 'bootstrap',
