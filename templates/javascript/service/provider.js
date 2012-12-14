@@ -1,6 +1,6 @@
 'use strict';
 
-<%= grunt.util._.camelize(appname) %>App.provider('<%= _.camelize(name) %>', function() {
+<%= grunt.util._.camelize(appname) %>App.provider('<%= _.camelize(name) %>', [function() {
 
   // Private variables
   var salutation = 'Hello';
@@ -21,4 +21,4 @@
   this.$get = function() {
     return new Greeter();
   };
-});
+}]);
