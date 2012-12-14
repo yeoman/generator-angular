@@ -1,6 +1,6 @@
 'use strict';
 
-<%= _.camelize(appname) %>App.directive('<%= _.camelize(name) %>', function() {
+<%= _.camelize(appname) %>App.directive('<%= _.camelize(name) %>', [function() {
   return {
     template: '<div></div>',
     restrict: 'E',
@@ -8,4 +8,4 @@
       element.text('this is the <%= _.camelize(name) %> directive');
     }
   };
-});
+}]);

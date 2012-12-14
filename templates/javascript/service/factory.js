@@ -1,6 +1,6 @@
 'use strict';
 
-<%= _.camelize(appname) %>App.factory('<%= _.camelize(name) %>', function() {
+<%= _.camelize(appname) %>App.factory('<%= _.camelize(name) %>', [function() {
   // Service logic
   // ...
 
@@ -12,4 +12,4 @@
       return meaningOfLife;
     }
   };
-});
+}]);
