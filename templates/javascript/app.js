@@ -1,6 +1,6 @@
 'use strict';
 
-var <%= grunt.util._.camelize(appname) %>App = angular.module('<%= grunt.util._.camelize(appname) %>App', [])
+angular.module('<%= grunt.util._.camelize(appname) %>App', [])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('/', {
