@@ -31,9 +31,11 @@ module.exports = function (grunt) {
       },
       livereload: {
         files: [
+          '<%%= yeoman.app %>/*.html',
           '<%%= yeoman.app %>/*/*.html',
           '{.tmp,<%%= yeoman.app %>}/styles/*.css',
           '{.tmp,<%%= yeoman.app %>}/scripts/*.js',
+          '{.tmp,<%%= yeoman.app %>}/scripts/*/*.js',
           '<%%= yeoman.app %>/images/*.{png,jpg,jpeg}'
         ],
         tasks: ['livereload']
@@ -47,7 +49,7 @@ module.exports = function (grunt) {
             return [
               lrSnippet,
               mountFolder(connect, '.tmp'),
-              mountFolder(connect, 'app')
+              mountFolder(connect, '<%%= yeoman.app %>')
             ];
           }
         }
@@ -111,7 +113,7 @@ module.exports = function (grunt) {
         imagesDir: '<%%= yeoman.app %>/images',
         javascriptsDir: '<%%= yeoman.app %>/scripts',
         fontsDir: '<%%= yeoman.app %>/styles/fonts',
-        importPath: 'app/components',
+        importPath: '<%%= yeoman.app %>/components',
         relativeAssets: true
       },
       dist: {},
