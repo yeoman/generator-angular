@@ -66,11 +66,11 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        url: 'http://localhost:<%= connect.livereload.options.port %>'
+        url: 'http://localhost:<%%= connect.livereload.options.port %>'
       }
     },
     clean: {
-      dist: ['.tmp', '<%= yeoman.dist %>/*'],
+      dist: ['.tmp', '<%%= yeoman.dist %>/*'],
       server: '.tmp'
     },
     jshint: {
@@ -128,7 +128,7 @@ module.exports = function (grunt) {
     concat: {
       dist: {
         files: {
-          '<%= yeoman.dist %>/scripts/main.js': [
+          '<%%= yeoman.dist %>/scripts/main.js': [
             '.tmp/scripts/**/*.js',
             '<%%= yeoman.app %>/scripts/**/*.js'
           ]
@@ -138,14 +138,14 @@ module.exports = function (grunt) {
     useminPrepare: {
       html: '<%%= yeoman.app %>/index.html',
       options: {
-        dest: '<%= yeoman.dist %>'
+        dest: '<%%= yeoman.dist %>'
       }
     },
     usemin: {
-      html: ['<%= yeoman.dist %>/*.html'],
-      css: ['<%= yeoman.dist %>/styles/*.css'],
+      html: ['<%%= yeoman.dist %>/*.html'],
+      css: ['<%%= yeoman.dist %>/styles/*.css'],
       options: {
-        dirs: ['<%= yeoman.dist %>']
+        dirs: ['<%%= yeoman.dist %>']
       }
     },
     imagemin: {
@@ -155,7 +155,7 @@ module.exports = function (grunt) {
             expand: true,
             cwd: '<%%= yeoman.app %>/images',
             src: '*.{png,jpg,jpeg}',
-            dest: '<%= yeoman.dist %>/images'
+            dest: '<%%= yeoman.dist %>/images'
           }
         ]
       }
@@ -163,7 +163,7 @@ module.exports = function (grunt) {
     cssmin: {
       dist: {
         files: {
-          '<%= yeoman.dist %>/styles/main.css': [
+          '<%%= yeoman.dist %>/styles/main.css': [
             '.tmp/styles/*.css',
             '<%%= yeoman.app %>/styles/*.css'
           ]
@@ -188,14 +188,14 @@ module.exports = function (grunt) {
             expand: true,
             cwd: '<%%= yeoman.app %>',
             src: '*.html',
-            dest: '<%= yeoman.dist %>'
+            dest: '<%%= yeoman.dist %>'
           }
         ]
       }
     },
     cdnify: {
       dist: {
-        html: ['<%= yeoman.dist %>/*.html']
+        html: ['<%%= yeoman.dist %>/*.html']
       }
     },
     copy: {
@@ -205,7 +205,7 @@ module.exports = function (grunt) {
             expand: true,
             dot: true,
             cwd: '<%%= yeoman.app %>',
-            dest: '<%= yeoman.dist %>',
+            dest: '<%%= yeoman.dist %>',
             src: [
               '*.{ico,txt}',
               '.htaccess'
