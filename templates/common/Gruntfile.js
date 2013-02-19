@@ -79,8 +79,7 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%%= yeoman.app %>/scripts/**/*.js',
-        'test/**/*.js'
+        '<%%= yeoman.app %>/scripts/**/*.js'
       ]
     },
     testacular: {
