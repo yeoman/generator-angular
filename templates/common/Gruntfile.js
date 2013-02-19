@@ -127,12 +127,6 @@ module.exports = function (grunt) {
     },
     concat: {
       dist: {
-        files: {
-          '<%%= yeoman.dist %>/scripts/main.js': [
-            '.tmp/scripts/**/*.js',
-            '<%%= yeoman.app %>/scripts/**/*.js'
-          ]
-        }
       }
     },
     useminPrepare: {
