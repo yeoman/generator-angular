@@ -76,8 +76,8 @@ module.exports = function (grunt) {
       }
     },
     clean: {
-      dist: ['.tmp', '<%%= yeoman.dist %>/*'],
-      server: '.tmp'
+      dist: ['.tmp', '.sass-cache', '<%%= yeoman.dist %>'],
+      server: ['.tmp', '.sass-cache']
     },
     jshint: {
       options: {
