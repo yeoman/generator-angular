@@ -11,6 +11,7 @@ describe('Angular generator', function () {
   var angular;
 
   beforeEach(function(done) {
+    process.chdir(__dirname);
     var deps = [
       '../../app',
       '../../common',
@@ -95,7 +96,7 @@ describe('Angular generator', function () {
       var angularCtrl;
       var deps = ['../../controller'];
       angularCtrl = helpers.createGenerator('angular:controller', deps, ['foo']);
-  
+
       helpers.mockPrompt(angular, {'bootstrap': 'Y', 'compassBoostrap': 'Y'});
       angular.run([], function(){
         angularCtrl.run([], function() {
