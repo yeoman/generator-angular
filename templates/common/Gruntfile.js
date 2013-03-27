@@ -8,6 +8,8 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
+  var modRewrite = require('connect-modrewrite');
+
   // configurable paths
   var yeomanConfig = {
     app: 'app',
@@ -49,11 +51,15 @@ module.exports = function (grunt) {
           port: 9000,
           // Change this to '0.0.0.0' to access the server from outside.
           hostname: 'localhost',
-          middleware: function (connect) {
+          middleware: function (connect, options) {
             return [
               lrSnippet,
               mountFolder(connect, '.tmp'),
-              mountFolder(connect, yeomanConfig.app)
+              mountFolder(connect, yeomanConfig.app),
+              modRewrite([
+                '^/.*$ /index.html'
+              ]),
+              connect.static(options.base)
             ];
           }
         }
