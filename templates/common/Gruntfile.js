@@ -174,16 +174,6 @@ module.exports = function (grunt) {
         }]
       }
     },
-    cssmin: {
-      dist: {
-        files: {
-          '<%%= yeoman.dist %>/styles/main.css': [
-            '.tmp/styles/{,*/}*.css',
-            '<%%= yeoman.app %>/styles/{,*/}*.css'
-          ]
-        }
-      }
-    },
     htmlmin: {
       dist: {
         options: {
