@@ -11,9 +11,9 @@ First make a new directory, and `cd` into it:
 mkdir my-new-project && cd $_
 ```
 
-Then install `generator-angular` and `generator-karma`:
+Then install `generator-angular`:
 ```
-mkdir node_modules && npm install generator-angular generator-karma
+mkdir node_modules && npm install generator-angular
 ```
 
 **Note: The `mkdir node_modules` in the command above ensures that the generators are installed locally for now until global generator installation is an option.**
