@@ -11,9 +11,9 @@ First make a new directory, and `cd` into it:
 mkdir my-new-project && cd $_
 ```
 
-Then install `generator-angular` and `generator-karma`:
+Then install `generator-angular`:
 ```
-npm install -g generator-angular generator-karma
+npm install -g generator-angular
 ```
 
 Run `yo angular`, optionally passing an app name:
