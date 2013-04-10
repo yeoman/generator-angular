@@ -10,7 +10,7 @@ function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
 
   try {
-    this.appname = this._.camelize(require(path.join(process.cwd(), 'component.json')).name);
+    this.appname = require(path.join(process.cwd(), 'component.json')).name;
   } catch (e) {
     this.appname = path.basename(process.cwd());
   }
@@ -35,7 +35,7 @@ function Generator() {
     // attempt to detect if user is using CS or not
     // if cml arg provided, use that; else look for the existence of cs
     if (!this.options.coffee &&
-      this.expandFiles('/' + this.appPath + '/scripts/**/*.coffee', {}).length > 0) {
+      this.expandFiles(path.join(this.env.options.appPath, '/scripts/**/*.coffee'), {}).length > 0) {
       this.options.coffee = true;
     }
 

@@ -1,6 +1,7 @@
 'use strict';
 var path = require('path');
 var util = require('util');
+var spawn = require('child_process').spawn;
 var yeoman = require('yeoman-generator');
 
 
@@ -25,7 +26,7 @@ var Generator = module.exports = function Generator() {
     // attempt to detect if user is using CS or not
     // if cml arg provided, use that; else look for the existence of cs
     if (!this.options.coffee &&
-      this.expandFiles(process.cwd() + '/' + this.appPath + '/scripts/**/*.coffee', {}).length > 0) {
+      this.expandFiles(path.join(this.appPath, '/scripts/**/*.coffee'), {}).length > 0) {
       this.options.coffee = true;
     }
 
@@ -50,12 +51,14 @@ var Generator = module.exports = function Generator() {
     args: args
   });
 
-  this.hookFor('testacular:app', {
-    args: [false] // run testacular hook in non-interactive mode
+  this.hookFor('karma:app', {
+    args: [false] // run karma hook in non-interactive mode
   });
 
   this.on('end', function () {
-    console.log('\nI\'m all done. Just run ' + 'npm install && bower install --dev'.bold.yellow + ' to install the required dependencies.');
+    console.log('\n\nI\'m all done. Running ' + 'npm install & bower install'.bold.yellow + ' for you to install the required dependencies. If this fails, try running the command yourself.\n\n');
+    spawn('npm', ['install'], { stdio: 'inherit' });
+    spawn('bower', ['install'], { stdio: 'inherit' });
   });
 };
 
@@ -127,29 +130,29 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     var cb = this.async();
 
     this.write(path.join(appPath, 'styles/main.scss'), '@import "compass_twitter_bootstrap";');
-    this.remote('kristianmandrup', 'compass-twitter-bootstrap', 'c3ccce2cca5ec52437925e8feaaa11fead51e132', function (err, remote) {
+    this.remote('vwall', 'compass-twitter-bootstrap', 'v2.2.2.2', function (err, remote) {
       if (err) {
         return cb(err);
       }
-      remote.directory('stylesheets', path.join(appPath, 'styles') );
+      remote.directory('stylesheets', path.join(appPath, 'styles'));
       cb();
     });
   } else if (this.bootstrap) {
     this.log.writeln('Writing compiled Bootstrap');
-    this.copy( 'bootstrap.css', path.join(appPath, 'styles/bootstrap.css') );
+    this.copy('bootstrap.css', path.join(appPath, 'styles/bootstrap.css'));
   }
 
   if (this.bootstrap || this.compassBootstrap) {
-    //this.directory( 'images', 'app/images' );
+    // this.directory('images', 'app/images');
   }
 };
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
-  this.template('../../templates/common/index.html', path.join(this.appPath, 'index.html') );
+  this.template('../../templates/common/index.html', path.join(this.appPath, 'index.html'));
 };
 
 Generator.prototype.packageFiles = function () {
-  this.template( '../../templates/common/component.json', 'component.json' );
-  this.template( '../../templates/common/package.json', 'package.json' );
-  this.template( '../../templates/common/Gruntfile.js', 'Gruntfile.js' );
+  this.template('../../templates/common/component.json', 'component.json');
+  this.template('../../templates/common/package.json', 'package.json');
+  this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
 };

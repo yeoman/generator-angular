@@ -1,11 +1,9 @@
 {
   "name": "generator-angular",
-  "version": "0.1.5",
+  "version": "0.2.1",
   "description": "Yeoman generator for AngularJS",
   "keywords": [
     "yeoman-generator",
-    "yeoman",
-    "generator",
     "framework",
     "component",
     "front-end",
@@ -23,10 +21,16 @@
     "test": "mocha test"
   },
   "dependencies": {
-    "yeoman-generator": "~0.10.2"
+    "yeoman-generator": "~0.10.3"
   },
   "devDependencies": {
-    "mocha": "~1.8.1"
+    "mocha": "~1.8.1",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-conventional-changelog": "~0.0.12",
+    "marked": "~0.2.8",
+    "semver": "~1.1.4",
+    "grunt-release": "~0.3.3"
   },
   "engines": {
     "node": ">=0.8.0"

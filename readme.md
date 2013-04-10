@@ -11,19 +11,14 @@ First make a new directory, and `cd` into it:
 mkdir my-new-project && cd $_
 ```
 
-Then install `generator-angular` and `generator-testacular`:
+Then install `generator-angular` and `generator-karma`:
 ```
-npm install generator-angular generator-testacular
+npm install -g generator-angular generator-karma
 ```
 
 Run `yo angular`, optionally passing an app name:
 ```
 yo angular [app-name]
-```
-
-Finally, install npm and bower dependencies:
-```
-npm install && bower install --dev
 ```
 
 ## Generators
@@ -37,6 +32,8 @@ Available generators:
 * [angular:route](#route)
 * [angular:service](#service)
 * [angular:view](#view)
+
+**Note: Generators are to be run from the root directory of your app.**
 
 ### App
 Sets up a new AngularJS app, generating all the boilerplate you need to get started. The app generator also optionally installs Twitter Bootstrap and additional AngularJS modules, such as angular-resource.
@@ -238,7 +235,7 @@ This will cause Yeoman-generated client-side files to be placed in `public`.
 
 ## Testing
 
-For tests to work properly, testacular needs the `angular-mocks` bower package.
+For tests to work properly, karma needs the `angular-mocks` bower package.
 This script is included in the component.json in the `devDependencies` section, which will
 be available very soon, probably with the next minor release of bower.
 
@@ -247,7 +244,7 @@ While bower `devDependencies` are not yet implemented, you can fix it by running
 bower install angular-mocks
 ```
 
-By running `grunt test` you should now be able to run your unit tests with testacular.
+By running `grunt test` you should now be able to run your unit tests with karma.
 
 ## Contribute
 
