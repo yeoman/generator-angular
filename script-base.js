@@ -22,13 +22,6 @@ function Generator() {
     this.env.options.appPath = this.env.options.appPath || 'app';
   }
 
-  if (typeof this.env.options.indexFile === 'undefined') {
-    try {
-      this.env.options.indexFile = require(path.join(process.cwd(), 'component.json')).indexFile;
-    } catch (e) {}
-    this.env.options.indexFile = this.env.options.indexFile || 'index.html';
-  }
-
   if (typeof this.env.options.testPath === 'undefined') {
     try {
       this.env.options.testPath = require(path.join(process.cwd(), 'component.json')).testPath;
@@ -95,7 +88,7 @@ Generator.prototype.htmlTemplate = function (src, dest) {
 Generator.prototype.addScriptToIndex = function (script) {
   try {
     var appPath = this.env.options.appPath;
-    var indexFile = this.env.options.indexFile;
+    var indexFile = this.options.indexFile || 'index.html';
     var fullPath = path.join(appPath, indexFile);
     angularUtils.rewriteFile({
       file: fullPath,
