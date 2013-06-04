@@ -1,5 +1,5 @@
 {
-  "name": "generator-angular",
+  "name": "generator-angular-rails",
   "version": "0.2.2",
   "description": "Yeoman generator for AngularJS",
   "keywords": [
