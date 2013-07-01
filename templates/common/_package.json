@@ -1,6 +1,10 @@
 {
   "name": "<%= _.slugify(appname) %>",
   "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/your_username/your_project_repo.git"
+  },
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
