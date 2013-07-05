@@ -137,6 +137,8 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   } else {
     if (this.bootstrap) {
       files.push('bootstrap.css');
+        this.copy('images/glyphicons-halflings.png', 'app/images/glyphicons-halflings.png');
+        this.copy('images/glyphicons-halflings-white.png', 'app/images/glyphicons-halflings-white.png');
     }
 
     files.push('main.css');
