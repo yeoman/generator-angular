@@ -7,9 +7,9 @@ Based on [angular-seed](https://github.com/angular/angular-seed/)
 
 ## Usage
 
-Install `generator-angular`:
+Install `yeoman` & `generator-angular`:
 ```
-npm install -g generator-angular
+npm install -g yo generator-angular
 ```
 
 Make a new directory, and `cd` into it:
