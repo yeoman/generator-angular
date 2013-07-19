@@ -59,6 +59,7 @@ var Generator = module.exports = function Generator(args, options) {
     options: {
       options: {
         coffee: this.options.coffee,
+        travis: true,
         'skip-install': this.options['skip-install']
        }
     }
@@ -101,26 +102,29 @@ Generator.prototype.askForModules = function askForModules() {
   var cb = this.async();
 
   var prompts = [{
-    type: 'confirm',
-    name: 'resourceModule',
-    message: 'Would you like to include angular-resource.js?',
-    default: true
-  }, {
-    type: 'confirm',
-    name: 'cookiesModule',
-    message: 'Would you like to include angular-cookies.js?',
-    default: true
-  }, {
-    type: 'confirm',
-    name: 'sanitizeModule',
-    message: 'Would you like to include angular-sanitize.js?',
-    default: true
+    type: 'checkbox',
+    name: 'modules',
+    message: 'Which modules would you like to include?',
+    choices: [{
+      value: 'resourceModule',
+      name: 'angular-resource.js',
+      checked: true
+    }, {
+      value: 'cookiesModule',
+      name: 'angular-cookies.js',
+      checked: true
+    }, {
+      value: 'sanitizeModule',
+      name: 'angular-sanitize.js',
+      checked: true
+    }]
   }];
 
   this.prompt(prompts, function (props) {
-    this.resourceModule = props.resourceModule;
-    this.cookiesModule = props.cookiesModule;
-    this.sanitizeModule = props.sanitizeModule;
+    var hasMod = function (mod) { return props.modules.indexOf(mod) !== -1; };
+    this.resourceModule = hasMod('resourceModule');
+    this.cookiesModule = hasMod('cookiesModule');
+    this.sanitizeModule = hasMod('sanitizeModule');
 
     cb();
   }.bind(this));
@@ -134,11 +138,12 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
 
   if (sass) {
     files.push('main.scss');
+    this.copy('images/glyphicons-halflings.png', 'app/images/glyphicons-halflings.png');
+    this.copy('images/glyphicons-halflings-white.png', 'app/images/glyphicons-halflings-white.png');
   } else {
     if (this.bootstrap) {
       files.push('bootstrap.css');
     }
-
     files.push('main.css');
   }
 
@@ -164,7 +169,6 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
 
   // Wire Twitter Bootstrap plugins
   this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', [
-    'bower_components/jquery/jquery.js',
     'bower_components/bootstrap-sass/js/bootstrap-affix.js',
     'bower_components/bootstrap-sass/js/bootstrap-alert.js',
     'bower_components/bootstrap-sass/js/bootstrap-dropdown.js',
