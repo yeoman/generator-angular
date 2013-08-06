@@ -158,7 +158,7 @@ yo angular:decorator serviceName
 Produces `app/scripts/decorators/serviceNameDecorator.js`:
 ```javascript
 angular.module('myMod').config(function ($provide) {
-    $provide.decorator('serviceNameDecorator', function ($delegate) {
+    $provide.decorator('serviceName', function ($delegate) {
       // ...
       return $delegate;
     });
