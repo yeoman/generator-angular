@@ -3,3 +3,7 @@ dist
 .tmp
 .sass-cache
 app/bower_components
+<% if (typescript && typescriptConfig) { %>
+# Instance-specific config overriddes
+app/resource/config_overrides.js
+<% } %>

@@ -9,8 +9,6 @@ var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
   this.argument('appname', { type: String, required: false });
   this.appname = this.appname || path.basename(process.cwd());
-  this.indexFile = this.engine(this.read('../../templates/common/index.html'),
-      this);
 
   args = ['main'];
 
@@ -42,16 +40,37 @@ var Generator = module.exports = function Generator(args, options) {
     args.push('--minsafe');
   }
 
+  // there's a problem with the hooks below running in this constructor,
+  // while useful data about what we want to generate is available only later,
+  // after we've asked the user. So we make an object here, push the user specified
+  // data in there, and make the object available by reference to the hooked subgenerators.
+  this.userChoices = {};
+
   this.hookFor('angular:common', {
-    args: args
+    args: args,
+    options: {
+      options: {
+        userChoices: this.userChoices
+      }
+    }
   });
 
   this.hookFor('angular:main', {
-    args: args
+    args: args,
+    options: {
+      options: {
+        userChoices: this.userChoices
+      }
+    }
   });
 
   this.hookFor('angular:controller', {
-    args: args
+    args: args,
+    options: {
+      options: {
+        userChoices: this.userChoices
+      }
+    }
   });
 
   this.hookFor('karma', {
@@ -60,8 +79,10 @@ var Generator = module.exports = function Generator(args, options) {
       options: {
         coffee: this.options.coffee,
         travis: true,
-        'skip-install': this.options['skip-install']
-      }
+        'skip-install': this.options['skip-install'],
+        typescript: this.options.typescript,
+        userChoices: this.userChoices
+       }
     }
   });
 
@@ -69,10 +90,87 @@ var Generator = module.exports = function Generator(args, options) {
     this.installDependencies({ skipInstall: this.options['skip-install'] });
   });
 
+  // FIXME I'm pretty sure this is never used, so it shouldn't be here. It ends up reading
+  // the generator-angular's package.json instead of the one for the generated app anyway
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
 
 util.inherits(Generator, yeoman.generators.Base);
+
+Generator.prototype._userMadeChoices = function _userMadeChoices(names) {
+  this._.extend(
+    this.userChoices,
+    this._.pick(this, names)
+  );
+}
+
+Generator.prototype.askForLanguage = function askForLanguage() {
+  var cb = this.async();
+
+  this.prompt([{
+    type:    'confirm',
+    name:    'coffee',
+    message: 'Would you like to use CoffeeScript?',
+    default: false
+  }, {
+    type:    'confirm',
+    name:    'typescript',
+    message: 'Would you like to use TypeScript?',
+    default: false
+  }], function (props) {
+    this.coffee     = props.coffee;
+    this.typescript = props.typescript;
+    this.jquery = true; // default
+
+    if (this.typescript) {
+      this.jquery = true;
+      this.typescriptAppName = this._.camelize(this.appname) + "App";
+      this.typescriptAppType = this._.classify(this.appname) + "App";
+    }
+
+    this._userMadeChoices(['coffee', 'typescript', 'jquery', 'typescriptAppName', 'typescriptAppType']);
+
+    cb();
+  }.bind(this));
+};
+
+Generator.prototype.askForTypescriptFeatures = function askForTypescriptFeatures() {
+  if (!this.typescript) {
+    // default values, lest the variables are undefined inside the templates
+    this.typescriptConfig        = false;
+    this.typescriptPartialsCache = false;
+    return;
+  }
+
+  var cb = this.async();
+
+  this.prompt([{
+    type:    'confirm',
+    name:    'typescriptConfig',
+    message: 'Would you like app configs? (convenient way to configure backend URLs, etc)',
+    default: true
+  }, {
+    type:    'confirm',
+    name:    'typescriptPartialsCache',
+    message: 'Would you like partials caching enabled? (bundles all .html partials in one file and seeds the ng cache)',
+    default: true
+  }], function (props) {
+    this.typescriptConfig        = props.typescriptConfig;
+    this.typescriptPartialsCache = props.typescriptPartialsCache;
+
+    if (this.typescriptConfig) {
+      this.typescriptConfigName = this._.camelize(this.appname) + "Config";
+    }
+
+    if (this.typescriptPartialsCache) {
+      this.typescriptTemplatesModuleName = this._.camelize(this.appname) + "Templates";
+    }
+
+    this._userMadeChoices(['typescriptConfig', 'typescriptConfigName', 'typescriptPartialsCache', 'typescriptTemplatesModuleName']);
+
+    cb();
+  }.bind(this));
+};
 
 Generator.prototype.askForBootstrap = function askForBootstrap() {
   var cb = this.async();
@@ -93,6 +191,10 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
   }], function (props) {
     this.bootstrap = props.bootstrap;
     this.compassBootstrap = props.compassBootstrap;
+
+    if (this.bootstrap) {
+      this.jquery = true;
+    }
 
     cb();
   }.bind(this));
@@ -129,6 +231,16 @@ Generator.prototype.askForModules = function askForModules() {
     cb();
   }.bind(this));
 };
+
+/**
+ * This is a rather annoying order of execution dependency, but the index file needs
+ * to be initialized before we call appendFiles on it in some of the functions below,
+ * yet after all the user choices that may alter the index.html file have been made
+ */
+Generator.prototype.initializeIndexFile = function initializeIndexFile() {
+  this.indexFile = this.engine(this.read('../../templates/common/index.html'),
+      this);
+}
 
 // Waiting a more flexible solution for #138
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
@@ -206,6 +318,8 @@ Generator.prototype.extraModules = function extraModules() {
 };
 
 Generator.prototype.appJs = function appJs() {
+  if (this.typescript) return;
+
   this.indexFile = this.appendFiles({
     html: this.indexFile,
     fileType: 'js',

@@ -11,7 +11,8 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   </head>
-  <body ng-app="<%= _.camelize(appname) %>App">
+  <% if (typescript) { %><body ng-app="<%= typescriptAppName %>"><% }
+     else            { %><body ng-app="<%= _.camelize(appname) %>App"><% } %>
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -24,6 +25,20 @@
     <!-- Add your site or application content here -->
     <div class="container" ng-view></div>
 
+    <% if (typescript && typescriptConfig) { %>
+    <!-- script tags in dev, edge-side-includes in prod -->
+    <esi:remove>
+      <script src="resource/config.js"></script>
+      <script src="resource/config_overrides.js"></script>
+    </esi:remove>
+    <!--esi
+    <script>
+      <esi:include src="resource/config.js"/>
+      <esi:include src="resource/config_overrides.js"/>
+    </script>
+    -->
+    <% } %>
+
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
       var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
@@ -34,5 +49,18 @@
 
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+
+    <% if (typescript) { %>
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/tslib.js"></script>
+    <!-- endbuild -->
+    <% } %>
+
+    <% if (typescript && typescriptPartialsCache) { %>
+    <!-- This file is intentionally outside of the build bundle, because the html2js task
+         runs after all the usemin stuff has finished, so at the time the bundle is constructed,
+         the contents of templates.js is still empty the dev stub version. -->
+    <script src="resource/templates.js"></script>
+    <% } %>
   </body>
 </html>
