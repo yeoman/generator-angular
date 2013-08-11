@@ -18,8 +18,9 @@ module.exports = function (grunt) {
 
   // configurable paths
   var yeomanConfig = {
-    app: 'app',
-    dist: 'dist'
+    app:  'app',
+    dist: 'dist',
+    tmp:  '.tmp',
   };
 
   try {
@@ -28,7 +29,8 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
-    watch: {
+    watch: {<%
+      if (coffee) { %>
       coffee: {
         files: ['<%%= yeoman.app %>/scripts/{,*/}*.coffee'],
         tasks: ['coffee:dist']
@@ -36,7 +38,13 @@ module.exports = function (grunt) {
       coffeeTest: {
         files: ['test/spec/{,*/}*.coffee'],
         tasks: ['coffee:test']
-      },<% if (compassBootstrap) { %>
+      },<% }
+      if (typescript) { %>
+      typescript: {
+        files: ['<%%= yeoman.app %>/scripts/**/*.ts'],
+        tasks: ['typescript']
+      },<% }
+      if (compassBootstrap) { %>
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server']
@@ -47,8 +55,8 @@ module.exports = function (grunt) {
         },
         files: [
           '<%%= yeoman.app %>/{,*/}*.html',
-          '{.tmp,<%%= yeoman.app %>}/styles/{,*/}*.css',
-          '{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js',
+          '{<%%= yeoman.tmp %>,<%%= yeoman.app %>}/styles/{,*/}*.css',
+          '{<%%= yeoman.tmp %>,<%%= yeoman.app %>}/scripts/{,*/}*.js',
           '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -64,7 +72,7 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               lrSnippet,
-              mountFolder(connect, '.tmp'),
+              mountFolder(connect, yeomanConfig.tmp),
               mountFolder(connect, yeomanConfig.app)
             ];
           }
@@ -74,7 +82,7 @@ module.exports = function (grunt) {
         options: {
           middleware: function (connect) {
             return [
-              mountFolder(connect, '.tmp'),
+              mountFolder(connect, yeomanConfig.tmp),
               mountFolder(connect, 'test')
             ];
           }
@@ -106,7 +114,7 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      server: '.tmp'
+      server: yeomanConfig.tmp
     },
     jshint: {
       options: {
@@ -114,9 +122,13 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%%= yeoman.app %>/scripts/{,*/}*.js'
+        '<%%= yeoman.app %>/scripts/{,*/}*.js',<%
+        if (typescript) { %>
+        // do not lint compiler output files
+        '!<%%= yeoman.app %>/scripts/tslib.js',<% } %>
       ]
-    },
+    },<%
+    if (coffee) { %>
     coffee: {
       options: {
         sourceMap: true,
@@ -127,7 +139,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%%= yeoman.app %>/scripts',
           src: '{,*/}*.coffee',
-          dest: '.tmp/scripts',
+          dest: '<%%= yeoman.tmp %>/scripts',
           ext: '.js'
         }]
       },
@@ -136,16 +148,36 @@ module.exports = function (grunt) {
           expand: true,
           cwd: 'test/spec',
           src: '{,*/}*.coffee',
-          dest: '.tmp/spec',
+          dest: '<%%= yeoman.tmp %>/spec',
           ext: '.js'
         }]
       }
-    },<% if (compassBootstrap) { %>
+    },<% }
+    if (typescript) { %>
+    typescript: {
+      base: {
+        src: [
+          '<%%= yeoman.app %>/app/references.ts',
+          '<%%= yeoman.app %>/app/config.ts',
+          '<%%= yeoman.app %>/app/app.ts',
+          '<%%= yeoman.app %>/app/**/*.ts',
+          '<%%= yeoman.app %>/controller/**/*.ts',
+          '<%%= yeoman.app %>/service/**/*.ts',
+          '<%%= yeoman.app %>/filter/**/*.ts',
+          '<%%= yeoman.app %>/directive/**/*.ts',
+        ],
+        dest: '<%%= yeoman.tmp %>/scripts/tslib.js',
+        options: {
+          sourcemap: true
+        }
+      }
+    },<% }
+    if (compassBootstrap) { %>
     compass: {
       options: {
         sassDir: '<%%= yeoman.app %>/styles',
-        cssDir: '.tmp/styles',
-        generatedImagesDir: '.tmp/images/generated',
+        cssDir: '<%%= yeoman.tmp %>/styles',
+        generatedImagesDir: '<%%= yeoman.tmp %>/images/generated',
         imagesDir: '<%%= yeoman.app %>/images',
         javascriptsDir: '<%%= yeoman.app %>/scripts',
         fontsDir: '<%%= yeoman.app %>/styles/fonts',
@@ -219,7 +251,7 @@ module.exports = function (grunt) {
       // dist: {
       //   files: {
       //     '<%%= yeoman.dist %>/styles/main.css': [
-      //       '.tmp/styles/{,*/}*.css',
+      //       '<%%= yeoman.tmp %>/styles/{,*/}*.css',
       //       '<%%= yeoman.app %>/styles/{,*/}*.css'
       //     ]
       //   }
@@ -245,7 +277,18 @@ module.exports = function (grunt) {
           dest: '<%%= yeoman.dist %>'
         }]
       }
-    },
+    },<%
+    if (typescriptPartialsCache) { %>
+    html2js: {
+      options: {
+        base: '<%%= yeoman.dist %>',
+        module: '<%= typescriptTemplatesModuleName %>',
+      },
+      main: {
+        src:  ['<%%= yeoman.dist %>/views/**/*.html'],
+        dest: '<%%= yeoman.dist %>/resource/templates.js',
+      }
+    },<% } %>
     // Put files not handled in other tasks here
     copy: {
       dist: {
@@ -259,11 +302,14 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{gif,webp}',
-            'styles/fonts/*'
+            'styles/fonts/*',<%
+            if (typescript) { %>
+            'resource/config.js',<%
+            } %>
           ]
         }, {
           expand: true,
-          cwd: '.tmp/images',
+          cwd: '<%%= yeoman.tmp %>/images',
           dest: '<%%= yeoman.dist %>/images',
           src: [
             'generated/*'
@@ -273,16 +319,22 @@ module.exports = function (grunt) {
     },
     concurrent: {
       server: [
-        'coffee:dist'<% if (compassBootstrap) { %>,
-        'compass:server'<% } %>
+        <%
+        if (coffee)           { %>'coffee:dist',<%     }
+        if (typescript)       { %>'typescript',<%      }
+        if (compassBootstrap) { %>'compass:server',<%  } %>
       ],
       test: [
-        'coffee'<% if (compassBootstrap) { %>,
-        'compass'<% } %>
+        <%
+        if (coffee)           { %>'coffee',<%          }
+        if (typescript)       { %>'typescript',<%      }
+        if (compassBootstrap) { %>'compass',<%         } %>
       ],
       dist: [
-        'coffee',<% if (compassBootstrap) { %>
-        'compass:dist',<% } %>
+        <%
+        if (coffee)           { %>'coffee',<%          }
+        if (typescript)       { %>'typescript',<%      }
+        if (compassBootstrap) { %>'compass:dist',<%    } %>
         'imagemin',
         'svgmin',
         'htmlmin'
@@ -352,7 +404,8 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'rev',
-    'usemin'
+    'usemin'<% if (typescriptPartialsCache) { %>,
+    'html2js'<% } %>
   ]);
 
   grunt.registerTask('default', [

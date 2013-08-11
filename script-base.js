@@ -29,17 +29,38 @@ function Generator() {
     this.env.options.testPath = this.env.options.testPath || 'test/spec';
   }
 
+  var pkg = JSON.parse(this.readFileAsString(path.join(process.cwd(), 'package.json')));
+
   if (typeof this.env.options.coffee === 'undefined') {
     this.option('coffee');
 
     // attempt to detect if user is using CS or not
     // if cml arg provided, use that; else look for the existence of cs
     if (!this.options.coffee &&
+      // TODO check pkg["yo-language"] === "coffee"
       this.expandFiles(path.join(this.env.options.appPath, '/scripts/**/*.coffee'), {}).length > 0) {
       this.options.coffee = true;
     }
 
     this.env.options.coffee = this.options.coffee;
+  }
+
+  if (typeof this.env.options.typescript === 'undefined') {
+    this.option('typescript');
+
+    // attempt to detect if user is using typescript or not
+    // if cml arg provided, use that; else look for yo-language in package.json
+    if (!this.options.typescript && pkg["yo-language"] === "typescript") {
+      this.options.typescript = true;
+    }
+
+    this.env.options.typescript = this.options.typescript;
+
+    if (this.options.typescript) {
+      if (pkg["yo-typescript-appName"]) {
+        this.env.options.typescriptAppName = this.options.typescriptAppName = pkg["yo-typescript-appName"];
+      }
+    }
   }
 
   if (typeof this.env.options.minsafe === 'undefined') {
@@ -57,6 +78,12 @@ function Generator() {
 
   if (this.env.options.minsafe) {
     sourceRoot += '-min';
+  }
+
+  // for now, no min-safe option for typescript, hence the ordering of these if blocks
+  if (this.env.options.typescript) {
+    sourceRoot = '/templates/typescript';
+    this.scriptSuffix = '.ts';
   }
 
   this.sourceRoot(path.join(__dirname, sourceRoot));
@@ -84,18 +111,25 @@ Generator.prototype._dest = function (src) {
   return path.join((this.namespace.join('/') || src), this.name);
 };
 
-Generator.prototype.appTemplate = function (src) {
+Generator.prototype.appTemplate = function (src, options) {
+  options = options || {};
+  var scriptSuffix = options.scriptSuffix || this.scriptSuffix;
+
   yeoman.generators.Base.prototype.template.apply(this, [
-    src + this.scriptSuffix,
-    path.join(this.env.options.appPath, this._dest(src)) + this.scriptSuffix
+    src + scriptSuffix,
+    path.join(this.env.options.appPath, this._dest(src)) + scriptSuffix
   ]);
-  this.addScriptToIndex(src);
+
+  if (options.addScriptToIndex !== false) this.addScriptToIndex(src);
 };
 
-Generator.prototype.testTemplate = function (src) {
+Generator.prototype.testTemplate = function (src, options) {
+  options = options || {};
+  var scriptSuffix = options.scriptSuffix || this.scriptSuffix;
+
   yeoman.generators.Base.prototype.template.apply(this, [
-    src + this.scriptSuffix,
-    path.join(this.env.options.testPath, this._dest(src)) + this.scriptSuffix
+    src + scriptSuffix,
+    path.join(this.env.options.testPath, this._dest(src)) + scriptSuffix
   ]);
 };
 
