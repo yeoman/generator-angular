@@ -2,7 +2,7 @@
   "name": "<%= _.camelize(appname) %>",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "~1.0.7",
+    "angular": "~1.2.0",
     "json3": "~3.2.4",<% if (bootstrap) { %>
     "jquery": "~1.9.1",
     "bootstrap-sass": "~2.3.1",
@@ -12,7 +12,7 @@
     "angular-sanitize": "~1.0.7"<% } %>
   },
   "devDependencies": {
-    "angular-mocks": "~1.0.7",
-    "angular-scenario": "~1.0.7"
+    "angular-mocks": "~1.2.0",
+    "angular-scenario": "~1.2.0"
   }
 }
