@@ -2,8 +2,15 @@
 'use strict';
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
-var mountFolder = function (connect, dir) {
-  return connect.static(require('path').resolve(dir));
+var url = require('url');
+var proxyMiddleware = require('proxy-middleware');
+var proxyFolder = function(src, dest) {
+  var proxyOptions = url.parse(dest);
+  proxyOptions.route = src;
+  return proxyMiddleware(proxyOptions);
+};
+var mountFolder = function (connect, dir, maxage) {
+  return connect.static(require('path').resolve(dir), { maxAge: maxage||0 });
 };
 
 // # Globbing
@@ -13,13 +20,15 @@ var mountFolder = function (connect, dir) {
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
-  require('load-grunt-tasks')(grunt);
+  require('load-grunt-tasks')(grunt, 'grunt-!(cli)');
   require('time-grunt')(grunt);
 
   // configurable paths
   var yeomanConfig = {
     app: 'app',
-    dist: 'dist'
+    dist: 'dist',
+    api: 'http://www.pizza.wixpress.com/_api/',
+    local: 'http://localhost:<%%= connect.options.port %>'
   };
 
   try {
@@ -29,30 +38,44 @@ module.exports = function (grunt) {
   grunt.initConfig({
     yeoman: yeomanConfig,
     watch: {
+      options: {
+        nospawn: true,
+        livereload: LIVERELOAD_PORT
+      },
+      haml: {
+        files: ['<%%= yeoman.app %>/{,views/}*.haml'],
+        tasks: ['haml']
+      },
+      replace: {
+        files: ['<%%= yeoman.app %>/index.vm'],
+        tasks: ['replace:server']
+      },
+      test: {
+        files: [
+          '<%%= yeoman.app %>/scripts/{,*/}*.js',
+          'test/**/*.js'
+        ],
+        tasks: ['jshint', 'karma:unit:run']
+      },
       coffee: {
         files: ['<%%= yeoman.app %>/scripts/{,*/}*.coffee'],
-        tasks: ['coffee:dist']
+        tasks: ['coffee:dist', 'jshint', 'karma:unit:run']
       },
       coffeeTest: {
-        files: ['test/spec/{,*/}*.coffee'],
-        tasks: ['coffee:test']
-      },<% if (compassBootstrap) { %>
+        files: ['test/**/*.coffee'],
+        tasks: ['coffee:test', 'jshint', 'karma:unit:run']
+      },
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
-      },<% } %>
+      },
       styles: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['copy:styles', 'autoprefixer']
       },
       livereload: {
-        options: {
-          livereload: LIVERELOAD_PORT
-        },
         files: [
           '<%%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js',
           '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -71,8 +94,8 @@ module.exports = function (grunt) {
     connect: {
       options: {
         port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost'
+        // Change this to 'localhost' to block access to the server from outside.
+        hostname: '0.0.0.0'
       },
       livereload: {
         options: {
@@ -80,17 +103,9 @@ module.exports = function (grunt) {
             return [
               lrSnippet,
               mountFolder(connect, '.tmp'),
-              mountFolder(connect, yeomanConfig.app)
-            ];
-          }
-        }
-      },
-      test: {
-        options: {
-          middleware: function (connect) {
-            return [
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, 'test')
+              mountFolder(connect, 'test'),
+              mountFolder(connect, yeomanConfig.app),
+              proxyFolder('/_api/', yeomanConfig.api)
             ];
           }
         }
@@ -99,7 +114,9 @@ module.exports = function (grunt) {
         options: {
           middleware: function (connect) {
             return [
-              mountFolder(connect, yeomanConfig.dist)
+              mountFolder(connect, 'test', 86400000),
+              mountFolder(connect, yeomanConfig.dist, 86400000),
+              proxyFolder('/_api/', yeomanConfig.api)
             ];
           }
         }
@@ -107,7 +124,7 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        url: 'http://localhost:<%%= connect.options.port %>'
+        url: yeomanConfig.local
       }
     },
     clean: {
@@ -125,10 +142,12 @@ module.exports = function (grunt) {
     },
     jshint: {
       options: {
-        jshintrc: '.jshintrc'
+        jshintrc: '.jshintrc',
+        force: true
       },
       all: [
         'Gruntfile.js',
+        'test/{spec,mock}/{,*/}*.js',
         '<%%= yeoman.app %>/scripts/{,*/}*.js'
       ]
     },
@@ -155,9 +174,10 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       }
-    },<% if (compassBootstrap) { %>
+    },
     compass: {
       options: {
+        bundleExec: true,
         sassDir: '<%%= yeoman.app %>/styles',
         cssDir: '.tmp/styles',
         generatedImagesDir: '.tmp/images/generated',
@@ -165,9 +185,9 @@ module.exports = function (grunt) {
         javascriptsDir: '<%%= yeoman.app %>/scripts',
         fontsDir: '<%%= yeoman.app %>/styles/fonts',
         importPath: '<%%= yeoman.app %>/bower_components',
-        httpImagesPath: '/images',
-        httpGeneratedImagesPath: '/images/generated',
-        httpFontsPath: '/styles/fonts',
+        httpImagesPath: '../images',
+        httpGeneratedImagesPath: '../images/generated',
+        httpFontsPath: 'fonts',
         relativeAssets: false
       },
       dist: {},
@@ -176,7 +196,7 @@ module.exports = function (grunt) {
           debugInfo: true
         }
       }
-    },<% } %>
+    },
     // not used since Uglify task does concat,
     // but still available if needed
     /*concat: {
@@ -195,14 +215,13 @@ module.exports = function (grunt) {
       }
     },
     useminPrepare: {
-      html: '<%%= yeoman.app %>/index.html',
+      html: '<%%= yeoman.app %>/index.{html,vm}',
       options: {
         dest: '<%%= yeoman.dist %>'
       }
     },
     usemin: {
-      html: ['<%%= yeoman.dist %>/{,*/}*.html'],
-      css: ['<%%= yeoman.dist %>/styles/{,*/}*.css'],
+      html: ['<%%= yeoman.dist %>/{,*/}*.{html,vm}'],
       options: {
         dirs: ['<%%= yeoman.dist %>']
       }
@@ -214,6 +233,14 @@ module.exports = function (grunt) {
           cwd: '<%%= yeoman.app %>/images',
           src: '{,*/}*.{png,jpg,jpeg}',
           dest: '<%%= yeoman.dist %>/images'
+        }]
+      },
+      generated: {
+        files: [{
+          expand: true,
+          cwd: '.tmp/images',
+          src: '{,*/}*.{png,jpg,jpeg}',
+          dest: '<%= yeoman.dist %>/images'
         }]
       }
     },
@@ -256,7 +283,12 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%%= yeoman.app %>',
-          src: ['*.html', 'views/*.html'],
+          src: ['*.vm', '*.html', 'views/*.html'],
+          dest: '<%%= yeoman.dist %>'
+        },{
+          expand: true,
+          cwd: '.tmp',
+          src: ['*.vm', '*.html', 'views/*.html'],
           dest: '<%%= yeoman.dist %>'
         }]
       }
@@ -270,18 +302,12 @@ module.exports = function (grunt) {
           cwd: '<%%= yeoman.app %>',
           dest: '<%%= yeoman.dist %>',
           src: [
-            '*.{ico,png,txt}',
+            'scripts/locale/*.js',
+            '*.{ico,txt}',
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{gif,webp}',
             'styles/fonts/*'
-          ]
-        }, {
-          expand: true,
-          cwd: '.tmp/images',
-          dest: '<%%= yeoman.dist %>/images',
-          src: [
-            'generated/*'
           ]
         }]
       },
@@ -294,33 +320,49 @@ module.exports = function (grunt) {
     },
     concurrent: {
       server: [
-        'coffee:dist',<% if (compassBootstrap) { %>
-        'compass:server',<% } %>
-        'copy:styles'
-      ],
-      test: [
-        'coffee',<% if (compassBootstrap) { %>
-        'compass',<% } %>
+        'jshint',
+        'haml',
+        'coffee',
+        'compass:dist',
+        'replace:server',
         'copy:styles'
       ],
       dist: [
-        'coffee',<% if (compassBootstrap) { %>
-        'compass:dist',<% } %>
-        'copy:styles',
         'imagemin',
         'svgmin',
-        'htmlmin'
+        'htmlmin',
+        'copy:dist'
       ]
     },
     karma: {
+      teamcity: {
+        configFile: 'karma.conf.js',
+        reporters: ['teamcity']
+      },
+      single: {
+        configFile: 'karma.conf.js'
+      },
+      e2e: {
+        proxies: {'/': 'http://localhost:<%%= connect.options.port %>/'},
+        configFile: 'karma-e2e.conf.js',
+        browsers: ['Chrome']
+      },
+      e2eTeamcity: {
+        proxies: {'/': 'http://localhost:<%%= connect.options.port %>/'},
+        configFile: 'karma-e2e.conf.js',
+        transports: ['xhr-polling'],
+        reporters: ['dots', 'teamcity']
+      },
       unit: {
         configFile: 'karma.conf.js',
-        singleRun: true
+        singleRun: false,
+        autoWatch: false,
+        background: true
       }
     },
     cdnify: {
       dist: {
-        html: ['<%%= yeoman.dist %>/*.html']
+        html: ['<%%= yeoman.dist %>/*.html', '<%%= yeoman.dist %>/*.vm']
       }
     },
     ngmin: {
@@ -334,15 +376,60 @@ module.exports = function (grunt) {
       }
     },
     uglify: {
+      locale: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.dist %>/scripts',
+          src: 'locale/*.js',
+          dest: '<%= yeoman.dist %>/scripts'
+        }]
+      }
+    },
+    replace: {
+      server: {
+        src: ['<%%= yeoman.app %>/index.vm'],
+        dest: '.tmp/index.html',
+        replacements: require('./replace.conf').server
+      },
       dist: {
-        files: {
-          '<%%= yeoman.dist %>/scripts/scripts.js': [
-            '<%%= yeoman.dist %>/scripts/scripts.js'
-          ]
-        }
+        src: ['<%%= yeoman.dist %>/index.vm'],
+        dest: '.tmp/index.html',
+        replacements: require('./replace.conf').server
+      }
+    },
+    haml: {
+      dist: {
+        options: {
+          bundleExec: true
+        },
+        files: [{
+          expand: true,
+          cwd: '<%%= yeoman.app %>',
+          src: '{,views/}*.haml',
+          dest: '.tmp',
+          ext: '.html'
+        }]
       }
     }
   });
+
+  grunt.registerTask('pre-build', [
+    'clean:server',
+    'concurrent:server',
+    'autoprefixer'
+  ]);
+
+  grunt.registerTask('package', [
+    'useminPrepare',
+    'concat',
+    'cssmin',
+    'ngmin',
+    'uglify',
+    'concurrent:dist',
+    'cdnify',
+    'usemin',
+    'replace:dist'
+  ]);
 
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
@@ -350,9 +437,8 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
-      'clean:server',
-      'concurrent:server',
-      'autoprefixer',
+      'karma:unit',
+      'pre-build',
       'connect:livereload',
       'open',
       'watch'
@@ -360,31 +446,29 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'clean:server',
-    'concurrent:test',
-    'autoprefixer',
-    'connect:test',
-    'karma'
+    'pre-build',
+    'karma:single'
   ]);
 
   grunt.registerTask('build', [
     'clean:dist',
-    'useminPrepare',
-    'concurrent:dist',
-    'autoprefixer',
-    'concat',
-    'copy:dist',
-    'cdnify',
-    'ngmin',
-    'cssmin',
-    'uglify',
-    'rev',
-    'usemin'
+    'test',
+    'package',
+    'connect:dist',
+    'karma:e2e'
   ]);
 
-  grunt.registerTask('default', [
-    'jshint',
-    'test',
-    'build'
+  grunt.registerTask('cibuild', [
+    'clean:dist',
+    'pre-build',
+    'karma:teamcity',
+    'package'
   ]);
+
+  grunt.registerTask('citest', [
+    'connect:dist',
+    'karma:e2eTeamcity'
+  ]);
+
+  grunt.registerTask('default', ['build']);
 };

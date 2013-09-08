@@ -25,5 +25,5 @@ Generator.prototype.createViewFiles = function createViewFiles() {
   if (this.name.indexOf('/') === -1) {
     targetPath = 'views/' + targetPath;
   }
-  this.template('common/view.html', path.join(this.env.options.appPath, targetPath + '.html'));
+  this.template('common/view.haml', path.join(this.env.options.appPath, targetPath + '.haml'));
 };

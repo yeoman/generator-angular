@@ -16,16 +16,13 @@ describe('Angular generator', function () {
       '../../app',
       '../../common',
       '../../controller',
-      '../../main', [
-        helpers.createDummyGenerator(),
-        'karma:app'
-      ]
+      '../../main'
     ];
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {
         done(err);
       }
-      angular = helpers.createGenerator('angular:app', deps);
+      angular = helpers.createGenerator('wix-angular:app', deps);
       angular.options['skip-install'] = true;
       done();
     });
@@ -45,18 +42,15 @@ describe('Angular generator', function () {
   });
 
   it('creates expected files', function (done) {
-    var expected = ['app/.htaccess',
-                    'app/404.html',
-                    'app/favicon.ico',
-                    'app/robots.txt',
-                    'app/styles/main.css',
-                    'app/views/main.html',
+    var expected = ['app/styles/main.scss',
+                    'app/views/main.haml',
                     ['.bowerrc', /"directory": "app\/bower_components"/],
                     'Gruntfile.js',
+                    'replace.conf.js',
                     'package.json',
                     ['bower.json', /"name":\s+"temp"/],
                     'app/scripts/app.js',
-                    'app/index.html',
+                    'app/index.vm',
                     'app/scripts/controllers/main.js',
                     'test/spec/controllers/main.js'
                     ];
@@ -73,18 +67,15 @@ describe('Angular generator', function () {
   });
 
   it('creates coffeescript files', function (done) {
-    var expected = ['app/.htaccess',
-                    'app/404.html',
-                    'app/favicon.ico',
-                    'app/robots.txt',
-                    'app/styles/main.css',
-                    'app/views/main.html',
+    var expected = ['app/styles/main.scss',
+                    'app/views/main.haml',
                     ['.bowerrc', /"directory": "app\/bower_components"/],
                     'Gruntfile.js',
+                    'replace.conf.js',
                     'package.json',
                     ['bower.json', /"name":\s+"temp"/],
                     'app/scripts/app.coffee',
-                    'app/index.html',
+                    'app/index.vm',
                     'app/scripts/controllers/main.coffee',
                     'test/spec/controllers/main.coffee'
                     ];
@@ -105,7 +96,7 @@ describe('Angular generator', function () {
     it('should generate a new controller', function (done) {
       var angularCtrl;
       var deps = ['../../controller'];
-      angularCtrl = helpers.createGenerator('angular:controller', deps, ['foo']);
+      angularCtrl = helpers.createGenerator('wix-angular:controller', deps, ['foo']);
 
       helpers.mockPrompt(angular, {
         bootstrap: true,
@@ -128,7 +119,7 @@ describe('Angular generator', function () {
     it('should generate a new view', function (done) {
       var angularView;
       var deps = ['../../view'];
-      angularView = helpers.createGenerator('angular:view', deps, ['foo']);
+      angularView = helpers.createGenerator('wix-angular:view', deps, ['foo']);
 
       helpers.mockPrompt(angular, {
         bootstrap: true,
@@ -138,7 +129,7 @@ describe('Angular generator', function () {
       angular.run([], function (){
         angularView.run([], function () {
           helpers.assertFiles([
-            ['app/views/foo.html']
+            ['app/views/foo.haml']
           ]);
           done();
         });

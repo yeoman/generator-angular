@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.wixpress</groupId>
+    <artifactId><%= _.slugify(basename) %></artifactId>
+    <packaging>jar</packaging>
+    <name><%= _.slugify(basename) %></name>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>com.wixpress.common</groupId>
+        <artifactId>wix-master-parent</artifactId>
+        <version>100.0.0-SNAPSHOT</version>
+    </parent>
+    <developers>
+        <developer>
+            <name>Shahar Talmi</name>
+            <email>shahart@wix.com</email>
+            <roles>
+                <role>owner</role>
+            </roles>
+        </developer>
+    </developers>
+    <profiles>
+        <profile>
+            <id>Windows NodeJs</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <npm>${env.NODE_HOME}\npm.cmd</npm>
+                <node>${env.NODE_HOME}\node</node>
+            </properties>
+        </profile>
+        <profile>
+            <id>Unix NodeJs</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <npm>${env.NODE_HOME}/npm</npm>
+                <node>${env.NODE_HOME}/node</node>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+              <artifactId>maven-clean-plugin</artifactId>
+              <version>2.5</version>
+              <configuration>
+                <filesets>
+                  <fileset>
+                    <directory>node_modules</directory>
+                    <followSymlinks>false</followSymlinks>
+                  </fileset>
+                  <fileset>
+                    <directory>app/bower_components</directory>
+                    <followSymlinks>false</followSymlinks>
+                  </fileset>
+                  <fileset>
+                    <directory>.sauce-connect</directory>
+                    <followSymlinks>false</followSymlinks>
+                  </fileset>
+                </filesets>
+              </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+
+                    <execution>
+                        <id>clean sauce labs tunnel</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>clean</phase>
+                        <configuration>
+                            <executable>${project.basedir}/lib/sauce_connect_kill.sh</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>run npm install</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <executable>${npm}</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>install</argument>
+                                <argument>--loglevel</argument>
+                                <argument>error</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>run bower install</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <executable>${node}</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>node_modules/bower/bin/bower</argument>
+                                <argument>install</argument>
+                                <argument>-s</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>create sauce labs tunnel</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <executable>${project.basedir}/lib/sauce_connect_setup.sh</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>run grunt cibuild</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <configuration>
+                            <executable>${node}</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>node_modules/grunt-cli/bin/grunt</argument>
+                                <argument>cibuild</argument>
+                                <argument>--no-color</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>block for sauce labs tunnel</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <executable>${project.basedir}/lib/sauce_connect_block.sh</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>run e2e tests</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <executable>${node}</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>node_modules/grunt-cli/bin/grunt</argument>
+                                <argument>citest</argument>
+                                <argument>--no-color</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>kill sauce labs tunnel</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>post-integration-test</phase>
+                        <configuration>
+                            <executable>${project.basedir}/lib/sauce_connect_kill.sh</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2.1</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>maven/assembly/tar.gz.xml</descriptor>
+                    </descriptors>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <finalName>${project.artifactId}-${project.version}</finalName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -3,14 +3,15 @@ var path = require('path');
 var util = require('util');
 var spawn = require('child_process').spawn;
 var yeoman = require('yeoman-generator');
-
+var chalk = require('chalk');
 
 var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
   this.argument('appname', { type: String, required: false });
-  this.appname = this.appname || path.basename(process.cwd());
-  this.indexFile = this.engine(this.read('../../templates/common/index.html'),
-      this);
+  this.appname = this.appname || path.basename(process.cwd()).replace(/-statics?$/, '');
+  this.basename = path.basename(process.cwd());
+  this.indexFile = this.engine(this.read('../../templates/common/index.html').replace(/\$\{/g, '(;$};)'),
+      this).replace(/\(;\$\};\)/g, '${');
 
   args = ['main'];
 
@@ -42,18 +43,19 @@ var Generator = module.exports = function Generator(args, options) {
     args.push('--minsafe');
   }
 
-  this.hookFor('angular:common', {
+  this.hookFor('wix-angular:common', {
     args: args
   });
 
-  this.hookFor('angular:main', {
+  this.hookFor('wix-angular:main', {
     args: args
   });
 
-  this.hookFor('angular:controller', {
+  this.hookFor('wix-angular:controller', {
     args: args
   });
 
+  /*
   this.hookFor('karma', {
     as: 'app',
     options: {
@@ -64,9 +66,27 @@ var Generator = module.exports = function Generator(args, options) {
        }
     }
   });
+  */
 
   this.on('end', function () {
-    this.installDependencies({ skipInstall: this.options['skip-install'] });
+    if (this.options['skip-install']) {
+      this.installDependencies({ skipInstall: this.options['skip-install'] });
+      if (!this.options['skip-install']) {
+        this.runInstall('bundle');
+      }
+    } else {
+      this.prompt({
+        type: 'confirm',
+        name: 'install',
+        message: 'Would you like me to run '+chalk.yellow.bold('bower/npm/bundle install?'),
+        default: true
+      }, function (props) {
+        this.installDependencies({ skipInstall: !props.install });
+        if (props.install) {
+          this.runInstall('bundle');
+        }
+      }.bind(this));
+    }
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
@@ -75,6 +95,9 @@ var Generator = module.exports = function Generator(args, options) {
 util.inherits(Generator, yeoman.generators.Base);
 
 Generator.prototype.askForBootstrap = function askForBootstrap() {
+  this.bootstrap = false;
+  this.compassBootstrap = true;
+  /*
   var cb = this.async();
 
   this.prompt([{
@@ -96,6 +119,7 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
 
     cb();
   }.bind(this));
+  */
 };
 
 Generator.prototype.askForModules = function askForModules() {
@@ -138,8 +162,8 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
 
   if (sass) {
     files.push('main.scss');
-    this.copy('images/glyphicons-halflings.png', 'app/images/glyphicons-halflings.png');
-    this.copy('images/glyphicons-halflings-white.png', 'app/images/glyphicons-halflings-white.png');
+    //this.copy('images/glyphicons-halflings.png', 'app/images/glyphicons-halflings.png');
+    //this.copy('images/glyphicons-halflings-white.png', 'app/images/glyphicons-halflings-white.png');
   } else {
     if (this.bootstrap) {
       files.push('bootstrap.css');
@@ -186,7 +210,7 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
 };
 
 Generator.prototype.extraModules = function extraModules() {
-  var modules = [];
+  var modules = ['bower_components/angular-translate/angular-translate.js'];
   if (this.resourceModule) {
     modules.push('bower_components/angular-resource/angular-resource.js');
   }
@@ -216,11 +240,16 @@ Generator.prototype.appJs = function appJs() {
 };
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
-  this.write(path.join(this.appPath, 'index.html'), this.indexFile);
+  this.write(path.join(this.appPath, 'index.vm'), this.indexFile);
 };
 
 Generator.prototype.packageFiles = function () {
+  var pom = this.read('../../templates/common/pom.xml', 'utf8').replace(/\$\{/g, '(;$};)');
+  this.write('pom.xml', this.engine(pom, this).replace(/\(;\$\};\)/g, '${'));
+
   this.template('../../templates/common/_bower.json', 'bower.json');
   this.template('../../templates/common/_package.json', 'package.json');
   this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
+  this.template('../../templates/common/replace.conf.js', 'replace.conf.js');
+  this.template('../../templates/common/scenarios.js', 'test/spec/e2e/scenarios.js');
 };

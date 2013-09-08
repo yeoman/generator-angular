@@ -18,16 +18,13 @@ describe('Angular generator template mechanism', function () {
             '../../app',
             '../../common',
             '../../controller',
-            '../../main', [
-                helpers.createDummyGenerator(),
-                'karma:app'
-            ]
+            '../../main'
         ];
         helpers.testDirectory(path.join(__dirname, folderName), function (err) {
             if (err) {
                 done(err);
             }
-            angular = helpers.createGenerator('angular:app', deps);
+            angular = helpers.createGenerator('wix-angular:app', deps);
             angular.options['skip-install'] = true;
             done();
         });
@@ -38,7 +35,7 @@ describe('Angular generator template mechanism', function () {
         var expected = [
             'app/scripts/app.js',
             'app/scripts/controllers/main.js',
-            'app/index.html',
+            'app/index.vm',
             'test/spec/controllers/main.js'
         ];
         helpers.mockPrompt(angular, {
@@ -63,11 +60,11 @@ describe('Angular generator template mechanism', function () {
             assert.ok(regex_js.test(main_test_js), 'controller spec template using a wrong appName');
 
             // read HTML file
-            var index_html = fs.readFileSync('app/index.html', 'utf8');
+            var index_html = fs.readFileSync('app/index.vm', 'utf8');
 
             // Test HTML File
             var regex_html = new RegExp('ng-app=\"' + expectedAppName + '\"');
-            assert.ok(regex_html.test(index_html), 'index.html template using a wrong appName');
+            assert.ok(regex_html.test(index_html), 'index.vm template using a wrong appName');
             done();
         });
     });

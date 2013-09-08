@@ -1,7 +1,7 @@
 {
-  "name": "generator-angular",
-  "version": "0.4.0",
-  "description": "Yeoman generator for AngularJS",
+  "name": "generator-wix-angular",
+  "version": "0.0.9",
+  "description": "Yeoman generator for AngularJS, Wix style (forked from generator-angular)",
   "keywords": [
     "yeoman-generator",
     "scaffold",
@@ -10,22 +10,22 @@
     "front-end",
     "app"
   ],
-  "homepage": "https://github.com/yeoman/generator-angular",
-  "bugs": "https://github.com/yeoman/generator-angular/issues",
-  "author": "Chrome Developer Relations",
+  "homepage": "https://github.com/shahata/generator-wix-angular",
+  "bugs": "https://github.com/shahata/generator-wix-angular/issues",
+  "author": "Wix.com",
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/yeoman/generator-angular.git"
+    "url": "git://github.com/shahata/generator-wix-angular.git"
   },
   "scripts": {
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.13.0"
+    "yeoman-generator": "~0.13.0",
+    "chalk": "~0.2.1"
   },
   "peerDependencies": {
-    "generator-karma": "~0.5.0",
     "yo": ">=1.0.0-rc.1.1"
   },
   "devDependencies": {

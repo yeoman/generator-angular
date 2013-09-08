@@ -3,3 +3,14 @@ dist
 .tmp
 .sass-cache
 app/bower_components
+*.iml
+*.sublime-workspace
+npm-debug.log
+sauce_connect.log*
+.DS_Store
+.bundle
+.idea
+.sauce-connect
+vendor
+coverage
+target
