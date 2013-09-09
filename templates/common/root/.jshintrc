@@ -1,7 +1,5 @@
 {
-  "node": true,
   "browser": true,
-  "esnext": true,
   "bitwise": true,
   "camelcase": true,
   "curly": true,
@@ -16,36 +14,13 @@
   "undef": true,
   "unused": true,
   "strict": true,
+  "globalstrict": true,
   "trailing": true,
   "smarttabs": true,
   "globals": {
     "_": false,
     "angular": false,
-    "jasmine": false,
-
-    "inject": false,
-    "describe": false,
-    "ddescribe": false,
-    "xdescribe": false,
-    "it": false,
-    "iit": false,
-    "xit": false,
-    "beforeEach": false,
-    "afterEach": false,
-    "expect": false,
-    "spyOn": false,
-    "runs": false,
-    "waitsFor": false,
-
-    "browser": false,
-    "element": false,
-    "input": false,
-    "select": false,
-    "binding": false,
-    "repeater": false,
-    "using": false,
-    "pause": false,
-    "resume": false,
-    "sleep": false
+    "require": false,
+    "module": false
   }
 }

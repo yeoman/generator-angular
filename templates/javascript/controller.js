@@ -5,6 +5,8 @@ angular.module('<%= _.camelize(appname) %>App')
     $scope.awesomeThings = [
       'Bower',
       'Grunt',
+      'Haml',
+      'Compass',
       'AngularJS',
       'Karma'
     ];

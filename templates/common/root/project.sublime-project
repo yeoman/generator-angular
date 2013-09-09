@@ -1,0 +1,9 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+      "folder_exclude_patterns": [".tmp", ".sass-cache", "dist", "maven", "coverage", "node_modules", ".bundle", "vendor"]
+		}
+	]
+}
