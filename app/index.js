@@ -169,19 +169,18 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
 
   // Wire Twitter Bootstrap plugins
   this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', [
-    'bower_components/bootstrap-sass/js/bootstrap-affix.js',
-    'bower_components/bootstrap-sass/js/bootstrap-alert.js',
-    'bower_components/bootstrap-sass/js/bootstrap-dropdown.js',
-    'bower_components/bootstrap-sass/js/bootstrap-tooltip.js',
-    'bower_components/bootstrap-sass/js/bootstrap-modal.js',
-    'bower_components/bootstrap-sass/js/bootstrap-transition.js',
-    'bower_components/bootstrap-sass/js/bootstrap-button.js',
-    'bower_components/bootstrap-sass/js/bootstrap-popover.js',
-    'bower_components/bootstrap-sass/js/bootstrap-typeahead.js',
-    'bower_components/bootstrap-sass/js/bootstrap-carousel.js',
-    'bower_components/bootstrap-sass/js/bootstrap-scrollspy.js',
-    'bower_components/bootstrap-sass/js/bootstrap-collapse.js',
-    'bower_components/bootstrap-sass/js/bootstrap-tab.js'
+    'bower_components/bootstrap-sass/js/affix.js',
+    'bower_components/bootstrap-sass/js/alert.js',
+    'bower_components/bootstrap-sass/js/button.js',
+    'bower_components/bootstrap-sass/js/carousel.js',
+    'bower_components/bootstrap-sass/js/collapse.js',
+    'bower_components/bootstrap-sass/js/dropdown.js',
+    'bower_components/bootstrap-sass/js/modal.js',
+    'bower_components/bootstrap-sass/js/popover.js',
+    'bower_components/bootstrap-sass/js/scrollspy.js',
+    'bower_components/bootstrap-sass/js/tab.js',
+    'bower_components/bootstrap-sass/js/tooltip.js',
+    'bower_components/bootstrap-sass/js/transition.js',
   ]);
 };
 
