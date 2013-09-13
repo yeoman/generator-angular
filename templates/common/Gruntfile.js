@@ -141,6 +141,9 @@ module.exports = function (grunt) {
       server: '.tmp'
     },
     jshint: {
+      options: {
+        force: true
+      },
       scripts: {
         options: {
           jshintrc: '.jshintrc'
@@ -330,7 +333,6 @@ module.exports = function (grunt) {
     },
     concurrent: {
       server: [
-        'jshint',
         'haml',
         'coffee',
         'compass:dist',
@@ -425,6 +427,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('pre-build', [
     'clean:server',
+    'jshint',
     'concurrent:server',
     'autoprefixer'
   ]);
@@ -443,7 +446,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
+      return grunt.task.run(['open', 'connect:dist:keepalive']);
     }
 
     grunt.task.run([
@@ -455,30 +458,34 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('test', [
-    'pre-build',
-    'karma:single'
-  ]);
+  grunt.registerTask('test', function (target) {
+    if (target === 'ci') {
+      return grunt.task.run(['connect:dist', 'karma:e2eTeamcity']);
+    }
+    grunt.task.run(['pre-build', 'karma:single']);
+  });
 
-  grunt.registerTask('build', [
-    'clean:dist',
-    'test',
-    'package',
-    'connect:dist',
-    'karma:e2e'
-  ]);
+  grunt.registerTask('build', function (target) {
+    if (target === 'ci') {
+      var jshint = grunt.config('jshint');
+      jshint.options.force = false;
+      grunt.config('jshint', jshint);
 
-  grunt.registerTask('cibuild', [
-    'clean:dist',
-    'pre-build',
-    'karma:teamcity',
-    'package'
-  ]);
-
-  grunt.registerTask('citest', [
-    'connect:dist',
-    'karma:e2eTeamcity'
-  ]);
+      return grunt.task.run([
+        'clean:dist',
+        'pre-build',
+        'karma:teamcity',
+        'package'
+      ]);
+    }
+    grunt.task.run([
+      'clean:dist',
+      'test',
+      'package',
+      'connect:dist',
+      'karma:e2e'
+    ]);
+  });
 
   grunt.registerTask('default', ['build']);
 };

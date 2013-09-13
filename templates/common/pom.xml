@@ -136,7 +136,7 @@
                     </execution>
 
                     <execution>
-                        <id>run grunt cibuild</id>
+                        <id>run grunt build:ci</id>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -146,7 +146,7 @@
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>node_modules/grunt-cli/bin/grunt</argument>
-                                <argument>cibuild</argument>
+                                <argument>build:ci</argument>
                                 <argument>--no-color</argument>
                             </arguments>
                         </configuration>
@@ -175,7 +175,7 @@
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>node_modules/grunt-cli/bin/grunt</argument>
-                                <argument>citest</argument>
+                                <argument>test:ci</argument>
                                 <argument>--no-color</argument>
                             </arguments>
                         </configuration>
