@@ -6,3 +6,5 @@ Example:
 
     This will create:
         app/views/thing.html
+    or
+    	app/jade/views/thing.jade
