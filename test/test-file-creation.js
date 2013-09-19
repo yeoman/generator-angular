@@ -101,6 +101,23 @@ describe('Angular generator', function () {
     });
   });
 
+  it('creates jade files', function (done) {
+    var expected = ['app/jade/index.jade',
+                    'app/jade/views/main.jade'
+                    ];
+    helpers.mockPrompt(angular, {
+      bootstrap: true,
+      compassBoostrap: true,
+      jade: true,
+      modules: []
+    });
+
+    angular.run([], function () {
+      helpers.assertFiles(expected);
+      done();
+    });
+  });
+
   describe('Controller', function () {
     it('should generate a new controller', function (done) {
       var angularCtrl;

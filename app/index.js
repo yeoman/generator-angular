@@ -96,6 +96,20 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
   }.bind(this));
 };
 
+Generator.prototype.askForJade = function askForJade() {
+  var cb = this.async();
+
+  this.prompt([{
+    type: 'confirm',
+    name: 'jade',
+    message: 'Would you like to include Jade template engine?',
+    default: true
+  }], function (props) {
+    this.jade = props.jade;
+    cb();
+  }.bind(this));
+};
+
 Generator.prototype.askForModules = function askForModules() {
   var cb = this.async();
 
@@ -129,11 +143,13 @@ Generator.prototype.askForModules = function askForModules() {
 };
 
 Generator.prototype.readIndex = function readIndex() {
-  this.indexFile = this.engine(this.read('../../templates/common/index.html'), this);
+  var extension = (this.jade ? "jade" : "html");
+  this.indexFile = this.engine(this.read('../../templates/common/index.' + extension), this);
 };
 
 // Waiting a more flexible solution for #138
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
+  var filesToAppend;
   var sass = this.compassBootstrap;
   var files = [];
   var source = 'styles/' + ( sass ? 'scss/' : 'css/' );
@@ -153,7 +169,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     this.copy(source + file, 'app/styles/' + file);
   }.bind(this));
 
-  this.indexFile = this.appendFiles({
+  filesToAppend = {
     html: this.indexFile,
     fileType: 'css',
     optimizedPath: 'styles/main.css',
@@ -161,16 +177,27 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
       return 'styles/' + file.replace('.scss', '.css');
     }),
     searchPath: '.tmp'
-  });
+  };
+
+  if (this.jade) {
+    this.indexFile = appendFilesToJade(filesToAppend);
+  } else {
+    this.indexFile = this.appendFiles(filesToAppend);
+  }
+};
+
+function appendScriptsJade(jade, optimizedPath, sourceFileList, attrs) {
+  return appendFilesToJade(jade, 'js', optimizedPath, sourceFileList, attrs);
 };
 
 Generator.prototype.bootstrapJS = function bootstrapJS() {
+  var list;
   if (!this.bootstrap) {
     return;  // Skip if disabled.
   }
 
   // Wire Twitter Bootstrap plugins
-  this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', [
+  list = [
     'bower_components/bootstrap-sass/js/bootstrap-affix.js',
     'bower_components/bootstrap-sass/js/bootstrap-alert.js',
     'bower_components/bootstrap-sass/js/bootstrap-dropdown.js',
@@ -184,7 +211,13 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
     'bower_components/bootstrap-sass/js/bootstrap-scrollspy.js',
     'bower_components/bootstrap-sass/js/bootstrap-collapse.js',
     'bower_components/bootstrap-sass/js/bootstrap-tab.js'
-  ]);
+  ];
+  // Wire Twitter Bootstrap plugins
+  if (this.jade) {
+    this.indexFile = appendScriptsJade(this.indexFile, 'scripts/plugins.js', list);
+  } else {
+    this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', list);
+  }
 };
 
 Generator.prototype.extraModules = function extraModules() {
@@ -202,27 +235,118 @@ Generator.prototype.extraModules = function extraModules() {
   }
 
   if (modules.length) {
-    this.indexFile = this.appendScripts(this.indexFile, 'scripts/modules.js',
-        modules);
+    if (this.jade) {
+
+    } else {
+      this.indexFile = this.appendScripts(this.indexFile, 'scripts/modules.js',
+          modules);
+    }
   }
 };
 
+function spacePrefix(jade, block){
+  var prefix;
+  jade.split("\n").forEach( function (line) { if( line.indexOf(block)> -1 ) {
+    prefix = line.split("/")[0];
+  }});
+  return prefix;
+}
+
+function generateJadeBlock(blockType, optimizedPath, filesBlock, searchPath, prefix) {
+  var blockStart, blockEnd;
+  var blockSearchPath = '';
+
+  if (searchPath !== undefined) {
+    if (util.isArray(searchPath)) {
+      searchPath = '{' + searchPath.join(',') + '}';
+    }
+    blockSearchPath = '(' + searchPath +  ')';
+  }
+
+  blockStart = '\n' + prefix + '// build:' + blockType + blockSearchPath + ' ' + optimizedPath + ' \n';
+  blockEnd = prefix + '// endbuild\n' + prefix;
+  return blockStart + filesBlock + blockEnd;
+};
+
+function appendJade(jade, tag, blocks){
+  var mark = "//- build:" + tag,
+      position = jade.indexOf(mark);
+  return [jade.slice(0, position), blocks, jade.slice(position)].join('');
+}
+
+function appendFilesToJade(jadeOrOptions, fileType, optimizedPath, sourceFileList, attrs, searchPath) {
+  var blocks, updatedContent, prefix, jade, files = '';
+  jade = jadeOrOptions;
+  if (typeof jadeOrOptions === 'object') {
+    jade = jadeOrOptions.html;
+    fileType = jadeOrOptions.fileType;
+    optimizedPath = jadeOrOptions.optimizedPath;
+    sourceFileList = jadeOrOptions.sourceFileList;
+    attrs = jadeOrOptions.attrs;
+    searchPath = jadeOrOptions.searchPath;
+  }
+  if (fileType === 'js') {
+    prefix = spacePrefix(jade, "build:body");
+    sourceFileList.forEach(function (el) {
+      files += prefix + 'script(' + (attrs||'') + 'src="' + el + '")\n';
+    });
+    blocks = generateJadeBlock('js', optimizedPath, files, searchPath, prefix);
+    updatedContent = appendJade(jade, 'body', blocks);
+  } else if (fileType === 'css') {
+    prefix = spacePrefix(jade, "build:head");
+    sourceFileList.forEach(function (el) {
+      files += prefix + 'link(' + (attrs||'') + 'rel="stylesheet", href="' + el  + '")\n';
+    });
+    blocks = generateJadeBlock('css', optimizedPath, files, searchPath, prefix);
+    updatedContent = appendJade(jade, 'head', blocks);
+  }
+  return updatedContent;
+}
+
 Generator.prototype.appJs = function appJs() {
-  this.indexFile = this.appendFiles({
-    html: this.indexFile,
-    fileType: 'js',
-    optimizedPath: 'scripts/scripts.js',
-    sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js'],
-    searchPath: ['.tmp', 'app']
-  });
+  if (this.jade) {
+    this.indexFile = appendFilesToJade({
+      html: this.indexFile,
+      fileType: 'js',
+      optimizedPath: 'scripts/scripts.js',
+      sourceFileList: ['scripts/app.js'],
+      searchPath: ['.tmp', 'app']
+    });
+  } else {
+    this.indexFile = this.appendFiles({
+      html: this.indexFile,
+      fileType: 'js',
+      optimizedPath: 'scripts/scripts.js',
+      sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js'],
+      searchPath: ['.tmp', 'app']
+    });
+  }
+};
+
+
+
+Generator.prototype.createIndexJade = function createIndexJade() {
+  if(this.jade) {
+    this.write(path.join(this.appPath, 'jade/index.jade'), this.indexFile);
+  }
 };
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
-  this.write(path.join(this.appPath, 'index.html'), this.indexFile);
+  if(!this.jade) {
+    this.write(path.join(this.appPath, 'index.html'), this.indexFile);
+  }
 };
 
 Generator.prototype.packageFiles = function () {
   this.template('../../templates/common/_bower.json', 'bower.json');
   this.template('../../templates/common/_package.json', 'package.json');
   this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
+};
+
+Generator.prototype.addMainView = function addMainView() {
+  if(this.jade) {
+    this.copy('../../templates/common/jade/views/main.jade', 'app/jade/views/main.jade');
+  } else {
+    this.copy('../../templates/common/views/main.html', 'app/views/main.html');
+  }
 };
