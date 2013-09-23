@@ -12,10 +12,10 @@ angular.module('<%= _.camelize(appname) %>App')
         salutation
 
     # Public API for configuration
-    @.setSalutation = (s) ->
+    @setSalutation = (s) ->
       salutation = s
 
     # Method for instantiating
-    @.$get = () ->
+    @$get = ->
       new Greeter()
   ]
