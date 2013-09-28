@@ -5,7 +5,7 @@
     "angular": "~1.0.7",
     "json3": "~3.2.4",<% if (bootstrap) { %>
     "jquery": "~1.9.1",
-    "bootstrap-sass": "~2.3.1",
+    "bootstrap-sass": "~3.0.0",
     <% } %>"es5-shim": "~2.0.8"<% if (resourceModule) { %>,
     "angular-resource": "~1.0.7"<% } %><% if (cookiesModule) { %>,
     "angular-cookies": "~1.0.7"<% } %><% if (sanitizeModule) { %>,
