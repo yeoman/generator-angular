@@ -253,11 +253,13 @@ You can change the `app` directory by adding a `appPath` property to `bower.json
   "name": "yo-test",
   "version": "0.0.0",
   ...
-  "appPath": "public"
+  "appPath": "public",
+  "indexPath": "folderName/index.html"
 }
 
 ```
-This will cause Yeoman-generated client-side files to be placed in `public`.
+Yeoman-generated client-side files to be placed in the `public` folder.
+Yeoman will add the script references into the `folderName/index.html` file.
 
 ## Testing
 
