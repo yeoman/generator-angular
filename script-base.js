@@ -27,6 +27,13 @@ var Generator = module.exports = function Generator() {
     this.env.options.testPath = this.env.options.testPath || 'test/spec';
   }
 
+  if (typeof this.env.options.scriptIndexFullPath === 'undefined') {
+    try {
+      this.env.options.scriptIndexFullPath = require(path.join(process.cwd(), 'bower.json')).scriptIndexFullPath;
+    } catch (e) {}
+    this.env.options.scriptIndexFullPath = this.env.options.appPath || 'app';
+  }
+
   this.env.options.coffee = this.options.coffee;
   if (typeof this.env.options.coffee === 'undefined') {
     this.option('coffee');
@@ -86,7 +93,7 @@ Generator.prototype.htmlTemplate = function (src, dest) {
 
 Generator.prototype.addScriptToIndex = function (script) {
   try {
-    var appPath = this.env.options.appPath;
+    var appPath = this.env.options.scriptIndexFullPath;
     var fullPath = path.join(appPath, 'index.html');
     angularUtils.rewriteFile({
       file: fullPath,
