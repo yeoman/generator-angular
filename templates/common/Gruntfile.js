@@ -253,7 +253,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '.tmp/images',
           src: '{,*/}*.{png,jpg,jpeg}',
-          dest: '<%= yeoman.dist %>/images'
+          dest: '<%%= yeoman.dist %>/images'
         }]
       }
     },
@@ -391,9 +391,9 @@ module.exports = function (grunt) {
       locale: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.dist %>/scripts',
+          cwd: '<%%= yeoman.dist %>/scripts',
           src: 'locale/*.js',
-          dest: '<%= yeoman.dist %>/scripts'
+          dest: '<%%= yeoman.dist %>/scripts'
         }]
       }
     },
