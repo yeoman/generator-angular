@@ -175,8 +175,8 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
       files.push('bootstrap.css');
     }
 
-    this.copy('images/glyphicons-halflings.png', 'app/images/glyphicons-halflings.png');
-    this.copy('images/glyphicons-halflings-white.png', 'app/images/glyphicons-halflings-white.png');
+    this.copy('img/glyphicons-halflings.png', 'app/img/glyphicons-halflings.png');
+    this.copy('img/glyphicons-halflings-white.png', 'app/img/glyphicons-halflings-white.png');
   }
 
   files.push('main.' + (sass ? 's' : '') + 'css');
