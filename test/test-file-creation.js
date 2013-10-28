@@ -101,6 +101,35 @@ describe('Angular generator', function () {
     });
   });
 
+  it('creates jade files', function (done) {
+    var expected = ['app/.htaccess',
+                    'app/404.html',
+                    'app/favicon.ico',
+                    'app/robots.txt',
+                    'app/styles/main.css',
+                    'app/views/main.jade',
+                    ['.bowerrc', /"directory": "app\/bower_components"/],
+                    'Gruntfile.js',
+                    'package.json',
+                    ['bower.json', /"name":\s+"temp"/],
+                    'app/scripts/app.js',
+                    'app/index.jade',
+                    'app/scripts/controllers/main.js',
+                    'test/spec/controllers/main.js'
+                    ];
+    helpers.mockPrompt(angular, {
+      bootstrap: true,
+      compassBoostrap: true,
+      modules: []
+    });
+
+    angular.env.options.jade = true;
+    angular.run([], function () {
+      helpers.assertFiles(expected);
+      done();
+    });
+  });
+
   /**
    * Generic test function that can be used to cover the scenarios where a generator is creating both a source file
    * and a test file. The function will run the respective generator, and then check for the existence of the two
@@ -168,7 +197,7 @@ describe('Angular generator', function () {
   describe('Service', function () {
     function serviceTest (generatorType, nameFn, done) {
       generatorTest(generatorType, 'service', 'services', nameFn, _.classify, '', done);
-    };
+    }
 
     it('should generate a new constant', function (done) {
       serviceTest('constant', _.camelize, done);
@@ -206,6 +235,27 @@ describe('Angular generator', function () {
         angularView.run([], function () {
           helpers.assertFiles([
             ['app/views/foo.html']
+          ]);
+          done();
+        });
+      });
+    });
+
+    it('should generate a new jade view', function (done) {
+      var angularView;
+      var deps = ['../../view'];
+      angularView = helpers.createGenerator('angular:view', deps, ['foo']);
+
+      helpers.mockPrompt(angular, {
+        bootstrap: true,
+        compassBoostrap: true,
+        modules: []
+      });
+      angularView.env.options.jade = true;
+      angular.run([], function (){
+        angularView.run([], function () {
+          helpers.assertFiles([
+            ['app/views/foo.jade']
           ]);
           done();
         });

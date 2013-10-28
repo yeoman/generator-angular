@@ -25,6 +25,7 @@
     "grunt-google-cdn": "~0.2.0",
     "grunt-ngmin": "~0.0.2",
     "time-grunt": "~0.1.0",
+    "grunt-jade": "~0.4.0",
     "jshint-stylish": "~0.1.3"
   },
   "engines": {

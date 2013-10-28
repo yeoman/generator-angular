@@ -30,6 +30,10 @@ module.exports = function (grunt) {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
       },<% } %>
+      jade: {
+        files: ['<%%= yeoman.app %>/**/*.jade'],
+        tasks: ['jade']
+      },
       styles: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['copy:styles', 'autoprefixer']
@@ -174,6 +178,28 @@ module.exports = function (grunt) {
         }
       }
     },
+    jade: {
+      index: {
+        files: {
+          '<%%= yeoman.app %>/': ['<%%= yeoman.app %>/index.jade']
+        },
+        options: {
+          basePath: '<%%= yeoman.app %>/',
+          client: false,
+          pretty: true
+        }
+      },
+      views: {
+        files: {
+          '<%%= yeoman.app %>/views/': ['<%%= yeoman.app %>/views/**/*.jade']
+        },
+        options: {
+          basePath: '<%%= yeoman.app %>/views',
+          client: false,
+          pretty: true
+        }
+      }
+    },
     useminPrepare: {
       html: '<%%= yeoman.app %>/index.html',
       options: {
@@ -274,16 +300,19 @@ module.exports = function (grunt) {
     },
     concurrent: {
       server: [
+        'jade',
         'coffee:dist',<% if (compassBootstrap) { %>
         'compass:server',<% } %>
         'copy:styles'
       ],
       test: [
+        'jade',
         'coffee',<% if (compassBootstrap) { %>
         'compass',<% } %>
         'copy:styles'
       ],
       dist: [
+        'jade',
         'coffee',<% if (compassBootstrap) { %>
         'compass:dist',<% } %>
         'copy:styles',
