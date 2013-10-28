@@ -101,7 +101,21 @@ Generator.prototype.addScriptToIndex = function (script) {
 };
 
 Generator.prototype.generateSourceAndTest = function (appTemplate, testTemplate, targetDirectory) {
-  this.appTemplate(appTemplate, path.join('scripts', targetDirectory, this.name));
-  this.testTemplate(testTemplate, path.join(targetDirectory, this.name));
-  this.addScriptToIndex(path.join(targetDirectory, this.name));
+  // If the user used '.' notation in the name, then translate that to
+  // a path.
+  var cleanedName = targetDirectory;
+  if (this.name.indexOf('.') !== -1) {
+    cleanedName = this.name.replace(/\./g, '/');
+
+    // Now that we have gotten the full path, we need to make
+    // sure we clean up the name so the object will be named
+    // correctly.
+    var nameParts = this.name.split('.');
+    if (nameParts.length > 0) {
+      this.name = nameParts[nameParts.length - 1];
+    }
+  }
+  this.appTemplate(appTemplate, path.join('scripts', cleanedName));
+  this.testTemplate(testTemplate, cleanedName);
+  this.addScriptToIndex(cleanedName);
 };
