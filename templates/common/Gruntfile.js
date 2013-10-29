@@ -1,6 +1,26 @@
 // Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
 'use strict';
 
+var path = require('path');
+
+var useminNgminStep = {
+  name: 'ngmin',
+  createConfig: function(context, block) {
+    // Copy of the default concat and cssmin config
+    // https://github.com/yeoman/grunt-usemin/tree/v2.0.0/lib/config
+    var cfg = {files: []};
+    var outfile = path.join(context.outDir, block.dest);
+
+    var files = {};
+    files.dest = outfile;
+    files.src = [];
+    context.inFiles.forEach(function(f) { files.src.push(path.join(context.inDir, f));} );
+    cfg.files.push(files);
+    context.outFiles = [block.dest];
+    return cfg;
+  }
+};
+
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
@@ -177,14 +197,21 @@ module.exports = function (grunt) {
     useminPrepare: {
       html: '<%%= yeoman.app %>/index.html',
       options: {
-        dest: '<%%= yeoman.dist %>'
+        dest: '<%%= yeoman.dist %>',
+        flow: {
+          steps: {
+            js: ['concat', useminNgminStep, 'uglifyjs'],
+            css: ['concat', 'cssmin']
+          },
+          post: {}
+        }
       }
     },
     usemin: {
       html: ['<%%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
-        dirs: ['<%%= yeoman.dist %>']
+        assetsDirs: ['<%%= yeoman.dist %>']
       }
     },
     imagemin: {
