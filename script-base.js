@@ -103,9 +103,11 @@ Generator.prototype.addScriptToIndex = function (script) {
 Generator.prototype.generateSourceAndTest = function (appTemplate, testTemplate, targetDirectory) {
   // If the user used '.' notation in the name, then translate that to
   // a path.
-  var cleanedName = targetDirectory;
+  var cleanedName = this.name;
+  var cleanedTargetDir = targetDirectory;
   if (this.name.indexOf('.') !== -1) {
     cleanedName = this.name.replace(/\./g, '/');
+    cleanedTargetDir = '';
 
     // Now that we have gotten the full path, we need to make
     // sure we clean up the name so the object will be named
@@ -115,7 +117,7 @@ Generator.prototype.generateSourceAndTest = function (appTemplate, testTemplate,
       this.name = nameParts[nameParts.length - 1];
     }
   }
-  this.appTemplate(appTemplate, path.join('scripts', cleanedName));
-  this.testTemplate(testTemplate, cleanedName);
+  this.appTemplate(appTemplate, path.join('scripts', cleanedTargetDir, cleanedName));
+  this.testTemplate(testTemplate, path.join(cleanedTargetDir, cleanedName));
   this.addScriptToIndex(cleanedName);
 };
