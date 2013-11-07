@@ -172,6 +172,18 @@ angular.module('myMod').config(function ($provide) {
 ## Options
 In general, these options can be applied to any generator, though they only affect generators that produce scripts.
 
+### Jade
+For generators that output html, the `--jade` option will output Jade instead of html files.
+
+For example:
+```bash
+yo angular:view user --jade
+
+Produces `app/scripts/views/user.jade`:
+```jade
+p This is the user view.
+```
+
 ### CoffeeScript
 For generators that output scripts, the `--coffee` option will output CoffeeScript instead of JavaScript.
 

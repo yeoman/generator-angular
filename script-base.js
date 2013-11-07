@@ -46,6 +46,20 @@ var Generator = module.exports = function Generator() {
     this.env.options.coffee = this.options.coffee;
   }
 
+  this.env.options.jade = this.options.jade;
+  if (typeof this.env.options.jade === 'undefined') {
+    this.option('jade');
+
+    // attempt to detect if user is using jade or not
+    // if cml arg provided, use that; else look for the existence of cs
+    if (!this.options.jade &&
+      this.expandFiles(path.join(this.env.options.appPath, '/**/*.jade'), {}).length > 0) {
+      this.options.jade = true;
+    }
+
+    this.env.options.jade = this.options.jade;
+  }
+
   if (typeof this.env.options.minsafe === 'undefined') {
     this.option('minsafe');
     this.env.options.minsafe = this.options.minsafe;
@@ -89,9 +103,25 @@ Generator.prototype.htmlTemplate = function (src, dest) {
   ]);
 };
 
-Generator.prototype.addScriptToIndex = function (script) {
+function addScriptToIndexJade(script, env) {
   try {
-    var appPath = this.env.options.appPath;
+    var appPath = env.options.appPath;
+    var fullPath = path.join(appPath, 'index.jade');
+    angularUtils.rewriteFile({
+      file: fullPath,
+      needle: '// endbuild',
+      splicable: [
+        'script(src="scripts/' + script + '.js")'
+      ]
+    });
+  } catch (e) {
+    console.log('\nUnable to find '.yellow + fullPath + '. Reference to '.yellow + script + '.js ' + 'not added.\n'.yellow);
+  }
+}
+
+function addScriptToIndexHtml(script, env) {
+  try {
+    var appPath = env.options.appPath;
     var fullPath = path.join(appPath, 'index.html');
     angularUtils.rewriteFile({
       file: fullPath,
@@ -102,6 +132,14 @@ Generator.prototype.addScriptToIndex = function (script) {
     });
   } catch (e) {
     console.log('\nUnable to find '.yellow + fullPath + '. Reference to '.yellow + script + '.js ' + 'not added.\n'.yellow);
+  }
+}
+
+Generator.prototype.addScriptToIndex = function (script) {
+  if (this.env.options.jade) {
+    addScriptToIndexJade(script, this.env);
+  } else {
+    addScriptToIndexHtml(script, this.env);
   }
 };
 

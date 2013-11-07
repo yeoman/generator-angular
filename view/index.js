@@ -1,11 +1,11 @@
 'use strict';
 var path = require('path');
 var util = require('util');
-var yeoman = require('yeoman-generator');
+var ScriptBase = require('../script-base.js');
 
 
 var Generator = module.exports = function Generator() {
-  yeoman.generators.NamedBase.apply(this, arguments);
+  ScriptBase.apply(this, arguments);
   this.sourceRoot(path.join(__dirname, '../templates'));
 
   if (typeof this.env.options.appPath === 'undefined') {
@@ -16,8 +16,9 @@ var Generator = module.exports = function Generator() {
   }
 };
 
-util.inherits(Generator, yeoman.generators.NamedBase);
+util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createViewFiles = function createViewFiles() {
-  this.template('common/view.html', path.join(this.env.options.appPath, 'views', this.name + '.html'));
+  var extension = this.env.options.jade ? '.jade' : '.html';
+  this.template('common/view' + extension, path.join(this.env.options.appPath, 'views', this.name + extension));
 };
