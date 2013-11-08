@@ -68,7 +68,7 @@ var Generator = module.exports = function Generator(args, options) {
   this.on('end', function () {
     this.installDependencies({ skipInstall: this.options['skip-install'] });
 
-    var enabledComponents = [];
+    var enabledComponents = ['angular-route/angular-route.js'];
 
     if (this.resourceModule) {
       enabledComponents.push('angular-resource/angular-resource.js');
@@ -152,7 +152,7 @@ Generator.prototype.askForModules = function askForModules() {
     this.cookiesModule = hasMod('cookiesModule');
     this.sanitizeModule = hasMod('sanitizeModule');
 
-    var angMods = [];
+    var angMods = ["'ngRoute'"];
 
     if (this.cookiesModule) {
       angMods.push("'ngCookies'");
@@ -231,7 +231,7 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
 };
 
 Generator.prototype.extraModules = function extraModules() {
-  var modules = [];
+  var modules = ['bower_components/angular-route/angular-route.js'];
   if (this.resourceModule) {
     modules.push('bower_components/angular-resource/angular-resource.js');
   }
