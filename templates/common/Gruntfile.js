@@ -19,19 +19,19 @@ module.exports = function (grunt) {
     },
     watch: {
       coffee: {
-        files: ['<%%= yeoman.app %>/scripts/{,*/}*.coffee'],
+        files: ['<%%= yeoman.app %>/scripts/{,**/}*.coffee'],
         tasks: ['coffee:dist']
       },
       coffeeTest: {
-        files: ['test/spec/{,*/}*.coffee'],
+        files: ['test/spec/{,**/}*.coffee'],
         tasks: ['coffee:test']
       },<% if (compassBootstrap) { %>
       compass: {
-        files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        files: ['<%%= yeoman.app %>/styles/{,**/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
       },<% } %>
       styles: {
-        files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
+        files: ['<%%= yeoman.app %>/styles/{,**/}*.css'],
         tasks: ['copy:styles', 'autoprefixer']
       },
       gruntfile: {
@@ -42,10 +42,10 @@ module.exports = function (grunt) {
           livereload: '<%%= connect.options.livereload %>'
         },
         files: [
-          '<%%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js',
-          '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%%= yeoman.app %>/{,**/}*.html',
+          '.tmp/styles/{,**/}*.css',
+          '{.tmp,<%%= yeoman.app %>}/scripts/{,**/}*.js',
+          '<%%= yeoman.app %>/images/{,**/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
     },
