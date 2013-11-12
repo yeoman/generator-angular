@@ -261,7 +261,7 @@ All of these can be updated with `bower update` as new versions of AngularJS are
 Yeoman generated projects can be further tweaked according to your needs by modifying project files appropriately.
 
 ### Output
-You can change the `app` directory by adding a `appPath` property to `bower.json`. For instance, if you wanted to easily integrate with Express.js, you could add the following:
+You can change the `app` directory by adding a `appPath` property to `bower.json`. The default is `app`. For instance, if you wanted to easily integrate with Express.js, you could add the following:
 
 ```json
 {
@@ -272,7 +272,19 @@ You can change the `app` directory by adding a `appPath` property to `bower.json
 }
 
 ```
-This will cause Yeoman-generated client-side files to be placed in `public`.
+This will cause Yeoman-generated client-side files to be placed in the `public`.
+
+You can change the file that scripts are added to when invoking a `yo angular:subcommand` by adding an additional attribute, `indexFile`, to the `bower.json` file. This file can include the path relative to the `appPath` folder. Include the filename or the path to it like so:
+
+```json
+{
+  "name": "yo-test",
+  "version": "0.0.0",
+  ...
+  "indexFile": "index.html"
+}
+
+```
 
 ## Testing
 
