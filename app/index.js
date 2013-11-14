@@ -134,7 +134,7 @@ Generator.prototype.askForModules = function askForModules() {
   var prompts = [{
     type: 'checkbox',
     name: 'modules',
-    message: 'Which modules would you like to include?',
+    message: 'Which modules would you like to include (use numeric panel: 1,2,3)?',
     choices: [{
       value: 'resourceModule',
       name: 'angular-resource.js',
