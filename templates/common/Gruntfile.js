@@ -11,6 +11,15 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
+  function getRandomPortForLiveReload() {
+    var server = require('net').createServer();
+    var port = server.listen(0).address().port;
+
+    server.close();
+
+    return port;
+  }
+
   grunt.initConfig({
     yeoman: {
       // configurable paths
@@ -65,7 +74,7 @@ module.exports = function (grunt) {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
-        livereload: 35729
+        livereload: getRandomPortForLiveReload()
       },
       livereload: {
         options: {
