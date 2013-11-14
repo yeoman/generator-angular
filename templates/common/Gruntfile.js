@@ -160,8 +160,8 @@ module.exports = function (grunt) {
         }
       }
     },<% } %>
-    // not used since Uglify task does concat,
-    // but still available if needed
+    // not used since useMinPrepare from useMin adds the concat task itself to the configuration
+    // under the generated target https://github.com/yeoman/grunt-usemin#blocks
     // concat: {
     //   dist: {}
     // },
@@ -223,6 +223,7 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
+    // added again by useMin, https://github.com/yeoman/grunt-usemin
     // uglify: {
     //   dist: {
     //     files: {
