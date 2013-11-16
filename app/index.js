@@ -1,6 +1,7 @@
 'use strict';
 var path = require('path');
 var util = require('util');
+var angularUtils = require('../util.js');
 var spawn = require('child_process').spawn;
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
@@ -9,9 +10,15 @@ var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
   this.argument('appname', { type: String, required: false });
   this.appname = this.appname || path.basename(process.cwd()).replace(/-statics?$/, '');
+  this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
   this.basename = path.basename(process.cwd());
-  this.indexFile = this.engine(this.read('../../templates/common/index.html').replace(/\$\{/g, '(;$};)'),
-      this).replace(/\(;\$\};\)/g, '${');
+
+  this.option('app-suffix', {
+    desc: 'Allow a custom suffix to be added to the module name',
+    type: String,
+    required: 'false'
+  });
+  this.scriptAppName = this.appname + angularUtils.appName(this);
 
   args = ['main'];
 
@@ -25,7 +32,9 @@ var Generator = module.exports = function Generator(args, options) {
   this.appPath = this.env.options.appPath;
 
   if (typeof this.env.options.coffee === 'undefined') {
-    this.option('coffee');
+    this.option('coffee', {
+      desc: 'Generate CoffeeScript instead of JavaScript'
+    });
 
     // attempt to detect if user is using CS or not
     // if cml arg provided, use that; else look for the existence of cs
@@ -38,7 +47,9 @@ var Generator = module.exports = function Generator(args, options) {
   }
 
   if (typeof this.env.options.minsafe === 'undefined') {
-    this.option('minsafe');
+    this.option('minsafe', {
+      desc: 'Generate AngularJS minification safe code'
+    });
     this.env.options.minsafe = this.options.minsafe;
     args.push('--minsafe');
   }
@@ -54,19 +65,6 @@ var Generator = module.exports = function Generator(args, options) {
   this.hookFor('wix-angular:controller', {
     args: args
   });
-
-  /*
-  this.hookFor('karma', {
-    as: 'app',
-    options: {
-      options: {
-        coffee: this.options.coffee,
-        travis: true,
-        'skip-install': this.options['skip-install']
-       }
-    }
-  });
-  */
 
   this.on('end', function () {
     if (this.options['skip-install']) {
@@ -141,6 +139,10 @@ Generator.prototype.askForModules = function askForModules() {
       value: 'sanitizeModule',
       name: 'angular-sanitize.js',
       checked: true
+    }, {
+      value: 'routeModule',
+      name: 'angular-route.js',
+      checked: true
     }]
   }];
 
@@ -149,27 +151,53 @@ Generator.prototype.askForModules = function askForModules() {
     this.resourceModule = hasMod('resourceModule');
     this.cookiesModule = hasMod('cookiesModule');
     this.sanitizeModule = hasMod('sanitizeModule');
+    this.routeModule = hasMod('routeModule');
+
+    var angMods = [];
+
+    if (this.cookiesModule) {
+      angMods.push("'ngCookies'");
+    }
+
+    if (this.resourceModule) {
+      angMods.push("'ngResource'");
+    }
+    if (this.sanitizeModule) {
+      angMods.push("'ngSanitize'");
+    }
+    if (this.routeModule) {
+      angMods.push("'ngRoute'");
+    }
+
+    if (angMods.length) {
+      this.env.options.angularDeps = "'wixTranslations', 'ngRoute'";
+      //this.env.options.angularDeps = "\n  " + angMods.join(",\n  ") +"\n";
+    }
 
     cb();
   }.bind(this));
+};
+
+Generator.prototype.readIndex = function readIndex() {
+  this.indexFile = this.engine(this.read('../../templates/common/index.html').replace(/\$\{/g, '(;$};)'),
+      this).replace(/\(;\$\};\)/g, '${');
 };
 
 // Waiting a more flexible solution for #138
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   var sass = this.compassBootstrap;
   var files = [];
-  var source = 'styles/' + ( sass ? 'scss/' : 'css/' );
+  var source = 'styles/' + ( sass ? 's' : '' ) + 'css/';
 
-  if (sass) {
-    files.push('main.scss');
-    //this.copy('images/glyphicons-halflings.png', 'app/images/glyphicons-halflings.png');
-    //this.copy('images/glyphicons-halflings-white.png', 'app/images/glyphicons-halflings-white.png');
-  } else {
-    if (this.bootstrap) {
-      files.push('bootstrap.css');
-    }
-    files.push('main.css');
+  if (this.bootstrap && !sass) {
+    files.push('bootstrap.css');
+    this.copy('fonts/glyphicons-halflings-regular.eot', 'app/fonts/glyphicons-halflings-regular.eot');
+    this.copy('fonts/glyphicons-halflings-regular.ttf', 'app/fonts/glyphicons-halflings-regular.ttf');
+    this.copy('fonts/glyphicons-halflings-regular.svg', 'app/fonts/glyphicons-halflings-regular.svg');
+    this.copy('fonts/glyphicons-halflings-regular.woff', 'app/fonts/glyphicons-halflings-regular.woff');
   }
+
+  files.push('main.' + (sass ? 's' : '') + 'css');
 
   files.forEach(function (file) {
     this.copy(source + file, 'app/styles/' + file);
@@ -193,19 +221,18 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
 
   // Wire Twitter Bootstrap plugins
   this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', [
-    'bower_components/bootstrap-sass/js/bootstrap-affix.js',
-    'bower_components/bootstrap-sass/js/bootstrap-alert.js',
-    'bower_components/bootstrap-sass/js/bootstrap-dropdown.js',
-    'bower_components/bootstrap-sass/js/bootstrap-tooltip.js',
-    'bower_components/bootstrap-sass/js/bootstrap-modal.js',
-    'bower_components/bootstrap-sass/js/bootstrap-transition.js',
-    'bower_components/bootstrap-sass/js/bootstrap-button.js',
-    'bower_components/bootstrap-sass/js/bootstrap-popover.js',
-    'bower_components/bootstrap-sass/js/bootstrap-typeahead.js',
-    'bower_components/bootstrap-sass/js/bootstrap-carousel.js',
-    'bower_components/bootstrap-sass/js/bootstrap-scrollspy.js',
-    'bower_components/bootstrap-sass/js/bootstrap-collapse.js',
-    'bower_components/bootstrap-sass/js/bootstrap-tab.js'
+    'bower_components/sass-bootstrap/js/affix.js',
+    'bower_components/sass-bootstrap/js/alert.js',
+    'bower_components/sass-bootstrap/js/button.js',
+    'bower_components/sass-bootstrap/js/carousel.js',
+    'bower_components/sass-bootstrap/js/transition.js',
+    'bower_components/sass-bootstrap/js/collapse.js',
+    'bower_components/sass-bootstrap/js/dropdown.js',
+    'bower_components/sass-bootstrap/js/modal.js',
+    'bower_components/sass-bootstrap/js/scrollspy.js',
+    'bower_components/sass-bootstrap/js/tab.js',
+    'bower_components/sass-bootstrap/js/tooltip.js',
+    'bower_components/sass-bootstrap/js/popover.js'
   ]);
 };
 
@@ -221,6 +248,10 @@ Generator.prototype.extraModules = function extraModules() {
 
   if (this.sanitizeModule) {
     modules.push('bower_components/angular-sanitize/angular-sanitize.js');
+  }
+
+  if (this.routeModule) {
+    modules.push('bower_components/angular-route/angular-route.js');
   }
 
   if (modules.length) {
@@ -252,7 +283,11 @@ Generator.prototype.packageFiles = function () {
   this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
   this.template('../../templates/common/replace.conf.js', 'replace.conf.js');
   this.template('../../templates/common/scenarios.js', 'test/spec/e2e/scenarios.js');
-  this.template('../../templates/common/tar.gz.xml', 'maven/assembly/tar.gz.xml');
   this.template('../../templates/common/_ruby-gemset', '.ruby-gemset');
   this.copy('../../templates/common/_ruby-version', '.ruby-version');
+};
+
+Generator.prototype.imageFiles = function () {
+  this.sourceRoot(path.join(__dirname, 'templates'));
+  this.directory('images', 'app/images', true);
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%= _.camelize(appname) %>App', ['wixTranslations'])
+angular.module('<%= scriptAppName %>', [<%= angularModules %>])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

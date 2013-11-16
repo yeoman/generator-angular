@@ -4,9 +4,7 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var angularUtils = require('./util.js');
 
-module.exports = Generator;
-
-function Generator() {
+var Generator = module.exports = function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
 
   try {
@@ -14,6 +12,11 @@ function Generator() {
   } catch (e) {
     this.appname = path.basename(process.cwd());
   }
+  this.appname = this._.slugify(this._.humanize(this.appname));
+  this.scriptAppName = this._.camelize(this.appname) + angularUtils.appName(this);
+
+  this.cameledName = this._.camelize(this.name);
+  this.classedName = this._.classify(this.name);
 
   if (typeof this.env.options.appPath === 'undefined') {
     try {
@@ -29,6 +32,7 @@ function Generator() {
     this.env.options.testPath = this.env.options.testPath || 'test/spec';
   }
 
+  this.env.options.coffee = this.options.coffee;
   if (typeof this.env.options.coffee === 'undefined') {
     this.option('coffee');
 
@@ -60,7 +64,7 @@ function Generator() {
   }
 
   this.sourceRoot(path.join(__dirname, sourceRoot));
-}
+};
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
@@ -93,10 +97,18 @@ Generator.prototype.addScriptToIndex = function (script) {
       file: fullPath,
       needle: '<!-- endbuild -->',
       splicable: [
-        '<script src="scripts/' + script + '.js"></script>'
+        '<script src="scripts/' + script.replace('\\', '/') + '.js"></script>'
       ]
     });
   } catch (e) {
     console.log('\nUnable to find '.yellow + fullPath + '. Reference to '.yellow + script + '.js ' + 'not added.\n'.yellow);
+  }
+};
+
+Generator.prototype.generateSourceAndTest = function (appTemplate, testTemplate, targetDirectory, skipAdd) {
+  this.appTemplate(appTemplate, path.join('scripts', targetDirectory, this.name));
+  this.testTemplate(testTemplate, path.join(targetDirectory, this.name));
+  if (!skipAdd) {
+    this.addScriptToIndex(path.join(targetDirectory, this.name));
   }
 };

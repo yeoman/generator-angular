@@ -5,37 +5,35 @@ var ScriptBase = require('../script-base.js');
 var angularUtils = require('../util.js');
 
 
-module.exports = Generator;
-
-function Generator() {
+var Generator = module.exports = function Generator() {
   ScriptBase.apply(this, arguments);
   this.hookFor('wix-angular:controller');
   this.hookFor('wix-angular:view');
-}
+};
+
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.rewriteAppJs = function () {
-  if (this.env.options.coffee) {
-    angularUtils.rewriteFile({
-      file: path.join(this.env.options.appPath, 'scripts/app.coffee'),
-      needle: '.otherwise',
-      splicable: [
-        '.when \'/' + this.name + '\',',
-        '  templateUrl: \'views/' + this.name + '.html\',',
-        '  controller: \'' + this._.classify(this.name) + 'Ctrl\''
-      ]
-    });
+  var coffee = this.env.options.coffee;
+  var config = {
+    file: path.join(
+      this.env.options.appPath,
+      'scripts/app.' + (coffee ? 'coffee' : 'js')
+    ),
+    needle: '.otherwise',
+    splicable: [
+      "  templateUrl: 'views/" + this.name + ".html'" + (coffee ? "" : "," ),
+      "  controller: '" + this.classedName + "Ctrl'"
+    ]
+  };
+
+  if (coffee) {
+    config.splicable.unshift(".when '/" + this.name + "',");
   }
   else {
-    angularUtils.rewriteFile({
-      file: path.join(this.env.options.appPath, 'scripts/app.js'),
-      needle: '.otherwise',
-      splicable: [
-        '.when(\'/' + this.name + '\', {',
-        '  templateUrl: \'views/' + this.name + '.html\',',
-        '  controller: \'' + this._.classify(this.name) + 'Ctrl\'',
-        '})'
-      ]
-    });
+    config.splicable.unshift(".when('/" + this.name + "', {");
+    config.splicable.push("})");
   }
+
+  angularUtils.rewriteFile(config);
 };

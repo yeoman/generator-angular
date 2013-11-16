@@ -1,14 +1,14 @@
 'use strict'
 
-describe 'Service: <%= _.camelize(name) %>', () ->
+describe 'Service: <%= classedName %>', () ->
 
   # load the service's module
-  beforeEach module '<%= _.camelize(appname) %>App'
+  beforeEach module '<%= scriptAppName %>'
 
   # instantiate service
-  <%= _.camelize(name) %> = {}
-  beforeEach inject (_<%= _.camelize(name) %>_) ->
-    <%= _.camelize(name) %> = _<%= _.camelize(name) %>_
+  <%= classedName %> = {}
+  beforeEach inject (_<%= classedName %>_) ->
+    <%= classedName %> = _<%= classedName %>_
 
   it 'should do something', () ->
-    expect(!!<%= _.camelize(name) %>).toBe true
+    expect(!!<%= classedName %>).toBe true

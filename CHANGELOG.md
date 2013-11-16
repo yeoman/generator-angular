@@ -1,3 +1,58 @@
+<a name="v0.6.0"></a>
+## v0.6.0 (TBD)
+
+
+#### Bug Fixes
+
+* **bootstrap:** some plugins have ordering dependencies ([3da4a130](http://github.com/yeoman/generator-angular/commit/3da4a1301e0b744c7a6054fafff26fff16b6442b))
+* **docs:** Add coffeescript=false to readme ([abd7dc38](http://github.com/yeoman/generator-angular/commit/abd7dc38be0cf511307c784f30d59c9fdcaea3e2))
+* **gen:**
+  * remove extra "App" from service spec files ([4053f11f](http://github.com/yeoman/generator-angular/commit/4053f11f800280569f5b7396ad015f0a6bcc7b49))
+  * options should have descriptions ([da001832](http://github.com/yeoman/generator-angular/commit/da001832dbdb268b3bf38f359c72b40c401273e4))
+* **styles:** update path to icon images ([8daad4f2](http://github.com/yeoman/generator-angular/commit/8daad4f2de9dbde4fcc810527da7c9607e1db8d4))
+
+#### Features
+
+* **app:**
+  * update to angular 1.2.0 ([77082c6b](http://github.com/yeoman/generator-angular/commit/77082c6b8d1dda76579f1970a270dffc359f027f))
+  * upgrade to Bootstrap 3.0.1 ([59f4b1ba](http://github.com/yeoman/generator-angular/commit/59f4b1ba73842b758174ad44a7da60af4f4db63f))
+* **gen:**
+  * allow app names to have custom suffix ([09f0f7b3](http://github.com/yeoman/generator-angular/commit/09f0f7b3a8c3264b7527bc9fed8c709becec99eb))
+  * add option to not add to index ([486ee146](http://github.com/yeoman/generator-angular/commit/486ee14660ac51b7cfcb4b7de50135833954f193))
+
+<a name="v0.5.1"></a>
+### v0.5.1 (2013-10-22)
+
+
+#### Bug Fixes
+
+* **app:** test setup in default configuration ([2bebccbd](http://github.com/yeoman/generator-angular/commit/2bebccbdd15d177805440b6d1ec84cc38a2b4678))
+
+<a name="v0.5.0"></a>
+## v0.5.0 (2013-10-17)
+
+
+#### Bug Fixes
+
+* **app:**
+  * serve files from correct place ([fe2bad04](http://github.com/yeoman/generator-angular/commit/fe2bad0417b3138fa2788c17abcf7eb5be5f3e91))
+  * include bootstrap images for css/scss ([e88dba43](http://github.com/yeoman/generator-angular/commit/e88dba43f2e714d69bca366cade453f49a24b62c), closes [#196](http://github.com/yeoman/generator-angular/issues/196))
+  * allow normal javascript to be created ([c8190b55](http://github.com/yeoman/generator-angular/commit/c8190b55284e8c1570cc8fafdc8723250f43829b), closes [#329](http://github.com/yeoman/generator-angular/issues/329), [#316](http://github.com/yeoman/generator-angular/issues/316))
+  * conditional include of jquery ([bc1e68e3](http://github.com/yeoman/generator-angular/commit/bc1e68e30450edc16145b934487f6df5eaaddcd8), closes [#362](http://github.com/yeoman/generator-angular/issues/362))
+* **build:**
+  * remove references to global yeomanConfig ([a0f16e26](http://github.com/yeoman/generator-angular/commit/a0f16e265729586802121c0fe3111f974e5145ec))
+  * update to grunt-contrib-connect 0.5.0 ([67c0ebf0](http://github.com/yeoman/generator-angular/commit/67c0ebf081889658a33bc690c530c3c8bc8a2c12))
+  * update to grunt-contrib-connect 0.4.0 ([368ad7f9](http://github.com/yeoman/generator-angular/commit/368ad7f9a16be0ee67e5182be581669017788f16))
+* **docs:** fixed typo in readme ([a967907c](http://github.com/yeoman/generator-angular/commit/a967907cf523bac752b3fa9ea6363767d8855162))
+* **generator:** add app modules dependency to app ([a45b71c9](http://github.com/yeoman/generator-angular/commit/a45b71c95c18deb85ff7a1538c0b0744e4faa508), closes [#230](http://github.com/yeoman/generator-angular/issues/230))
+* **templates:**
+  * Gruntfile indentation ([6f7d17e2](http://github.com/yeoman/generator-angular/commit/6f7d17e2a0f1f7f9f8cac3157beb07b82e8cf400))
+  * take out semicolons in coffeescript ([e38124ee](http://github.com/yeoman/generator-angular/commit/e38124eeb369b7741adc263f1763c618a918ee65))
+  * correct coffee provider template ([86aefe5d](http://github.com/yeoman/generator-angular/commit/86aefe5da49abe82e054666641f8ee4bdc8d555e))
+  * value generator should use value template ([67d0c5ad](http://github.com/yeoman/generator-angular/commit/67d0c5ad5cbc58a2dfcfd8f3db1f45be21afe357))
+* **test:** update tests to match service files ([c30464c3](http://github.com/yeoman/generator-angular/commit/c30464c3a5216169026c23a6fea23d273bd0b948), closes [#338](http://github.com/yeoman/generator-angular/issues/338), [#354](http://github.com/yeoman/generator-angular/issues/354))
+* **views:** correct path for sub views ([0568e744](http://github.com/yeoman/generator-angular/commit/0568e74446c5a8e28d2cea1a9a9a5886be190d7d), closes [#359](http://github.com/yeoman/generator-angular/issues/359))
+
 <a name="v0.4.0"></a>
 ## v0.4.0 (2013-08-21)
 
