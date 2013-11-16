@@ -252,6 +252,7 @@ Generator.prototype.packageFiles = function () {
   this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
   this.template('../../templates/common/replace.conf.js', 'replace.conf.js');
   this.template('../../templates/common/scenarios.js', 'test/spec/e2e/scenarios.js');
+  this.template('../../templates/common/tar.gz.xml', 'maven/assembly/tar.gz.xml');
   this.template('../../templates/common/_ruby-gemset', '.ruby-gemset');
   this.copy('../../templates/common/_ruby-version', '.ruby-version');
 };

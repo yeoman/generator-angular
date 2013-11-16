@@ -6,9 +6,9 @@
     "angular": "~1.0.7",
     "json3": "~3.2.4",<% if (bootstrap) { %>
     "bootstrap-sass": "~2.3.1",
-    <% } %>"es5-shim": "~2.0.8"<% if (resourceModule) { %>,
+    <% } %>"es5-shim": "~2.0.8",
     "angular-translate": "~1.1.0",
-    "angular-i18n": "~1.0.7",
+    "angular-i18n": "~1.0.7"<% if (resourceModule) { %>,
     "angular-resource": "~1.0.7"<% } %><% if (cookiesModule) { %>,
     "angular-cookies": "~1.0.7"<% } %><% if (sanitizeModule) { %>,
     "angular-sanitize": "~1.0.7"<% } %>
