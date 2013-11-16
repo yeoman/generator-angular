@@ -110,13 +110,24 @@ module.exports = function (grunt) {
           }
         }
       },
-      dist: {
+      test: {
         options: {
-          open: '<%= yeoman.local %>',
+          port: 9001,
           middleware: function (connect) {
             return [
               mountFolder(connect, 'test', 86400000),
-              mountFolder(connect, '<%%= yeoman.dist %>', 86400000),
+              mountFolder(connect, '<%%= yeoman.dist %>', 86400000)
+            ];
+          }
+        }
+      },
+      dist: {
+        options: {
+          open: '<%%= yeoman.local %>',
+          middleware: function (connect) {
+            return [
+              mountFolder(connect, 'test'),
+              mountFolder(connect, '<%%= yeoman.dist %>'),
               proxyFolder('/_api/', '<%%= yeoman.api %>')
             ];
           }
@@ -416,12 +427,12 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js'
       },
       e2e: {
-        proxies: {'/': 'http://localhost:<%%= connect.options.port %>/'},
+        proxies: {'/': 'http://localhost:<%%= connect.test.options.port %>/'},
         configFile: 'karma-e2e.conf.js',
         browsers: ['Chrome']
       },
       e2eTeamcity: {
-        proxies: {'/': 'http://localhost:<%%= connect.options.port %>/'},
+        proxies: {'/': 'http://localhost:<%%= connect.test.options.port %>/'},
         configFile: 'karma-e2e.conf.js',
         transports: ['xhr-polling'],
         reporters: ['dots', 'teamcity']
@@ -500,9 +511,10 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', function (target) {
     if (target === 'ci') {
-      return grunt.task.run(['connect:dist', 'karma:e2eTeamcity']);
+      grunt.task.run(['connect:test', 'karma:e2eTeamcity']);
+    } else {
+      grunt.task.run(['pre-build', 'karma:single']);
     }
-    grunt.task.run(['pre-build', 'karma:single']);
   });
 
   grunt.registerTask('build', function (target) {
@@ -522,7 +534,7 @@ module.exports = function (grunt) {
         'clean:dist',
         'test',
         'package',
-        'connect:dist',
+        'connect:test',
         'karma:e2e'
       ]);
     }
