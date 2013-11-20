@@ -105,9 +105,14 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js'<% if (!coffee) { %>,
-        '<%%= yeoman.app %>/scripts/{,*/}*.js',
-        'test/spec/{,*/}*.js'<% } %>
-      ]
+        '<%%= yeoman.app %>/scripts/{,*/}*.js'<% } %>
+      ]<% if (!coffee) { %>,
+      test: {
+        options: {
+          jshintrc: 'test/.jshintrc'
+        },
+        src: ['test/spec/{,*/}*.js']
+      }<% } %>
     },
 
     // Empties folders to start fresh
