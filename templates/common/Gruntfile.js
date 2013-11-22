@@ -385,6 +385,18 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
+    },
+    targethtml: {
+      dist: {
+        options: {
+          curlyTags: {
+            base: '/'
+          }
+        },
+        files: {
+          '<%%= yeoman.dist %>/index.html': '<%%= yeoman.dist %>/index.html'
+        }
+      }
     }
   });
 
@@ -428,7 +440,8 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'rev',
-    'usemin'
+    'usemin',
+    'targethtml'
   ]);
 
   grunt.registerTask('default', [
