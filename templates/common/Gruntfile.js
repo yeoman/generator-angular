@@ -435,7 +435,7 @@ module.exports = function (grunt) {
         proxies: {'/': 'http://localhost:<%%= connect.test.options.port %>/'},
         configFile: 'karma-e2e.conf.js',
         transports: ['xhr-polling'],
-        reporters: ['dots', 'teamcity']
+        reporters: ['dots', 'teamcity', 'saucelabs']
       },
       unit: {
         configFile: 'karma.conf.js',

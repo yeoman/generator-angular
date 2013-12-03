@@ -28,10 +28,8 @@ module.exports = function(config) {
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
-
 
     // Start these browsers, currently available:
     // - Chrome
@@ -41,8 +39,10 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['SauceLabsChrome', 'SauceLabsFF', 'SauceLabsSafari6', 'SauceLabsIE10'/*, 'SauceLabsSafari5'*/],
-
+    browsers: (process.env.SAUCE_BROWSERS ? 
+      process.env.SAUCE_BROWSERS.split(' ').map(function(value){ return 'SauceLabs'+value; }) : 
+      ['SauceLabsChrome', 'SauceLabsFF', 'SauceLabsSafari6', 'SauceLabsIE11']
+    ),
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
@@ -63,6 +63,12 @@ module.exports = function(config) {
         base: 'SauceLabs',
         browserName: 'firefox',
         platform: 'Windows 7'
+      },
+      SauceLabsIE11: {
+        base: 'SauceLabs',
+        browserName: 'internet explorer',
+        version: '11',
+        platform: 'Windows 8.1'
       },
       SauceLabsIE10: {
         base: 'SauceLabs',
