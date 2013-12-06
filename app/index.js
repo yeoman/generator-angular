@@ -104,7 +104,23 @@ var Generator = module.exports = function Generator(args, options) {
 
 util.inherits(Generator, yeoman.generators.Base);
 
+Generator.prototype.askForCompass = function askForCompass() {
+  var cb = this.async();
+
+  this.prompt([{
+    type: 'confirm',
+    name: 'compass',
+    message: 'Would you like to use Sass (with Compass)?',
+    default: true
+  }], function (props) {
+    this.compass = props.compass;
+
+    cb();
+  }.bind(this));
+};
+
 Generator.prototype.askForBootstrap = function askForBootstrap() {
+  var compass = this.compass;
   var cb = this.async();
 
   this.prompt([{
@@ -115,10 +131,10 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
   }, {
     type: 'confirm',
     name: 'compassBootstrap',
-    message: 'Would you like to use the SCSS version of Twitter Bootstrap with the Compass CSS Authoring Framework?',
+    message: 'Would you like to use the Sass version of Twitter Bootstrap?',
     default: true,
     when: function (props) {
-      return props.bootstrap;
+      return props.bootstrap && compass;
     }
   }], function (props) {
     this.bootstrap = props.bootstrap;
@@ -193,23 +209,21 @@ Generator.prototype.readIndex = function readIndex() {
 
 // Waiting a more flexible solution for #138
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
-  var sass = this.compassBootstrap;
   var files = [];
-  var source = 'styles/' + ( sass ? 's' : '' ) + 'css/';
 
-  if (this.bootstrap && !sass) {
+  if (this.bootstrap && !this.compassBootstrap) {
     files.push('bootstrap.css');
+    this.copy('styles/css/bootstrap.css', 'app/styles/bootstrap.css');
     this.copy('fonts/glyphicons-halflings-regular.eot', 'app/fonts/glyphicons-halflings-regular.eot');
     this.copy('fonts/glyphicons-halflings-regular.ttf', 'app/fonts/glyphicons-halflings-regular.ttf');
     this.copy('fonts/glyphicons-halflings-regular.svg', 'app/fonts/glyphicons-halflings-regular.svg');
     this.copy('fonts/glyphicons-halflings-regular.woff', 'app/fonts/glyphicons-halflings-regular.woff');
   }
 
-  files.push('main.' + (sass ? 's' : '') + 'css');
-
-  files.forEach(function (file) {
-    this.copy(source + file, 'app/styles/' + file);
-  }.bind(this));
+  var source = 'styles/' + (this.compass ? 's' : '') + 'css/';
+  var mainFile = 'main.' + (this.compass ? 's' : '') + 'css';
+  files.push(mainFile);
+  this.copy(source + mainFile, 'app/styles/' + mainFile);
 
   this.indexFile = this.appendFiles({
     html: this.indexFile,
