@@ -175,6 +175,7 @@ Generator.prototype.askForModules = function askForModules() {
     }
     if (this.routeModule) {
       angMods.push("'ngRoute'");
+      this.env.options.ngRoute = true;
     }
 
     if (angMods.length) {
