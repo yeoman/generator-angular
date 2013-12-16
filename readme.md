@@ -1,9 +1,6 @@
 # AngularJS generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular.png?branch=master)](http://travis-ci.org/yeoman/generator-angular) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
-Maintainer: [Brian Ford](https://github.com/btford)
-
-Based on [angular-seed](https://github.com/angular/angular-seed/)
-
+A Yeoman generator for [AngularJS](http://angularjs.org/). Tries to use sensible defaults to get a project up and running with AngularJS quickly while still following some best practives.
 
 ## Usage
 
