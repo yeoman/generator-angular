@@ -1,3 +1,39 @@
+<a name="v0.7.0"></a>
+## v0.7.0 (2013-12-20)
+
+
+#### Bug Fixes
+
+* **app:**
+  * copy view files to dist folder ([8a52a265](http://github.com/yeoman/generator-angular/commit/8a52a265aa15a0f589109d6cd1dac4ae7dc5a3e9))
+  * only copy CSS if Compass is not installed ([7e586745](http://github.com/yeoman/generator-angular/commit/7e58674585e138c0f2eb81f46ef2cc4f1b9a3bf8))
+  * services use classified names ([56a71a83](http://github.com/yeoman/generator-angular/commit/56a71a83cdf90f81bb37b422ba4d40e75d28e1fe), closes [#484](http://github.com/yeoman/generator-angular/issues/484))
+  * reload JS files in watch ([d20f5bd2](http://github.com/yeoman/generator-angular/commit/d20f5bd20ba95d47447f8acceee491a0a0ba9724))
+* **build:** deselecting ngRoute does remove route stuff ([a358c1ae](http://github.com/yeoman/generator-angular/commit/a358c1ae69bff6a7708ea0a77248698f931f2e4d), closes [#486](http://github.com/yeoman/generator-angular/issues/486))
+* **deps:** hard-pin angular 1.2.5 ([49c7f980](http://github.com/yeoman/generator-angular/commit/49c7f9802c6d7e9347c73ffe018c36b750342cb1))
+* **gen:** fix bower install prompt during project gen ([706f1336](http://github.com/yeoman/generator-angular/commit/706f1336852923e409d669ae6fc6faeda7bbb017), closes [#505](http://github.com/yeoman/generator-angular/issues/505))
+
+
+#### Features
+
+* **app:**
+  * add jasmine browser global to test jshintrc ([11b6ed42](http://github.com/yeoman/generator-angular/commit/11b6ed42b5e941f25cc305eb5c4e8ba49586cf64))
+  * use lowercase file names ([23e5d772](http://github.com/yeoman/generator-angular/commit/23e5d7724e7e02e4b974f4e804f35eca33a53aea), closes [#463](http://github.com/yeoman/generator-angular/issues/463))
+  * use htmlmin for smaller HTML files ([2b85a52a](http://github.com/yeoman/generator-angular/commit/2b85a52a054ac8cf1ab86ce1cd3de7819d30ea52), closes [#469](http://github.com/yeoman/generator-angular/issues/469))
+  * use grunt-bower-install for dep management ([ba7b5051](http://github.com/yeoman/generator-angular/commit/ba7b505117307059a6d013d838c8aeff6db0e452), closes [#497](http://github.com/yeoman/generator-angular/issues/497))
+* **gen:**
+  * additional work for compass support ([11cb9943](http://github.com/yeoman/generator-angular/commit/11cb99437271b6e8f6cdaee8fd5fc9cda7a20d1d))
+  * add Compass support to the initialization process ([7fac1194](http://github.com/yeoman/generator-angular/commit/7fac1194179df3181f52258b0aa7333799fec253))
+
+
+#### Breaking Changes
+
+* Deselecting ngRoute adds controller and ng-include to index.html
+ ([a358c1ae](http://github.com/yeoman/generator-angular/commit/a358c1ae69bff6a7708ea0a77248698f931f2e4d))
+* `--minsafe` flag is now deprecated. ([f0bb8da2](http://github.com/yeoman/generator-angular/commit/f0bb8da2d67c3f627bf775e2d4f53340b5c980c4), closes [#452](http://github.com/yeoman/generator-angular/issues/452))
+* `grunt server` is now deprecated. Use `grunt serve` instead
+ ([ef056319](http://github.com/yeoman/generator-angular/commit/ef0563192a9e3fc834ae97e7ec68470bcfdf56eb))
+
 <a name="v0.6.0"></a>
 ## v0.6.0 (2013-12-05)
 
