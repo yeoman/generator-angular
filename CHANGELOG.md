@@ -1,3 +1,16 @@
+<a name="v0.7.1"></a>
+### v0.7.1 (2013-12-22)
+
+
+#### Bug Fixes
+
+* **Gruntfile:** correct attribute quoting ([ca765509](http://github.com/yeoman/generator-angular/commit/ca765509b4bf3d827ac40206ea9bb84936b806cc), closes [#521](http://github.com/yeoman/generator-angular/issues/521))
+
+
+#### Features
+
+* **app:** upgrade to AngularJS 1.2.6 ([2f7fa90c](http://github.com/yeoman/generator-angular/commit/2f7fa90cc698edb565926fcf6cce77c52f5785ae))
+
 <a name="v0.7.0"></a>
 ## v0.7.0 (2013-12-20)
 
