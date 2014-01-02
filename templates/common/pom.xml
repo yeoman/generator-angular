@@ -78,18 +78,6 @@
                 <executions>
 
                     <execution>
-                        <id>clean sauce labs tunnel</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <phase>clean</phase>
-                        <configuration>
-                            <executable>${project.basedir}/lib/sauce_connect_kill.sh</executable>
-                            <workingDirectory>${project.basedir}</workingDirectory>
-                        </configuration>
-                    </execution>
-
-                    <execution>
                         <id>run npm install</id>
                         <goals>
                             <goal>exec</goal>
@@ -178,18 +166,6 @@
                                 <argument>test:ci</argument>
                                 <argument>--no-color</argument>
                             </arguments>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>kill sauce labs tunnel</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <phase>post-integration-test</phase>
-                        <configuration>
-                            <executable>${project.basedir}/lib/sauce_connect_kill.sh</executable>
-                            <workingDirectory>${project.basedir}</workingDirectory>
                         </configuration>
                     </execution>
 

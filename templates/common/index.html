@@ -1,37 +1,73 @@
 <!doctype html>
+<!--
+  #set( $languages = ["de","en","es","fr","it","ja","ko","pl","pt","ru","tr"] )
+  #if( !$languages.contains($locale) )
+    #set( $locale = "en" )
+  #end
+-->
 <html ng-app="<%= scriptAppName %>">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <base href="${clientTopology.<%= _.camelize(appname) %>StaticsUrl}">
-    <title><%= _.camelize(appname) %></title>
+    <base href="${clientTopology.<%= simplename %>StaticsUrl}">
+    <title><%= appname %></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <script type="text/javascript">
-      function ClientCtrl($rootScope) {
-        function fixOrigin(url) {
-          if (url.indexOf('://www.') === -1) {
-            return url;
-          } else {
-            return url.replace(/:\/\/www\./g, '://' + window.location.host.substr(0, window.location.host.indexOf('.')) + '.');
-          }
-        }
+    <meta name="robots" content="noindex, nofollow">
 
-        $rootScope.clientConfig = {
-          apiUrl: fixOrigin('${clientTopology.<%= _.camelize(appname) %>ApiUrl}'),
-          partialsUrl: fixOrigin('${clientTopology.<%= _.camelize(appname) %>PartialsUrl}')
-        };
-      }
-    </script>
+    <% if (dashboardApp) { %><link rel="stylesheet" href="${clientTopology.staticBaseUrl}services/third-party/fonts/Helvetica/fontFace.css"><% } %>
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
   </head>
-  <body ng-controller="ClientCtrl">
+  <body>
     <!--[if lt IE 9]>
       <script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
+    <% if (dashboardApp) { %>
+    <div wix-top-menu="sites"></div>
+    <div wix-dashboard-site-menu="${metaSiteId}"></div>
+    <div wix-dashboard-app="dashboard">
+      <!-- Add your site or application content here -->
+      <div class="container" ng-include="clientConfig.partialsUrl+'views/main.html'"></div>
+    </div>
+    <% } else { %>
     <!-- Add your site or application content here -->
-    <div class="container" ng-view></div>
+    <div class="container" ng-include="clientConfig.partialsUrl+'views/main.html'"></div>
+    <% } %>
+
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <% if (!dashboardApp) { %><script src="bower_components/angular-translate/angular-translate.js"></script><% } %>
+    <script src="bower_components/angular-i18n/angular-locale_${locale}.js"></script>
+    <script src="scripts/locale/messages_${locale}.js"></script>
+
+    <!-- build:js scripts/modules.js -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <!-- endbuild -->
+
+    <script>
+      function fixOrigin(url) {
+        return url.replace(/^(.*:\/\/+)?[^\/]*/, window.location.protocol + '//' + window.location.host);
+      }
+      angular.module('<%= scriptAppName %>').constant('clientConfig', {
+        apiUrl: fixOrigin('/_api/<%= _.slugify(_.humanize(appname)) %>-webapp/'),
+        staticsUrl: '${clientTopology.<%= simplename %>StaticsUrl}',
+        partialsUrl: fixOrigin('${clientTopology.<%= simplename %>StaticsUrl}').replace('/services/', '/_partials/')
+      });
+    </script>
+
+    <% if (dashboardApp) { %>
+    <!-- wix-dashboard-menu -->
+    <script src="${clientTopology.publicUrl}create/my-account/framework.js"></script>
+    <!-- end-wix-dashboard-menu -->
+    <% } %>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
@@ -43,10 +79,5 @@
       ga('create', '${googleAnalytics}');
       ga('send', 'pageview');
     </script>
-
-    <% if (bootstrap) { %><script src="bower_components/jquery/jquery.js"></script><% } %>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-i18n/angular-locale_${locale}.js"></script>
-    <script src="scripts/locale/messages_${locale}.js"></script>
   </body>
 </html>

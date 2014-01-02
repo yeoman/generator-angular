@@ -1,13 +1,9 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>', [<%= angularModules %>])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
+  .config(function ($sceDelegateProvider, clientConfig) {
+    $sceDelegateProvider.resourceUrlWhitelist([clientConfig.staticsUrl+'**', 'self']);
+  })
+  .run(function ($rootScope, clientConfig) {
+    $rootScope.clientConfig = clientConfig;
   });

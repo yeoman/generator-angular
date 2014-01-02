@@ -38,7 +38,8 @@ module.exports = function (grunt) {
       app: require('./bower.json').appPath || 'app',
       dist: 'dist',
       api: 'http://www.pizza.wixpress.com/_api/',
-      local: 'http://localhost:<%%= connect.options.port %>'
+      partials: 'http://www.pizza.wixpress.com/_partials/',
+      local: 'http://local.pizza.wixpress.com:<%%= connect.options.port %>'
     },
 
     // Watches files for changes and runs tasks based on the changed files
@@ -52,8 +53,8 @@ module.exports = function (grunt) {
         tasks: ['haml']
       },
       replace: {
-        files: ['<%%= yeoman.app %>/index.vm'],
-        tasks: ['replace:server']
+        files: ['<%%= yeoman.app %>/*.vm'],
+        tasks: ['replace', 'copy:vm']
       },
       test: {
         files: [
@@ -105,14 +106,15 @@ module.exports = function (grunt) {
               mountFolder(connect, '.tmp'),
               mountFolder(connect, 'test'),
               mountFolder(connect, '<%%= yeoman.app %>'),
-              proxyFolder('/_api/', '<%%= yeoman.api %>')
+              proxyFolder('/_api/', '<%%= yeoman.api %>'),
+              proxyFolder('/_partials/', '<%%= yeoman.partials %>')
             ];
           }
         }
       },
       test: {
         options: {
-          port: 9001,
+          //port: 9001,
           middleware: function (connect) {
             return [
               mountFolder(connect, 'test', 86400000),
@@ -128,7 +130,8 @@ module.exports = function (grunt) {
             return [
               mountFolder(connect, 'test'),
               mountFolder(connect, '<%%= yeoman.dist %>'),
-              proxyFolder('/_api/', '<%%= yeoman.api %>')
+              proxyFolder('/_api/', '<%%= yeoman.api %>'),
+              proxyFolder('/_partials/', '<%%= yeoman.partials %>')
             ];
           }
         }
@@ -258,7 +261,7 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: '<%%= yeoman.app %>/index.{html,vm}',
+      html: '<%%= yeoman.app %>/*.{html,vm}',
       options: {
         dest: '<%%= yeoman.dist %>'
       }
@@ -266,7 +269,7 @@ module.exports = function (grunt) {
 
     // Performs rewrites based on rev and the useminPrepage configuration
     usemin: {
-      html: ['<%%= yeoman.dist %>/{,*/}*.{html,vm}'],
+      html: ['<%%= yeoman.dist %>/*.{html,vm}'],
       options: {
         assetsDirs: ['<%%= yeoman.dist %>']
       }
@@ -313,17 +316,7 @@ module.exports = function (grunt) {
           // removeEmptyAttributes: true,
           // removeOptionalTags: true*/
         },
-        files: [{
-          expand: true,
-          cwd: '<%%= yeoman.app %>',
-          src: ['*.vm', '*.html', 'views/*.html'],
-          dest: '<%%= yeoman.dist %>'
-        },{
-          expand: true,
-          cwd: '.tmp',
-          src: ['*.vm', '*.html', 'views/*.html'],
-          dest: '<%%= yeoman.dist %>'
-        }]
+        files: []
       }
     },
 
@@ -342,6 +335,9 @@ module.exports = function (grunt) {
 
     // Replace Google CDN references
     cdnify: {
+      options: {
+        cdn: require('wix-cdn-data').http()
+      },
       dist: {
         html: ['<%%= yeoman.dist %>/*.html', '<%%= yeoman.dist %>/*.vm']
       }
@@ -351,6 +347,16 @@ module.exports = function (grunt) {
     copy: {
       dist: {
         files: [{
+          expand: true,
+          cwd: '<%%= yeoman.app %>',
+          src: ['*.vm', '*.html', 'views/*.html'],
+          dest: '<%%= yeoman.dist %>'
+        },{
+          expand: true,
+          cwd: '.tmp',
+          src: ['*.html', 'views/*.html'],
+          dest: '<%%= yeoman.dist %>'
+        },{
           expand: true,
           dot: true,
           cwd: '<%%= yeoman.app %>',
@@ -370,6 +376,21 @@ module.exports = function (grunt) {
         cwd: '<%%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      vm: {
+        files: [{
+          expand: true,
+          cwd: '.tmp',
+          dest: '.tmp',
+          src: '*.js.vm',
+          ext: '.js'
+        }, {
+          expand: true,
+          cwd: '.tmp',
+          dest: '.tmp',
+          src: '*.vm',
+          ext: '.html'
+        }]
       }
     },
 
@@ -379,13 +400,12 @@ module.exports = function (grunt) {
         'haml',
         'coffee',
         'compass:dist',
-        'replace:server',
+        'replace',
         'copy:styles'
       ],
       dist: [
         'imagemin',
         'svgmin',
-        'htmlmin',
         'copy:dist'
       ]
     },
@@ -445,15 +465,10 @@ module.exports = function (grunt) {
       }
     },
     replace: {
-      server: {
-        src: ['<%%= yeoman.app %>/index.vm'],
-        dest: '.tmp/index.html',
-        replacements: require('./replace.conf').server
-      },
       dist: {
-        src: ['<%%= yeoman.dist %>/index.vm'],
-        dest: '.tmp/index.html',
-        replacements: require('./replace.conf').server
+        src: ['<%%= yeoman.app %>/*.vm'],
+        dest: '.tmp/',
+        replacements: require('./replace.conf')
       }
     },
     haml: {
@@ -476,7 +491,8 @@ module.exports = function (grunt) {
     'clean:server',
     'jshint',
     'concurrent:server',
-    'autoprefixer'
+    'autoprefixer',
+    'copy:vm'
   ]);
 
   grunt.registerTask('package', [
@@ -487,8 +503,7 @@ module.exports = function (grunt) {
     'uglify',
     'concurrent:dist',
     'cdnify',
-    'usemin',
-    'replace:dist'
+    'usemin'
   ]);
 
   grunt.registerTask('serve', function (target) {

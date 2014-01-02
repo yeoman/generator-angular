@@ -1,10 +1,9 @@
 {
-  "name": "<%= _.slugify(appname) %>",
+  "name": "<%= _.slugify(_.humanize(appname)) %>",
   "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
     "grunt-text-replace": "~0.3.7",
-    "underscore": "~1.5.2",
     "grunt-contrib-haml": "~0.1.1",
     "grunt-cli": "~0.1.9",
     "bower": "~1.2.6",
@@ -39,7 +38,7 @@
     "grunt-contrib-jshint": "~0.7.1",
     "grunt-contrib-uglify": "~0.2.0",
     "grunt-contrib-watch": "~0.5.2",
-    "grunt-google-cdn": "~0.2.0",
+    "grunt-google-cdn-shahata": "~0.2.0",
     "grunt-newer": "~0.5.4",
     "grunt-ngmin": "~0.0.2",
     "grunt-rev": "~0.1.0",
@@ -47,7 +46,8 @@
     "grunt-usemin": "~2.0.0",
     "jshint-stylish": "~0.1.3",
     "load-grunt-tasks": "~0.2.0",
-    "time-grunt": "~0.2.1"
+    "time-grunt": "~0.2.1",
+    "wix-cdn-data": "~0.1.0"
   },
   "engines": {
     "node": ">=0.8.0"

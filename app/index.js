@@ -9,8 +9,11 @@ var chalk = require('chalk');
 var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
   this.argument('appname', { type: String, required: false });
-  this.appname = this.appname || path.basename(process.cwd()).replace(/-statics?$/, '');
+  this.appname = this.appname || path.basename(process.cwd());
+  this.appname = this.appname.replace(/-statics?$/, '');
+  this.simplename = this.appname.replace(/^wix-/, '');
   this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
+  this.simplename = this._.camelize(this._.slugify(this._.humanize(this.simplename)));
   this.basename = path.basename(process.cwd());
 
   this.option('app-suffix', {
@@ -20,7 +23,7 @@ var Generator = module.exports = function Generator(args, options) {
   });
   this.scriptAppName = this.appname + angularUtils.appName(this);
 
-  args = ['main'];
+  this.args = args = ['main'];
 
   if (typeof this.env.options.appPath === 'undefined') {
     try {
@@ -126,52 +129,32 @@ Generator.prototype.askForModules = function askForModules() {
   var prompts = [{
     type: 'checkbox',
     name: 'modules',
-    message: 'Which modules would you like to include?',
+    message: 'Which super powers would you like?',
     choices: [{
-      value: 'resourceModule',
-      name: 'angular-resource.js',
-      checked: true
+      value: 'dashboardApp',
+      name: 'wix-dashboard application',
+      checked: false
     }, {
-      value: 'cookiesModule',
-      name: 'angular-cookies.js',
-      checked: true
-    }, {
-      value: 'sanitizeModule',
-      name: 'angular-sanitize.js',
-      checked: true
-    }, {
-      value: 'routeModule',
-      name: 'angular-route.js',
-      checked: true
+      value: 'dashboardPlugin',
+      name: 'wix-dashboard plugin',
+      checked: false
     }]
   }];
 
   this.prompt(prompts, function (props) {
     var hasMod = function (mod) { return props.modules.indexOf(mod) !== -1; };
-    this.resourceModule = hasMod('resourceModule');
-    this.cookiesModule = hasMod('cookiesModule');
-    this.sanitizeModule = hasMod('sanitizeModule');
-    this.routeModule = hasMod('routeModule');
+    this.dashboardApp = hasMod('dashboardApp');
+    this.dashboardPlugin = hasMod('dashboardPlugin');
 
-    var angMods = [];
+    var angMods = ['wixTranslations'];
 
-    if (this.cookiesModule) {
-      angMods.push("'ngCookies'");
-    }
-
-    if (this.resourceModule) {
-      angMods.push("'ngResource'");
-    }
-    if (this.sanitizeModule) {
-      angMods.push("'ngSanitize'");
-    }
-    if (this.routeModule) {
-      angMods.push("'ngRoute'");
+    if (this.dashboardApp || this.dashboardPlugin) {
+      angMods.push('wixDashboardFramework');
+      this.args.push('dashboardApp');
     }
 
     if (angMods.length) {
-      this.env.options.angularDeps = "'wixTranslations', 'ngRoute'";
-      //this.env.options.angularDeps = "\n  " + angMods.join(",\n  ") +"\n";
+      this.env.options.angularDeps = "\n  '" + angMods.join("',\n  '") +"'\n";
     }
 
     cb();
@@ -202,7 +185,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   files.forEach(function (file) {
     this.copy(source + file, 'app/styles/' + file);
   }.bind(this));
-
+  /*
   this.indexFile = this.appendFiles({
     html: this.indexFile,
     fileType: 'css',
@@ -212,6 +195,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     }),
     searchPath: ['.tmp', 'app']
   });
+  */
 };
 
 Generator.prototype.bootstrapJS = function bootstrapJS() {
@@ -236,7 +220,7 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
   ]);
 };
 
-Generator.prototype.extraModules = function extraModules() {
+/*Generator.prototype.extraModules = function extraModules() {
   var modules = ['bower_components/angular-translate/angular-translate.js'];
   if (this.resourceModule) {
     modules.push('bower_components/angular-resource/angular-resource.js');
@@ -268,7 +252,7 @@ Generator.prototype.appJs = function appJs() {
     sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js'],
     searchPath: ['.tmp', 'app']
   });
-};
+};*/
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
   this.write(path.join(this.appPath, 'index.vm'), this.indexFile);
@@ -278,13 +262,16 @@ Generator.prototype.packageFiles = function () {
   var pom = this.read('../../templates/common/pom.xml', 'utf8').replace(/\$\{/g, '(;$};)');
   this.write('pom.xml', this.engine(pom, this).replace(/\(;\$\};\)/g, '${'));
 
+  var replace = this.read('../../templates/common/replace.conf.js', 'utf8').replace(/\$\{/g, '(;$};)');
+  this.write('replace.conf.js', this.engine(replace, this).replace(/\(;\$\};\)/g, '${'));
+
   this.template('../../templates/common/_bower.json', 'bower.json');
   this.template('../../templates/common/_package.json', 'package.json');
   this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
-  this.template('../../templates/common/replace.conf.js', 'replace.conf.js');
   this.template('../../templates/common/scenarios.js', 'test/spec/e2e/scenarios.js');
   this.template('../../templates/common/_ruby-gemset', '.ruby-gemset');
   this.copy('../../templates/common/_ruby-version', '.ruby-version');
+  this.copy('../../templates/common/project.sublime-project', this._.slugify(this._.humanize(this.simplename))+'.sublime-project');
 };
 
 Generator.prototype.imageFiles = function () {
