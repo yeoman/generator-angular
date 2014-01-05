@@ -31,7 +31,7 @@
     <div wix-dashboard-site-menu="${metaSiteId}"></div>
     <div wix-dashboard-app="dashboard">
       <!-- Add your site or application content here -->
-      <div class="container" ng-include="clientConfig.partialsUrl+'views/main.html'"></div>
+      <div class="container" ng-include="wixPluginTopology.partialsUrl+'views/main.html'"></div>
     </div>
     <% } else { %>
     <!-- Add your site or application content here -->
@@ -51,7 +51,7 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <!-- endbuild -->
-
+    <% if (!dashboardApp) { %>
     <script>
       function fixOrigin(url) {
         return url.replace(/^(.*:\/\/+)?[^\/]*/, window.location.protocol + '//' + window.location.host);
@@ -62,8 +62,13 @@
         partialsUrl: fixOrigin('${clientTopology.<%= simplename %>StaticsUrl}').replace('/services/', '/_partials/')
       });
     </script>
+    <% } else { %>
+    <script>
+      angular.module('<%= scriptAppName %>').config(function (wixPluginTopologyProvider) {
+        wixPluginTopologyProvider.setStaticsUrl('${clientTopology.<%= simplename %>StaticsUrl}');
+      });
+    </script>
 
-    <% if (dashboardApp) { %>
     <!-- wix-dashboard-menu -->
     <script src="${clientTopology.publicUrl}create/my-account/framework.js"></script>
     <!-- end-wix-dashboard-menu -->

@@ -14,11 +14,15 @@ util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createAppFile = function createAppFile() {
   this.angularModules = this.env.options.angularDeps;
+  this.dashboardApp = this.env.options.dashboardApp;
+  this.dashboardPlugin = this.env.options.dashboardPlugin;
   if (this.name !== 'main') {
     this.appTemplate('app', 'scripts/' + this.name);
   } else if (this.env.options.dashboardApp || !this.env.options.dashboardPlugin) {
     this.appTemplate('app', 'scripts/app');
-    this.testTemplate('mock/client-config', '../mock/client-config');
+    if (!this.env.options.dashboardApp) {
+      this.testTemplate('mock/client-config', '../mock/client-config');
+    }
   }
 
   if (this.env.options.dashboardApp || this.env.options.dashboardPlugin) {
