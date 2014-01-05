@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="robots" content="noindex, nofollow">
 
-    <% if (dashboardApp) { %><link rel="stylesheet" href="${clientTopology.staticBaseUrl}services/third-party/fonts/Helvetica/fontFace.css"><% } %>
+    <% if (!dashboardApp) { %><link rel="stylesheet" href="${clientTopology.staticBaseUrl}services/third-party/fonts/Helvetica/fontFace.css"><% } %>
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->

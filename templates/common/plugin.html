@@ -1,13 +1,13 @@
 <!doctype html>
-<html ng-app="<%= _.camelize(pluginName) %>">
+<html ng-app="<%= _.camelize(name) %>">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><%= _.camelize(pluginName) %></title>
+    <title><%= _.camelize(name) %></title>
     <meta name="viewport" content="width=device-width">
 
-    <!-- build:css({.tmp,app}) styles/<%= pluginName %>.css -->
-    <link rel="stylesheet" href="styles/<%= pluginName %>.css">
+    <!-- build:css({.tmp,app}) styles/<%= name %>.css -->
+    <link rel="stylesheet" href="styles/<%= name %>.css">
     <!-- endbuild -->
   </head>
   <body>
@@ -17,7 +17,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div ng-include="'views/<%= pluginName %>.html'"></div>
+    <div ng-include="'views/<%= name %>.html'"></div>
 
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -25,9 +25,9 @@
     <script src="bower_components/angular-i18n/angular-locale_${locale}.js"></script>
     <script src="scripts/locale/messages_${locale}.js"></script>
 
-    <!-- build:js({.tmp,app}) scripts/<%= pluginName %>.js -->
-    <script src="scripts/<%= pluginName %>.js"></script>
-    <script src="scripts/controllers/<%= pluginName %>.js"></script>
+    <!-- build:js({.tmp,app}) scripts/<%= name %>.js -->
+    <script src="scripts/<%= name %>.js"></script>
+    <script src="scripts/controllers/<%= name %>.js"></script>
     <!-- endbuild -->
 
     <!-- wix-dashboard-menu -->

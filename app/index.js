@@ -58,19 +58,23 @@ var Generator = module.exports = function Generator(args, options) {
   }
 
   this.hookFor('wix-angular:common', {
-    args: args
+    args: args,
+    options: {}
   });
 
   this.hookFor('wix-angular:main', {
-    args: args
+    args: args,
+    options: {}
   });
 
   this.hookFor('wix-angular:controller', {
-    args: args
+    args: args,
+    options: {}
   });
 
   this.hookFor('wix-angular:dashboard-plugin', {
-    args: args
+    args: [this._.slugify(this._.humanize(this.simplename))+'-plugin'],
+    options: {}
   });
 
   this.on('end', function () {
@@ -161,7 +165,9 @@ Generator.prototype.askForModules = function askForModules() {
     }
 
     if (this.dashboardPlugin) {
-      this.env.options.dashboardPlugin = this._.slugify(this._.humanize(this.simplename))+'-plugin';
+      this.env.options.dashboardPlugin = true;
+    } else {
+      this._hooks.splice(-1);
     }
 
     if (angMods.length) {
@@ -193,9 +199,6 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
 
   if (this.dashboardApp || !this.dashboardPlugin) {
     files.push('main.' + (sass ? 's' : '') + 'css');
-  }
-  if (this.dashboardPlugin) {
-    this.copy(source + 'main.' + (sass ? 's' : '') + 'css', 'app/styles/' + this.env.options.dashboardPlugin + '.' + (sass ? 's' : '') + 'css');
   }
 
   files.forEach(function (file) {
@@ -286,10 +289,6 @@ Generator.prototype.packageFiles = function () {
   if (this.dashboardApp || !this.dashboardPlugin) {
     this.classedName = 'Main';
     this.template('../../templates/common/main.haml', 'app/views/main.haml');
-  }
-  if (this.dashboardPlugin) {
-    this.classedName = this._.classify(this._.slugify(this._.humanize(this.simplename)))+'Plugin';
-    this.template('../../templates/common/main.haml', 'app/views/'+this.env.options.dashboardPlugin+'.haml');
   }
 
   this.template('../../templates/common/_bower.json', 'bower.json');
