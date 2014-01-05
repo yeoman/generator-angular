@@ -21,9 +21,9 @@ var Generator = module.exports = function Generator(args, options) {
     type: String,
     required: 'false'
   });
-  this.scriptAppName = this.appname + angularUtils.appName(this);
+  this.scriptAppName = this.simplename + angularUtils.appName(this);
 
-  this.args = args = ['main'];
+  args = ['main'];
 
   if (typeof this.env.options.appPath === 'undefined') {
     try {
@@ -66,6 +66,10 @@ var Generator = module.exports = function Generator(args, options) {
   });
 
   this.hookFor('wix-angular:controller', {
+    args: args
+  });
+
+  this.hookFor('wix-angular:dashboard-plugin', {
     args: args
   });
 
@@ -150,7 +154,14 @@ Generator.prototype.askForModules = function askForModules() {
 
     if (this.dashboardApp || this.dashboardPlugin) {
       angMods.push('wixDashboardFramework');
-      this.args.push('dashboardApp');
+    }
+
+    if (this.dashboardApp) {
+      this.env.options.dashboardApp = true;
+    }
+
+    if (this.dashboardPlugin) {
+      this.env.options.dashboardPlugin = this._.slugify(this._.humanize(this.simplename))+'-plugin';
     }
 
     if (angMods.length) {
@@ -180,7 +191,12 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     this.copy('fonts/glyphicons-halflings-regular.woff', 'app/fonts/glyphicons-halflings-regular.woff');
   }
 
-  files.push('main.' + (sass ? 's' : '') + 'css');
+  if (this.dashboardApp || !this.dashboardPlugin) {
+    files.push('main.' + (sass ? 's' : '') + 'css');
+  }
+  if (this.dashboardPlugin) {
+    this.copy(source + 'main.' + (sass ? 's' : '') + 'css', 'app/styles/' + this.env.options.dashboardPlugin + '.' + (sass ? 's' : '') + 'css');
+  }
 
   files.forEach(function (file) {
     this.copy(source + file, 'app/styles/' + file);
@@ -255,7 +271,9 @@ Generator.prototype.appJs = function appJs() {
 };*/
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
-  this.write(path.join(this.appPath, 'index.vm'), this.indexFile);
+  if (this.dashboardApp || !this.dashboardPlugin) {
+    this.write(path.join(this.appPath, 'index.vm'), this.indexFile);
+  }
 };
 
 Generator.prototype.packageFiles = function () {
@@ -264,6 +282,15 @@ Generator.prototype.packageFiles = function () {
 
   var replace = this.read('../../templates/common/replace.conf.js', 'utf8').replace(/\$\{/g, '(;$};)');
   this.write('replace.conf.js', this.engine(replace, this).replace(/\(;\$\};\)/g, '${'));
+
+  if (this.dashboardApp || !this.dashboardPlugin) {
+    this.classedName = 'Main';
+    this.template('../../templates/common/main.haml', 'app/views/main.haml');
+  }
+  if (this.dashboardPlugin) {
+    this.classedName = this._.classify(this._.slugify(this._.humanize(this.simplename)))+'Plugin';
+    this.template('../../templates/common/main.haml', 'app/views/'+this.env.options.dashboardPlugin+'.haml');
+  }
 
   this.template('../../templates/common/_bower.json', 'bower.json');
   this.template('../../templates/common/_package.json', 'package.json');

@@ -1,0 +1,37 @@
+<!doctype html>
+<html ng-app="<%= _.camelize(pluginName) %>">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= _.camelize(pluginName) %></title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- build:css({.tmp,app}) styles/<%= pluginName %>.css -->
+    <link rel="stylesheet" href="styles/<%= pluginName %>.css">
+    <!-- endbuild -->
+  </head>
+  <body>
+    <!--[if lt IE 9]>
+      <script src="bower_components/es5-shim/es5-shim.js"></script>
+      <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div ng-include="'views/<%= pluginName %>.html'"></div>
+
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.js"></script>
+    <script src="bower_components/angular-i18n/angular-locale_${locale}.js"></script>
+    <script src="scripts/locale/messages_${locale}.js"></script>
+
+    <!-- build:js({.tmp,app}) scripts/<%= pluginName %>.js -->
+    <script src="scripts/<%= pluginName %>.js"></script>
+    <script src="scripts/controllers/<%= pluginName %>.js"></script>
+    <!-- endbuild -->
+
+    <!-- wix-dashboard-menu -->
+    <script src="${clientTopology.publicUrl}create/my-account/framework.js"></script>
+    <!-- end-wix-dashboard-menu -->
+  </body>
+</html>

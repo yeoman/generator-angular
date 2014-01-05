@@ -67,6 +67,9 @@ function appName (self) {
       counter++;
     }
   });
+  if (typeof suffix === 'string') {
+    counter++;
+  }
   if (counter === 0 || (typeof suffix === 'boolean' && suffix)) {
     suffix = 'App';
   }
