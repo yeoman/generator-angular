@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (!dashboardApp && !dashboardPlugin) { %>
+angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (name === 'main' && !dashboardApp && !dashboardPlugin) { %>
   .config(function ($sceDelegateProvider, clientConfig) {
     $sceDelegateProvider.resourceUrlWhitelist([clientConfig.staticsUrl+'**', 'self']);
   })

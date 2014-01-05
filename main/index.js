@@ -17,6 +17,7 @@ Generator.prototype.createAppFile = function createAppFile() {
   this.dashboardApp = this.env.options.dashboardApp;
   this.dashboardPlugin = this.env.options.dashboardPlugin;
   if (this.name !== 'main') {
+    this.angularModules = this.angularModules || "'wixTranslations', 'wixDashboardFramework'";
     this.appTemplate('app', 'scripts/' + this.name);
   } else if (this.env.options.dashboardApp || !this.env.options.dashboardPlugin) {
     this.appTemplate('app', 'scripts/app');

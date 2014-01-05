@@ -16,7 +16,7 @@ var Generator = module.exports = function Generator(args) {
   this.hookFor('wix-angular:main', {
     args: [this.name],
     options: {options: {
-      'app-suffix': 'Plugin',
+      'override-app-name': this.cameledName,
       'skip-add': true
     }}
   });
@@ -24,7 +24,7 @@ var Generator = module.exports = function Generator(args) {
   this.hookFor('wix-angular:controller', {
     args: [this.name],
     options: {options: {
-      'app-suffix': 'Plugin',
+      'override-app-name': this.cameledName,
       'skip-add': true
     }}
   });

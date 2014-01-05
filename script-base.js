@@ -13,7 +13,7 @@ var Generator = module.exports = function Generator() {
     this.appname = path.basename(process.cwd());
   }
   this.appname = this._.slugify(this._.humanize(this.appname));
-  this.scriptAppName = this._.camelize(this.appname) + angularUtils.appName(this);
+  this.scriptAppName = this.options['override-app-name'] || this._.camelize(this.appname) + angularUtils.appName(this);
 
   this.cameledName = this._.camelize(this.name);
   this.classedName = this._.classify(this.name);
