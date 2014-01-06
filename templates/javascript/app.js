@@ -6,7 +6,10 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (name === '
   })
   .run(function ($rootScope, clientConfig) {
     $rootScope.clientConfig = clientConfig;
-  })<% } else if (name !== 'main') { %>
+  });<% } else if (name !== 'main') { %>
   .config (function (wixPluginTopologyProvider) {
     wixPluginTopologyProvider.setPluginProvider('<%= name.replace(/-plugin$/, '') %>');
-  })<% } %>;
+  });<% } else { %>
+  .config (function () {
+    return;
+  });<% } %>
