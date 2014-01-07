@@ -47,6 +47,21 @@ var Generator = module.exports = function Generator(args, options) {
     this.env.options.coffee = this.options.coffee;
   }
 
+  if (typeof this.env.options.typescript === 'undefined') {
+    this.option('typescript', {
+      desc: 'Generate TypeScript instead of JavaScript'
+    });
+
+    // attempt to detect if user is using TS or not
+    // if cml arg provided, use that; else look for the existence of ts
+    if (!this.options.typescript &&
+      this.expandFiles(path.join(this.appPath, '/scripts/**/*.ts'), {}).length > 0) {
+      this.options.typescript = true;
+    }
+
+    this.env.options.typescript = this.options.typescript;
+  }
+
   if (typeof this.env.options.minsafe === 'undefined') {
     this.option('minsafe', {
       desc: 'Generate AngularJS minification safe code'
@@ -263,6 +278,7 @@ Generator.prototype.createIndexHtml = function createIndexHtml() {
 
 Generator.prototype.packageFiles = function () {
   this.coffee = this.env.options.coffee;
+  this.typescript = this.env.options.typescript;
   this.template('../../templates/common/_bower.json', 'bower.json');
   this.template('../../templates/common/_package.json', 'package.json');
   this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');

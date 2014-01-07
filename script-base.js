@@ -32,6 +32,20 @@ var Generator = module.exports = function Generator() {
     this.env.options.testPath = this.env.options.testPath || 'test/spec';
   }
 
+  this.env.options.typescript = this.options.typescript;
+  if (typeof this.env.options.typescript === 'undefined') {
+    this.option('typescript');
+
+    // attempt to detect if user is using CS or not
+    // if cml arg provided, use that; else look for the existence of cs
+    if (!this.options.typescript &&
+      this.expandFiles(path.join(this.env.options.appPath, '/scripts/**/*.ts'), {}).length > 0) {
+      this.options.typescript = true;
+    }
+
+    this.env.options.typescript = this.options.typescript;
+  }
+  
   this.env.options.coffee = this.options.coffee;
   if (typeof this.env.options.coffee === 'undefined') {
     this.option('coffee');
@@ -57,6 +71,11 @@ var Generator = module.exports = function Generator() {
   if (this.env.options.coffee) {
     sourceRoot = '/templates/coffeescript';
     this.scriptSuffix = '.coffee';
+  }
+
+  if (this.env.options.typescript) {
+    sourceRoot = '/templates/typescript';
+    this.scriptSuffix = '.ts';
   }
 
   if (this.env.options.minsafe) {
