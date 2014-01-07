@@ -1,3 +1,9 @@
+/// <reference path="../../../app/bower_components/DefinitivelyTyped/angularjs/angular.d.ts" />
+/// <reference path="../../../app/bower_components/DefinitivelyTyped/angularjs/angular-mocks.d.ts" />
+/// <reference path="../../../app/bower_components/DefinitivelyTyped/jasmine/jasmine.d.ts" />
+
+/// <reference path="../../../app/scripts/controllers/<%= cameledName.toLowerCase() %>.ts" />
+
 'use strict';
 
 describe('Controller: <%= classedName %>Ctrl', function () {
