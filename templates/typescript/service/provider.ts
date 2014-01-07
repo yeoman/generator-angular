@@ -1,25 +1,25 @@
+/// <reference path="../app.ts" />
+
 'use strict';
 
+module <%= scriptAppName %> {
+
+    var salutation:string;
+	
+	export class Greeter {
+		greet = () => salutation;
+	}
+	
+	
+	export class <%= classedName %>Provider {
+		$get = () => new Greeter();
+		
+		// Public API for configuration
+		setSalutation = (s:string) => salutation = s;
+	}
+
+}
+
+
 angular.module('<%= scriptAppName %>')
-  .provider('<%= cameledName %>', function () {
-
-    // Private variables
-    var salutation = 'Hello';
-
-    // Private constructor
-    function Greeter() {
-      this.greet = function () {
-        return salutation;
-      };
-    }
-
-    // Public API for configuration
-    this.setSalutation = function (s) {
-      salutation = s;
-    };
-
-    // Method for instantiating
-    this.$get = function () {
-      return new Greeter();
-    };
-  });
+  .provider('<%= cameledName %>', <%= scriptAppName %>.<%= classedName %>Provider);

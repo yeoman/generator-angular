@@ -1,9 +1,18 @@
+/// <reference path="../app.ts" />
+
 'use strict';
 
+module <%= scriptAppName %>{
+	export function <%= cameledName %>DecoratorProvider($provide:ng.auto.IProvideService):void {
+		//decorate <%= cameledName %>
+		$provide.decorator('<%= cameledName %>', <%= cameledName %>Decorator);
+	}
+
+	export function <%= cameledName %>Decorator($delegate) {
+		// decorate the $delegate
+		return $delegate;
+	}
+}
+
 angular.module('<%= scriptAppName %>')
-    .config(function ($provide) {
-        $provide.decorator('<%= cameledName %>', function ($delegate) {
-            // decorate the $delegate
-            return $delegate;
-        });
-    });
+    .config(<%= scriptAppName %>.<%= cameledName %>DecoratorProvider);

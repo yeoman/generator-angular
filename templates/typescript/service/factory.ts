@@ -1,16 +1,21 @@
+/// <reference path="../app.ts" />
+
 'use strict';
 
+module <%= scriptAppName %> {
+    export function <%= cameledName %>Factory() {
+		return new <%= classedName %>(42);
+	}
+	export class <%= classedName %> {
+
+		constructor (private meaningOfLife) {
+		}
+
+		someMethod(){
+		    return this.meaningOfLife
+		}
+	}
+}
+
 angular.module('<%= scriptAppName %>')
-  .factory('<%= cameledName %>', function () {
-    // Service logic
-    // ...
-
-    var meaningOfLife = 42;
-
-    // Public API here
-    return {
-      someMethod: function () {
-        return meaningOfLife;
-      }
-    };
-  });
+  .factory('<%= cameledName %>', <%= scriptAppName %>.<%= cameledName %>Factory);

@@ -1,6 +1,16 @@
+/// <reference path="../app.ts" />
+
 'use strict';
 
+module <%= scriptAppName %> {
+	export class <%= classedName %> {
+		awesomeThings:any[] = [
+              'HTML5 Boilerplate',
+              'AngularJS',
+              'Karma'
+            ];
+	}
+}
+
 angular.module('<%= scriptAppName %>')
-  .service('<%= classedName %>', function <%= classedName %>() {
-    // AngularJS will instantiate a singleton by calling "new" on this function
-  });
+  .service('<%= cameledName %>', <%= scriptAppName %>.<%= classedName %>);
