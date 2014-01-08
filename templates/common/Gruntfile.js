@@ -41,7 +41,7 @@ module.exports = function (grunt) {
       },
       typescriptTest: {
         files: ['test/spec/{,*/}*.ts'],
-        tasks: ['typescript:test']
+        tasks: ['typescript:test', 'karma']
       },<% } else { %>
       js: {
         files: ['<%%= yeoman.app %>/scripts/{,*/}*.js'],
