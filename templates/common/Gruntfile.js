@@ -484,6 +484,12 @@ module.exports = function (grunt) {
           ext: '.html'
         }]
       }
+    },
+    release: {
+      options: {
+        file: 'bower.json',
+        npm: false
+      }
     }
   });
 
