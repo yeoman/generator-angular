@@ -4,8 +4,7 @@
   "dependencies": {
     "angular": "1.2.6",
     "json3": "~3.2.6",
-    "es5-shim": "~2.1.0"<% if (typescript) { %>,
-    "definitivelyTyped": "https://github.com/borisyankov/DefinitelyTyped.git"<% } %><% if (bootstrap) { %>,
+    "es5-shim": "~2.1.0"<% if (bootstrap) { %>,
     "jquery": "~1.10.2"<% if (compassBootstrap) { %>,
     "sass-bootstrap": "~3.0.2"<% } else { %>,
     "bootstrap": "~3.0.3"<% } } %><% if (resourceModule) { %>,
@@ -16,6 +15,8 @@
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",
-    "angular-scenario": "1.2.6"
+    "angular-scenario": "1.2.6"<% if (typescript) { %>,
+    "dt-jasmine": "~2.0.0",
+    "dt-angular": "https://github.com/jedmao/dt-angular/archive/v1.2.0.tar.gz"<% } %>
   }
 }

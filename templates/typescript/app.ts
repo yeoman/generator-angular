@@ -1,8 +1,8 @@
-/// <reference path="../bower_components/definitivelyTyped/angularjs/angular.d.ts" />
-<% if (ngRoute) { %>/// <reference path="../bower_components/definitivelyTyped/angularjs/angular-route.d.ts" /><% } %>
-/// <reference path="../bower_components/definitivelyTyped/angularjs/angular-resource.d.ts" />
-/// <reference path="../bower_components/definitivelyTyped/angularjs/angular-sanitize.d.ts" />
-/// <reference path="../bower_components/definitivelyTyped/angularjs/angular-resource.d.ts" />
+/// <reference path="../bower_components/dt-angular/angular.d.ts" />
+<% if (ngRoute) { %>/// <reference path="../bower_components/dt-angular/angular-route.d.ts" /><% } %>
+/// <reference path="../bower_components/dt-angular/angular-resource.d.ts" />
+/// <reference path="../bower_components/dt-angular/angular-sanitize.d.ts" />
+/// <reference path="../bower_components/dt-angular/angular-resource.d.ts" />
 
 'use strict';
 

@@ -1,6 +1,6 @@
-/// <reference path="../../../app/bower_components/DefinitivelyTyped/angularjs/angular.d.ts" />
-/// <reference path="../../../app/bower_components/DefinitivelyTyped/angularjs/angular-mocks.d.ts" />
-/// <reference path="../../../app/bower_components/DefinitivelyTyped/jasmine/jasmine.d.ts" />
+/// <reference path="../../../app/bower_components/dt-angular/angular.d.ts" />
+/// <reference path="../../../app/bower_components/dt-angular/angular-mocks.d.ts" />
+/// <reference path="../../../app/bower_components/dt-jasmine/jasmine.d.ts" />
 
 /// <reference path="../../../app/scripts/filters/<%= cameledName.toLowerCase() %>.ts" />
 
