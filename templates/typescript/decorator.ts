@@ -3,16 +3,16 @@
 'use strict';
 
 module <%= scriptAppName %>{
-	export function <%= cameledName %>DecoratorProvider($provide:ng.auto.IProvideService):void {
-		//decorate <%= cameledName %>
-		$provide.decorator('<%= cameledName %>', <%= cameledName %>Decorator);
-	}
+  export function <%= cameledName %>DecoratorProvider($provide:ng.auto.IProvideService):void {
+    //decorate <%= cameledName %>
+    $provide.decorator('<%= cameledName %>', <%= cameledName %>Decorator);
+  }
 
-	export function <%= cameledName %>Decorator($delegate) {
-		// decorate the $delegate
-		return $delegate;
-	}
+  export function <%= cameledName %>Decorator($delegate) {
+    // decorate the $delegate
+    return $delegate;
+  }
 }
 
 angular.module('<%= scriptAppName %>')
-    .config(<%= scriptAppName %>.<%= cameledName %>DecoratorProvider);
+  .config(<%= scriptAppName %>.<%= cameledName %>DecoratorProvider);

@@ -7,7 +7,7 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) { %>
-  .config(function ($routeProvider:ng.route.IRouteProvider) {
+  .config(($routeProvider:ng.route.IRouteProvider) => {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',

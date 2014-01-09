@@ -3,13 +3,13 @@
 'use strict';
 
 module <%= scriptAppName %> {
-	export class <%= classedName %> {
-		awesomeThings:any[] = [
-              'HTML5 Boilerplate',
-              'AngularJS',
-              'Karma'
-            ];
-	}
+  export class <%= classedName %> {
+    awesomeThings:any[] = [
+      'HTML5 Boilerplate',
+      'AngularJS',
+      'Karma'
+    ];
+  }
 }
 
 angular.module('<%= scriptAppName %>')
