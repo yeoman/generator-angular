@@ -221,13 +221,15 @@ Generator.prototype.askForModules = function askForModules() {
 
     if (this.cookiesModule) {
       angMods.push("'ngCookies'");
+      this.env.options.ngCookies = true;
     }
-
     if (this.resourceModule) {
       angMods.push("'ngResource'");
+      this.env.options.ngResource = true;
     }
     if (this.sanitizeModule) {
       angMods.push("'ngSanitize'");
+      this.env.options.ngSanitize = true;
     }
     if (this.routeModule) {
       angMods.push("'ngRoute'");
