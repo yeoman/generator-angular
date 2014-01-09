@@ -3,7 +3,7 @@
 'use strict';
 
 module <%= scriptAppName %> {
-  export function <%= cameledName %>FilterFactory():Function {
+  export function <%= cameledName %>FilterFactory(): Function {
     return <%= cameledName %>Filter;
   }
 

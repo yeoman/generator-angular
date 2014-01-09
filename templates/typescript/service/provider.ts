@@ -4,7 +4,7 @@
 
 module <%= scriptAppName %> {
 
-  var salutation:string;
+  var salutation: string;
 
   export class Greeter {
     greet = () => salutation;
@@ -14,7 +14,7 @@ module <%= scriptAppName %> {
     $get = () => new Greeter();
 
     // Public API for configuration
-    setSalutation = (s:string) => salutation = s;
+    setSalutation = (s: string) => salutation = s;
   }
 
 }

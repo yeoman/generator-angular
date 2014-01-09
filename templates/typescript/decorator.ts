@@ -2,13 +2,13 @@
 
 'use strict';
 
-module <%= scriptAppName %>{
-  export function <%= cameledName %>DecoratorProvider($provide:ng.auto.IProvideService):void {
+module <%= scriptAppName %> {
+  export function <%= cameledName %>DecoratorProvider($provide: ng.auto.IProvideService): void {
     //decorate <%= cameledName %>
     $provide.decorator('<%= cameledName %>', <%= cameledName %>Decorator);
   }
 
-  export function <%= cameledName %>Decorator($delegate) {
+  export function <%= cameledName %>Decorator($delegate: ng.ILogService) {
     // decorate the $delegate
     return $delegate;
   }
