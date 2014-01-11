@@ -8,7 +8,7 @@ module <%= scriptAppName %> {
     $provide.decorator('<%= cameledName %>', <%= cameledName %>Decorator);
   }
 
-  export function <%= cameledName %>Decorator($delegate: ng.ILogService) {
+  export function <%= cameledName %>Decorator($delegate: any) {
     // decorate the $delegate
     return $delegate;
   }
