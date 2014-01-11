@@ -1,0 +1,13 @@
+Description:
+    Creates a new Wix dashboard widget
+
+Example:
+    yo wix-angular:dashboard-widget news-feed [--coffee] [--minsafe]
+
+    This will create:
+        app/news-feed-widget.vm
+        app/views/news-feed-widget.haml
+        app/styles/news-feed-widget.scss
+        app/scripts/news-feed-widget.js
+        app/scripts/controllers/news-feed-widget.js
+        test/spec/controllers/news-feed-widget.js

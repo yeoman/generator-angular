@@ -26,7 +26,7 @@
     <div wix-dashboard-site-menu="${metaSiteId}"></div>
     <div wix-dashboard-app="dashboard">
       <!-- Add your site or application content here -->
-      <div class="container" ng-include="wixPluginTopology.partialsUrl+'views/main.html'"></div>
+      <div class="container" ng-include="wixDashboardWidgetConfig.partialsUrl+'views/main.html'"></div>
     </div>
     <% } else { %>
     <!-- Add your site or application content here -->
@@ -59,8 +59,8 @@
     </script>
     <% } else { %>
     <script>
-      angular.module('<%= scriptAppName %>').config(function (wixPluginTopologyProvider) {
-        wixPluginTopologyProvider.setStaticsUrl('${clientTopology.<%= simplename %>StaticsUrl}');
+      angular.module('<%= scriptAppName %>').config(function (wixDashboardWidgetConfigProvider) {
+        wixDashboardWidgetConfigProvider.setStaticsUrl('${clientTopology.<%= simplename %>StaticsUrl}');
       });
     </script>
 

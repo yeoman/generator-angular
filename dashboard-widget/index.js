@@ -6,8 +6,8 @@ var yeoman = require('yeoman-generator');
 
 
 var Generator = module.exports = function Generator(args) {
-  if (args[0].substr(-1*"-plugin".length).toLowerCase() !== '-plugin') {
-    args[0] += '-plugin';
+  if (args[0].substr(-1*"-widget".length).toLowerCase() !== '-widget') {
+    args[0] += '-widget';
   }
 
   this.args = args;
@@ -35,8 +35,8 @@ util.inherits(Generator, ScriptBase);
 Generator.prototype.createAppFile = function createAppFile() {
   this.angularModules = this.env.options.angularDeps;
 
-  var vm = this.read('../../templates/common/plugin.html', 'utf8').replace(/\$\{/g, '(;$};)');
-  this.write(path.join('app', (this.env.options.dashboardApp ? 'plugin' : this.name) + '.vm'),
+  var vm = this.read('../../templates/common/widget.html', 'utf8').replace(/\$\{/g, '(;$};)');
+  this.write(path.join('app', (this.env.options.dashboardApp ? 'widget' : this.name) + '.vm'),
              this.engine(vm, this).replace(/\(;\$\};\)/g, '${'));
 
   this.template('../../templates/common/main.haml', 'app/views/' + this.name + '.haml');

@@ -2,7 +2,7 @@
 
 angular.module('wixDashboardFramework', [])
   .factory('wixDashboard', function () { return {}; })
-  .provider('wixPluginTopology', function () {
-    this.setPluginProvider = function () {};
+  .provider('wixDashboardWidgetConfig', function () {
+    this.setWidgetName = function () {};
     this.$get = function () { return {}; };
   });

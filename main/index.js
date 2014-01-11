@@ -15,18 +15,18 @@ util.inherits(Generator, ScriptBase);
 Generator.prototype.createAppFile = function createAppFile() {
   this.angularModules = this.env.options.angularDeps;
   this.dashboardApp = this.env.options.dashboardApp;
-  this.dashboardPlugin = this.env.options.dashboardPlugin;
+  this.dashboardWidget = this.env.options.dashboardWidget;
   if (this.name !== 'main') {
     this.angularModules = this.angularModules || "'wixTranslations', 'wixDashboardFramework'";
     this.appTemplate('app', 'scripts/' + this.name);
-  } else if (this.env.options.dashboardApp || !this.env.options.dashboardPlugin) {
+  } else if (this.env.options.dashboardApp || !this.env.options.dashboardWidget) {
     this.appTemplate('app', 'scripts/app');
     if (!this.env.options.dashboardApp) {
       this.testTemplate('mock/client-config', '../mock/client-config');
     }
   }
 
-  if (this.env.options.dashboardApp || this.env.options.dashboardPlugin) {
+  if (this.env.options.dashboardApp || this.env.options.dashboardWidget) {
     this.testTemplate('mock/wix-dashboard', '../mock/wix-dashboard');
   }
 };

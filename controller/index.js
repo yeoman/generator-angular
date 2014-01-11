@@ -16,7 +16,7 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createControllerFiles = function createControllerFiles() {
-  if (this.name !== 'main' || this.env.options.dashboardApp || !this.env.options.dashboardPlugin) {
+  if (this.name !== 'main' || this.env.options.dashboardApp || !this.env.options.dashboardWidget) {
     this.generateSourceAndTest(
       'controller',
       'spec/controller',

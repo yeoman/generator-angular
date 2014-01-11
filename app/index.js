@@ -72,8 +72,8 @@ var Generator = module.exports = function Generator(args, options) {
     options: {}
   });
 
-  this.hookFor('wix-angular:dashboard-plugin', {
-    args: [this._.slugify(this._.humanize(this.simplename))+'-plugin'],
+  this.hookFor('wix-angular:dashboard-widget', {
+    args: [this._.slugify(this._.humanize(this.simplename))+'-widget'],
     options: {}
   });
 
@@ -143,8 +143,8 @@ Generator.prototype.askForModules = function askForModules() {
       name: 'wix-dashboard application',
       checked: false
     }, {
-      value: 'dashboardPlugin',
-      name: 'wix-dashboard plugin',
+      value: 'dashboardWidget',
+      name: 'wix-dashboard widget',
       checked: false
     }]
   }];
@@ -152,11 +152,11 @@ Generator.prototype.askForModules = function askForModules() {
   this.prompt(prompts, function (props) {
     var hasMod = function (mod) { return props.modules.indexOf(mod) !== -1; };
     this.dashboardApp = hasMod('dashboardApp');
-    this.dashboardPlugin = hasMod('dashboardPlugin');
+    this.dashboardWidget = hasMod('dashboardWidget');
 
     var angMods = ['wixTranslations'];
 
-    if (this.dashboardApp || this.dashboardPlugin) {
+    if (this.dashboardApp || this.dashboardWidget) {
       angMods.push('wixDashboardFramework');
     }
 
@@ -164,8 +164,8 @@ Generator.prototype.askForModules = function askForModules() {
       this.env.options.dashboardApp = true;
     }
 
-    if (this.dashboardPlugin) {
-      this.env.options.dashboardPlugin = true;
+    if (this.dashboardWidget) {
+      this.env.options.dashboardWidget = true;
     } else {
       this._hooks.splice(-1);
     }
@@ -197,7 +197,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     this.copy('fonts/glyphicons-halflings-regular.woff', 'app/fonts/glyphicons-halflings-regular.woff');
   }
 
-  if (this.dashboardApp || !this.dashboardPlugin) {
+  if (this.dashboardApp || !this.dashboardWidget) {
     files.push('main.' + (sass ? 's' : '') + 'css');
   }
 
@@ -274,7 +274,7 @@ Generator.prototype.appJs = function appJs() {
 };*/
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
-  if (this.dashboardApp || !this.dashboardPlugin) {
+  if (this.dashboardApp || !this.dashboardWidget) {
     this.write(path.join(this.appPath, 'index.vm'), this.indexFile);
   }
 };
@@ -286,7 +286,7 @@ Generator.prototype.packageFiles = function () {
   var replace = this.read('../../templates/common/replace.conf.js', 'utf8').replace(/\$\{/g, '(;$};)');
   this.write('replace.conf.js', this.engine(replace, this).replace(/\(;\$\};\)/g, '${'));
 
-  if (this.dashboardApp || !this.dashboardPlugin) {
+  if (this.dashboardApp || !this.dashboardWidget) {
     this.classedName = 'Main';
     this.template('../../templates/common/main.haml', 'app/views/main.haml');
   }
