@@ -1,28 +1,26 @@
-/// <reference path="../../../app/bower_components/dt-angular/angular.d.ts" />
 /// <reference path="../../../app/bower_components/dt-angular/angular-mocks.d.ts" />
 /// <reference path="../../../app/bower_components/dt-jasmine/jasmine.d.ts" />
-
 /// <reference path="../../../app/scripts/controllers/<%= cameledName.toLowerCase() %>.ts" />
 
 'use strict';
 
-describe('Controller: <%= classedName %>Ctrl', function () {
+describe('Controller: <%= classedName %>Ctrl', () => {
 
   // load the controller's module
   beforeEach(module('<%= scriptAppName %>'));
 
-  var <%= classedName %>Ctrl,
-    scope;
+  var <%= classedName %>Ctrl: <%= scriptAppName %>.<%= classedName %>Ctrl,
+    scope: <%= scriptAppName %>.I<%= classedName %>Scope;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
+  beforeEach(inject(($controller: ng.IControllerService, $rootScope: ng.IRootScopeService) => {
+    scope = <any>$rootScope.$new();
     <%= classedName %>Ctrl = $controller('<%= classedName %>Ctrl', {
       $scope: scope
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
+  it('should attach a list of awesomeThings to the scope', () => {
     expect(scope.awesomeThings.length).toBe(3);
   });
 });
