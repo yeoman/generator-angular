@@ -104,6 +104,37 @@ describe('Angular generator', function () {
     });
   });
 
+  it('creates typescript files', function (done) {
+    var expected = ['app/.htaccess',
+                    'app/404.html',
+                    'app/favicon.ico',
+                    'app/robots.txt',
+                    'app/styles/main.scss',
+                    'app/views/main.html',
+                    ['.bowerrc', /"directory": "app\/bower_components"/],
+                    'Gruntfile.js',
+                    'package.json',
+                    ['bower.json', /"name":\s+"temp"/],
+                    'app/scripts/app.ts',
+                    'app/index.html',
+                    'app/scripts/controllers/main.ts',
+                    'test/spec/controllers/main.ts'
+                    ];
+    helpers.mockPrompt(angular, {
+      compass: true,
+      bootstrap: true,
+      compassBootstrap: true,
+      modules: []
+    });
+
+    angular.env.options.typescript = true;
+    angular.run([], function () {
+      helpers.assertFiles(expected);
+      done();
+    });
+  });
+
+  
   /**
    * Generic test function that can be used to cover the scenarios where a generator is creating both a source file
    * and a test file. The function will run the respective generator, and then check for the existence of the two
@@ -209,9 +240,9 @@ describe('Angular generator', function () {
       });
       angular.run([], function (){
         angularView.run([], function () {
-          helpers.assertFiles([
+          helpers.assertFile(
             ['app/views/foo.html']
-          ]);
+          );
           done();
         });
       });
@@ -230,9 +261,9 @@ describe('Angular generator', function () {
       });
       angular.run([], function (){
         angularView.run([], function () {
-          helpers.assertFiles([
+          helpers.assertFile(
             ['app/views/foo/bar.html']
-          ]);
+          );
           done();
         });
       });
