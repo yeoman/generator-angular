@@ -240,9 +240,9 @@ describe('Angular generator', function () {
       });
       angular.run([], function (){
         angularView.run([], function () {
-          helpers.assertFiles([
+          helpers.assertFile(
             ['app/views/foo.html']
-          ]);
+          );
           done();
         });
       });
@@ -261,9 +261,9 @@ describe('Angular generator', function () {
       });
       angular.run([], function (){
         angularView.run([], function () {
-          helpers.assertFiles([
+          helpers.assertFile(
             ['app/views/foo/bar.html']
-          ]);
+          );
           done();
         });
       });

@@ -8,30 +8,26 @@
     "framework",
     "component",
     "front-end",
-    "app"
+    "app",
+    "angular"
   ],
-  "homepage": "https://github.com/yeoman/generator-angular",
-  "bugs": "https://github.com/yeoman/generator-angular/issues",
   "author": "Chrome Developer Relations",
   "main": "app/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/yeoman/generator-angular.git"
-  },
+  "repository": "yeoman/generator-angular",
   "scripts": {
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.13.0",
-    "chalk": "~0.3.0",
+    "yeoman-generator": "~0.16.0",
+    "chalk": "~0.4.0",
     "wiredep": "~0.4.2"
   },
   "peerDependencies": {
-    "generator-karma": "~0.6.0",
+    "generator-karma": ">=0.6.0",
     "yo": ">=1.0.0"
   },
   "devDependencies": {
-    "mocha": "~1.14.0",
+    "mocha": "*",
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.7.2",
     "grunt-conventional-changelog": "~1.0.0",
@@ -42,7 +38,7 @@
     "grunt-release": "~0.6.0"
   },
   "engines": {
-    "node": ">=0.8.0",
+    "node": ">=0.10.0",
     "npm": ">=1.2.10"
   },
   "licenses": [
