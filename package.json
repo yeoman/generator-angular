@@ -11,7 +11,7 @@
     "app",
     "angular"
   ],
-  "author": "Chrome Developer Relations",
+  "author": "The Yeoman Team",
   "main": "app/index.js",
   "repository": "yeoman/generator-angular",
   "scripts": {
