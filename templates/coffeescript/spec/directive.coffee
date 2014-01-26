@@ -1,6 +1,6 @@
 'use strict'
 
-describe 'Directive: <%= cameledName %>', () ->
+describe 'Directive: <%= cameledName %>', ->
 
   # load the directive's module
   beforeEach module '<%= scriptAppName %>'

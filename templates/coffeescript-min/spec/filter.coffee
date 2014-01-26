@@ -1,6 +1,6 @@
 'use strict'
 
-describe 'Filter: <%= cameledName %>', () ->
+describe 'Filter: <%= cameledName %>', ->
 
   # load the filter's module
   beforeEach module '<%= scriptAppName %>'
@@ -10,6 +10,6 @@ describe 'Filter: <%= cameledName %>', () ->
   beforeEach inject ($filter) ->
     <%= cameledName %> = $filter '<%= cameledName %>'
 
-  it 'should return the input prefixed with "<%= cameledName %> filter:"', () ->
+  it 'should return the input prefixed with "<%= cameledName %> filter:"', ->
     text = 'angularjs'
     expect(<%= cameledName %> text).toBe ('<%= cameledName %> filter: ' + text)
