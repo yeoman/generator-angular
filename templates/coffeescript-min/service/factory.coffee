@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('<%= scriptAppName %>')
-  .factory '<%= cameledName %>', [() ->
+  .factory '<%= cameledName %>', [->
     # Service logic
     # ...
 
@@ -9,7 +9,7 @@ angular.module('<%= scriptAppName %>')
 
     # Public API here
     {
-      someMethod: () ->
+      someMethod: ->
         meaningOfLife
     }
   ]

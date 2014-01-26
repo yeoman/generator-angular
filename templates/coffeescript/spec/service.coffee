@@ -1,6 +1,6 @@
 'use strict'
 
-describe 'Service: <%= cameledName %>', () ->
+describe 'Service: <%= cameledName %>', ->
 
   # load the service's module
   beforeEach module '<%= scriptAppName %>'
@@ -10,5 +10,5 @@ describe 'Service: <%= cameledName %>', () ->
   beforeEach inject (_<%= cameledName %>_) ->
     <%= cameledName %> = _<%= cameledName %>_
 
-  it 'should do something', () ->
+  it 'should do something', ->
     expect(!!<%= cameledName %>).toBe true
