@@ -18,24 +18,24 @@
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.16.0",
     "chalk": "~0.4.0",
-    "wiredep": "~0.4.2"
+    "wiredep": "~0.4.2",
+    "yeoman-generator": "~0.16.0"
   },
   "peerDependencies": {
     "generator-karma": ">=0.6.0",
     "yo": ">=1.0.0"
   },
   "devDependencies": {
-    "mocha": "*",
     "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-jshint": "~0.8.0",
     "grunt-conventional-changelog": "~1.0.0",
-    "load-grunt-tasks": "~0.2.0",
+    "grunt-release": "~0.6.0",
+    "load-grunt-tasks": "~0.3.0",
     "marked": "~0.2.8",
+    "mocha": "*",
     "semver": "~2.2.1",
-    "underscore.string": "~2.3.1",
-    "grunt-release": "~0.6.0"
+    "underscore.string": "~2.3.1"
   },
   "engines": {
     "node": ">=0.10.0",
