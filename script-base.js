@@ -46,21 +46,12 @@ var Generator = module.exports = function Generator() {
     this.env.options.coffee = this.options.coffee;
   }
 
-  if (typeof this.env.options.minsafe === 'undefined') {
-    this.option('minsafe');
-    this.env.options.minsafe = this.options.minsafe;
-  }
-
   var sourceRoot = '/templates/javascript';
   this.scriptSuffix = '.js';
 
   if (this.env.options.coffee) {
     sourceRoot = '/templates/coffeescript';
     this.scriptSuffix = '.coffee';
-  }
-
-  if (this.env.options.minsafe) {
-    sourceRoot += '-min';
   }
 
   this.sourceRoot(path.join(__dirname, sourceRoot));
