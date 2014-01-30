@@ -19,14 +19,14 @@ module.exports = function (grunt) {
 
   var proxyMiddleware = require('proxy-middleware');
 
-  var proxyFolder = function(src, dest) {
+  var proxyFolder = function (src, dest) {
     var proxyOptions = url.parse(grunt.template.process(dest));
     proxyOptions.route = src;
     return proxyMiddleware(proxyOptions);
   };
 
   var mountFolder = function (connect, dir, maxage) {
-    return connect.static(require('path').resolve(grunt.template.process(dir)), { maxAge: maxage||0 });
+    return connect.static(require('path').resolve(grunt.template.process(dir)), { maxAge: maxage || 0 });
   };
 
   // Define the configuration for all the tasks
@@ -151,7 +151,8 @@ module.exports = function (grunt) {
         files: {
           src: [
             'Gruntfile.js',
-            '<%%= yeoman.app %>/scripts/{,*/}*.js'
+            '<%%= yeoman.app %>/scripts/{,*/}*.js',
+            '!<%%= yeoman.app %>/scripts/locale/*.js'
           ]
         }
       },
@@ -351,12 +352,12 @@ module.exports = function (grunt) {
           cwd: '<%%= yeoman.app %>',
           src: ['*.vm', '*.html', 'views/*.html'],
           dest: '<%%= yeoman.dist %>'
-        },{
+        }, {
           expand: true,
           cwd: '.tmp',
           src: ['*.html', 'views/*.html'],
           dest: '<%%= yeoman.dist %>'
-        },{
+        }, {
           expand: true,
           dot: true,
           cwd: '<%%= yeoman.app %>',
@@ -527,7 +528,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('server', function (target) {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run([target ? 'serve:'+target : 'serve']);
+    grunt.task.run([target ? 'serve:' + target : 'serve']);
   });
 
   grunt.registerTask('test', function (target) {
