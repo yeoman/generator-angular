@@ -58,14 +58,13 @@
       });
     </script>
     <% } else { %>
+    <!-- wix-dashboard-menu -->
+    <script src="${clientTopology.publicUrl}my-account/framework.js"></script>
     <script>
       angular.module('wixDashboardFramework').config(function (wixDashboardWidgetConfigProvider) {
         wixDashboardWidgetConfigProvider.setStaticsUrl('${clientTopology.<%= simplename %>StaticsUrl}');
       });
     </script>
-
-    <!-- wix-dashboard-menu -->
-    <script src="${clientTopology.publicUrl}my-account/framework.js"></script>
     <!-- end-wix-dashboard-menu -->
     <% } %>
 
