@@ -59,7 +59,7 @@
     </script>
     <% } else { %>
     <script>
-      angular.module('<%= scriptAppName %>').config(function (wixDashboardWidgetConfigProvider) {
+      angular.module('wixDashboardFramework').config(function (wixDashboardWidgetConfigProvider) {
         wixDashboardWidgetConfigProvider.setStaticsUrl('${clientTopology.<%= simplename %>StaticsUrl}');
       });
     </script>
