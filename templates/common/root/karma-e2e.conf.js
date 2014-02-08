@@ -18,6 +18,8 @@ module.exports = function(config) {
       '{,.tmp/}test/spec/e2e/**/*.js'
     ],
 
+    urlRoot: '/__e2e/',
+    
     // list of files / patterns to exclude
     exclude: [],
 

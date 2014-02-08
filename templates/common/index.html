@@ -22,15 +22,15 @@
   </head>
   <body>
     <% if (dashboardApp) { %>
-    <div wix-top-menu="sites"></div>
-    <div wix-dashboard-site-menu="${metaSiteId}"></div>
-    <div wix-dashboard-app="dashboard">
+    <wix-top-menu top-selected-item="sites"></wix-top-menu>
+    <wix-dashboard-site-menu dashboard-selected-item="dashboard"></wix-dashboard-site-menu>
+    <div wix-dashboard-app>
       <!-- Add your site or application content here -->
-      <div class="container" ng-include="wixDashboardWidgetConfig.partialsUrl+'views/main.html'"></div>
+      <div class="container" ng-include="wixDashboardWidgetConfig.partialsUrl + 'views/main.html'"></div>
     </div>
     <% } else { %>
     <!-- Add your site or application content here -->
-    <div class="container" ng-include="clientConfig.partialsUrl+'views/main.html'"></div>
+    <div class="container" ng-include="clientConfig.partialsUrl + 'views/main.html'"></div>
     <% } %>
 
     <script src="bower_components/jquery/jquery.js"></script>
@@ -61,8 +61,9 @@
     <!-- wix-dashboard-menu -->
     <script src="${clientTopology.publicUrl}my-account/framework.js"></script>
     <script>
-      angular.module('wixDashboardFramework').config(function (wixDashboardWidgetConfigProvider) {
-        wixDashboardWidgetConfigProvider.setStaticsUrl('${clientTopology.<%= simplename %>StaticsUrl}');
+      angular.module('wixDashboardFramework').config(function (wixDashboardProvider) {
+        wixDashboardProvider.setStaticsUrl('${clientTopology.<%= simplename %>StaticsUrl}');
+        wixDashboardProvider.setMetaSiteId('${metaSiteId}');
       });
     </script>
     <!-- end-wix-dashboard-menu -->
