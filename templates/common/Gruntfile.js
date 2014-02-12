@@ -264,6 +264,7 @@ module.exports = function (grunt) {
     useminPrepare: {
       html: '<%%= yeoman.app %>/*.{html,vm}',
       options: {
+        staging: '<%= yeoman.dist %>',
         dest: '<%%= yeoman.dist %>'
       }
     },
@@ -273,6 +274,21 @@ module.exports = function (grunt) {
       html: ['<%%= yeoman.dist %>/*.{html,vm}'],
       options: {
         assetsDirs: ['<%%= yeoman.dist %>']
+      }
+    },
+
+    velocityDebug: {
+      dist: {
+        options: {
+          debug: '<%%= yeoman.dist %>/concat',
+          prefix: 'concat'
+        },
+        files: [{
+          expand: true,
+          cwd: '<%%= yeoman.dist %>',
+          src: '*.vm',
+          dest: '<%%= yeoman.dist %>',
+        }]
       }
     },
 
@@ -327,9 +343,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/concat/scripts',
+          cwd: '<%%= yeoman.dist %>/concat/scripts',
           src: '*.js',
-          dest: '.tmp/concat/scripts'
+          dest: '<%%= yeoman.dist %>/concat/scripts'
         }]
       }
     },
@@ -510,7 +526,8 @@ module.exports = function (grunt) {
     'uglify',
     'concurrent:dist',
     'cdnify',
-    'usemin'
+    'usemin',
+    'velocityDebug'
   ]);
 
   grunt.registerTask('serve', function (target) {

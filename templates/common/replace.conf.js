@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = [
+  {from: '${debug}', to: 'true'},
   {from: '${locale}', to: 'en'},
   {from: '${googleAnalytics}', to: 'UA-2117194-2'},<% if (dashboardApp) { %>
   {from: '${metaSiteId}', to: 'c853c829-503e-48b1-892f-28d8c22a887c'},<% } %>

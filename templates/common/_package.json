@@ -48,7 +48,8 @@
     "load-grunt-tasks": "~0.2.0",
     "time-grunt": "~0.2.1",
     "wix-cdn-data": "~0.1.0",
-    "grunt-release": "~0.6.0"
+    "grunt-release": "~0.6.0",
+    "grunt-velocity-debug": "~0.1.2"
   },
   "engines": {
     "node": ">=0.8.0"
