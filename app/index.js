@@ -269,7 +269,7 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
     '\nAfter running `npm install & bower install`, inject your front end dependencies into' +
     '\nyour HTML by running:' +
     '\n' +
-    chalk.yellow.bold('\n  grunt bower-install');
+    chalk.yellow.bold('\n  grunt bowerInstall');
 
   if (this.options['skip-install']) {
     console.log(howToInstall);
@@ -278,8 +278,14 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
       directory: 'app/bower_components',
       bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
       ignorePath: 'app/',
-      htmlFile: 'app/index.html',
-      cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
+      src: 'app/index.html',
+      fileTypes: {
+        html: {
+          replace: {
+            css: '<link rel="stylesheet" href="{{filePath}}">'
+          }
+        }
+      }
     });
   }
 };
