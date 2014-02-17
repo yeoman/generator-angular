@@ -2,7 +2,10 @@
 
 @import 'sass-bootstrap/lib/bootstrap';
 
-<% } %>.browsehappy {
+<% } %>// bower:scss
+// endbower
+
+.browsehappy {
     margin: 0.2em 0;
     background: #ccc;
     color: #000;
