@@ -19,9 +19,13 @@
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+
+    <% if (dashboardApp) { %>#parse('views/my-account/embeds_head.vm')<% } %>
   </head>
   <body>
     <% if (dashboardApp) { %>
+    #parse('views/my-account/embeds_body_top.vm')
+
     <wix-top-menu top-selected-item="sites"></wix-top-menu>
     <wix-dashboard-site-menu dashboard-selected-item="dashboard"></wix-dashboard-site-menu>
     <div wix-dashboard-app>
@@ -67,6 +71,8 @@
       });
     </script>
     <!-- end-wix-dashboard-menu -->
+
+    #parse('views/my-account/embeds_body_bottom.vm')
     <% } %>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

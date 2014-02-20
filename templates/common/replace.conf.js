@@ -11,5 +11,9 @@ module.exports = [
   {from: '${clientTopology.staticBaseUrl}', to: 'http://static.pizza.wixpress.com/'},
   {from: '${clientTopology.dashboardFrameworkStaticsUrl}', to: 'http://static.pizza.wixpress.com/services/wix-dashboard-framework-statics/current/'},
 
-  {from: '${clientTopology.<%= simplename %>StaticsUrl}', to: 'http://localhost:9000/'}
+  {from: '${clientTopology.<%= simplename %>StaticsUrl}', to: 'http://localhost:9000/'}<% if (dashboardApp) { %>,
+
+  {from: '#parse(\'views/my-account/embeds_head.vm\')', to: ''},
+  {from: '#parse(\'views/my-account/embeds_body_top.vm\')', to: ''},
+  {from: '#parse(\'views/my-account/embeds_body_bottom.vm\')', to: ''}<% } %>
 ];
