@@ -142,12 +142,12 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
   this.prompt([{
     type: 'confirm',
     name: 'bootstrap',
-    message: 'Would you like to include Twitter Bootstrap?',
+    message: 'Would you like to include Bootstrap?',
     default: true
   }, {
     type: 'confirm',
     name: 'compassBootstrap',
-    message: 'Would you like to use the Sass version of Twitter Bootstrap?',
+    message: 'Would you like to use the Sass version of Bootstrap?',
     default: true,
     when: function (props) {
       return props.bootstrap && compass;
