@@ -1,6 +1,7 @@
 'use strict'
 
-angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) { %>
+angular
+  .module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) { %>
   .config ($routeProvider) ->
     $routeProvider
       .when '/',
