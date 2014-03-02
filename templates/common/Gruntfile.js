@@ -153,14 +153,17 @@ module.exports = function (grunt) {
     },
 
     // Automatically inject Bower components into the app
-    'bower-install': {
+    bowerInstall: {
       app: {
-        html: '<%%= yeoman.app %>/index.html',
+        src: ['<%%= yeoman.app %>/index.html'],
         ignorePath: '<%%= yeoman.app %>/'
-      }
-    },
+      }<% if (compass) { %>,
+      sass: {
+        src: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        ignorePath: '<%%= yeoman.app %>/bower_components/'
+      }<% } %>
+    },<% if (coffee) { %>
 
-<% if (coffee) { %>
     // Compiles CoffeeScript to JavaScript
     coffee: {
       options: {
@@ -185,9 +188,8 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       }
-    },<% } %>
+    },<% } %><% if (compass) { %>
 
-<% if (compass) { %>
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
@@ -265,6 +267,7 @@ module.exports = function (grunt) {
         root: '<%%= yeoman.app %>'
       }
     },
+
     imagemin: {
       dist: {
         files: [{
@@ -275,6 +278,7 @@ module.exports = function (grunt) {
         }]
       }
     },
+
     svgmin: {
       dist: {
         files: [{
@@ -285,6 +289,7 @@ module.exports = function (grunt) {
         }]
       }
     },
+
     htmlmin: {
       dist: {
         options: {
@@ -419,7 +424,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'bower-install',
+      'bowerInstall',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
@@ -442,7 +447,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'bower-install',
+    'bowerInstall',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
