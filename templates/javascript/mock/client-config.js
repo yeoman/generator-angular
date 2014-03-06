@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>').constant('clientConfig', {});
+angular.module('<%= scriptAppName %>').constant('clientConfig', {partialsUrl: '/'});

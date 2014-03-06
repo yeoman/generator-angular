@@ -18,12 +18,19 @@ module.exports = function(config) {
       'app/bower_components/es5-shim/es5-shim.js',
       '{app,.tmp}/scripts/*.js',
       '{app,.tmp}/scripts/**/*.js',
-      '{,.tmp/}test/**/*.js'
+      '{,.tmp/}test/**/*.js',
+      '{app,.tmp}/views/*.html'
     ],
 
     // coverage instrumentation - uncomment this if you need to debug
     preprocessors: {
-      '{.tmp,app}/scripts/{,!(lib)/**/}*.js': 'coverage'
+      '{app,.tmp}/scripts/{,!(lib)/**/}*.js': 'coverage',
+      '{app,.tmp}/views/*.html': ['ng-html2js']
+    },
+
+    ngHtml2JsPreprocessor: {
+      stripPrefix: '(app|.tmp)',
+      moduleName: 'newsFeedCommon'
     },
 
     // list of files / patterns to exclude

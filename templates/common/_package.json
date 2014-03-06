@@ -49,7 +49,8 @@
     "time-grunt": "~0.2.1",
     "wix-cdn-data": "~0.1.0",
     "grunt-release": "~0.6.0",
-    "grunt-velocity-debug": "~0.1.2"
+    "grunt-velocity-debug": "~0.1.2",
+    "karma-ng-html2js-preprocessor": "~0.1.0"
   },
   "engines": {
     "node": ">=0.8.0"
