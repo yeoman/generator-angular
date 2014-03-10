@@ -15,6 +15,9 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  // Load `devtools` task to link Chrome extension
+  require('grunt-devtools')(grunt);
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
