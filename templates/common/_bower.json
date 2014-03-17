@@ -1,6 +1,19 @@
 {
   "name": "<%= _.slugify(_.humanize(simplename)) %>",
   "version": "0.1.0",
+  "main": "dist/scripts/<%= _.slugify(_.humanize(simplename)) %>.js",
+  "ignore": [
+    ".*",
+    "Gemfile*",
+    "Gruntfile.js",
+    "pom.xml",
+    "*.json",
+    "*.conf.js",
+    "app",
+    "test",
+    "maven",
+    "*.sublime*"
+  ],
   "dependencies": {
     "jquery": "~2.0.3",
     "angular": "~1.2.0",
