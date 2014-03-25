@@ -108,7 +108,18 @@ module.exports = function (grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
+        reporter: require('jshint-stylish'),
+        ignores: (function() {
+          var gitignorePath = './.gitignore';
+          if(grunt.file.exists(gitignorePath)) {
+            return grunt.file.read(gitignorePath)
+                    .replace(/(\s|\t|\n)+/g, ' ')
+                    .trim()
+                    .split(/\s/g);
+          }
+          //else
+          return [];
+        })()
       },
       all: [
         'Gruntfile.js'<% if (!coffee) { %>,
