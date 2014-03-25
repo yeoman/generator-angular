@@ -264,7 +264,7 @@ module.exports = function (grunt) {
     useminPrepare: {
       html: '<%%= yeoman.app %>/*.{html,vm}',
       options: {
-        staging: '<%= yeoman.dist %>',
+        staging: '<%%= yeoman.dist %>',
         dest: '<%%= yeoman.dist %>'
       }
     },
