@@ -27,6 +27,11 @@ var Generator = module.exports = function Generator(args, options) {
     try {
       this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
     } catch (e) {}
+
+    if (typeof this.options['appPath'] !== 'undefined') {
+      this.env.options.appPath = this.options['appPath'];
+    }
+
     this.env.options.appPath = this.env.options.appPath || 'app';
   }
 
@@ -40,7 +45,7 @@ var Generator = module.exports = function Generator(args, options) {
     // attempt to detect if user is using CS or not
     // if cml arg provided, use that; else look for the existence of cs
     if (!this.options.coffee &&
-      this.expandFiles(path.join(this.appPath, '/scripts/**/*.coffee'), {}).length > 0) {
+      this.expandFiles(path.join(this.env.options.appPath, '/scripts/**/*.coffee'), {}).length > 0) {
       this.options.coffee = true;
     }
 
@@ -228,13 +233,13 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   var mainFile = 'main.' + (sass ? 's' : '') + 'css';
 
   if (this.bootstrap && !sass) {
-    this.copy('fonts/glyphicons-halflings-regular.eot', 'app/fonts/glyphicons-halflings-regular.eot');
-    this.copy('fonts/glyphicons-halflings-regular.ttf', 'app/fonts/glyphicons-halflings-regular.ttf');
-    this.copy('fonts/glyphicons-halflings-regular.svg', 'app/fonts/glyphicons-halflings-regular.svg');
-    this.copy('fonts/glyphicons-halflings-regular.woff', 'app/fonts/glyphicons-halflings-regular.woff');
+    this.copy('fonts/glyphicons-halflings-regular.eot', this.env.options.appPath + '/fonts/glyphicons-halflings-regular.eot');
+    this.copy('fonts/glyphicons-halflings-regular.ttf', this.env.options.appPath + '/fonts/glyphicons-halflings-regular.ttf');
+    this.copy('fonts/glyphicons-halflings-regular.svg', this.env.options.appPath + '/fonts/glyphicons-halflings-regular.svg');
+    this.copy('fonts/glyphicons-halflings-regular.woff', this.env.options.appPath + '/fonts/glyphicons-halflings-regular.woff');
   }
 
-  this.copy('styles/' + mainFile, 'app/styles/' + mainFile);
+  this.copy('styles/' + mainFile, this.env.options.appPath + '/styles/' + mainFile);
 };
 
 Generator.prototype.appJs = function appJs() {
@@ -249,7 +254,7 @@ Generator.prototype.appJs = function appJs() {
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
   this.indexFile = this.indexFile.replace(/&apos;/g, "'");
-  this.write(path.join(this.appPath, 'index.html'), this.indexFile);
+  this.write(path.join(this.env.options.appPath, 'index.html'), this.indexFile);
 };
 
 Generator.prototype.packageFiles = function () {
@@ -261,7 +266,7 @@ Generator.prototype.packageFiles = function () {
 
 Generator.prototype.imageFiles = function () {
   this.sourceRoot(path.join(__dirname, 'templates'));
-  this.directory('images', 'app/images', true);
+  this.directory('images', this.env.options.appPath + '/images', true);
 };
 
 Generator.prototype._injectDependencies = function _injectDependencies() {
@@ -275,10 +280,10 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
     console.log(howToInstall);
   } else {
     wiredep({
-      directory: 'app/bower_components',
+      directory: this.env.options.appPath + '/bower_components',
       bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
-      ignorePath: 'app/',
-      src: 'app/index.html',
+      ignorePath: this.env.options.appPath + '/',
+      src: this.env.options.appPath + '/index.html',
       fileTypes: {
         html: {
           replace: {
