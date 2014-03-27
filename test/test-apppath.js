@@ -25,7 +25,7 @@ describe('Angular generator', function () {
       if (err) {
         done(err);
       }
-      angular = helpers.createGenerator('angular:app', deps);
+      angular = helpers.createGenerator('angular:app', deps, ['temp'], {appPath: 'customAppPath'});
       angular.options['skip-install'] = true;
       done();
     });
@@ -45,17 +45,17 @@ describe('Angular generator', function () {
     });
   });
 
-  it.only('creates expected files', function (done) {
+  it('creates expected files', function (done) {
     var expected = ['customAppPath/.htaccess',
       'customAppPath/404.html',
       'customAppPath/favicon.ico',
       'customAppPath/robots.txt',
       'customAppPath/styles/main.scss',
       'customAppPath/views/main.html',
-      ['.bowerrc', /"directory": "app\/bower_components"/],
+      ['.bowerrc', /"directory": "customAppPath\/bower_components"/],
       'Gruntfile.js',
       'package.json',
-      ['bower.json', /"name":\s+"temp"/],
+      ['bower.json', /"appPath":\s+"customAppPath"/],
       'customAppPath/scripts/app.js',
       'customAppPath/index.html',
       'customAppPath/scripts/controllers/main.js',
@@ -68,8 +68,7 @@ describe('Angular generator', function () {
       modules: []
     });
 
-    angular.env.options.appPath = 'customAppPath';
-    angular.run({}, function() {
+    angular.run([], function() {
       helpers.assertFiles(expected);
       done();
     });
@@ -82,10 +81,10 @@ describe('Angular generator', function () {
       'customAppPath/robots.txt',
       'customAppPath/styles/main.scss',
       'customAppPath/views/main.html',
-      ['.bowerrc', /"directory": "app\/bower_components"/],
+      ['.bowerrc', /"directory": "customAppPath\/bower_components"/],
       'Gruntfile.js',
       'package.json',
-      ['bower.json', /"name":\s+"temp"/],
+      ['bower.json', /"appPath":\s+"customAppPath"/],
       'customAppPath/scripts/app.coffee',
       'customAppPath/index.html',
       'customAppPath/scripts/controllers/main.coffee',

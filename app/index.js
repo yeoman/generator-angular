@@ -67,6 +67,7 @@ var Generator = module.exports = function Generator(args, options) {
   this.on('end', function () {
     this.installDependencies({
       skipInstall: this.options['skip-install'],
+      appPath: this.options['appPath'],
       callback: this._injectDependencies.bind(this)
     });
 
@@ -93,6 +94,7 @@ var Generator = module.exports = function Generator(args, options) {
         coffee: this.options.coffee,
         travis: true,
         'skip-install': this.options['skip-install'],
+        appPath: this.options['appPath'],
         components: [
           'angular/angular.js',
           'angular-mocks/angular-mocks.js'
@@ -260,6 +262,7 @@ Generator.prototype.createIndexHtml = function createIndexHtml() {
 Generator.prototype.packageFiles = function () {
   this.coffee = this.env.options.coffee;
   this.template('../../templates/common/_bower.json', 'bower.json');
+  this.template('../../templates/common/_bowerrc', '.bowerrc');
   this.template('../../templates/common/_package.json', 'package.json');
   this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
 };
