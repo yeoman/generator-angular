@@ -3,6 +3,10 @@ var util = require('util');
 var ScriptBase = require('../script-base.js');
 var fs = require('fs');
 
+function buildRelativePath(fileName){
+  return 'decorators/' + fileName + "Decorator";
+}
+
 var Generator = module.exports = function Generator(args, options) {
   ScriptBase.apply(this, arguments);
   this.fileName = this.name;
@@ -61,7 +65,3 @@ Generator.prototype.createDecoratorFiles = function createDecoratorFiles() {
   this.appTemplate('decorator', 'scripts/' + buildRelativePath(this.fileName));
   this.addScriptToIndex(buildRelativePath(this.fileName));
 };
-
-function buildRelativePath(fileName){
-  return 'decorators/' + fileName + "Decorator";
-}

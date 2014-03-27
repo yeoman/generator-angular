@@ -6,7 +6,20 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
+    pkg: require('./package.json'),
+    jshint: {
+      all: {
+        options: {
+          jshintrc: './.jshintrc'
+        },
+        src: [
+          '**/index.js',
+          '*.js',
+          '!test/**/*.js',
+          '!node_modules/**/*.js'
+        ]
+      }
+    },
     changelog: {
       options: {
         dest: 'CHANGELOG.md',
@@ -44,11 +57,14 @@ module.exports = function (grunt) {
     }
 
     var config = setup(options.file, type);
-    grunt.file.write(config.file, JSON.stringify(config.pkg, null, '  ') + '\n');
+    grunt.file.write(
+      config.file,
+      JSON.stringify(config.pkg, null, '  ') + '\n'
+    );
     grunt.log.ok('Version bumped to ' + config.newVersion);
   });
 
-  grunt.registerTask('stage', 'git add files before running the release task', function () {
+  grunt.registerTask('stage', 'git adds files', function () {
     var files = this.options().files;
     grunt.util.spawn({
       cmd: process.platform === 'win32' ? 'git.cmd' : 'git',
@@ -56,5 +72,11 @@ module.exports = function (grunt) {
     }, grunt.task.current.async());
   });
 
-  grunt.registerTask('default', ['bump', 'changelog', 'stage', 'release']);
+  grunt.registerTask('default', [
+    'jshint',
+    'bump',
+    'changelog',
+    'stage',
+    'release'
+  ]);
 };
