@@ -1,3 +1,49 @@
+<a name="0.8.0"></a>
+## 0.8.0 (2014-03-27)
+
+
+#### Bug Fixes
+
+* **app:**
+  * correct adding scripts path to index.html ([5533ad86](yeoman/generator-angular/commit/5533ad86676dab3e165c4a298f7e6428759e7c18))
+  * change "Twitter Bootstrap" to "Bootstrap" ([55a79718](yeoman/generator-angular/commit/55a797182cea37501bcdb1622ebb3cf4b578534b))
+  * change the script src to lowercase ([c884c91d](yeoman/generator-angular/commit/c884c91d1dba8e47d27a80857ad33bdd33ca7a7f), closes [#557](yeoman/generator-angular/issues/557))
+* **build:**
+  * don't copy the bower_components folder in build ([4c53ea97](yeoman/generator-angular/commit/4c53ea975d3a776c416e078389a2657ec4e56ac0), closes [#590](yeoman/generator-angular/issues/590))
+  * rewrite relative CSS URLs ([996eff82](yeoman/generator-angular/commit/996eff82b0bd11976daf997c69e12dcdcd643683))
+* **generator:**
+  * require compass only when enabled ([d4630c33](yeoman/generator-angular/commit/d4630c3307df2f55d21753c3e8ed1fe6d232b44b))
+  * list coffee dep only when selected ([c9a69807](yeoman/generator-angular/commit/c9a69807ee18517f973161d3902421b2bee4782e))
+  * add closing template tag ([3522514f](yeoman/generator-angular/commit/3522514f999c791e2114483cd8a39a172c794a74))
+  * add closing template tag ([0f57d2c4](yeoman/generator-angular/commit/0f57d2c4b8a9686d836faeee08ee7caa7f05a507))
+* **template:** remove IE edge header ([01738116](yeoman/generator-angular/commit/017381168132c8d560a3976c0b97b15a4f120727))
+* **test:** update assertFile syntax ([51e46455](yeoman/generator-angular/commit/51e4645524684e7220ccece1800899d2b87a45e6), closes [#554](yeoman/generator-angular/issues/554))
+
+
+#### Features
+
+* **app:**
+  * add glyphicon to test bootstrap fonts ([953a93b6](yeoman/generator-angular/commit/953a93b6dbbfc25f1b5f536e5ddaeeb8b1a24759))
+  * remove minsafe options ([c24e2509](yeoman/generator-angular/commit/c24e25097acb109240f687ace7c214b095d3ee77), closes [#452](yeoman/generator-angular/issues/452))
+* **build:** use bowerInstall on `watch` task ([6fbebb05](yeoman/generator-angular/commit/6fbebb057962edc8daf421c858f82f33abe66125))
+* **deps:**
+  * upgrade AngularJS version ([6c540961](yeoman/generator-angular/commit/6c5409613b30dc37d845cb8aa040760f885f34af))
+  * use official Sass version of Bootstrap ([66829f45](yeoman/generator-angular/commit/66829f453ec5fe48dbf4e75f5bc312bb06bc9ace), closes [#607](yeoman/generator-angular/issues/607))
+  * upgrade AngularJS + addons to 1.2.14 ([b4d026f3](yeoman/generator-angular/commit/b4d026f350ba1e8ce087fff66d476c72dd505b60))
+  * upgrade to grunt-bower-install 1.0 ([6a167895](yeoman/generator-angular/commit/6a1678953bce069b4ac79f68e0959e80cbdbaa3f))
+  * upgrade to Angular 1.2.10 ([023da9d2](yeoman/generator-angular/commit/023da9d2327f90e3128e1e7aecf73d0bc1e2660d))
+
+
+#### Breaking Changes
+
+* bower_components is no longer copied into the /dist
+folder.
+ ([4c53ea97](yeoman/generator-angular/commit/4c53ea975d3a776c416e078389a2657ec4e56ac0))
+* Removes the --minsafe from the generator. See the
+readme for more information about this change
+ ([c24e2509](yeoman/generator-angular/commit/c24e25097acb109240f687ace7c214b095d3ee77))
+
+
 <a name="v0.7.1"></a>
 ### v0.7.1 (2013-12-22)
 
