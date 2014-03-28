@@ -37,7 +37,7 @@ Available generators:
 * [angular:factory](#service)
 * [angular:value](#service)
 * [angular:constant](#service)
-* [angular:decorator] (#decorator)
+* [angular:decorator](#decorator)
 * [angular:view](#view)
 
 **Note: Generators are to be run from the root directory of your app.**
