@@ -262,8 +262,12 @@ module.exports = function (grunt) {
     usemin: {
       html: ['<%%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%%= yeoman.dist %>/styles/{,*/}*.css'],
+      js: ['<%= yeoman.dist %>/scripts/{,*/}*.js'],
       options: {
-        assetsDirs: ['<%%= yeoman.dist %>']
+        assetsDirs: ['<%%= yeoman.dist %>'],
+        patterns: {
+          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
+        }
       }
     },
 
@@ -307,7 +311,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%%= yeoman.dist %>',
-          src: ['*.html', 'views/{,*/}*.html'],
+          src: ['*.html'],
           dest: '<%%= yeoman.dist %>'
         }]
       }
@@ -346,7 +350,6 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
-            'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'fonts/*'
           ]
@@ -384,6 +387,20 @@ module.exports = function (grunt) {
         'imagemin',
         'svgmin'
       ]
+    },
+
+    // Convert Angular HTML view files to JavaScript cached versions
+    ngtemplates: {
+      dist: {
+        options: {
+          module: '<%= scriptAppName %>',
+          htmlmin: '<%%= htmlmin.dist.options %>',
+          usemin: '<%%= yeoman.dist %>/scripts/scripts.js'
+        },
+        cwd: '<%%= yeoman.app %>',
+        src: 'views/{,*/}*.html',
+        dest: '.tmp/scripts/templateCache.js'
+      }
     },
 
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
@@ -455,6 +472,7 @@ module.exports = function (grunt) {
     'bowerInstall',
     'useminPrepare',
     'concurrent:dist',
+    'ngtemplates',
     'autoprefixer',
     'concat',
     'ngmin',
