@@ -29,7 +29,7 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.8.0",
-    "grunt-conventional-changelog": "~1.0.0",
+    "grunt-conventional-changelog": "~1.1.0",
     "grunt-release": "~0.6.0",
     "load-grunt-tasks": "~0.3.0",
     "marked": "~0.2.8",

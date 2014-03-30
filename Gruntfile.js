@@ -41,7 +41,7 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('bump', 'bump manifest version', function (type) {
+  grunt.registerTask('bump', 'Bump manifest version', function (type) {
     var options = this.options({
       file: grunt.config('pkgFile') || 'package.json'
     });
@@ -64,7 +64,7 @@ module.exports = function (grunt) {
     grunt.log.ok('Version bumped to ' + config.newVersion);
   });
 
-  grunt.registerTask('stage', 'git adds files', function () {
+  grunt.registerTask('stage', 'Git adds files', function () {
     var files = this.options().files;
     grunt.util.spawn({
       cmd: process.platform === 'win32' ? 'git.cmd' : 'git',
