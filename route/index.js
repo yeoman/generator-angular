@@ -15,6 +15,12 @@ util.inherits(Generator, ScriptBase);
 
 Generator.prototype.rewriteAppJs = function () {
   var coffee = this.env.options.coffee;
+
+  this.uri = this.name;
+  if (this.options.uri) {
+    this.uri = this.options.uri;
+  }
+
   var config = {
     file: path.join(
       this.env.options.appPath,
@@ -28,10 +34,10 @@ Generator.prototype.rewriteAppJs = function () {
   };
 
   if (coffee) {
-    config.splicable.unshift(".when '/" + this.name + "',");
+    config.splicable.unshift(".when '/" + this.uri + "',");
   }
   else {
-    config.splicable.unshift(".when('/" + this.name + "', {");
+    config.splicable.unshift(".when('/" + this.uri + "', {");
     config.splicable.push("})");
   }
 
