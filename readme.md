@@ -70,6 +70,16 @@ Produces `app/views/myroute.html`:
 <p>This is the myroute view</p>
 ```
 
+Explicitly provide route uri
+
+Example: 
+```bash
+yo angular:route myRoute --uri=my/route
+```
+
+Produces controller and view as above and add a route to app/scripts/app.js
+with uri `my/route`
+
 ### Controller
 Generates a controller in `app/scripts/controllers`.
 
