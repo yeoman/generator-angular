@@ -47,6 +47,18 @@ var Generator = module.exports = function Generator(args, options) {
     this.env.options.coffee = this.options.coffee;
   }
 
+  this.option('camelcase', {
+    desc: 'Make entity name in camel-case',
+    type: Boolean,
+    required: 'false'
+  });
+
+  this.option('upper-camelcase', {
+    desc: 'Make entity name in upper camel-case',
+    type: Boolean,
+    required: 'false'
+  });
+
   this.hookFor('angular:common', {
     args: args
   });
