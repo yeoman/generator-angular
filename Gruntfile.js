@@ -1,5 +1,4 @@
 'use strict';
-var markdown = require('marked');
 var semver = require('semver');
 
 module.exports = function (grunt) {

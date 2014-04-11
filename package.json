@@ -18,7 +18,6 @@
     "test": "mocha"
   },
   "dependencies": {
-    "chalk": "~0.4.0",
     "wiredep": "~1.0.0",
     "yeoman-generator": "~0.16.0"
   },
@@ -32,7 +31,6 @@
     "grunt-conventional-changelog": "~1.1.0",
     "grunt-release": "~0.6.0",
     "load-grunt-tasks": "~0.3.0",
-    "marked": "~0.2.8",
     "mocha": "*",
     "semver": "~2.2.1",
     "underscore.string": "~2.3.1"

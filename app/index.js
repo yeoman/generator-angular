@@ -4,7 +4,6 @@ var path = require('path');
 var util = require('util');
 var angularUtils = require('../util.js');
 var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
 var wiredep = require('wiredep');
 
 
@@ -265,14 +264,13 @@ Generator.prototype.imageFiles = function () {
 };
 
 Generator.prototype._injectDependencies = function _injectDependencies() {
-  var howToInstall =
-    '\nAfter running `npm install & bower install`, inject your front end dependencies into' +
-    '\nyour HTML by running:' +
-    '\n' +
-    chalk.yellow.bold('\n  grunt bowerInstall');
-
   if (this.options['skip-install']) {
-    console.log(howToInstall);
+    console.log(
+      '\nAfter running `npm install & bower install`, inject your front end dependencies into' +
+      '\nyour HTML by running:' +
+      '\n' +
+      '\n  grunt bowerInstall'
+    );
   } else {
     wiredep({
       directory: 'app/bower_components',
