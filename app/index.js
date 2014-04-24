@@ -286,6 +286,9 @@ Generator.prototype.packageFiles = function () {
   var replace = this.read('../../templates/common/replace.conf.js', 'utf8').replace(/\$\{/g, '(;$};)');
   this.write('replace.conf.js', this.engine(replace, this).replace(/\(;\$\};\)/g, '${'));
 
+  replace = this.read('../../templates/common/replace.private.conf.js', 'utf8').replace(/\$\{/g, '(;$};)');
+  this.write('replace.private.conf.js', this.engine(replace, this).replace(/\(;\$\};\)/g, '${'));
+
   if (this.dashboardApp || !this.dashboardWidget) {
     this.classedName = 'Main';
     this.template('../../templates/common/main.haml', 'app/views/main.haml');

@@ -14,3 +14,4 @@ sauce_connect.log*
 vendor
 coverage
 target
+replace.private.conf.js

@@ -72,6 +72,14 @@
     </script>
     <!-- end-wix-dashboard-menu -->
 
+    <!-- #if( false ) -->
+    <script>
+      angular.module('wixDashboardFramework').config(function (wixDashboardFrameworkConfig) {
+        wixDashboardFrameworkConfig.experiments = ${experiments};
+      });
+    </script>
+    <!-- #end -->
+
     #parse('views/my-account/embeds_body_bottom.vm')
     <% } %>
 
