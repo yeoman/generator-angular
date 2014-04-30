@@ -119,15 +119,43 @@ Generator.prototype.welcome = function welcome() {
   }
 };
 
-Generator.prototype.askForCompass = function askForCompass() {
+Generator.prototype.askForGulp = function askForGulp() {
   var cb = this.async();
 
   this.prompt([{
     type: 'confirm',
+    name: 'gulp',
+    message: 'Would you like to use Gulp (experimental) instead of Grunt?',
+    default: false
+  }], function (props) {
+    this.gulp = props.gulp;
+
+    cb();
+  }.bind(this));
+};
+
+Generator.prototype.askForStyles = function askForStyles() {
+  var gulp = this.gulp;
+  var cb = this.async();
+
+  this.prompt([{
+    type: 'confirm',
+    name: 'sass',
+    message: 'Would you like to use Sass?',
+    default: true,
+    when: function () {
+      return gulp;
+    }
+  }, {
+    type: 'confirm',
     name: 'compass',
     message: 'Would you like to use Sass (with Compass)?',
-    default: true
+    default: true,
+    when: function () {
+      return !gulp;
+    }
   }], function (props) {
+    this.sass = props.sass;
     this.compass = props.compass;
 
     cb();
@@ -136,20 +164,21 @@ Generator.prototype.askForCompass = function askForCompass() {
 
 Generator.prototype.askForBootstrap = function askForBootstrap() {
   var compass = this.compass;
+  var gulp = this.gulp;
   var cb = this.async();
 
   this.prompt([{
     type: 'confirm',
     name: 'bootstrap',
-    message: 'Would you like to include Bootstrap?',
+    message: 'Would you like to include Twitter Bootstrap?',
     default: true
   }, {
     type: 'confirm',
     name: 'compassBootstrap',
-    message: 'Would you like to use the Sass version of Bootstrap?',
+    message: 'Would you like to use the Sass version of Twitter Bootstrap?',
     default: true,
     when: function (props) {
-      return props.bootstrap && compass;
+      return !gulp && (props.bootstrap && compass);
     }
   }], function (props) {
     this.bootstrap = props.bootstrap;
@@ -223,7 +252,7 @@ Generator.prototype.readIndex = function readIndex() {
 };
 
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
-  var sass = this.compass;
+  var sass = this.compass || this.sass;
   var mainFile = 'main.' + (sass ? 's' : '') + 'css';
 
   if (this.bootstrap && !sass) {
@@ -255,7 +284,11 @@ Generator.prototype.packageFiles = function () {
   this.coffee = this.env.options.coffee;
   this.template('../../templates/common/_bower.json', 'bower.json');
   this.template('../../templates/common/_package.json', 'package.json');
-  this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
+  if (this.gulp) {
+    this.template('../../templates/common/Gulpfile.js', 'Gulpfile.js');
+  } else {
+    this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
+  }
 };
 
 Generator.prototype.imageFiles = function () {
