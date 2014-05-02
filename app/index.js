@@ -297,6 +297,7 @@ Generator.prototype.packageFiles = function () {
   this.template('../../templates/common/_bower.json', 'bower.json');
   this.template('../../templates/common/_package.json', 'package.json');
   this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
+  this.template('../../templates/common/karma.conf.js', 'karma.conf.js');
   this.template('../../templates/common/scenarios.js', 'test/spec/e2e/scenarios.js');
   this.template('../../templates/common/_ruby-gemset', '.ruby-gemset');
   this.copy('../../templates/common/_ruby-version', '.ruby-version');
