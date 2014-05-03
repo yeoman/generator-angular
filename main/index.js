@@ -17,16 +17,11 @@ Generator.prototype.createAppFile = function createAppFile() {
   this.dashboardApp = this.env.options.dashboardApp;
   this.dashboardWidget = this.env.options.dashboardWidget;
   if (this.name !== 'main') {
-    this.angularModules = this.angularModules || "'" + this.simplename + "Translations', 'wixDashboardFramework'";
+    this.angularModules = this.angularModules || "'" + this.simplename + "Translations', 'wixAngular', 'wixDashboardFramework'";
     this.appTemplate('app', 'scripts/' + this.name);
   } else if (this.env.options.dashboardApp || !this.env.options.dashboardWidget) {
     this.appTemplate('app', 'scripts/app');
-    if (!this.env.options.dashboardApp) {
-      this.testTemplate('mock/client-config', '../mock/client-config');
-    }
   }
 
-  if (this.env.options.dashboardApp || this.env.options.dashboardWidget) {
-    this.testTemplate('mock/wix-dashboard', '../mock/wix-dashboard');
-  }
+  this.testTemplate('mock/server-api', '../mock/server-api', false);
 };

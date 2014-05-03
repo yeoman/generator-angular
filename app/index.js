@@ -154,7 +154,7 @@ Generator.prototype.askForModules = function askForModules() {
     this.dashboardApp = hasMod('dashboardApp');
     this.dashboardWidget = hasMod('dashboardWidget');
 
-    var angMods = [this.simplename + 'Translations'];
+    var angMods = [this.simplename + 'Translations', 'wixAngular'];
 
     if (this.dashboardApp || this.dashboardWidget) {
       angMods.push('wixDashboardFramework');

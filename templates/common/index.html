@@ -20,21 +20,24 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
+    <script>
+      /* jshint ignore:start */
+      ENABLE_MOCKS = false;
+    </script>
     <% if (dashboardApp) { %>#parse('views/my-account/embeds_head.vm')<% } %>
   </head>
   <body>
     <% if (dashboardApp) { %>
     #parse('views/my-account/embeds_body_top.vm')
 
-    <wix-top-menu top-selected-item="sites"></wix-top-menu>
     <wix-dashboard-site-menu dashboard-selected-item="dashboard"></wix-dashboard-site-menu>
     <div wix-dashboard-app>
       <!-- Add your site or application content here -->
-      <div class="container" ng-include="wixDashboardWidgetConfig.partialsUrl + 'views/main.html'"></div>
+      <div class="container" ng-include="'views/main.html'"></div>
     </div>
     <% } else { %>
     <!-- Add your site or application content here -->
-    <div class="container" ng-include="clientConfig.partialsUrl + 'views/main.html'"></div>
+    <div class="container" ng-include="'views/main.html'"></div>
     <% } %>
 
     <script src="bower_components/jquery/jquery.js"></script>
@@ -44,24 +47,27 @@
     <script src="scripts/locale/messages_${locale}.js"></script>
 
     <!-- build:js scripts/modules.js -->
+    <script src="bower_components/uri.js/src/URI.js"></script>
+    <script src="bower_components/wix-angular/dist/wix-angular.js"></script>
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <!-- endbuild -->
-    <% if (!dashboardApp) { %>
+
+    <!-- #if( false ) -->
+    <!-- build:js(test) scripts/mocks.js -->
+    <script src="mock/server-api.js"></script>
+    <!-- endbuild -->
     <script>
-      function fixOrigin(url) {
-        return url.replace(/^(.*:\/\/+)?[^\/]*/, window.location.protocol + '//' + window.location.host);
+      if (ENABLE_MOCKS) {
+        document.write('<scr'+'ipt src="bower_components/angular-mocks/angular-mocks.js"></scr'+'ipt>');
+        angular.module('<%= scriptAppName %>').requires.push('<%= scriptAppName %>Mocks');
       }
-      angular.module('<%= scriptAppName %>').constant('clientConfig', {
-        apiUrl: fixOrigin('/_api/<%= _.slugify(_.humanize(appname)) %>-webapp/'),
-        staticsUrl: '${clientTopology.<%= simplename %>StaticsUrl}',
-        partialsUrl: fixOrigin('${clientTopology.<%= simplename %>StaticsUrl}').replace('/services/', '/_partials/')
-      });
     </script>
-    <% } else { %>
+    <!-- #end -->
+    <% if (dashboardApp) { %>
     <!-- wix-dashboard-menu -->
     <script src="${clientTopology.publicUrl}my-account/framework.js?debug=${debug}"></script>
     <script>
@@ -82,16 +88,5 @@
 
     #parse('views/my-account/embeds_body_bottom.vm')
     <% } %>
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', '${googleAnalytics}');
-      ga('send', 'pageview');
-    </script>
   </body>
 </html>
