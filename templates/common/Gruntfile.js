@@ -162,7 +162,11 @@ module.exports = function (grunt) {
     bowerInstall: {
       app: {
         src: ['<%%= yeoman.app %>/index.html'],
-        ignorePath: new RegExp('^<%%= yeoman.app %>/')
+        ignorePath: new RegExp('^<%%= yeoman.app %>/')<% if (bootstrap) { %>,
+        exclude: [
+          'jquery'<% if (compassBootstrap) { %>,
+          'bootstrap-sass-official'<% } %>
+        ]<% } %>
       }<% if (compass) { %>,
       sass: {
         src: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
