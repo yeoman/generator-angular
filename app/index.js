@@ -241,8 +241,7 @@ Generator.prototype.appJs = function appJs() {
     html: this.indexFile,
     fileType: 'js',
     optimizedPath: 'scripts/scripts.js',
-    sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js'],
-    searchPath: ['.tmp', 'app']
+    sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js']
   });
 };
 
