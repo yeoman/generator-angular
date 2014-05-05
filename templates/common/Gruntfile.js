@@ -355,7 +355,16 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%%= yeoman.dist %>/images',
           src: ['generated/*']
-        }]
+        }
+        <% if (bootstrap && compass && !compassBootstrap) { %>
+        , {
+          expand:true,
+          cwd: '<%%= yeoman.app %>/bower_components/bootstrap/dist',
+          src: 'fonts/*',
+          dest: '<%%= yeoman.dist %>'
+        }
+        <% } %>
+        ]
       },
       styles: {
         expand: true,
