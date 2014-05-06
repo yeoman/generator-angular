@@ -26,7 +26,9 @@ var Generator = module.exports = function Generator(args, options) {
     try {
       this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
     } catch (e) {}
-    this.env.options.appPath = this.env.options.appPath || 'app';
+    if(!this.env.options.appPath) {
+      this.env.options.appPath = this.options.appPath || 'app';
+    }
   }
 
   this.appPath = this.env.options.appPath;
