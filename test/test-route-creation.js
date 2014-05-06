@@ -10,7 +10,6 @@ var _ = require('underscore.string');
 
 
 describe('Angular generator route mechanism', function () {
-
   var folderName = 'routeTests';
   var angular;
 
@@ -32,6 +31,7 @@ describe('Angular generator route mechanism', function () {
       }
       angular = helpers.createGenerator('angular:app', deps);
       angular.options['skip-install'] = true;
+      angular.options['skip-welcome-message'] = true;
 
       helpers.mockPrompt(angular, {
         compass: true,
@@ -67,7 +67,7 @@ describe('Angular generator route mechanism', function () {
     angularRouteGenerator.run({}, function(){
 
       // Check if new files are created for the route
-      helpers.assertFiles(expected);
+      helpers.assertFile(expected);
 
       var app_js = fs.readFileSync('app/scripts/app.js', 'utf8');
       var route_regex = new RegExp('when\\(\'/' + route + '\'');
@@ -101,7 +101,7 @@ describe('Angular generator route mechanism', function () {
     angularRouteGenerator.run({}, function(){
 
       // Check if new files are created for the route
-      helpers.assertFiles(expected);
+      helpers.assertFile(expected);
 
       var app_js = fs.readFileSync('app/scripts/app.js', 'utf8');
       var route_regex = new RegExp('when\\(\'/' + uri + '\'');

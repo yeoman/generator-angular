@@ -10,6 +10,19 @@ var _ = require('underscore.string');
 
 describe('Angular generator', function () {
   var angular;
+  var expected = [
+    'app/.htaccess',
+    'app/404.html',
+    'app/favicon.ico',
+    'app/robots.txt',
+    'app/styles/main.scss',
+    'app/views/main.html',
+    '.bowerrc',
+    'Gruntfile.js',
+    'package.json',
+    'bower.json',
+    'app/index.html'
+  ];
 
   beforeEach(function (done) {
     var deps = [
@@ -27,6 +40,7 @@ describe('Angular generator', function () {
       }
       angular = helpers.createGenerator('angular:app', deps);
       angular.options['skip-install'] = true;
+      angular.options['skip-welcome-message'] = true;
       done();
     });
   });
@@ -40,27 +54,17 @@ describe('Angular generator', function () {
     });
 
     angular.run({}, function () {
-      helpers.assertFiles(['.bowerrc', '.gitignore', '.editorconfig', '.jshintrc']);
+      helpers.assertFile(['.bowerrc', '.gitignore', '.editorconfig', '.jshintrc']);
       done();
     });
   });
 
-  it('creates expected files', function (done) {
-    var expected = ['app/.htaccess',
-                    'app/404.html',
-                    'app/favicon.ico',
-                    'app/robots.txt',
-                    'app/styles/main.scss',
-                    'app/views/main.html',
-                    ['.bowerrc', /"directory": "app\/bower_components"/],
-                    'Gruntfile.js',
-                    'package.json',
-                    ['bower.json', /"name":\s+"temp"/],
-                    'app/scripts/app.js',
-                    'app/index.html',
-                    'app/scripts/controllers/main.js',
-                    'test/spec/controllers/main.js'
-                    ];
+  it('creates expected JS files', function (done) {
+    var expect = [].concat(expected, [
+      'app/scripts/app.js',
+      'app/scripts/controllers/main.js',
+      'test/spec/controllers/main.js'
+    ]);
     helpers.mockPrompt(angular, {
       compass: true,
       bootstrap: true,
@@ -69,27 +73,17 @@ describe('Angular generator', function () {
     });
 
     angular.run({}, function() {
-      helpers.assertFiles(expected);
+      helpers.assertFile(expected);
       done();
     });
   });
 
   it('creates coffeescript files', function (done) {
-    var expected = ['app/.htaccess',
-                    'app/404.html',
-                    'app/favicon.ico',
-                    'app/robots.txt',
-                    'app/styles/main.scss',
-                    'app/views/main.html',
-                    ['.bowerrc', /"directory": "app\/bower_components"/],
-                    'Gruntfile.js',
-                    'package.json',
-                    ['bower.json', /"name":\s+"temp"/],
-                    'app/scripts/app.coffee',
-                    'app/index.html',
-                    'app/scripts/controllers/main.coffee',
-                    'test/spec/controllers/main.coffee'
-                    ];
+    var expect = [].concat(expected, [
+      'app/scripts/app.coffee',
+      'app/scripts/controllers/main.coffee',
+      'test/spec/controllers/main.coffee'
+    ]);
     helpers.mockPrompt(angular, {
       compass: true,
       bootstrap: true,
@@ -99,7 +93,7 @@ describe('Angular generator', function () {
 
     angular.env.options.coffee = true;
     angular.run([], function () {
-      helpers.assertFiles(expected);
+      helpers.assertFile(expected);
       done();
     });
   });
@@ -141,10 +135,23 @@ describe('Angular generator', function () {
       modules: []
     });
     angular.run([], function (){
+      angularGenerator.options['skip-welcome-message'] = true;
       angularGenerator.run([], function () {
-        helpers.assertFiles([
-          [path.join('app/scripts', targetDirectory, name + '.js'), new RegExp(generatorType + '\\(\'' + scriptNameFn(name) + suffix + '\'', 'g')],
-          [path.join('test/spec', targetDirectory, name + '.js'), new RegExp('describe\\(\'' + _.classify(specType) + ': ' + specNameFn(name) + suffix + '\'', 'g')]
+        assert.fileContent([
+          [
+            path.join('app/scripts', targetDirectory, name + '.js'),
+            new RegExp(
+              generatorType + '\\(\'' + scriptNameFn(name) + suffix + '\'',
+              'g'
+            )
+          ],
+          [
+            path.join('test/spec', targetDirectory, name + '.js'),
+            new RegExp(
+              'describe\\(\'' + _.classify(specType) + ': ' + specNameFn(name) + suffix + '\'',
+              'g'
+            )
+          ]
         ]);
         done();
       });
@@ -174,24 +181,15 @@ describe('Angular generator', function () {
       generatorTest(generatorType, 'service', 'services', nameFn, nameFn, '', done);
     }
 
-    it('should generate a new constant', function (done) {
-      serviceTest('constant', _.camelize, done);
+    ['constant', 'factory', 'provider', 'value'].forEach(function(t) {
+      it('should generate a new ' + t, function (done) {
+        serviceTest(t, _.camelize, done);
+      });
     });
+
 
     it('should generate a new service', function (done) {
-      serviceTest('service', _.classify, done);
-    });
-
-    it('should generate a new factory', function (done) {
-      serviceTest('factory', _.camelize, done);
-    });
-
-    it('should generate a new provider', function (done) {
-      serviceTest('provider', _.camelize, done);
-    });
-
-    it('should generate a new value', function (done) {
-      serviceTest('value', _.camelize, done);
+      serviceTest('service', _.capitalize, done);
     });
   });
 
