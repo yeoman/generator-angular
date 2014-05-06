@@ -2,6 +2,7 @@
 
 > Yeoman generator for AngularJS - lets you quickly set up a project with sensible defaults and best practises.
 
+[Roadmap for upcoming plans/features/fixes](https://github.com/yeoman/generator-angular/issues/553)
 
 ## Usage
 
