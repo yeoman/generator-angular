@@ -94,6 +94,11 @@ var Generator = module.exports = function Generator(args, options) {
       }
     });
 
+    if (this.env.options.ngRoute) {
+      this.invoke('angular:route', {
+        args: ['about']
+      });
+    }
   });
 
   this.pkg = require('../package.json');
