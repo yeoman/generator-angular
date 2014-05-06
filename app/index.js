@@ -252,14 +252,14 @@ Generator.prototype.createIndexHtml = function createIndexHtml() {
   this.write(path.join(this.appPath, 'index.html'), this.indexFile);
 };
 
-Generator.prototype.packageFiles = function () {
+Generator.prototype.packageFiles = function packageFiles() {
   this.coffee = this.env.options.coffee;
   this.template('root/_bower.json', 'bower.json');
   this.template('root/_package.json', 'package.json');
   this.template('root/_Gruntfile.js', 'Gruntfile.js');
 };
 
-Generator.prototype.imageFiles = function () {
+Generator.prototype.imageFiles = function imageFiles() {
   this.directory('app/images');
 };
 
