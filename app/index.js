@@ -104,14 +104,14 @@ util.inherits(Generator, yeoman.generators.Base);
 Generator.prototype.welcome = function welcome() {
   // welcome message
   if (!this.options['skip-welcome-message']) {
-    console.log(this.yeoman);
-    console.log(
+    this.log(this.yeoman);
+    this.log(
       'Out of the box I include Bootstrap and some AngularJS recommended modules.\n'
     );
 
     // Removed notice for minsafe
     if (this.options.minsafe) {
-      console.warn(
+      this.log.error(
         '\n** The --minsafe flag has been removed. For more information, see ' +
         'https://github.com/yeoman/generator-angular#minification-safe. **\n'
       );
@@ -265,7 +265,7 @@ Generator.prototype.imageFiles = function () {
 
 Generator.prototype._injectDependencies = function _injectDependencies() {
   if (this.options['skip-install']) {
-    console.log(
+    this.log(
       '\nAfter running `npm install & bower install`, inject your front end dependencies into' +
       '\nyour HTML by running:' +
       '\n' +
