@@ -20,11 +20,27 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <% if (ngRoute) {
-      %><div class="container" ng-view></div><%
-    } else {
-      %><div class="container" ng-include="'views/main.html'" ng-controller="MainCtrl"></div><%
-    } %>
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a ng-href="#">Home</a></li>
+          <li><a ng-href="<% if (ngRoute) { %>#/about<% } else { %>#<% } %>">About</a></li>
+          <li><a ng-href="#">Contact</a></li>
+        </ul>
+        <h3 class="text-muted"><%= appname %></h3>
+      </div>
+
+      <% if (ngRoute) {
+        %><div ng-view></div><%
+      } else {
+        %><div ng-include="'views/main.html'" ng-controller="MainCtrl"></div><%
+      } %>
+
+      <div class="footer">
+        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+      </div>
+    </div>
+
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
