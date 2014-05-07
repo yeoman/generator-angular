@@ -26,4 +26,5 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.copy('app/favicon.ico');
   this.copy('app/robots.txt');
   this.copy('app/views/main.html');
+  this.directory('app/images');
 };

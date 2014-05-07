@@ -256,10 +256,6 @@ Generator.prototype.packageFiles = function packageFiles() {
   this.template('root/_Gruntfile.js', 'Gruntfile.js');
 };
 
-Generator.prototype.imageFiles = function imageFiles() {
-  this.directory('app/images');
-};
-
 Generator.prototype._injectDependencies = function _injectDependencies() {
   if (this.options['skip-install']) {
     this.log(
