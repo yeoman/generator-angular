@@ -18,6 +18,7 @@ var Generator = module.exports = function Generator(args, options) {
     type: String,
     required: 'false'
   });
+  this.env.options['app-suffix'] = this.options['app-suffix'];
   this.scriptAppName = this.appname + angularUtils.appName(this);
 
   args = ['main'];
