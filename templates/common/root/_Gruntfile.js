@@ -267,12 +267,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // The following *-min tasks produce minified files in the dist folder
-    cssmin: {
-      options: {
-        root: '<%%= yeoman.app %>'
-      }
-    },
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
@@ -379,7 +373,18 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%%= yeoman.dist %>/images',
           src: ['generated/*']
-        }]
+        }<% if (bootstrap) { %>, {
+          expand: true,
+          cwd: '<%%= yeoman.app %><%
+            if (!compassBootstrap) {
+              %>/bower_components/bootstrap/dist<%
+            } %>',
+          src: '<% if (compassBootstrap) {
+              %>bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap<%
+            } else { %>fonts<% }
+            %>/*',
+          dest: '<%%= yeoman.dist %>'
+        }<% } %>]
       },
       styles: {
         expand: true,

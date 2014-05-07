@@ -224,17 +224,7 @@ Generator.prototype.readIndex = function readIndex() {
 };
 
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
-  var sass = this.compass;
-  var mainFile = 'main.' + (sass ? 's' : '') + 'css';
-
-  if (this.bootstrap && !sass) {
-    this.copy('app/fonts/glyphicons-halflings-regular.eot');
-    this.copy('app/fonts/glyphicons-halflings-regular.ttf');
-    this.copy('app/fonts/glyphicons-halflings-regular.svg');
-    this.copy('app/fonts/glyphicons-halflings-regular.woff');
-  }
-
-  this.copy('app/styles/' + mainFile);
+  this.copy('app/styles/main.' + (this.compass ? 's' : '') + 'css');
 };
 
 Generator.prototype.appJs = function appJs() {
