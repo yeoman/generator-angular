@@ -18,10 +18,12 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.copy('.jshintrc', '.jshintrc');
   this.copy('gitignore', '.gitignore');
   this.directory('../test', 'test', true);
-  this.copy('../app/.buildignore', 'app/.buildignore');
-  this.copy('../app/.htaccess', 'app/.htaccess');
-  this.copy('../app/404.html', 'app/404.html');
-  this.copy('../app/favicon.ico', 'app/favicon.ico');
-  this.copy('../app/robots.txt', 'app/robots.txt');
-  this.copy('../app/views/main.html', 'app/views/main.html');
+
+  this.sourceRoot(path.join(__dirname, '../templates/common'));
+  this.copy('app/.buildignore');
+  this.copy('app/.htaccess');
+  this.copy('app/404.html');
+  this.copy('app/favicon.ico');
+  this.copy('app/robots.txt');
+  this.copy('app/views/main.html');
 };

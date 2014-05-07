@@ -1,5 +1,6 @@
 /*global describe, before, it, beforeEach */
 'use strict';
+
 var fs = require('fs');
 var assert = require('assert');
 var path = require('path');
@@ -8,9 +9,7 @@ var generators = require('yeoman-generator');
 var helpers = require('yeoman-generator').test;
 var _ = require('underscore.string');
 
-
 describe('Angular generator route mechanism', function () {
-  var folderName = 'routeTests';
   var angular;
 
   beforeEach(function (done) {
@@ -25,7 +24,7 @@ describe('Angular generator route mechanism', function () {
         'karma:app'
       ]
     ];
-    helpers.testDirectory(path.join(__dirname, folderName), function (err) {
+    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {
         done(err);
       }

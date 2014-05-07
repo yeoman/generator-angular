@@ -1,5 +1,6 @@
 /*global describe, before, it, beforeEach */
 'use strict';
+
 var fs = require('fs');
 var assert = require('assert');
 var path = require('path');
@@ -18,11 +19,25 @@ describe('Angular generator', function () {
     'app/styles/main.scss',
     'app/views/main.html',
     '.bowerrc',
+    '.editorconfig',
+    '.gitignore',
+    '.jshintrc',
     'Gruntfile.js',
     'package.json',
     'bower.json',
     'app/index.html'
   ];
+  var mockPrompts = {
+    compass: true,
+    bootstrap: true,
+    compassBootstrap: true,
+    modules: []
+  };
+  var genOptions = {
+    'skip-install': true,
+    'skip-welcome-message': true,
+    'skip-message': true
+  };
 
   beforeEach(function (done) {
     var deps = [
@@ -38,62 +53,43 @@ describe('Angular generator', function () {
       if (err) {
         done(err);
       }
-      angular = helpers.createGenerator('angular:app', deps);
-      angular.options['skip-install'] = true;
-      angular.options['skip-welcome-message'] = true;
+      angular = helpers.createGenerator('angular:app', deps, false, genOptions);
       done();
     });
   });
 
   it('should generate dotfiles', function (done) {
-    helpers.mockPrompt(angular, {
-      compass: true,
-      bootstrap: true,
-      compassBootstrap: true,
-      modules: []
-    });
+    helpers.mockPrompt(angular, mockPrompts);
 
     angular.run({}, function () {
-      helpers.assertFile(['.bowerrc', '.gitignore', '.editorconfig', '.jshintrc']);
+      helpers.assertFile(expected);
       done();
     });
   });
 
   it('creates expected JS files', function (done) {
-    var expect = [].concat(expected, [
-      'app/scripts/app.js',
-      'app/scripts/controllers/main.js',
-      'test/spec/controllers/main.js'
-    ]);
-    helpers.mockPrompt(angular, {
-      compass: true,
-      bootstrap: true,
-      compassBootstrap: true,
-      modules: []
-    });
+    helpers.mockPrompt(angular, mockPrompts);
 
     angular.run({}, function() {
-      helpers.assertFile(expected);
+      helpers.assertFile([].concat(expected, [
+        'app/scripts/app.js',
+        'app/scripts/controllers/main.js',
+        'test/spec/controllers/main.js'
+      ]));
       done();
     });
   });
 
   it('creates coffeescript files', function (done) {
-    var expect = [].concat(expected, [
-      'app/scripts/app.coffee',
-      'app/scripts/controllers/main.coffee',
-      'test/spec/controllers/main.coffee'
-    ]);
-    helpers.mockPrompt(angular, {
-      compass: true,
-      bootstrap: true,
-      compassBootstrap: true,
-      modules: []
-    });
+    helpers.mockPrompt(angular, mockPrompts);
 
     angular.env.options.coffee = true;
     angular.run([], function () {
-      helpers.assertFile(expected);
+      helpers.assertFile([].concat(expected, [
+        'app/scripts/app.coffee',
+        'app/scripts/controllers/main.coffee',
+        'test/spec/controllers/main.coffee'
+      ]));
       done();
     });
   });
@@ -126,16 +122,10 @@ describe('Angular generator', function () {
     var angularGenerator;
     var name = 'foo';
     var deps = [path.join('../..', generatorType)];
-    angularGenerator = helpers.createGenerator('angular:' + generatorType, deps, [name]);
+    angularGenerator = helpers.createGenerator('angular:' + generatorType, deps, [name], genOptions);
 
-    helpers.mockPrompt(angular, {
-      compass: true,
-      bootstrap: true,
-      compassBootstrap: true,
-      modules: []
-    });
+    helpers.mockPrompt(angular, mockPrompts);
     angular.run([], function (){
-      angularGenerator.options['skip-welcome-message'] = true;
       angularGenerator.run([], function () {
         assert.fileContent([
           [
@@ -197,14 +187,9 @@ describe('Angular generator', function () {
     it('should generate a new view', function (done) {
       var angularView;
       var deps = ['../../view'];
-      angularView = helpers.createGenerator('angular:view', deps, ['foo']);
+      angularView = helpers.createGenerator('angular:view', deps, ['foo'], genOptions);
 
-      helpers.mockPrompt(angular, {
-        compass: true,
-        bootstrap: true,
-        compassBootstrap: true,
-        modules: []
-      });
+      helpers.mockPrompt(angular, mockPrompts);
       angular.run([], function (){
         angularView.run([], function () {
           helpers.assertFile(
@@ -218,14 +203,9 @@ describe('Angular generator', function () {
     it('should generate a new view in subdirectories', function (done) {
       var angularView;
       var deps = ['../../view'];
-      angularView = helpers.createGenerator('angular:view', deps, ['foo/bar']);
+      angularView = helpers.createGenerator('angular:view', deps, ['foo/bar'], genOptions);
 
-      helpers.mockPrompt(angular, {
-        compass: true,
-        bootstrap: true,
-        compassBootstrap: true,
-        modules: []
-      });
+      helpers.mockPrompt(angular, mockPrompts);
       angular.run([], function (){
         angularView.run([], function () {
           helpers.assertFile(
