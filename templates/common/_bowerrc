@@ -1,3 +1,0 @@
-{
-    "directory": "<%= appPath %>/bower_components"
-}
