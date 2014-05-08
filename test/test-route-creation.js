@@ -39,12 +39,11 @@ describe('Angular generator route mechanism', function () {
         modules: ['routeModule']
       });
 
-      angular.run({}, function(){
+      angular.run({}, function() {
         done();
       });
     });
   });
-
 
   it('should generate routes, controllers and views', function(done){
     var route = 'simpleroute';
@@ -63,7 +62,7 @@ describe('Angular generator route mechanism', function () {
 
     var angularRouteGenerator = helpers.createGenerator('angular:route', deps, [route]);
 
-    angularRouteGenerator.run({}, function(){
+    angularRouteGenerator.run({}, function() {
 
       // Check if new files are created for the route
       helpers.assertFile(expected);
@@ -76,7 +75,6 @@ describe('Angular generator route mechanism', function () {
       done();
     });
   });
-
 
   // Test with URI specified explicitly
   it('should generate routes, controllers and views with the route uri given', function(done){
@@ -95,9 +93,8 @@ describe('Angular generator route mechanism', function () {
       '../../view'
     ];
 
-    var angularRouteGenerator = helpers.createGenerator('angular:route', deps, [route], { uri: uri });
-
-    angularRouteGenerator.run({}, function(){
+    angular = helpers.createGenerator('angular:route', deps, [route], { uri: uri });
+    angular.run({}, function() {
 
       // Check if new files are created for the route
       helpers.assertFile(expected);
