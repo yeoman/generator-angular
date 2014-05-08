@@ -80,7 +80,7 @@ describe('Angular generator', function () {
     });
   });
 
-  it('creates coffeescript files', function (done) {
+  it('creates CoffeeScript files', function (done) {
     helpers.mockPrompt(angular, mockPrompts);
 
     angular.env.options.coffee = true;
@@ -125,7 +125,7 @@ describe('Angular generator', function () {
     angularGenerator = helpers.createGenerator('angular:' + generatorType, deps, [name], genOptions);
 
     helpers.mockPrompt(angular, mockPrompts);
-    angular.run([], function (){
+    angular.run([], function () {
       angularGenerator.run([], function () {
         assert.fileContent([
           [
@@ -190,11 +190,9 @@ describe('Angular generator', function () {
       angularView = helpers.createGenerator('angular:view', deps, ['foo'], genOptions);
 
       helpers.mockPrompt(angular, mockPrompts);
-      angular.run([], function (){
+      angular.run([], function () {
         angularView.run([], function () {
-          helpers.assertFile(
-            ['app/views/foo.html']
-          );
+          helpers.assertFile(['app/views/foo.html']);
           done();
         });
       });
@@ -206,11 +204,9 @@ describe('Angular generator', function () {
       angularView = helpers.createGenerator('angular:view', deps, ['foo/bar'], genOptions);
 
       helpers.mockPrompt(angular, mockPrompts);
-      angular.run([], function (){
+      angular.run([], function () {
         angularView.run([], function () {
-          helpers.assertFile(
-            ['app/views/foo/bar.html']
-          );
+          helpers.assertFile(['app/views/foo/bar.html']);
           done();
         });
       });
