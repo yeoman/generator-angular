@@ -2,7 +2,7 @@
 'use strict';
 
 module.exports = function (grunt) {
-  var unitTestFiles;
+  var unitTestFiles = [];
   require('./karma.conf.js')({set: function (karmaConf) {
     unitTestFiles = karmaConf.files.filter(function (value) {
       return value.indexOf('bower_component') !== -1;
