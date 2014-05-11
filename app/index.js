@@ -4,8 +4,9 @@ var path = require('path');
 var util = require('util');
 var angularUtils = require('../util.js');
 var yeoman = require('yeoman-generator');
+var yosay = require('yosay');
 var wiredep = require('wiredep');
-
+var chalk = require('chalk');
 
 var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
@@ -110,20 +111,22 @@ var Generator = module.exports = function Generator(args, options) {
 util.inherits(Generator, yeoman.generators.Base);
 
 Generator.prototype.welcome = function welcome() {
-  // welcome message
   if (!this.options['skip-welcome-message']) {
-    this.log(this.yeoman);
+    this.log(yosay());
     this.log(
-      'Out of the box I include Bootstrap and some AngularJS recommended modules.\n'
+      chalk.magenta(
+        'Out of the box I include Bootstrap and some AngularJS recommended modules.' +
+        '\n'
+      )
     );
+  }
 
-    // Removed notice for minsafe
-    if (this.options.minsafe) {
-      this.log.error(
-        '\n** The --minsafe flag has been removed. For more information, see ' +
-        'https://github.com/yeoman/generator-angular#minification-safe. **\n'
-      );
-    }
+  if (this.options.minsafe) {
+    this.log.error(
+      'The --minsafe flag has been removed. For more information, see' +
+      '\nhttps://github.com/yeoman/generator-angular#minification-safe.' +
+      '\n'
+    );
   }
 };
 
@@ -259,10 +262,10 @@ Generator.prototype.packageFiles = function packageFiles() {
 Generator.prototype._injectDependencies = function _injectDependencies() {
   if (this.options['skip-install']) {
     this.log(
-      '\nAfter running `npm install & bower install`, inject your front end dependencies into' +
-      '\nyour HTML by running:' +
+      'After running `npm install & bower install`, inject your front end dependencies' +
+      '\ninto your source code by running:' +
       '\n' +
-      '\n  grunt bowerInstall'
+      '\n' + chalk.yellow.bold('grunt bowerInstall')
     );
   } else {
     wiredep({
