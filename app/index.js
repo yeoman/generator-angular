@@ -302,6 +302,7 @@ Generator.prototype.packageFiles = function () {
   this.template('../../templates/common/_ruby-gemset', '.ruby-gemset');
   this.copy('../../templates/common/_ruby-version', '.ruby-version');
   this.copy('../../templates/common/project.sublime-project', this._.slugify(this._.humanize(this.simplename))+'.sublime-project');
+  this.template('../../templates/javascript/mock/server-api.js', 'test/mock/server-api.js');
 };
 
 Generator.prototype.imageFiles = function () {

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>')
+angular.module('<%= scriptAppName %>Internal')
   .controller('<%= classedName %>Ctrl', function ($scope) {
     $scope.awesomeThings = [
       'Bower',

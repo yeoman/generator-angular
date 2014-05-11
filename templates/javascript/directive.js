@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>')
+angular.module('<%= scriptAppName %>Internal')
   .directive('<%= cameledName %>', function () {
     return {
       template: '<div></div>',

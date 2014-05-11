@@ -22,6 +22,4 @@ Generator.prototype.createAppFile = function createAppFile() {
   } else if (this.env.options.dashboardApp || !this.env.options.dashboardWidget) {
     this.appTemplate('app', 'scripts/app');
   }
-
-  this.testTemplate('mock/server-api', '../mock/server-api', false);
 };
