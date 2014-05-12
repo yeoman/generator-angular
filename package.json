@@ -13,6 +13,25 @@
   ],
   "author": "The Yeoman Team",
   "main": "app/index.js",
+  "files": [
+    "app",
+    "common",
+    "constant",
+    "controller",
+    "decorator",
+    "directive",
+    "factory",
+    "filter",
+    "main",
+    "provider",
+    "route",
+    "service",
+    "templates",
+    "value",
+    "view",
+    "script-base.js",
+    "util.js"
+  ],
   "repository": "yeoman/generator-angular",
   "scripts": {
     "test": "mocha"

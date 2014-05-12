@@ -73,7 +73,7 @@ Produces `app/views/myroute.html`:
 
 **Explicitly provide route URI**
 
-Example: 
+Example:
 ```bash
 yo angular:route myRoute --uri=my/route
 ```
@@ -292,6 +292,10 @@ When submitting a PR, make sure that the commit messages match the [AngularJS co
 When submitting a bugfix, write a test that exposes the bug and fails before applying your fix. Submit the test alongside the fix.
 
 When submitting a new feature, add tests that cover the feature.
+
+## Changelog
+
+Recent changes can be viewed on Github on the [Releases Page](https://github.com/yeoman/generator-angular/releases)
 
 ## License
 
