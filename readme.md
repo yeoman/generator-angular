@@ -1,6 +1,6 @@
 # AngularJS generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular.svg?branch=master)](http://travis-ci.org/yeoman/generator-angular)
 
-> Yeoman generator for AngularJS - lets you quickly set up a project with sensible defaults and best practises.
+> Yeoman generator for AngularJS - lets you quickly set up a project with sensible defaults and best practices.
 
 [Roadmap for upcoming plans/features/fixes](https://github.com/yeoman/generator-angular/issues/553)
 
