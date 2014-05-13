@@ -34,6 +34,8 @@
     "waitsFor": false,
 
     "browser": false,
+    "protractor": false,
+    "by": false,
     "element": false,
     "input": false,
     "select": false,

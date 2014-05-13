@@ -13,6 +13,7 @@ module.exports = function (grunt) {
     port: 9000,
     preloadModule: '<%= scriptAppName %>',
     translationsModule: '<%= simplename %>Translations',
-    unitTestFiles: unitTestFiles
+    unitTestFiles: unitTestFiles,
+    protractor: true
   });
 };

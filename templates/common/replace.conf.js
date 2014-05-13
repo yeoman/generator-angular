@@ -2,6 +2,7 @@
 
 module.exports = {
   '${debug}': 'true',
+  '${enableMocks}': 'true',
   '${locale}': 'en',
   '${googleAnalytics}': 'UA-2117194-2',<% if (dashboardApp) { %>
   '${metaSiteId}': 'c853c829-503e-48b1-892f-28d8c22a887c',
