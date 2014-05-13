@@ -265,7 +265,7 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
       'After running `npm install & bower install`, inject your front end dependencies' +
       '\ninto your source code by running:' +
       '\n' +
-      '\n' + chalk.yellow.bold('grunt bowerInstall')
+      '\n' + chalk.yellow.bold('grunt wiredep')
     );
   } else {
     wiredep({
