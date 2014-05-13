@@ -16,5 +16,6 @@
   "devDependencies": {
     "angular-mocks": "<%= ngVer %>",
     "angular-scenario": "<%= ngVer %>"
-  }
+  }<% if (appPath) { %>,
+  "appPath": "<%= appPath %>"<% } %>
 }
