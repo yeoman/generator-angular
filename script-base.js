@@ -3,6 +3,7 @@ var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var angularUtils = require('./util.js');
+var chalk = require('chalk');
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
@@ -92,7 +93,9 @@ Generator.prototype.addScriptToIndex = function (script) {
       ]
     });
   } catch (e) {
-    this.log.error('\nUnable to find '.yellow + fullPath + '. Reference to '.yellow + script + '.js ' + 'not added.\n'.yellow);
+    this.log.error(chalk.yellow(
+      '\nUnable to find ' + fullPath + '. Reference to ' + script + '.js ' + 'not added.\n'
+    ));
   }
 };
 
