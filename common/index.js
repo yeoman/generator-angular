@@ -18,7 +18,7 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.copy('.gitattributes');
   this.copy('.jshintrc');
   this.copy('gitignore', '.gitignore');
-  this.directory(join('..','test'), 'test', true);
+  this.directory('test');
 
   this.sourceRoot(join(__dirname, '../templates/common'));
   var appPath = this.options.appPath;
