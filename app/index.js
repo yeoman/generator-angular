@@ -25,9 +25,17 @@ var Generator = module.exports = function Generator(args, options) {
   args = ['main'];
 
   if (typeof this.env.options.appPath === 'undefined') {
-    try {
-      this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
-    } catch (e) {}
+    this.option('appPath', {
+      desc: 'Generate CoffeeScript instead of JavaScript'
+    });
+
+    this.env.options.appPath = this.options.appPath;
+
+    if (!this.env.options.appPath) {
+      try {
+        this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
+      } catch (e) {}
+    }
     this.env.options.appPath = this.env.options.appPath || 'app';
   }
 
