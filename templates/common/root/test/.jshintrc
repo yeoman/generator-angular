@@ -17,8 +17,11 @@
   "trailing": true,
   "smarttabs": true,
   "white": true,
+  "node": true,
   "globals": {
     "_": false,
+    "$": false,
+    "$$": false,
     "angular": false,
     "jasmine": false,
     "module": false,

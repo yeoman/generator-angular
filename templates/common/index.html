@@ -57,12 +57,12 @@
     <!-- endbuild -->
 
     <!-- #if( false ) -->
+    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
     <!-- build:js(test) scripts/mocks.js -->
     <script src="mock/server-api.js"></script>
     <!-- endbuild -->
     <script>
       if (ENABLE_MOCKS) {
-        document.write('<scr'+'ipt src="bower_components/angular-mocks/angular-mocks.js"></scr'+'ipt>');
         angular.module('<%= scriptAppName %>').requires.push('<%= scriptAppName %>Mocks');
       }
     </script>
