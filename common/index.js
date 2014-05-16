@@ -17,7 +17,6 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.copy('.editorconfig');
   this.copy('.gitattributes');
   this.copy('.jshintrc');
-  this.copy('gitignore', '.gitignore');
   this.directory('test');
 
   this.sourceRoot(join(__dirname, '../templates/common'));

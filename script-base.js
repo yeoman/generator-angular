@@ -28,6 +28,7 @@ var Generator = module.exports = function Generator() {
       } catch (e) {}
     }
     this.env.options.appPath = this.env.options.appPath || 'app';
+    this.options.appPath = this.env.options.appPath;
   }
 
   if (typeof this.env.options.testPath === 'undefined') {

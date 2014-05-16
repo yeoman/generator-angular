@@ -37,6 +37,7 @@ var Generator = module.exports = function Generator(args, options) {
       } catch (e) {}
     }
     this.env.options.appPath = this.env.options.appPath || 'app';
+    this.options.appPath = this.env.options.appPath;
   }
 
   this.appPath = this.env.options.appPath;
@@ -268,6 +269,7 @@ Generator.prototype.packageFiles = function packageFiles() {
   this.coffee = this.env.options.coffee;
   this.template('root/_bower.json', 'bower.json');
   this.template('root/_bowerrc', '.bowerrc');
+  this.template('root/gitignore', '.gitignore');
   this.template('root/_package.json', 'package.json');
   this.template('root/_Gruntfile.js', 'Gruntfile.js');
 };
