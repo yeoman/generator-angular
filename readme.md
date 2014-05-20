@@ -79,7 +79,7 @@ yo angular:route myRoute --uri=my/route
 ```
 
 Produces controller and view as above and adds a route to `app/scripts/app.js`
-with URI `my/route`
+with URI `/myRoute`
 
 ### Controller
 Generates a controller in `app/scripts/controllers`.
