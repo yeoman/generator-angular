@@ -20,10 +20,12 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
+    <!-- #if( false ) -->
     <script>
       /* jshint ignore:start */
       ENABLE_MOCKS = ${enableMocks};
     </script>
+    <!-- #end -->
     <% if (dashboardApp) { %>#parse('views/my-account/embeds_head.vm')<% } %>
   </head>
   <body>
