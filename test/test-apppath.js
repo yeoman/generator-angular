@@ -67,7 +67,6 @@ describe('Angular generator appPath option', function () {
     it('should generate dotfiles for apppath', function (done) {
       angular.run({}, function () {
         helpers.assertFile(expected);
-        console.log('a')
         done();
       });
     });
