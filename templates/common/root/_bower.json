@@ -10,7 +10,9 @@
     "bootstrap-sass-official": "~3.1.1"<% } } %><% if (resourceModule) { %>,
     "angular-resource": "<%= ngVer %>"<% } %><% if (cookiesModule) { %>,
     "angular-cookies": "<%= ngVer %>"<% } %><% if (sanitizeModule) { %>,
-    "angular-sanitize": "<%= ngVer %>"<% } %><% if (routeModule) { %>,
+    "angular-sanitize": "<%= ngVer %>"<% } %><% if (animateModule) { %>,
+    "angular-animate": "<%= ngVer %>"<% } %><% if (touchModule) { %>,
+    "angular-touch": "<%= ngVer %>"<% } %><% if (routeModule) { %>,
     "angular-route": "<%= ngVer %>"<% } %>
   },
   "devDependencies": {

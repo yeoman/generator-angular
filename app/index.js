@@ -78,20 +78,28 @@ var Generator = module.exports = function Generator(args, options) {
 
     var enabledComponents = [];
 
-    if (this.resourceModule) {
-      enabledComponents.push('angular-resource/angular-resource.js');
+    if (this.animateModule) {
+      enabledComponents.push('angular-animate/angular-animate.js');
     }
 
     if (this.cookiesModule) {
       enabledComponents.push('angular-cookies/angular-cookies.js');
     }
 
-    if (this.sanitizeModule) {
-      enabledComponents.push('angular-sanitize/angular-sanitize.js');
+    if (this.resourceModule) {
+      enabledComponents.push('angular-resource/angular-resource.js');
     }
 
     if (this.routeModule) {
       enabledComponents.push('angular-route/angular-route.js');
+    }
+
+    if (this.sanitizeModule) {
+      enabledComponents.push('angular-sanitize/angular-sanitize.js');
+    }
+
+    if (this.touchModule) {
+      enabledComponents.push('angular-touch/angular-touch.js');
     }
 
     this.invoke('karma:app', {
@@ -186,33 +194,49 @@ Generator.prototype.askForModules = function askForModules() {
     type: 'checkbox',
     name: 'modules',
     message: 'Which modules would you like to include?',
-    choices: [{
-      value: 'resourceModule',
-      name: 'angular-resource.js',
+    choices: [
+    {
+      value: 'animateModule',
+      name: 'angular-animate.js',
       checked: true
     }, {
       value: 'cookiesModule',
       name: 'angular-cookies.js',
       checked: true
     }, {
-      value: 'sanitizeModule',
-      name: 'angular-sanitize.js',
+      value: 'resourceModule',
+      name: 'angular-resource.js',
       checked: true
     }, {
       value: 'routeModule',
       name: 'angular-route.js',
       checked: true
-    }]
+    }, {
+      value: 'sanitizeModule',
+      name: 'angular-sanitize.js',
+      checked: true
+    }, {
+      value: 'touchModule',
+      name: 'angular-touch.js',
+      checked: true
+    }
+    ]
   }];
 
   this.prompt(prompts, function (props) {
     var hasMod = function (mod) { return props.modules.indexOf(mod) !== -1; };
-    this.resourceModule = hasMod('resourceModule');
+    this.animateModule = hasMod('animateModule');
     this.cookiesModule = hasMod('cookiesModule');
-    this.sanitizeModule = hasMod('sanitizeModule');
+    this.resourceModule = hasMod('resourceModule');
     this.routeModule = hasMod('routeModule');
+    this.sanitizeModule = hasMod('sanitizeModule');
+    this.touchModule = hasMod('touchModule');
 
     var angMods = [];
+
+    if (this.animateModule) {
+      angMods.push("'ngAnimate'");
+    }
 
     if (this.cookiesModule) {
       angMods.push("'ngCookies'");
@@ -221,12 +245,18 @@ Generator.prototype.askForModules = function askForModules() {
     if (this.resourceModule) {
       angMods.push("'ngResource'");
     }
-    if (this.sanitizeModule) {
-      angMods.push("'ngSanitize'");
-    }
+
     if (this.routeModule) {
       angMods.push("'ngRoute'");
       this.env.options.ngRoute = true;
+    }
+
+    if (this.sanitizeModule) {
+      angMods.push("'ngSanitize'");
+    }
+
+    if (this.touchModule) {
+      angMods.push("'ngTouch'");
     }
 
     if (angMods.length) {
