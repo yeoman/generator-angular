@@ -1,3 +1,60 @@
+<a name="0.9.0-0"></a>
+### 0.9.0-0 (2014-06-05)
+
+
+#### Bug Fixes
+
+* **Gruntfile:** fix usemin bug when using images in css ([fac3d108](yeoman/generator-angular/commit/fac3d1082a2c2120b9f92b86747c26b1421bd942))
+* **app:**
+  * app is installed at appPath location ([947b872c](yeoman/generator-angular/commit/947b872c57eaaa3c0829d63ce31dcd355d452a82), closes [#578](yeoman/generator-angular/issues/578))
+  * app-suffix should populate to sub-generators ([02654419](yeoman/generator-angular/commit/026544191b4526b43517aad89c4f8a02c0271814), closes [#572](yeoman/generator-angular/issues/572))
+  * fix Bootstrap font issues ([0a66f54d](yeoman/generator-angular/commit/0a66f54d14f1ae6533e21153ee9e19b1da6626bc), closes [#552](yeoman/generator-angular/issues/552), [#638](yeoman/generator-angular/issues/638), [#645](yeoman/generator-angular/issues/645), [#661](yeoman/generator-angular/issues/661), [#662](yeoman/generator-angular/issues/662), [#665](yeoman/generator-angular/issues/665), [#667](yeoman/generator-angular/issues/667))
+  * prevent faulty bowerInstall ignorePath ([fa2e36b8](yeoman/generator-angular/commit/fa2e36b8874cc21c74dc0a740d6ece580c4f0f1f))
+  * Remove redundant bootstrap-sass import ([229e58ae](yeoman/generator-angular/commit/229e58aeca71a077f71ac60ae4eebd3b04b30889))
+* **build:**
+  * update karma.conf.js file location in Gruntfile ([29b2d4d3](yeoman/generator-angular/commit/29b2d4d3db549183e101719290e01488a8e7d10e), closes [#706](yeoman/generator-angular/issues/706))
+  * use conservativeCollapse for htmlmin ([06a34d08](yeoman/generator-angular/commit/06a34d0815c3cc31d191f31ee2ef8ecd637142bc))
+  * clean subfolders of dist as well ([9db87bf6](yeoman/generator-angular/commit/9db87bf6f61252db604e9ae4e9b13360f8b96eef))
+  * change livereload to use connect options ([0f549060](yeoman/generator-angular/commit/0f5490600c1b4bb91a19958986aea63700035ac2), closes [#569](yeoman/generator-angular/issues/569), [#674](yeoman/generator-angular/issues/674))
+  * grunt-newer requires a src attribute ([6165b810](yeoman/generator-angular/commit/6165b8101f11ef37811305e6e5dd269da52a3ef2), closes [#620](yeoman/generator-angular/issues/620))
+  * add src property to jshint task ([4668e702](yeoman/generator-angular/commit/4668e7028c803da8ae4cdfadce5d7ec99f51843b), closes [#620](yeoman/generator-angular/issues/620))
+* **dep:** update and correct Bower dependencies ([9b592ca4](yeoman/generator-angular/commit/9b592ca4ff72f1c6f515fe63ee1088ac53049afc))
+* **docs:** add info about route generator uri option ([fc4bdc5f](yeoman/generator-angular/commit/fc4bdc5fa46677d381aaabacbd1c76f38153cdba), closes [#650](yeoman/generator-angular/issues/650))
+* **gen:**
+  * update gen-karma and use its new options ([0f768f1d](yeoman/generator-angular/commit/0f768f1d7515b3d884555a8c5c8e3f01d117cf18), closes [#629](yeoman/generator-angular/issues/629))
+  * skip adding route to app file ([7a768583](yeoman/generator-angular/commit/7a7685833baf7be7d18c8fc9afedf76098ff64ba), closes [#694](yeoman/generator-angular/issues/694))
+  * fix more appPath, other changes ([36317404](yeoman/generator-angular/commit/36317404bee8edece2247ffc99b2f97e2a34ada5))
+  * move test into root folder ([53035aa1](yeoman/generator-angular/commit/53035aa18a26393f72769222f82fc7d0f315e46f))
+  * update color logging ([6aba417e](yeoman/generator-angular/commit/6aba417e3d7f00e5560142972a56d8211af7a499))
+  * move images to common generator ([cf3b6352](yeoman/generator-angular/commit/cf3b63525bb74e7faed36f45af02fc1d276ad7de))
+  * consolidate template files ([22f2f2c3](yeoman/generator-angular/commit/22f2f2c3abf3df58a37daec95e6c0e62b9120057))
+  * do not use console to display messages ([9f9831f5](yeoman/generator-angular/commit/9f9831f58e849a33d34e62c6f9bedec4d9896616))
+* **misc:** correct typo in readme ([7200ffcf](yeoman/generator-angular/commit/7200ffcf62827a732cd079eb39e22484eeabc139))
+* **test:**
+  * remove console.log statement ([096efbae](yeoman/generator-angular/commit/096efbae4bb3cddf0eff6e484734d6b8e6867389))
+  * remove old Karma testrunner ([bb5b5859](yeoman/generator-angular/commit/bb5b58592100e62588f705a1978f5f40a9d4c141))
+  * add test for testing loading ([f9085968](yeoman/generator-angular/commit/f90859684f3cb211508bf05f8d0ca21c9547f5f6))
+  * add test for eventual appPath option ([dd155b1f](yeoman/generator-angular/commit/dd155b1fea1a5dd87107e3439398c717a5ece8b5), closes [#630](yeoman/generator-angular/issues/630))
+* **tests:**
+  * DRY up more code and update test folders ([ea33f7c1](yeoman/generator-angular/commit/ea33f7c169cf2f4b382d3cf34e1b9a463605478e))
+  * style and generator updates ([f8b31572](yeoman/generator-angular/commit/f8b31572c1e4a5700d9c81083899eac44ce14f96))
+
+
+#### Features
+
+* **app:**
+  * add ngAnimate and ngTouch options ([0659621b](yeoman/generator-angular/commit/0659621bc7f810a0f128f71d6873550cb01d22f6), closes [#510](yeoman/generator-angular/issues/510))
+  * add a second route if ngRoute is chosen ([0d045f52](yeoman/generator-angular/commit/0d045f523880a55fe75cd237972249902c3e0166))
+  * specify uri while generating routes ([d3cea019](yeoman/generator-angular/commit/d3cea019117d975194c36c46c0489ea5e97b81dd), closes [#639](yeoman/generator-angular/issues/639))
+* **build:**
+  * replace grunt-bower-install with grunt-wiredep ([60ef8d18](yeoman/generator-angular/commit/60ef8d18716a549b4204a471903bea9e87be70e8))
+  * replace grunt-rev with grunt-filerev ([149f1625](yeoman/generator-angular/commit/149f1625587dbf7ec68050262d1de17ce671e6e2), closes [#564](yeoman/generator-angular/issues/564))
+  * open browser when runnning `serve:dist` ([e9239e72](yeoman/generator-angular/commit/e9239e72d489448c71842df26ee3645f483b56e7))
+* **gen:**
+  * allow --appPath option for all generators ([d3dd42e3](yeoman/generator-angular/commit/d3dd42e3bae58f74b634920992a08bb2f3e28848))
+  * add grunt-ngdoc comments ([11edb9b3](yeoman/generator-angular/commit/11edb9b3841f561b6d1afeed1721f4df11fea0cb))
+
+
 <a name="0.8.0"></a>
 ## 0.8.0 (2014-03-27)
 
