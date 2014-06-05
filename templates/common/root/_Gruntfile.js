@@ -15,15 +15,17 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  // Configurable paths for the application
+  var appConfig = {
+    app: require('./bower.json').appPath || 'app',
+    dist: 'dist'
+  };
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
     // Project settings
-    yeoman: {
-      // configurable paths
-      app: require('./bower.json').appPath || 'app',
-      dist: 'dist'
-    },
+    yeoman: appConfig,
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -85,20 +87,32 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           open: true,
-          base: [
-            '.tmp',
-            '<%%= yeoman.app %>'
-          ]
+          middleware: function (connect) {
+            return [
+              connect.static('.tmp'),
+              connect().use(
+                '/bower_components',
+                connect.static('./bower_components')
+              ),
+              connect.static(appConfig.app)
+            ];
+          }
         }
       },
       test: {
         options: {
           port: 9001,
-          base: [
-            '.tmp',
-            'test',
-            '<%%= yeoman.app %>'
-          ]
+          middleware: function (connect) {
+            return [
+              connect.static('.tmp'),
+              connect.static('test'),
+              connect().use(
+                '/bower_components',
+                connect.static('./bower_components')
+              ),
+              connect.static(appConfig.app)
+            ];
+          }
         }
       },
       dist: {
@@ -163,11 +177,11 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%%= yeoman.app %>/index.html'],
-        ignorePath: new RegExp('^<%%= yeoman.app %>/')
+        ignorePath: new RegExp('^<%%= yeoman.app %>/|../')
       }<% if (compass) { %>,
       sass: {
-        src: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        ignorePath: '<%%= yeoman.app %>/bower_components/'
+      src: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+      ignorePath: /(\.\.\/){1,2}bower_components\//
       }<% } %>
     },<% if (coffee) { %>
 
@@ -206,7 +220,7 @@ module.exports = function (grunt) {
         imagesDir: '<%%= yeoman.app %>/images',
         javascriptsDir: '<%%= yeoman.app %>/scripts',
         fontsDir: '<%%= yeoman.app %>/styles/fonts',
-        importPath: '<%%= yeoman.app %>/bower_components',
+        importPath: './bower_components',
         httpImagesPath: '/images',
         httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',
@@ -376,9 +390,10 @@ module.exports = function (grunt) {
           src: ['generated/*']
         }<% if (bootstrap) { %>, {
           expand: true,
-          cwd: '<%%= yeoman.app %><%
-            if (!compassBootstrap) {
-              %>/bower_components/bootstrap/dist<%
+          cwd: '<% if (!compassBootstrap) {
+              %>bower_components/bootstrap/dist<%
+            } else {
+              %>.<%
             } %>',
           src: '<% if (compassBootstrap) {
               %>bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap<%

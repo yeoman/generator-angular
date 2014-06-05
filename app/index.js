@@ -115,9 +115,7 @@ var Generator = module.exports = function Generator(args, options) {
           'test/mock/**/*.' + jsExt,
           'test/spec/**/*.' + jsExt
         ].join(','),
-        'bower-components-path': path.join(
-          this.options.appPath, 'bower_components'
-        )
+        'bower-components-path': 'bower_components'
       }
     });
 
@@ -312,7 +310,6 @@ Generator.prototype.packageFiles = function packageFiles() {
   this.coffee = this.env.options.coffee;
   this.template('root/_bower.json', 'bower.json');
   this.template('root/_bowerrc', '.bowerrc');
-  this.template('root/gitignore', '.gitignore');
   this.template('root/_package.json', 'package.json');
   this.template('root/_Gruntfile.js', 'Gruntfile.js');
 };
