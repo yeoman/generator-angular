@@ -78,7 +78,7 @@ describe('Angular generator route mechanism', function () {
 
     // Test with URI specified explicitly
     it('should generate route items with the route uri given', function(done){
-      var uri = 'segment1/segment2/:parameter'
+      var uri = 'segment1/segment2/:parameter';
 
       angular.options.uri = uri;
       angular.run({}, function() {
