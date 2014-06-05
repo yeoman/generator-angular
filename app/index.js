@@ -70,12 +70,6 @@ var Generator = module.exports = function Generator(args, options) {
   });
 
   this.on('end', function () {
-    this.installDependencies({
-      skipInstall: this.options['skip-install'],
-      skipMessage: this.options['skip-message'],
-      callback: this._injectDependencies.bind(this)
-    });
-
     var enabledComponents = [];
 
     if (this.animateModule) {
@@ -102,16 +96,35 @@ var Generator = module.exports = function Generator(args, options) {
       enabledComponents.push('angular-touch/angular-touch.js');
     }
 
+    enabledComponents = [
+      'angular/angular.js',
+      'angular-mocks/angular-mocks.js'
+    ].concat(enabledComponents).join(',');
+
+    var jsExt = this.options.coffee ? 'cs' : 'js';
+
     this.invoke('karma:app', {
       options: {
-        coffee: this.options.coffee,
-        travis: true,
         'skip-install': this.options['skip-install'],
-        components: [
-          'angular/angular.js',
-          'angular-mocks/angular-mocks.js'
-        ].concat(enabledComponents)
+        'base-path': '../',
+        'coffee': this.options.coffee,
+        'travis': true,
+        'bower-components': enabledComponents,
+        'app-files': 'app/scripts/**/*.' + jsExt,
+        'test-files': [
+          'test/mock/**/*.' + jsExt,
+          'test/spec/**/*.' + jsExt
+        ].join(','),
+        'bower-components-path': path.join(
+          this.options.appPath, 'bower_components'
+        )
       }
+    });
+
+    this.installDependencies({
+      skipInstall: this.options['skip-install'],
+      skipMessage: this.options['skip-message'],
+      callback: this._injectDependencies.bind(this)
     });
 
     if (this.env.options.ngRoute) {

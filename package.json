@@ -37,13 +37,13 @@
     "test": "mocha"
   },
   "dependencies": {
-    "wiredep": "~1.0.0",
-    "yeoman-generator": "~0.16.0",
+    "wiredep": "^1.0.0",
+    "yeoman-generator": "^0.16.0",
     "yosay": "^0.2.0",
     "chalk": "^0.4.0"
   },
   "peerDependencies": {
-    "generator-karma": ">=0.6.0",
+    "generator-karma": ">=0.8.2",
     "yo": ">=1.0.0"
   },
   "devDependencies": {
