@@ -324,9 +324,9 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
     );
   } else {
     wiredep({
-      directory: this.appPath + '/bower_components',
+      directory: 'bower_components',
       bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
-      ignorePath: this.appPath + '/',
+      ignorePath: new RegExp('^(' + this.appPath + '|..)/'),
       src: 'app/index.html',
       fileTypes: {
         html: {
