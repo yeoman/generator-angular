@@ -27,10 +27,10 @@ module.exports = function (grunt) {
     },
     release: {
       options: {
-        commitMessage: '<%= version %>',
-        tagName: 'v<%= version %>',
         bump: false, // we have our own bump
-        file: 'package.json'
+        file: 'package.json',
+        commitMessage: 'chore(release): Release version <%= version %>',
+        tagName: 'v<%= version %>'
       }
     },
     stage: {
@@ -39,6 +39,8 @@ module.exports = function (grunt) {
       }
     }
   });
+
+  grunt.registerTask('default', ['jshint']);
 
   grunt.registerTask('bump', 'Bump manifest version', function (type) {
     var options = this.options({
@@ -71,9 +73,12 @@ module.exports = function (grunt) {
     }, grunt.task.current.async());
   });
 
-  grunt.registerTask('default', function (type) {
+  // grunt-release will only commit the package.json file by default. Until
+  // https://github.com/geddski/grunt-release/pull/43/files lands, it should
+  // be patched to do the same so it commits the changelog as well.
+  grunt.registerTask('release', function (type) {
     grunt.task.run([
-      'jshint',
+      'default',
       'bump' + (type ? ':' + type : ''),
       'changelog',
       'stage',

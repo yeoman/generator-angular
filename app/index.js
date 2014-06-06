@@ -204,7 +204,7 @@ Generator.prototype.askForModules = function askForModules() {
   var prompts = [{
     type: 'checkbox',
     name: 'modules',
-    message: 'Which modules would you like to include?',
+    message: 'These modules are included but you can choose to remove them:',
     choices: [
     {
       value: 'animateModule',
@@ -324,9 +324,9 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
     );
   } else {
     wiredep({
-      directory: this.appPath + '/bower_components',
+      directory: 'bower_components',
       bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
-      ignorePath: this.appPath + '/',
+      ignorePath: new RegExp('^(' + this.appPath + '|..)/'),
       src: 'app/index.html',
       fileTypes: {
         html: {
