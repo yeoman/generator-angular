@@ -27,10 +27,10 @@ module.exports = function (grunt) {
     },
     release: {
       options: {
-        commitMessage: '<%= version %>',
-        tagName: 'v<%= version %>',
         bump: false, // we have our own bump
-        file: 'package.json'
+        file: 'package.json',
+        commitMessage: 'chore(release): Release version <%= version %>',
+        tagName: 'v<%= version %>'
       }
     },
     stage: {
