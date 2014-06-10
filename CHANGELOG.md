@@ -1,3 +1,25 @@
+<a name="0.9.0-1"></a>
+### 0.9.0-1 (2014-06-10)
+
+
+#### Bug Fixes
+
+* **gen:**
+  * update wiredep ignore path ([a9c4e354](yeoman/generator-angular/commit/a9c4e3541b50171868f700a0817a592e203e5410))
+  * remove font files ([f27566d5](yeoman/generator-angular/commit/f27566d50c56af8a9f8fa357565fc9810c5a8671))
+
+
+#### Features
+
+* **app:** move bower_components to root folder ([396a2c04](yeoman/generator-angular/commit/396a2c04b3aeaaafddf9f68287208cee7e9e74e9))
+
+
+#### Breaking Changes
+
+* bower_components is now in the /project_root directory
+ ([396a2c04](yeoman/generator-angular/commit/396a2c04b3aeaaafddf9f68287208cee7e9e74e9))
+
+
 <a name="0.9.0-0"></a>
 ### 0.9.0-0 (2014-06-05)
 
