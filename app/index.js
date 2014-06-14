@@ -204,7 +204,7 @@ Generator.prototype.askForModules = function askForModules() {
   var prompts = [{
     type: 'checkbox',
     name: 'modules',
-    message: 'Which modules would you like to include?',
+    message: 'These modules are included! Which would you like to remove?',
     choices: [
     {
       value: 'animateModule',
