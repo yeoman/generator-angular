@@ -8,7 +8,7 @@
  # Provider in the <%= scriptAppName %>.
 ###
 angular.module('<%= scriptAppName %>')
-  .provider '<%= cameledName %>', [->
+  .provider '<%= cameledName %>', ->
 
     # Private variables
     salutation = 'Hello'
@@ -25,4 +25,5 @@ angular.module('<%= scriptAppName %>')
     # Method for instantiating
     @$get = ->
       new Greeter()
-  ]
+      
+    return
