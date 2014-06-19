@@ -101,7 +101,7 @@ var Generator = module.exports = function Generator(args, options) {
       'angular-mocks/angular-mocks.js'
     ].concat(enabledComponents).join(',');
 
-    var jsExt = this.options.coffee ? 'cs' : 'js';
+    var jsExt = this.options.coffee ? 'coffee' : 'js';
 
     this.invoke('karma:app', {
       options: {
