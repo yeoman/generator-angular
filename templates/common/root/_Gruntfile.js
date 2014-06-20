@@ -434,7 +434,10 @@ module.exports = function (grunt) {
     // Test settings
     karma: {
       unit: {
-        configFile: 'test/karma.conf.js',
+        configFile: 'test/karma.conf.<% if (coffee) {
+          %>coffee<% } else {
+          %>js<% }
+          %>',
         singleRun: true
       }
     }
