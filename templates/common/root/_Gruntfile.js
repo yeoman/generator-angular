@@ -175,13 +175,16 @@ module.exports = function (grunt) {
 
     // Automatically inject Bower components into the app
     wiredep: {
+      options: {
+        cwd: '<%= yeoman.app %>'
+      },
       app: {
         src: ['<%%= yeoman.app %>/index.html'],
-        ignorePath: new RegExp('^<%%= yeoman.app %>/|../')
+        ignorePath:  /..\//
       }<% if (compass) { %>,
       sass: {
-      src: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-      ignorePath: /(\.\.\/){1,2}bower_components\//
+        src: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        ignorePath: /(\.\.\/){1,2}bower_components\//
       }<% } %>
     },<% if (coffee) { %>
 
