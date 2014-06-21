@@ -1,3 +1,12 @@
+<a name="0.9.0"></a>
+## 0.9.0 (2014-06-21)
+
+
+#### Bug Fixes
+
+* **gen:** fix template variable ([794d2c67](yeoman/generator-angular/commit/794d2c677a8b5d247f0bb2b42a7c53a5fca9c7fa))
+
+
 <a name="0.9.0-1"></a>
 ### 0.9.0-1 (2014-06-20)
 
