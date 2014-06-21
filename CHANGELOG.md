@@ -1,4 +1,19 @@
 <a name="0.9.0-1"></a>
+### 0.9.0-1 (2014-06-20)
+
+
+#### Bug Fixes
+
+* **app:**
+  * fix bower path problem ([db4ec0eb](yeoman/generator-angular/commit/db4ec0eb101b221135a353d008ed3c662814ac79), closes [#733](yeoman/generator-angular/issues/733))
+  * fix provider CoffeeScript template ([c2572d23](yeoman/generator-angular/commit/c2572d236cce5afe5a66037e558325018153ca97))
+  * correct cssmin/concat build-tag paths ([27dd848f](yeoman/generator-angular/commit/27dd848f58c45ba5536da502bfd5a147ced35572))
+* **gen:** fix ref to Karma config for --coffee ([380018f0](yeoman/generator-angular/commit/380018f0bbbb6a59d38ee86f39e3879e05c8b203), closes [#748](yeoman/generator-angular/issues/748))
+* **karma:** use the correct CoffeeScript extension ([ddbab964](yeoman/generator-angular/commit/ddbab9646fcc8883d3850e7e9a02daa32e8ea4d8), closes [#737](yeoman/generator-angular/issues/737))
+* **release:** get rid of circular loop ([293ca6a4](yeoman/generator-angular/commit/293ca6a4a365fdfe2f72fb406bd2f4d8f5b3b797))
+
+
+<a name="0.9.0-1"></a>
 ### 0.9.0-1 (2014-06-10)
 
 
