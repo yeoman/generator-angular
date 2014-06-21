@@ -24,6 +24,7 @@ describe('Angular generator template mechanism', function () {
       }
 
       angular = helpers.createGenerator('angular:app', deps, [appName], {
+        'appPath': 'app',
         'skip-welcome-message': true,
         'skip-install': true,
         'skip-message': true

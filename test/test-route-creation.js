@@ -13,6 +13,7 @@ describe('Angular generator route mechanism', function () {
     'app/views/' + route + '.html'
   ];
   var genOptions = {
+    'appPath': 'app',
     'skip-install': true,
     'skip-welcome-message': true,
     'skip-message': true
