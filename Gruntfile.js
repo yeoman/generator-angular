@@ -76,7 +76,7 @@ module.exports = function (grunt) {
   // grunt-release will only commit the package.json file by default. Until
   // https://github.com/geddski/grunt-release/pull/43/files lands, it should
   // be patched to do the same so it commits the changelog as well.
-  grunt.registerTask('release', function (type) {
+  grunt.registerTask('publish', function (type) {
     grunt.task.run([
       'default',
       'bump' + (type ? ':' + type : ''),
