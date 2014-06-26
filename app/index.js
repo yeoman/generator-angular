@@ -135,24 +135,29 @@ Generator.prototype.askForModules = function askForModules() {
   var cb = this.async();
 
   var prompts = [{
-    type: 'checkbox',
+    type: 'list',
     name: 'modules',
+    default: 'none',
     message: 'Which super powers would you like?',
     choices: [{
+      value: 'none',
+      name: 'none',
+    }, {
+      value: 'bowerComponent',
+      name: 'bower component',
+    }, {
       value: 'dashboardApp',
       name: 'wix-dashboard application',
-      checked: false
     }, {
       value: 'dashboardWidget',
       name: 'wix-dashboard widget',
-      checked: false
     }]
   }];
 
   this.prompt(prompts, function (props) {
-    var hasMod = function (mod) { return props.modules.indexOf(mod) !== -1; };
-    this.dashboardApp = hasMod('dashboardApp');
-    this.dashboardWidget = hasMod('dashboardWidget');
+    this.bowerComponent = (props.modules === 'bowerComponent');
+    this.dashboardApp = (props.modules === 'dashboardApp');
+    this.dashboardWidget = (props.modules === 'dashboardWidget');
 
     var angMods = [this.simplename + 'Translations', 'wixAngular'];
 
@@ -168,6 +173,10 @@ Generator.prototype.askForModules = function askForModules() {
       this.env.options.dashboardWidget = true;
     } else {
       this._hooks.splice(-1);
+    }
+
+    if (this.bowerComponent) {
+      this.env.options.bowerComponent = true;
     }
 
     if (angMods.length) {
@@ -294,6 +303,7 @@ Generator.prototype.packageFiles = function () {
     this.template('../../templates/common/main.haml', 'app/views/main.haml');
   }
 
+  this.template('../../templates/common/gitignore', '.gitignore');
   this.template('../../templates/common/_bower.json', 'bower.json');
   this.template('../../templates/common/_package.json', 'package.json');
   this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');

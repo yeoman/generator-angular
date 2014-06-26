@@ -15,5 +15,4 @@ Generator.prototype.setupEnv = function setupEnv() {
   // directory into your users new application path
   this.sourceRoot(path.join(__dirname, '../templates/common'));
   this.directory('root', '.', true);
-  this.copy('gitignore', '.gitignore');
 };

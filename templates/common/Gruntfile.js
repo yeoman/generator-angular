@@ -14,6 +14,7 @@ module.exports = function (grunt) {
     preloadModule: '<%= scriptAppName %>',
     translationsModule: '<%= simplename %>Translations',
     unitTestFiles: unitTestFiles,
-    protractor: true
+    protractor: true<% if (bowerComponent) { %>,
+    bowerComponent: true<% } %>
   });
 };

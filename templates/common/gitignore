@@ -1,6 +1,6 @@
 node_modules
-dist
-.tmp
+<% if (!bowerComponent) { %>dist
+<% } %>.tmp
 .sass-cache
 app/bower_components
 *.iml
