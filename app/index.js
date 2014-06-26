@@ -312,6 +312,41 @@ Generator.prototype.packageFiles = function packageFiles() {
   this.template('root/_bowerrc', '.bowerrc');
   this.template('root/_package.json', 'package.json');
   this.template('root/_Gruntfile.js', 'Gruntfile.js');
+
+  this.mkdir('grunt');
+  this.template('root/grunt/_autoprefixer.js', 'grunt/autoprefixer.js');
+  this.template('root/grunt/_cdnify.js', 'grunt/cdnify.js');
+  this.template('root/grunt/_clean.js', 'grunt/clean.js');
+  if (this.coffee) {
+    this.template('root/grunt/_coffee.js', 'grunt/coffee.js');
+  }
+  if (this.compass) {
+    this.template('root/grunt/_compass.js', 'grunt/compass.js');
+  }
+  this.template('root/grunt/_concat.js', 'grunt/concat.js');
+  this.template('root/grunt/_concurrent.js', 'grunt/concurrent.js');
+  this.template('root/grunt/_connect.js', 'grunt/connect.js');
+  this.template('root/grunt/_copy.js', 'grunt/copy.js');
+  this.template('root/grunt/_cssmin.js', 'grunt/cssmin.js');
+  this.template('root/grunt/_filerev.js', 'grunt/filerev.js');
+  this.template('root/grunt/_htmlmin.js', 'grunt/htmlmin.js');
+  this.template('root/grunt/_imagemin.js', 'grunt/imagemin.js');
+  this.template('root/grunt/_jshint.js', 'grunt/jshint.js');
+  this.template('root/grunt/_karma.js', 'grunt/karma.js');
+  this.template('root/grunt/_ngmin.js', 'grunt/ngmin.js');
+  this.template('root/grunt/_svgmin.js', 'grunt/svgmin.js');
+  this.template('root/grunt/_uglify.js', 'grunt/uglify.js');
+  this.template('root/grunt/_usemin.js', 'grunt/usemin.js');
+  this.template('root/grunt/_useminPrepare.js', 'grunt/useminPrepare.js');
+  this.template('root/grunt/_watch.js', 'grunt/watch.js');
+  this.template('root/grunt/_wiredep.js', 'grunt/wiredep.js');
+
+  this.mkdir('grunt/tasks');
+  this.template('root/grunt/tasks/_build.js', 'grunt/tasks/build.js');
+  this.template('root/grunt/tasks/_default.js', 'grunt/tasks/default.js');
+  this.template('root/grunt/tasks/_serve.js', 'grunt/tasks/serve.js');
+  this.template('root/grunt/tasks/_server.js', 'grunt/tasks/server.js');
+  this.template('root/grunt/tasks/_test.js', 'grunt/tasks/test.js');
 };
 
 Generator.prototype._injectDependencies = function _injectDependencies() {

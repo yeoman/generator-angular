@@ -26,6 +26,7 @@
     "grunt-usemin": "^2.1.1",
     "grunt-wiredep": "^1.7.0",
     "jshint-stylish": "^0.2.0",
+    "load-grunt-config": "^0.10.0",
     "load-grunt-tasks": "^0.4.0",
     "time-grunt": "^0.3.1"
   },
