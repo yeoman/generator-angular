@@ -11,7 +11,7 @@ module.exports = function (grunt) {
   require('wix-gruntfile')(grunt, {
     staging: 'pizza',
     port: 9000,
-    preloadModule: '<%= scriptAppName %>',
+    preloadModule: '<%= scriptAppName %>Internal',
     translationsModule: '<%= simplename %>Translations',
     unitTestFiles: unitTestFiles,
     protractor: true<% if (bowerComponent) { %>,
