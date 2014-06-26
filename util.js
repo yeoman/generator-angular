@@ -36,10 +36,14 @@ function rewrite (args) {
   var lines = args.haystack.split('\n');
 
   var otherwiseLineIndex = 0;
-  lines.forEach(function (line, i) {
-    if (line.indexOf(args.needle) !== -1) {
-      otherwiseLineIndex = i;
-    }
+  var needles = (Array.isArray(args.needle) ? args.needle : [args.needle]);
+  needles.every(function (needle) {
+    lines.forEach(function (line, i) {
+      if (line.indexOf(needle) !== -1) {
+        otherwiseLineIndex = i;
+      }
+    });
+    return otherwiseLineIndex === 0;
   });
 
   var spaces = 0;
