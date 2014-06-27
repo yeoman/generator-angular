@@ -12,6 +12,7 @@ sauce_connect.log*
 .idea
 .sauce-connect
 vendor
+Gemfile.lock
 coverage
 target
 replace.private.conf.js
