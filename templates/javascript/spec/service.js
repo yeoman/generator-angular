@@ -3,7 +3,9 @@
 describe('Service: <%= classedName %>', function () {
 
   // load the service's module
-  beforeEach(module('<%= scriptAppName %>Internal'));
+  beforeEach(function () {
+    module('<%= scriptAppName %>Internal');
+  });
 
   // instantiate service
   var <%= classedName %>;
