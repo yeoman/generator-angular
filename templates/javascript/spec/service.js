@@ -14,7 +14,7 @@ describe('Service: <%= classedName %>', function () {
   }));
 
   it('should do something', function () {
-    expect(!!<%= classedName %>).toBe(true);
+    expect(<%= classedName %>.someMethod()).toBe(42);
   });
 
 });
