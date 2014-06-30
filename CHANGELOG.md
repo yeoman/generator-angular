@@ -1,4 +1,13 @@
 <a name="0.9.1"></a>
+### 0.9.1 (2014-06-30)
+
+
+#### Bug Fixes
+
+* **app:** fix regex to escape `..` ([3a845550](yeoman/generator-angular/commit/3a8455501b6b7896e30d33ab15edf1e9096c2580), closes [#766](yeoman/generator-angular/issues/766))
+
+
+<a name="0.9.1"></a>
 ## 0.9.1 (2014-06-21)
 
 
