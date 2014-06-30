@@ -180,7 +180,7 @@ module.exports = function (grunt) {
       },
       app: {
         src: ['<%%= yeoman.app %>/index.html'],
-        ignorePath:  /..\//
+        ignorePath:  /\.\.\//
       }<% if (compass) { %>,
       sass: {
         src: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
