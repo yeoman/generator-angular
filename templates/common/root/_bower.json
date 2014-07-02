@@ -5,9 +5,8 @@
     "angular": "<%= ngVer %>",
     "json3": "~3.3.1",
     "es5-shim": "~3.1.0"<% if (bootstrap) { %>,<% if (!compassBootstrap) { %>
-    "bootstrap": "~3.1.1"<% } else { %>
-    "jquery": "~1.11.1",
-    "bootstrap-sass-official": "~3.1.1"<% } } %><% if (resourceModule) { %>,
+    "bootstrap": "~3.2.0"<% } else { %>
+    "bootstrap-sass-official": "~3.2.0"<% } } %><% if (resourceModule) { %>,
     "angular-resource": "<%= ngVer %>"<% } %><% if (cookiesModule) { %>,
     "angular-cookies": "<%= ngVer %>"<% } %><% if (sanitizeModule) { %>,
     "angular-sanitize": "<%= ngVer %>"<% } %><% if (animateModule) { %>,
