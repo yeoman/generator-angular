@@ -1,4 +1,14 @@
 <a name="0.9.2"></a>
+### 0.9.2 (2014-07-08)
+
+
+#### Bug Fixes
+
+* **app:** wrap old IE files in a vendor shim ([627de2b0](yeoman/generator-angular/commit/627de2b089fab676a7d2db00fe333fab99aea8cc), closes [#692](yeoman/generator-angular/issues/692))
+* **deps:** upgrade Bootstrap dependency ([637c13b1](yeoman/generator-angular/commit/637c13b1bf3694a8b55b7a2476a89d0156a78625), closes [#767](yeoman/generator-angular/issues/767))
+
+
+<a name="0.9.2"></a>
 ### 0.9.2 (2014-06-30)
 
 
