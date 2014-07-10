@@ -16,3 +16,4 @@ Gemfile.lock
 coverage
 target
 replace.private.conf.js
+reference.ts
