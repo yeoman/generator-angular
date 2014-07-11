@@ -35,7 +35,8 @@ beforeEach(function () {
 
     toHaveClass: function (clazz) {
       this.message = function () {
-        return 'Expected \'' + angular.mock.dump(this.actual) + '\' to have class \'' + clazz + '\'.';
+        var msg = 'Expected \'' + angular.mock.dump(this.actual) + '\' to have class \'' + clazz + '\'.';
+        return [msg, msg.replace('to have', 'not to have')];
       };
       return this.actual.hasClass ?
               this.actual.hasClass(clazz) :
