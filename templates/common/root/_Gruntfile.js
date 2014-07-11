@@ -399,7 +399,7 @@ module.exports = function (grunt) {
               %>.<%
             } %>',
           src: '<% if (compassBootstrap) {
-              %>bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap<%
+              %>bower_components/bootstrap-sass-official/assets/fonts/bootstrap<%
             } else { %>fonts<% }
             %>/*',
           dest: '<%%= yeoman.dist %>'
