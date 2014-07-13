@@ -1,3 +1,13 @@
+<a name="0.9.5"></a>
+### 0.9.5 (2014-07-13)
+
+
+#### Bug Fixes
+
+* **app:** update bootstrap-sass font path ([7977147e](yeoman/generator-angular/commit/7977147ea45121493acc2eb0022b3cdc1e95e5bc))
+* **gen:** fix service using wrong name ([5e7f601f](yeoman/generator-angular/commit/5e7f601f89baec49b1ddd9cc250216b8800a85dc), closes [#772](yeoman/generator-angular/issues/772))
+
+
 <a name="0.9.3"></a>
 ### 0.9.3 (2014-07-08)
 
