@@ -62,6 +62,7 @@ module.exports = function (grunt) {
       config.file,
       JSON.stringify(config.pkg, null, '  ') + '\n'
     );
+    grunt.config('pkg', config.pkg);
     grunt.log.ok('Version bumped to ' + config.newVersion);
   });
 
