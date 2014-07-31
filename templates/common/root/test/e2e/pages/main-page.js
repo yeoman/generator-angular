@@ -1,3 +1,5 @@
+'use strict';
+
 function MainPage() {
   this.navigate = function () {
     browser.get('/');

@@ -1,21 +1,23 @@
 'use strict';
 
-describe('Filter: <%= cameledName %>', function () {
+describe('Filter: <%= classedName %>', function () {
 
   // load the filter's module
   beforeEach(function () {
     module('<%= scriptAppName %>Internal');
+
+    //add your mocks here
   });
 
   // initialize a new instance of the filter before each test
-  var <%= cameledName %>;
+  var <%= classedName %>;
   beforeEach(inject(function ($filter) {
-    <%= cameledName %> = $filter('<%= cameledName %>');
+    <%= classedName %> = $filter('<%= classedName %>');
   }));
 
-  it('should return the input prefixed with "<%= cameledName %> filter:"', function () {
+  it('should return the input prefixed with "<%= classedName %> filter:"', function () {
     var text = 'angularjs';
-    expect(<%= cameledName %>(text)).toBe('<%= cameledName %> filter: ' + text);
+    expect(<%= classedName %>(text)).toBe('<%= classedName %> filter: ' + text);
   });
 
 });

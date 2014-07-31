@@ -1,7 +1,7 @@
-.hero-unit{:"ng-controller" => "<%= classedName %>Ctrl"}
+.hero-unit{:"ng-controller" => "<%= classedName %>Controller as <%= cameledName %>"}
   %h1 {{'general.YO' | translate}}
   %p You now have
   %ul
-    %li{:"ng-repeat" => "thing in awesomeThings"} {{thing}}
+    %li{:"ng-repeat" => "thing in <%= cameledName %>.awesomeThings"} {{thing}}
   %p installed.
   %h3 Enjoy coding! - Yeoman

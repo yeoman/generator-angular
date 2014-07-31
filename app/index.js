@@ -300,6 +300,7 @@ Generator.prototype.packageFiles = function () {
 
   if (this.dashboardApp || !this.dashboardWidget) {
     this.classedName = 'Main';
+    this.cameledName = 'main';
     this.template('../../templates/common/main.haml', 'app/views/main.haml');
   }
 

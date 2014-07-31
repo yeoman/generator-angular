@@ -1,4 +1,5 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>Internal')
-  .constant('<%= cameledName %>', 42);
+angular
+  .module('<%= scriptAppName %>Internal')
+  .constant('<%= classedName %>', 42);

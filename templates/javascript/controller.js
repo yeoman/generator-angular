@@ -1,8 +1,12 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>Internal')
-  .controller('<%= classedName %>Ctrl', function ($scope) {
-    $scope.awesomeThings = [
+(function () {
+
+  /* @ngInject */
+  function <%= classedName %>Controller($scope) {
+    $scope.$emit('we are using controllerAs syntax, scope is used only for events and watches');
+
+    this.awesomeThings = [
       'Bower',
       'Grunt',
       'Haml',
@@ -10,4 +14,10 @@ angular.module('<%= scriptAppName %>Internal')
       'AngularJS',
       'Karma'
     ];
-  });
+  }
+
+  angular
+    .module('<%= scriptAppName %>Internal')
+    .controller('<%= classedName %>Controller', <%= classedName %>Controller);
+
+})();

@@ -1,16 +1,26 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>Internal')
-  .factory('<%= cameledName %>', function () {
+(function () {
+
+  /* @ngInject */
+  function <%= classedName %>Factory() {
+    var <%= classedName %> = {};
+
     // Service logic
     // ...
 
     var meaningOfLife = 42;
 
     // Public API here
-    return {
-      someMethod: function () {
-        return meaningOfLife;
-      }
+    <%= classedName %>.someMethod = function () {
+      return meaningOfLife;
     };
-  });
+
+    return <%= classedName %>;
+  }
+
+  angular
+    .module('<%= scriptAppName %>Internal')
+    .factory('<%= classedName %>', <%= classedName %>Factory);
+
+})();

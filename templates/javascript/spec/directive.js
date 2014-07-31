@@ -5,6 +5,8 @@ describe('Directive: <%= cameledName %>', function () {
   // load the directive's module
   beforeEach(function () {
     module('<%= scriptAppName %>Internal');
+
+    //add your mocks here
   });
 
   var element,

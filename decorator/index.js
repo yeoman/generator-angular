@@ -63,5 +63,5 @@ Generator.prototype.createDecoratorFiles = function createDecoratorFiles() {
 };
 
 function buildRelativePath(fileName){
-  return 'decorators/' + fileName + "Decorator";
+  return 'decorators/' + fileName + "-decorator";
 }
