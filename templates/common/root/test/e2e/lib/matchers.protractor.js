@@ -13,7 +13,7 @@ beforeEach(function () {
           var invertedMessage = '\'' + classes + '\' contained class \'' + expected + '\'';
           return [positiveMessage, invertedMessage];
         };
-        if (classes.match(new RegExp('\\b' + expected + '\\b'))) {
+        if (classes.match(new RegExp('(^|\\s)' + expected + '(\\s|$)'))) {
           deferred.fulfill(true);
         } else {
           deferred.fulfill(false);

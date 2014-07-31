@@ -1,8 +1,13 @@
 'use strict';
 
-describe('<%= _.camelize(appname) %>App', function () {
+require('../lib/matchers.protractor.js');
+var MainPage = require('../pages/main-page.js');
+
+describe('<%= _.camelize(appname) %>App Main Page', function () {
+  var mainPage;
 
   beforeEach(function () {
+    mainPage = new MainPage();
     browser.addMockModule('<%= scriptAppName %>Mocks', function () {});
   });
 
@@ -11,8 +16,8 @@ describe('<%= _.camelize(appname) %>App', function () {
   });
 
   it('should load successfully', function () {
-    browser.get('/');
-    expect(element(by.css('h3')).getText()).toEqual('Enjoy coding! - Yeoman');
+    mainPage.navigate();
+    expect(mainPage.getTitle().getText()).toEqual('Enjoy coding! - Yeoman');
   });
 
 });

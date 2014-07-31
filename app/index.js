@@ -308,7 +308,7 @@ Generator.prototype.packageFiles = function () {
   this.template('../../templates/common/_package.json', 'package.json');
   this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
   this.template('../../templates/common/karma.conf.js', 'karma.conf.js');
-  this.template('../../templates/common/scenarios.js', 'test/spec/e2e/scenarios.js');
+  this.template('../../templates/common/scenarios.js', 'test/e2e/spec/main-page.spec.js');
   this.copy('../../templates/common/project.sublime-project', this._.slugify(this._.humanize(this.simplename))+'.sublime-project');
   this.template('../../templates/javascript/mock/server-api.js', 'test/mock/server-api.js');
 };
