@@ -20,7 +20,7 @@
       salutation = s;
     };
 
-    // Method for instantiating
+    /* @ngInject */
     this.$get = function () {
       return new Greeter();
     };
@@ -28,6 +28,6 @@
 
   angular
     .module('<%= scriptAppName %>Internal')
-    .provider('<%= classedName %>', <%= classedName %>);
+    .provider('<%= cameledName %>', <%= classedName %>);
 
 })();

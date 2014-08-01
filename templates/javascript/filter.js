@@ -3,14 +3,14 @@
 (function () {
 
   /* @ngInject */
-  function <%= classedName %>() {
+  function <%= cameledName %>() {
     return function (input) {
-      return '<%= classedName %> filter: ' + input;
+      return '<%= cameledName %> filter: ' + input;
     };
   }
 
   angular
     .module('<%= scriptAppName %>Internal')
-    .filter('<%= classedName %>', <%= classedName %>);
+    .filter('<%= cameledName %>', <%= cameledName %>);
 
 })();

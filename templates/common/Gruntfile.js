@@ -10,6 +10,7 @@ module.exports = function (grunt) {
   }});
   require('wix-gruntfile')(grunt, {
     staging: 'pizza',
+    cdnify: 'vm',
     port: 9000,
     preloadModule: '<%= scriptAppName %>Internal',
     translationsModule: '<%= simplename %>Translations',

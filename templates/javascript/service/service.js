@@ -15,6 +15,6 @@
 
   angular
     .module('<%= scriptAppName %>Internal')
-    .service('<%= classedName %>', <%= classedName %>);
+    .service('<%= cameledName %>', <%= classedName %>);
 
 })();

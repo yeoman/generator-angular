@@ -3,8 +3,8 @@
 (function () {
 
   /* @ngInject */
-  function <%= classedName %>Factory() {
-    var <%= classedName %> = {};
+  function <%= cameledName %>Factory() {
+    var <%= cameledName %> = {};
 
     // Service logic
     // ...
@@ -12,15 +12,15 @@
     var meaningOfLife = 42;
 
     // Public API here
-    <%= classedName %>.someMethod = function () {
+    <%= cameledName %>.someMethod = function () {
       return meaningOfLife;
     };
 
-    return <%= classedName %>;
+    return <%= cameledName %>;
   }
 
   angular
     .module('<%= scriptAppName %>Internal')
-    .factory('<%= classedName %>', <%= classedName %>Factory);
+    .factory('<%= cameledName %>', <%= cameledName %>Factory);
 
 })();

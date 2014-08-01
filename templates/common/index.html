@@ -1,24 +1,55 @@
 <!doctype html>
+<!-- #if( false )
+  Prerequisites from server model:
+  --------------------------------
+  ${locale},
+  ${debug}, debug.equals("true") || debug.equals("")
+  ${secured}, //request.getHeader("x-forwarded-proto") != null && request.getHeader("x-forwarded-proto").equals("https")
+  ${experiments}, //objectMapper.writeValueAsString(laboratory.conductAllInScope(scopeName))
+  ${clientTopology.<%= simplename %>SslStaticsUrl},
+  ${clientTopology.<%= simplename %>StaticsUrl},
+  ${clientTopology.staticBaseUrl},
+  ${clientTopology.sslStaticBaseUrl}
+
+  <clientTopology>
+      <staticBaseUrl>http://<%%= scripts_domain %>/</staticBaseUrl>
+      <sslStaticBaseUrl>https://<%%= ssl_scripts_domain %>/</sslStaticBaseUrl>
+      <<%= simplename %>StaticsUrl}><%%= static_url("com.wixpress.your-artifact-id")%></staticDashboardBaseUrl>
+      <<%= simplename %>SslStaticsUrl}><%%= ssl_static_url("com.wixpress.your-artifact-id")%></sslStaticDashboardBaseUrl>
+  </clientTopology>
+#end -->
 <!--
+  #if( false )
+  DO NOT TOUCH!!!
+  ---------------
+  #end
   #set( $languages = ["de","en","es","fr","it","ja","ko","pl","pt","ru","tr"] )
   #if( !$languages.contains($locale) )
     #set( $locale = "en" )
+  #end
+  #if( $secured )
+    #set( $staticsUrl = $clientTopology.<%= simplename %>SslStaticsUrl )
+    #set( $staticBaseUrl = $clientTopology.sslStaticBaseUrl )
+  #else
+    #set( $staticsUrl = $clientTopology.<%= simplename %>StaticsUrl )
+    #set( $staticBaseUrl = $clientTopology.staticBaseUrl )
   #end
 -->
 <html ng-app="<%= scriptAppName %>">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <base href="${clientTopology.<%= simplename %>StaticsUrl}">
     <title><%= appname %></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <meta name="robots" content="noindex, nofollow">
 
-    <% if (!dashboardApp) { %><link rel="stylesheet" href="${clientTopology.staticBaseUrl}services/third-party/fonts/Helvetica/fontFace.css"><% } %>
+    <% if (!dashboardApp) { %><link rel="stylesheet" href="${staticBaseUrl}services/third-party/fonts/Helvetica/fontFace.css"><% } %>
+    <!-- process-tags prefix('${staticsUrl}') -->
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <!-- end-process-tags -->
 
     <!-- #if( false ) -->
     <script>
@@ -42,21 +73,21 @@
     <div class="container" ng-include="'views/main.html'"></div>
     <% } %>
 
+    <!-- process-tags prefix('${staticsUrl}') -->
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <% if (!dashboardApp) { %><script src="bower_components/angular-translate/angular-translate.js"></script><% } %>
     <script src="bower_components/angular-i18n/angular-locale_${locale}.js"></script>
     <script src="scripts/locale/messages_${locale}.js"></script>
-
     <!-- build:js scripts/modules.js -->
     <script src="bower_components/uri.js/src/URI.js"></script>
     <script src="bower_components/wix-angular/dist/wix-angular.js"></script>
     <!-- endbuild -->
-
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <!-- endbuild --><!-- scripts -->
+    <!-- end-process-tags -->
 
     <!-- #if( false ) -->
     <script src="bower_components/angular-mocks/angular-mocks.js"></script>
@@ -69,12 +100,17 @@
       }
     </script>
     <!-- #end -->
+    <script>
+      angular.module('<%= scriptAppName %>').config(function (wixAngularProvider) {
+        wixAngularProvider.setStaticsUrl('${staticsUrl}');
+        wixAngularProvider.setExperiments(${experiments});
+      });
+    </script>
     <% if (dashboardApp) { %>
     <!-- wix-dashboard-menu -->
     <script src="${clientTopology.publicUrl}my-account/framework.js?debug=${debug}"></script>
     <script>
       angular.module('wixDashboardFramework').config(function (wixDashboardProvider) {
-        wixDashboardProvider.setStaticsUrl('${clientTopology.<%= simplename %>StaticsUrl}');
         wixDashboardProvider.setMetaSiteId('${metaSiteId}');
       });
     </script>

@@ -2,4 +2,4 @@
 
 angular
   .module('<%= scriptAppName %>Internal')
-  .value('<%= classedName %>', 42);
+  .value('<%= cameledName %>', 42);
