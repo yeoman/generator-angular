@@ -7,7 +7,7 @@
     return {
       template: '<div></div>',
       restrict: 'EA',
-      link: function postLink(scope, element, attrs) {
+      link: function postLink(scope, element) {
         element.text('this is the <%= cameledName %> directive');
       }
     };

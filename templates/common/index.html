@@ -3,7 +3,7 @@
   Prerequisites from server model:
   --------------------------------
   ${locale},
-  ${debug}, debug.equals("true") || debug.equals("")
+  ${debug}, //request.getParameter("debug") != null && !request.getParameter("debug").equals("false")
   ${secured}, //request.getHeader("x-forwarded-proto") != null && request.getHeader("x-forwarded-proto").equals("https")
   ${experiments}, //objectMapper.writeValueAsString(laboratory.conductAllInScope(scopeName))
   ${clientTopology.<%= simplename %>SslStaticsUrl},
