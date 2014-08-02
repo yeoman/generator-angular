@@ -31,7 +31,7 @@ module.exports = function (grunt) {
     watch: {
       bower: {
         files: ['bower.json'],
-        tasks: ['wiredep']
+        tasks: ['wiredep:dev']
       },<% if (coffee) { %>
       coffee: {
         files: ['<%%= yeoman.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
@@ -177,6 +177,11 @@ module.exports = function (grunt) {
     wiredep: {
       options: {
         cwd: '<%%= yeoman.app %>'
+      },
+      dev: {
+	devDependencies: true,
+        src: ['<%= yeoman.app %>/index.html'],
+        ignorePath:  /\.\.\//
       },
       app: {
         src: ['<%%= yeoman.app %>/index.html'],
@@ -453,7 +458,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'wiredep',
+      'wiredep:dev',
+      'wiredep:sass',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
