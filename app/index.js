@@ -173,6 +173,25 @@ Generator.prototype.askForCompass = function askForCompass() {
   }.bind(this));
 };
 
+Generator.prototype.askForLess = function askForLess() {
+  var compass = this.compass;
+  var cb = this.async();
+
+  this.prompt([{
+    type: 'confirm',
+    name: 'less',
+    message: 'Would you like to use Less?',
+    default: true,
+    when: function (props) {
+      return !compass;
+    }
+  }], function (props) {
+    this.less = props.less;
+
+    cb();
+  }.bind(this));
+};
+
 Generator.prototype.askForBootstrap = function askForBootstrap() {
   var compass = this.compass;
   var cb = this.async();
@@ -284,10 +303,19 @@ Generator.prototype.readIndex = function readIndex() {
 };
 
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
-  var cssFile = 'styles/main.' + (this.compass ? 's' : '') + 'css';
+  var cssFile = 'styles/main.css';
+  var sass = this.compass;
+  var mainFile = 'styles/main.';
+  if (this.less) {
+    mainFile += 'less';
+  }
+  else {
+    mainFile += (sass ? 's' : '') + 'css';
+  }
+
   this.copy(
     path.join('app', cssFile),
-    path.join(this.appPath, cssFile)
+    path.join(this.appPath, mainFile)
   );
 };
 
