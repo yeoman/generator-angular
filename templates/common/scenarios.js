@@ -12,7 +12,7 @@ describe('<%= _.camelize(appname) %>App Main Page', function () {
   });
 
   afterEach(function () {
-    browser.removeMockModule();
+    browser.removeMockModule('<%= scriptAppName %>Mocks');
   });
 
   it('should load successfully', function () {
