@@ -13,7 +13,7 @@ module.exports = function (config) {
 
     ngHtml2JsPreprocessor: {
       stripPrefix: '(app|.tmp)/',
-      moduleName: '<%= scriptAppName %>'
+      moduleName: '<%= scriptAppName %>Internal'
     },
 
     // base path, that will be used to resolve files and exclude
