@@ -14,8 +14,8 @@
   <clientTopology>
       <staticBaseUrl>http://<%%= scripts_domain %>/</staticBaseUrl>
       <sslStaticBaseUrl>https://<%%= ssl_scripts_domain %>/</sslStaticBaseUrl>
-      <<%= simplename %>StaticsUrl}><%%= static_url("com.wixpress.your-artifact-id")%></staticDashboardBaseUrl>
-      <<%= simplename %>SslStaticsUrl}><%%= ssl_static_url("com.wixpress.your-artifact-id")%></sslStaticDashboardBaseUrl>
+      <<%= simplename %>StaticsUrl><%%= static_url("com.wixpress.your-artifact-id")%></<%= simplename %>StaticsUrl>
+      <<%= simplename %>SslStaticsUrl><%%= ssl_static_url("com.wixpress.your-artifact-id")%></<%= simplename %>SslStaticsUrl>
   </clientTopology>
 #end -->
 <!--
