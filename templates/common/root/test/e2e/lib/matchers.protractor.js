@@ -13,11 +13,8 @@ beforeEach(function () {
           var invertedMessage = '\'' + classes + '\' contained class \'' + expected + '\'';
           return [positiveMessage, invertedMessage];
         };
-        if (classes.match(new RegExp('(^|\\s)' + expected + '(\\s|$)'))) {
-          deferred.fulfill(true);
-        } else {
-          deferred.fulfill(false);
-        }
+        var isMatch = !!classes.match('(^|\\s)' + expected + '(\\s|$)');
+        deferred.fulfill(isMatch);
       });
 
       return deferred.promise;
