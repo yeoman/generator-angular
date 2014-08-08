@@ -12,11 +12,11 @@ module.exports = {
   '${clientTopology.dashboardFrameworkStaticsUrl}': 'http://static.pizza.wixpress.com/services/wix-dashboard-framework-statics/current/',
 
   '${staticBaseUrl}': 'http://static.pizza.wixpress.com/',
-  '${staticsUrl}': 'http://localhost:9000/'<% if (dashboardApp) { %>,
+  '${staticsUrl}': 'http://localhost:9000/',<% if (dashboardApp) { %>
 
   '#parse(\'views/my-account/embeds_head.vm\')': '',
   '#parse(\'views/my-account/embeds_body_top.vm\')': '',
   '#parse(\'views/my-account/embeds_body_bottom.vm\')': ''<% } else { %>
-  'newRelicEndUserHeader': '',
-  'newRelicEndUserFooter': ''<% } %>
+  '${newRelicEndUserHeader}': '',
+  '${newRelicEndUserFooter}': ''<% } %>
 };
