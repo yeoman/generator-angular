@@ -2,26 +2,19 @@
 <!-- #if( false )
   Prerequisites from server model:
   --------------------------------
-  ${locale},
-  ${debug}, //request.getParameter("debug") != null && !request.getParameter("debug").equals("false")
-  ${secured}, //request.getHeader("x-forwarded-proto") != null && request.getHeader("x-forwarded-proto").equals("https")
-  ${experiments}, //objectMapper.writeValueAsString(laboratory.conductAllInScope(scopeName))
+  ${locale}, ${debug}, ${secured}, ${experiments},
+  ${newRelicEndUserHeader}, ${newRelicEndUserFooter}
   ${clientTopology.<%= simplename %>SslStaticsUrl},
   ${clientTopology.<%= simplename %>StaticsUrl},
   ${clientTopology.staticBaseUrl},
   ${clientTopology.sslStaticBaseUrl}
 
-  <clientTopology>
-      <staticBaseUrl>http://<%%= scripts_domain %>/</staticBaseUrl>
-      <sslStaticBaseUrl>https://<%%= ssl_scripts_domain %>/</sslStaticBaseUrl>
-      <<%= simplename %>StaticsUrl><%%= static_url("com.wixpress.your-artifact-id")%></<%= simplename %>StaticsUrl>
-      <<%= simplename %>SslStaticsUrl><%%= ssl_static_url("com.wixpress.your-artifact-id")%></<%= simplename %>SslStaticsUrl>
-  </clientTopology>
+  More details at: http://kb.wixpress.com/display/dashboard/How+to+integrate+server+with+index.vm
 #end -->
 <!--
   #if( false )
-  DO NOT TOUCH!!!
-  ---------------
+  DO NOT TOUCH!!
+  --------------
   #end
   #set( $languages = ["de","en","es","fr","it","ja","ko","pl","pt","ru","tr"] )
   #if( !$languages.contains($locale) )
@@ -57,7 +50,11 @@
       ENABLE_MOCKS = ${enableMocks};
     </script>
     <!-- #end -->
-    <% if (dashboardApp) { %>#parse('views/my-account/embeds_head.vm')<% } %>
+    <% if (dashboardApp) { %>
+    #parse('views/my-account/embeds_head.vm')
+    <% } else { %>
+    ${newRelicEndUserHeader}
+    <% } %>
   </head>
   <body>
     <% if (dashboardApp) { %>
@@ -125,6 +122,8 @@
     <!-- #end -->
 
     #parse('views/my-account/embeds_body_bottom.vm')
+    <% } else { %>
+    ${newRelicEndUserFooter}
     <% } %>
   </body>
 </html>

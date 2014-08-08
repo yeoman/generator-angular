@@ -9,7 +9,8 @@ module.exports = function (grunt) {
     });
   }});
   require('wix-gruntfile')(grunt, {
-    staging: 'pizza',
+    staging: 'pizza', //modify to your staging environment
+    subdomain: 'www', //modify to your sub-domain
     cdnify: 'vm',
     port: 9000,
     preloadModule: '<%= scriptAppName %>Internal',
@@ -18,4 +19,7 @@ module.exports = function (grunt) {
     protractor: true<% if (bowerComponent) { %>,
     bowerComponent: true<% } %>
   });
+
+  //Follow this URL for instructions on how to override built-in definitions:
+  //https://github.com/wix/wix-gruntfile/blob/master/README.md
 };

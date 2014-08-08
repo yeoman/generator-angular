@@ -16,5 +16,7 @@ module.exports = {
 
   '#parse(\'views/my-account/embeds_head.vm\')': '',
   '#parse(\'views/my-account/embeds_body_top.vm\')': '',
-  '#parse(\'views/my-account/embeds_body_bottom.vm\')': ''<% } %>
+  '#parse(\'views/my-account/embeds_body_bottom.vm\')': ''<% } else { %>
+  'newRelicEndUserHeader': '',
+  'newRelicEndUserFooter': ''<% } %>
 };
