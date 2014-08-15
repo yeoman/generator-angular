@@ -12,7 +12,7 @@ var Generator = module.exports = function Generator() {
   var bower = require(path.join(process.cwd(), 'bower.json'));
   var match = require('fs').readFileSync(path.join(
     this.env.options.appPath,
-    'scripts/app.' + (this.env.options.coffee ? 'coffee' : 'js')
+    'scripts/routes.' + (this.env.options.coffee ? 'coffee' : 'js')
   ), 'utf-8').match(/\.when/);
 
   if (
@@ -29,6 +29,7 @@ var Generator = module.exports = function Generator() {
 
 util.inherits(Generator, ScriptBase);
 
+//angularFire
 Generator.prototype.rewriteAppJs = function () {
   var coffee = this.env.options.coffee;
 
@@ -36,7 +37,7 @@ Generator.prototype.rewriteAppJs = function () {
     this.on('end', function () {
       this.log(chalk.yellow(
         '\nangular-route is not installed. Skipping adding the route to ' +
-        'scripts/app.' + (coffee ? 'coffee' : 'js')
+        'scripts/routes.' + (coffee ? 'coffee' : 'js')
       ));
     });
     return;
@@ -50,7 +51,7 @@ Generator.prototype.rewriteAppJs = function () {
   var config = {
     file: path.join(
       this.env.options.appPath,
-      'scripts/app.' + (coffee ? 'coffee' : 'js')
+      'scripts/routes.' + (coffee ? 'coffee' : 'js')
     ),
     needle: '.otherwise',
     splicable: [
@@ -59,11 +60,13 @@ Generator.prototype.rewriteAppJs = function () {
     ]
   };
 
+  var whenMethod = this.env.options.authRequired? 'whenAuthenticated' : 'when';
+
   if (coffee) {
-    config.splicable.unshift(".when '/" + this.uri + "',");
+    config.splicable.unshift("." + whenMethod + " '/" + this.uri + "',");
   }
   else {
-    config.splicable.unshift(".when('/" + this.uri + "', {");
+    config.splicable.unshift("." + whenMethod + "('/" + this.uri + "', {");
     config.splicable.push("})");
   }
 

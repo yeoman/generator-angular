@@ -12,11 +12,15 @@
     "angular-sanitize": "<%= ngVer %>"<% } %><% if (animateModule) { %>,
     "angular-animate": "<%= ngVer %>"<% } %><% if (touchModule) { %>,
     "angular-touch": "<%= ngVer %>"<% } %><% if (routeModule) { %>,
-    "angular-route": "<%= ngVer %>"<% } %>
+    "angular-route": "<%= ngVer %>",
+    "firebase": "<%= afconfig.bower.firebase %>",<% } %><% if (loginModule) { %>
+    "firebase-simple-login": "<%= afconfig.bower.simpleLogin %>",<% } %>
+    "angularfire": "<%= afconfig.bower.angularfire %>"
   },
   "devDependencies": {
     "angular-mocks": "<%= ngVer %>",
-    "angular-scenario": "<%= ngVer %>"
+    "angular-scenario": "<%= ngVer %>",
+    "mockfirebase": "<%= afconfig.bower.mockfirebase %>"
   }<% if (appPath) { %>,
   "appPath": "<%= appPath %>"<% } %>
 }

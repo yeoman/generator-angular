@@ -8,11 +8,50 @@ var yosay = require('yosay');
 var wiredep = require('wiredep');
 var chalk = require('chalk');
 
+//angularfire
+var afconfig = require('../angularfire-config.json');
+var colors = require('../util/colors.js');
+var FIREBASE_PROMPTS = [
+  {
+    name: 'firebaseName',
+    message: colors('Name of your Firebase instance ' +
+      '(https//%yellow<your instance>%/yellow.firebaseio.com)'),
+    required: true,
+    validate: function (input) {
+      if (!input || !input.match(/^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/)) {
+        return chalk.red('Your Firebase name may only contain [a-z], [0-9], and hyphen (-). ' +
+          'It may not start or end with a hyphen.');
+      }
+      return true;
+    }
+  }, {
+    name: 'loginModule',
+    message: 'Would you like to use FirebaseSimpleLogin for authentication?',
+    type: 'confirm'
+  }, {
+    type: 'checkbox',
+    name: 'simpleLoginProviders',
+    message: 'Which providers shall I install?',
+    choices: afconfig.simpleLoginProviders,
+    when: function(answers) {
+      return answers.loginModule;
+    },
+    validate: function(picks) {
+      return picks.length > 0? true : 'Must pick at least one provider';
+    },
+    default: ['password']
+  }
+];
+
 var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
   this.argument('appname', { type: String, required: false });
   this.appname = this.appname || path.basename(process.cwd());
   this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
+
+  //angularfire
+  this.afconfig = afconfig;
+  this.angularFireSourceFiles = [];
 
   this.option('app-suffix', {
     desc: 'Allow a custom suffix to be added to the module name',
@@ -57,15 +96,15 @@ var Generator = module.exports = function Generator(args, options) {
     this.env.options.coffee = this.options.coffee;
   }
 
-  this.hookFor('angular:common', {
+  this.hookFor('angularfire:common', {
     args: args
   });
 
-  this.hookFor('angular:main', {
+  this.hookFor('angularfire:main', {
     args: args
   });
 
-  this.hookFor('angular:controller', {
+  this.hookFor('angularfire:controller', {
     args: args
   });
 
@@ -96,9 +135,17 @@ var Generator = module.exports = function Generator(args, options) {
       enabledComponents.push('angular-touch/angular-touch.js');
     }
 
+    //angularfire
+    if (this.loginModule) {
+      enabledComponents.push('firebase-simple-login/firebase-simple-login.js');
+    }
+
     enabledComponents = [
       'angular/angular.js',
-      'angular-mocks/angular-mocks.js'
+      'angular-mocks/angular-mocks.js',
+      //angularfire
+      'firebase/firebase.js',
+      'angularfire/dist/angularfire.js'
     ].concat(enabledComponents).join(',');
 
     var jsExt = this.options.coffee ? 'coffee' : 'js';
@@ -126,9 +173,27 @@ var Generator = module.exports = function Generator(args, options) {
     });
 
     if (this.env.options.ngRoute) {
-      this.invoke('angular:route', {
-        args: ['about']
+      this.invoke('angularfire:route', {
+        //angularfire
+        args: ['chat']
       });
+    }
+
+    //angularfire
+    if(this.env.options.loginModule) {
+      if( this.env.options.ngRoute ) {
+        this.invoke('angularfire:route', {
+          args: ['login', true]
+        });
+      }
+      else {
+        this.invoke('angularfire:controller', {
+          args: ['login', true]
+        });
+        this.invoke('angularfire.view', {
+          args: ['login', true]
+        });
+      }
     }
   });
 
@@ -158,8 +223,25 @@ Generator.prototype.welcome = function welcome() {
   }
 };
 
+//angularfire
+Generator.prototype.askFirebaseQuestions = function askForCompass() {
+  this.firebaseName = null;
+  this.loginModule = false;
+  this.simpleLoginProviders = [];
+
+  var cb = this.async();
+  this.prompt(FIREBASE_PROMPTS, function (props) {
+    FIREBASE_PROMPTS.forEach(function(prompt) {
+      this[prompt.name] = props[prompt.name];
+    }, this);
+    cb();
+  }.bind(this));
+};
+
 Generator.prototype.askForCompass = function askForCompass() {
   var cb = this.async();
+
+  console.log('stuff', this.firebaseName, this.loginModule, this.simpleLoginProviders);
 
   this.prompt([{
     type: 'confirm',
@@ -270,6 +352,14 @@ Generator.prototype.askForModules = function askForModules() {
       angMods.push("'ngTouch'");
     }
 
+    //angularfire
+    angMods.push("'firebase'");
+    angMods.push("'firebase.utils'");
+    if( this.loginModule ) {
+      this.env.options.simpleLogin = true;
+      angMods.push("'simpleLogin'");
+    }
+
     if (angMods.length) {
       this.env.options.angularDeps = '\n    ' + angMods.join(',\n    ') + '\n  ';
     }
@@ -291,12 +381,32 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   );
 };
 
+//todo make this its own subgenerator separate from Angular.js gen
+//angularfire
+Generator.prototype.copyAngularFireFiles = function() {
+  this._common('scripts/angularfire/config.js');
+  this._common('scripts/angularfire/firebase.utils.js');
+
+  if( this.loginModule ) {
+    this._common('scripts/angularfire/simpleLogin.js');
+    this._tpl('controllers/login');
+    this._htmlTpl('views/login.html');
+  }
+
+  if( this.routeModule ) {
+    var withOrWithout = this.loginModule? 'with' : 'without';
+    this._tpl('routes.' + withOrWithout + '.login', 'routes');
+  }
+};
+
 Generator.prototype.appJs = function appJs() {
   this.indexFile = this.appendFiles({
     html: this.indexFile,
     fileType: 'js',
     optimizedPath: 'scripts/scripts.js',
-    sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js'],
+    sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js']
+      //angularfire
+      .concat(this.angularFireSourceFiles),
     searchPath: ['.tmp', this.appPath]
   });
 };
@@ -337,4 +447,31 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
       }
     });
   }
+};
+
+//angularfire
+Generator.prototype._common = function(dest) {
+  this.angularFireSourceFiles.push(dest);
+  var appPath = this.options.appPath;
+  this.template(path.join('app', dest), path.join(appPath, dest));
+};
+
+//angularfire
+Generator.prototype._htmlTpl = function(dest) {
+  var join = path.join;
+  var appPath = this.options.appPath;
+  this.copy(join('app', dest), join(appPath, dest));
+};
+
+//angularfire
+Generator.prototype._tpl = function(src, dest) {
+  if( !dest ) { dest = src; }
+  var suff = this.options.coffee? '.coffee' : '.js';
+  var destFileName = path.join('scripts', dest+suff);
+  this.angularFireSourceFiles.push(destFileName);
+  this.template(
+    // haaaaaack
+    path.join('..', this.options.coffee? 'coffee' : 'javascript', src+suff),
+    path.join(this.appPath, destFileName)
+  );
 };
