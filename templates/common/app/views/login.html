@@ -1,24 +1,43 @@
-
+<%
+  var btnPrimary = btnDefault = formCtrl = '';
+  var btnLg = ' class="btn btn-lg"';
+  if( bootstrap ) {
+    btnPrimary = ' class="btn btn-primary"';
+    btnDefault = ' class="btn btn-default"';
+    btnLg = ' class="btn btn-primary btn-lg"';
+    formCtrl = ' class="form-control"';
+  }
+%>
 <h2>Login Page</h2>
+<% if( hasOauthProviders ) { %>
+<fieldset>
+  <legend>Oauth</legend>
+  <p><% _.each( simpleLoginProviders, function( provider ) { %><% if ( provider.value !== 'password' ){ %>
+    <button <%= btnPrimary %> ng-click="oauthlogin('<%- provider.value %>')"><%- provider.name %></button><% } %><% }); %>
+  </p>
+</fieldset>
+<% } %><% if( hasPasswordProvider ) { %>
+<form role="form">
+  <p class="form-group">
+    <label for="loginEmail">email</label>
+    <input id="loginEmail" required name="email" type="email" ng-model="email"<%= formCtrl %> />
+  </p>
+  <p class="form-group">
+    <label for="loginPass">password</label>
+    <input id="loginPass" required name="pass" type="password" ng-model="pass"<%= formCtrl %> />
+  </p>
+  <p class="form-group" ng-cloak ng-show="createMode">
+    <label for="loginConfirm">confirm pass</label>
+    <input id="loginConfirm" required name="confirm" type="password" ng-model="confirm"<%= formCtrl %> />
+  </p>
 
-<form>
-  <label>
-    <span>email</span>
-    <input type="text" ng-model="email" />
-  </label>
-  <label>
-    <span>password</span>
-    <input type="password" ng-model="pass" />
-  </label>
-  <label ng-cloak ng-show="createMode">
-    <span>confirm pass</span>
-    <input type="password" ng-model="confirm" />
-  </label>
-  <button ng-click="login(email, pass)" ng-hide="createMode">Log In</button>
-  <button ng-click="createMode = true" ng-hide="createMode">Register</button>
-  <button ng-cloak ng-show="createMode" ng-click="createAccount(email, pass, confirm)">Create Account</button>
-  <button ng-cloak ng-show="createMode" ng-click="createMode = false">Cancel</button>
-
-  <p ng-show="err" class="error">{{err}}</p>
+  <p>
+    <button <%= btnPrimary %> ng-click="passwordLogin(email, pass)" ng-hide="createMode">Log In</button>
+    <button <%= btnDefault %> ng-click="createMode = true" ng-hide="createMode">Register</button>
+    <button <%= btnPrimary %> ng-cloak ng-show="createMode"
+            ng-click="createAccount(email, pass, confirm)">Create Account</button>
+    <button <%= btnDefault %> ng-cloak ng-show="createMode" ng-click="createMode = false">Cancel</button>
+  </p>
 </form>
-
+<p ng-show="err" class="<% if( bootstrap ) { %>bg-danger<% } else { %>error<% } %>">{{err}}</p>
+<% } %>

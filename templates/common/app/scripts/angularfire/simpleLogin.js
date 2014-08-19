@@ -5,103 +5,95 @@
     // a simple wrapper on simpleLogin.getUser() that rejects the promise
     // if the user does not exists (i.e. makes user required), useful for
     // setting up secure routes that require authentication
-    .factory('authRequired', ['simpleLogin', '$q', function(simpleLogin, $q) {
+    .factory('authRequired', function(simpleLogin, $q) {
       return function() {
         return simpleLogin.getUser().then(function (user) {
           return user ? user : $q.reject({ authRequired: true });
         });
       };
-    }])
+    })
 
-    .factory('simpleLogin', ['$firebaseSimpleLogin', 'fbutil', 'createProfile', 'changeEmail', '$q', '$rootScope',
-      function($firebaseSimpleLogin, fbutil, createProfile, changeEmail, $q, $rootScope) {
-        var auth = $firebaseSimpleLogin(fbutil.ref());
-        var listeners = [];
+    .factory('simpleLogin', function($firebaseSimpleLogin, fbutil, $q, $rootScope<% if( hasPasswordProvider ) { %>, createProfile, changeEmail<% } %>) {
+      var auth = $firebaseSimpleLogin(fbutil.ref());
+      var listeners = [];
 
-        function statusChange() {
-          fns.getUser().then(function(user) {
-            fns.user = user || null;
-            angular.forEach(listeners, function(fn) {
-              fn(user||null);
-            });
-          });
-        }
+      function statusChange() {
+        fns.initialized = true;
+        fns.user = auth.user || null;
+        console.log('simpleLogin sattus change', fns.user, listeners.length); //debug
+        angular.forEach(listeners, function(fn) {
+          fn(fns.user);
+        });
+      }
 
-        var fns = {
-          user: null,
+      var fns = {
+        user: null,
 
-          getUser: function() {
-            return auth.$getCurrentUser();
-          },
+        initialized: false,
 
-          /**
-           * @param {string} email
-           * @param {string} pass
-           * @returns {*}
-           */
-          login: function(email, pass) {
-            return auth.$login('password', {
-              email: email,
-              password: pass,
-              rememberMe: true
-            });
-          },
+        getUser: function() {
+          return auth.$getCurrentUser();
+        },
 
-          logout: function() {
-            auth.$logout();
-          },
+        login: function(provider, opts) {
+          return auth.$login(provider, opts);
+        },
 
-          createAccount: function(email, pass, name) {
-            return auth.$createUser(email, pass)
-              .then(function() {
-                // authenticate so we have permission to write to Firebase
-                return fns.login(email, pass);
-              })
-              .then(function(user) {
-                // store user data in Firebase after creating account
-                return createProfile(user.uid, email, name).then(function() {
-                  return user;
-                });
+        logout: function() {
+          auth.$logout();
+        },<% if( hasPasswordProvider ) { %>
+
+        createAccount: function(email, pass, name) {
+          return auth.$createUser(email, pass)
+            .then(function() {
+              // authenticate so we have permission to write to Firebase
+              return fns.login('password', {email: email, pass: pass});
+            })
+            .then(function(user) {
+              // store user data in Firebase after creating account
+              return createProfile(user.uid, email, name).then(function() {
+                return user;
               });
-          },
-
-          changePassword: function(email, oldpass, newpass) {
-            return auth.$changePassword(email, oldpass, newpass);
-          },
-
-          changeEmail: function(password, newEmail) {
-            return changeEmail(password, fns.user.email, newEmail, this);
-          },
-
-          removeUser: function(email, pass) {
-            return auth.$removeUser(email, pass);
-          },
-
-          watch: function(cb, $scope) {
-            fns.getUser().then(function(user) {
-              cb(user);
             });
-            listeners.push(cb);
-            var unbind = function() {
-              var i = listeners.indexOf(cb);
-              if( i > -1 ) { listeners.splice(i, 1); }
-            };
-            if( $scope ) {
-              $scope.$on('$destroy', unbind);
-            }
-            return unbind;
+        },
+
+        changePassword: function(email, oldpass, newpass) {
+          return auth.$changePassword(email, oldpass, newpass);
+        },
+
+        changeEmail: function(password, newEmail) {
+          return changeEmail(password, fns.user.email, newEmail, this);
+        },
+
+        removeUser: function(email, pass) {
+          return auth.$removeUser(email, pass);
+        },<% } %>
+
+        watch: function(cb, $scope) {
+          listeners.push(cb);
+          fns.getUser().then(function(user) {
+            cb(user);
+          });
+          var unbind = function() {
+            var i = listeners.indexOf(cb);
+            if( i > -1 ) { listeners.splice(i, 1); }
+          };
+          if( $scope ) {
+            $scope.$on('$destroy', unbind);
           }
-        };
+          return unbind;
+        }
+      };
 
-        $rootScope.$on('$firebaseSimpleLogin:login', statusChange);
-        $rootScope.$on('$firebaseSimpleLogin:logout', statusChange);
-        $rootScope.$on('$firebaseSimpleLogin:error', statusChange);
-        statusChange();
+      $rootScope.$on('$firebaseSimpleLogin:login', statusChange);
+      $rootScope.$on('$firebaseSimpleLogin:logout', statusChange);
+      $rootScope.$on('$firebaseSimpleLogin:error', statusChange);
+      auth.$getCurrentUser(statusChange);
 
-        return fns;
-      }])
+      return fns;
+    })<% if( hasPasswordProvider ) { %>
 
-    .factory('createProfile', ['fbutil', '$q', '$timeout', function(fbutil, $q, $timeout) {
+    .factory('createProfile', function(fbutil, $q, $timeout) {
       return function(id, email, name) {
         var ref = fbutil.ref('users', id), def = $q.defer();
         ref.set({email: email, name: name||firstPartOfEmail(email)}, function(err) {
@@ -128,9 +120,9 @@
 
         return def.promise;
       };
-    }])
+    })
 
-    .factory('changeEmail', ['fbutil', '$q', function(fbutil, $q) {
+    .factory('changeEmail', function(fbutil, $q) {
       return function(password, oldEmail, newEmail, simpleLogin) {
         var ctx = { old: { email: oldEmail }, curr: { email: newEmail } };
 
@@ -223,5 +215,5 @@
           return simpleLogin.login(ctx.curr.email, password);
         }
       };
-    }]);
+    })<% } %>;
 })();

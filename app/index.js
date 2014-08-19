@@ -14,11 +14,15 @@ var colors = require('../util/colors.js');
 var FIREBASE_PROMPTS = [
   {
     name: 'firebaseName',
-    message: colors('Name of your Firebase instance ' +
-      '(https//%yellow<your instance>%/yellow.firebaseio.com)'),
+    message: colors('Firebase instance ' +
+      '(https://%yellow<your instance>%/yellow.firebaseio.com)'),
     required: true,
     validate: function (input) {
-      if (!input || !input.match(/^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/)) {
+      if( !input ) { return false; }
+      if( input.match('http') || input.match('firebaseio.com') ) {
+        return chalk.red('Just include the Firebase name, not the entire URL');
+      }
+      if (!input.match(/^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/)) {
         return chalk.red('Your Firebase name may only contain [a-z], [0-9], and hyphen (-). ' +
           'It may not start or end with a hyphen.');
       }
@@ -26,11 +30,11 @@ var FIREBASE_PROMPTS = [
     }
   }, {
     name: 'loginModule',
-    message: 'Would you like to use FirebaseSimpleLogin for authentication?',
+    message: 'Use FirebaseSimpleLogin?',
     type: 'confirm'
   }, {
     type: 'checkbox',
-    name: 'simpleLoginProviders',
+    name: 'providers',
     message: 'Which providers shall I install?',
     choices: afconfig.simpleLoginProviders,
     when: function(answers) {
@@ -208,7 +212,7 @@ Generator.prototype.welcome = function welcome() {
     this.log(yosay());
     this.log(
       chalk.magenta(
-        'Out of the box I include Bootstrap and some AngularJS recommended modules.' +
+        'Out of the box I include Bootstrap and some AngularJS recommended modules, AngularFire, and Firebase Simple Login.' +
         '\n'
       )
     );
@@ -228,11 +232,18 @@ Generator.prototype.askFirebaseQuestions = function askForCompass() {
   this.firebaseName = null;
   this.loginModule = false;
   this.simpleLoginProviders = [];
+  this.hasOauthProviders = false;
+  this.hasPasswordProvider = false;
 
   var cb = this.async();
   this.prompt(FIREBASE_PROMPTS, function (props) {
     FIREBASE_PROMPTS.forEach(function(prompt) {
-      this[prompt.name] = props[prompt.name];
+      if( prompt.name === 'providers' ) {
+        this._processProviders(props[prompt.name]);
+      }
+      else {
+        this[prompt.name] = props[prompt.name];
+      }
     }, this);
     cb();
   }.bind(this));
@@ -240,9 +251,6 @@ Generator.prototype.askFirebaseQuestions = function askForCompass() {
 
 Generator.prototype.askForCompass = function askForCompass() {
   var cb = this.async();
-
-  console.log('stuff', this.firebaseName, this.loginModule, this.simpleLoginProviders);
-
   this.prompt([{
     type: 'confirm',
     name: 'compass',
@@ -390,7 +398,11 @@ Generator.prototype.copyAngularFireFiles = function() {
   if( this.loginModule ) {
     this._common('scripts/angularfire/simpleLogin.js');
     this._tpl('controllers/login');
+    this._tpl('controllers/account');
     this._htmlTpl('views/login.html');
+    this._htmlTpl('views/account.html');
+    this._common('scripts/directives/ngShowAuth.js');
+    this._common('scripts/directives/ngHideAuth.js');
   }
 
   if( this.routeModule ) {
@@ -460,7 +472,7 @@ Generator.prototype._common = function(dest) {
 Generator.prototype._htmlTpl = function(dest) {
   var join = path.join;
   var appPath = this.options.appPath;
-  this.copy(join('app', dest), join(appPath, dest));
+  this.template(join('app', dest), join(appPath, dest));
 };
 
 //angularfire
@@ -474,4 +486,20 @@ Generator.prototype._tpl = function(src, dest) {
     path.join('..', this.options.coffee? 'coffee' : 'javascript', src+suff),
     path.join(this.appPath, destFileName)
   );
+};
+
+//angularfire
+Generator.prototype._processProviders = function(list) {
+  var providerMap = {}, i = afconfig.simpleLoginProviders.length, p;
+  while(i--) {
+    p = afconfig.simpleLoginProviders[i];
+    providerMap[p.value] = {name: p.name, value: p.value};
+  }
+  if( this.loginModule ) {
+    list.forEach(function(p) {
+      if( p === 'password' ) { this.hasPasswordProvider = true; }
+      else { this.hasOauthProviders = true; }
+      this.simpleLoginProviders.push(providerMap[p]);
+    }, this);
+  }
 };
