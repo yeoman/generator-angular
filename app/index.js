@@ -489,7 +489,7 @@ Generator.prototype._tpl = function(src, dest) {
   this.angularFireSourceFiles.push(destFileName);
   this.template(
     // haaaaaack
-    path.join('..', this.options.coffee? 'coffee' : 'javascript', src+suff),
+    path.join('..', this.options.coffee? 'coffeescript' : 'javascript', src+suff),
     path.join(this.appPath, destFileName)
   );
 };
