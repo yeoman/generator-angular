@@ -179,7 +179,7 @@ var Generator = module.exports = function Generator(args, options) {
     if (this.env.options.ngRoute) {
       this.invoke('angularfire:route', {
         //angularfire
-        args: ['chat']
+        args: ['chat', true]
       });
     }
 
@@ -235,10 +235,13 @@ Generator.prototype.askFirebaseQuestions = function askForCompass() {
   this.hasOauthProviders = false;
   this.hasPasswordProvider = false;
 
+  // allow firebase instance to be set on command line
+  this._defaultNamespace(this.options['instance'], FIREBASE_PROMPTS);
+
   var cb = this.async();
   this.prompt(FIREBASE_PROMPTS, function (props) {
     FIREBASE_PROMPTS.forEach(function(prompt) {
-      if( prompt.name === 'providers' ) {
+      if( prompt.name === 'providers' && props.loginModule ) {
         this._processProviders(props[prompt.name]);
       }
       else {
@@ -394,6 +397,9 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
 Generator.prototype.copyAngularFireFiles = function() {
   this._common('scripts/angularfire/config.js');
   this._common('scripts/angularfire/firebase.utils.js');
+  this._tpl('controllers/chat');
+  this._htmlTpl('views/chat.html');
+  this._tpl('filters/reverse');
 
   if( this.loginModule ) {
     this._common('scripts/angularfire/simpleLogin.js');
@@ -495,11 +501,22 @@ Generator.prototype._processProviders = function(list) {
     p = afconfig.simpleLoginProviders[i];
     providerMap[p.value] = {name: p.name, value: p.value};
   }
-  if( this.loginModule ) {
-    list.forEach(function(p) {
-      if( p === 'password' ) { this.hasPasswordProvider = true; }
-      else { this.hasOauthProviders = true; }
-      this.simpleLoginProviders.push(providerMap[p]);
-    }, this);
+  list.forEach(function(p) {
+    if( p === 'password' ) { this.hasPasswordProvider = true; }
+    else { this.hasOauthProviders = true; }
+    this.simpleLoginProviders.push(providerMap[p]);
+  }, this);
+};
+
+//angularfire
+Generator.prototype._defaultNamespace = function(envValue, prompts) {
+  if( envValue ) {
+    prompts.forEach(function(p) {
+      if(p.name === 'firebaseName' ) {
+        p.default = envValue;
+        return false;
+      }
+      return true;
+    });
   }
 };

@@ -12,7 +12,6 @@ angular.module('<%= scriptAppName %>')
     'use strict';
     var isLoggedIn;
     simpleLogin.watch(function(user) {
-      console.log('ngHideAuth', user); //debug
       isLoggedIn = !!user;
     });
 
@@ -21,7 +20,6 @@ angular.module('<%= scriptAppName %>')
       link: function(scope, el) {
         el.addClass('ng-cloak'); // hide until we process it
         function update() {
-          console.log('update ngHideAuth'); //debug
           // sometimes if ngCloak exists on same element, they argue, so make sure that
           // this one always runs last for reliability
           $timeout(function () {

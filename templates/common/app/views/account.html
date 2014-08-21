@@ -84,11 +84,9 @@
   </p>
 
   <button<%= btnPrimary %> ng-click="changeEmail(pass, newEmail)">update email</button>
-
-  <p class="error" ng-show="emailerr">{{emailerr}}</p>
-  <p class="good" ng-show="emailmsg">{{emailmsg}}</p>
 </form>
 </div>
 <% } %>
 </div>
 <% if( bootstrap ) { %><p class="clearfix"></p><% } %>
+<div ng-repeat="message in messages" class="alert alert-{{message.type}}">{{message.text}}</div>

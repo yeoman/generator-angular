@@ -36,7 +36,7 @@ angular.module('<%= scriptAppName %>')
             $location.path('/account');
           }, function(err) {
             $scope.err = err;
-          })
+          });
       }
     };
 

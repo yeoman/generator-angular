@@ -6,7 +6,7 @@ var ScriptBase = require('../script-base.js');
 var angularUtils = require('../util.js');
 
 
-var Generator = module.exports = function Generator() {
+var Generator = module.exports = function Generator(name, skipFiles) {
   ScriptBase.apply(this, arguments);
 
   var bower = require(path.join(process.cwd(), 'bower.json'));
@@ -23,8 +23,10 @@ var Generator = module.exports = function Generator() {
     this.foundWhenForRoute = true;
   }
 
-  this.hookFor('angular:controller');
-  this.hookFor('angular:view');
+  if( !skipFiles ) {
+    this.hookFor('angular:controller');
+    this.hookFor('angular:view');
+  }
 };
 
 util.inherits(Generator, ScriptBase);

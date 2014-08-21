@@ -20,7 +20,6 @@
       function statusChange() {
         fns.initialized = true;
         fns.user = auth.user || null;
-        console.log('simpleLogin sattus change', fns.user, listeners.length); //debug
         angular.forEach(listeners, function(fn) {
           fn(fns.user);
         });
@@ -47,7 +46,7 @@
           return auth.$createUser(email, pass)
             .then(function() {
               // authenticate so we have permission to write to Firebase
-              return fns.login('password', {email: email, pass: pass});
+              return fns.login('password', {email: email, password: pass});
             })
             .then(function(user) {
               // store user data in Firebase after creating account
@@ -144,9 +143,10 @@
           .catch(function(err) { console.error(err); return $q.reject(err); });
 
         function authOldAccount() {
-          return simpleLogin.login(ctx.old.email, password).then(function(user) {
-            ctx.old.uid = user.uid;
-          });
+          return simpleLogin.login('password', {email: ctx.old.email, password: password})
+            .then(function(user) {
+              ctx.old.uid = user.uid;
+            });
         }
 
         function loadOldProfile() {
@@ -160,6 +160,7 @@
               }
               else {
                 ctx.old.name = dat.name;
+                ctx.curr.name = dat.name;
                 def.resolve();
               }
             },
@@ -178,7 +179,7 @@
         function copyProfile() {
           var d = $q.defer();
           ctx.curr.ref = fbutil.ref('users', ctx.curr.uid);
-          var profile = {email: ctx.curr.email, name: ctx.old.name||''};
+          var profile = {email: ctx.curr.email, name: ctx.curr.name};
           ctx.curr.ref.set(profile, function(err) {
             if (err) {
               d.reject(err);
@@ -212,7 +213,7 @@
         }
 
         function authNewAccount() {
-          return simpleLogin.login(ctx.curr.email, password);
+          return simpleLogin.login('password', {email: ctx.curr.email, password: password});
         }
       };
     })<% } %>;
