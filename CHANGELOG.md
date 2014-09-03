@@ -1,3 +1,14 @@
+<a name="0.9.6"></a>
+### 0.9.6 (2014-09-03)
+
+
+#### Bug Fixes
+
+* **build:** no need to ngAnnotate oldieshim ([ed413a19](yeoman/generator-angular/commit/ed413a19880511f37f2b40c5c94ef0f675796e2f))
+* **deps:** update Angular to v1.2.23 ([8667f1cb](yeoman/generator-angular/commit/8667f1cbb29a1290b39ea67db8957683dce7295e))
+* **oldieshim:** avoid json3 being injected twice ([b421e13b](yeoman/generator-angular/commit/b421e13ba6029eeae3e43cd12b65813464471b5b))
+
+
 <a name="0.9.5"></a>
 ### 0.9.5 (2014-07-13)
 
