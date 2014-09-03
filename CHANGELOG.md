@@ -1,3 +1,12 @@
+<a name="0.9.7"></a>
+### 0.9.7 (2014-09-03)
+
+
+#### Bug Fixes
+
+* **deps:** use latest 1.2.x ng ([45c3eb67](yeoman/generator-angular/commit/45c3eb67b1440956fb2fdaf0d536ff766f13fa0f))
+
+
 <a name="0.9.6"></a>
 ### 0.9.6 (2014-09-03)
 
