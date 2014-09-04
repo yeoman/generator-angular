@@ -1,14 +1,12 @@
-# AngularJS generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular.svg?branch=master)](http://travis-ci.org/yeoman/generator-angular)
+# AngularFire generator
 
-> Yeoman generator for AngularJS - lets you quickly set up a project with sensible defaults and best practices.
-
-[Roadmap for upcoming plans/features/fixes](https://github.com/yeoman/generator-angular/issues/553)
+> Yeoman generator for AngularJS + Firebase (and AngularFire) - lets you quickly set up a project with sensible defaults and best practices.
 
 ## Usage
 
-Install `generator-angular`:
+Install `generator-angularfire`:
 ```
-npm install -g generator-angular
+npm install -g generator-angularfire
 ```
 
 Make a new directory, and `cd` into it:
@@ -16,9 +14,9 @@ Make a new directory, and `cd` into it:
 mkdir my-new-project && cd $_
 ```
 
-Run `yo angular`, optionally passing an app name:
+Run `yo angularfire`, optionally passing an app name:
 ```
-yo angular [app-name]
+yo angularfire [app-name]
 ```
 
 Run `grunt` for building and `grunt serve` for preview
@@ -28,27 +26,27 @@ Run `grunt` for building and `grunt serve` for preview
 
 Available generators:
 
-* [angular](#app) (aka [angular:app](#app))
-* [angular:controller](#controller)
-* [angular:directive](#directive)
-* [angular:filter](#filter)
-* [angular:route](#route)
-* [angular:service](#service)
-* [angular:provider](#service)
-* [angular:factory](#service)
-* [angular:value](#service)
-* [angular:constant](#service)
-* [angular:decorator](#decorator)
-* [angular:view](#view)
+* [angularfire](#app) (aka [angularfire:app](#app))
+* [angularfire:controller](#controller)
+* [angularfire:directive](#directive)
+* [angularfire:filter](#filter)
+* [angularfire:route](#route)
+* [angularfire:service](#service)
+* [angularfire:provider](#service)
+* [angularfire:factory](#service)
+* [angularfire:value](#service)
+* [angularfire:constant](#service)
+* [angularfire:decorator](#decorator)
+* [angularfire:view](#view)
 
 **Note: Generators are to be run from the root directory of your app.**
 
 ### App
-Sets up a new AngularJS app, generating all the boilerplate you need to get started. The app generator also optionally installs Bootstrap and additional AngularJS modules, such as angular-resource (installed by default).
+Sets up a new AngularJS + Firebase app, generating all the boilerplate you need to get started. The app generator also optionally installs FirebaseSimpleLogin, Bootstrap and additional AngularJS modules, such as angular-resource (installed by default).
 
 Example:
 ```bash
-yo angular
+yo angularfire
 ```
 
 ### Route
@@ -56,7 +54,7 @@ Generates a controller and view, and configures a route in `app/scripts/app.js` 
 
 Example:
 ```bash
-yo angular:route myroute
+yo angularfire:route myroute
 ```
 
 Produces `app/scripts/controllers/myroute.js`:
@@ -75,7 +73,7 @@ Produces `app/views/myroute.html`:
 
 Example:
 ```bash
-yo angular:route myRoute --uri=my/route
+yo angularfire:route myRoute --uri=my/route
 ```
 
 Produces controller and view as above and adds a route to `app/scripts/app.js`
@@ -86,7 +84,7 @@ Generates a controller in `app/scripts/controllers`.
 
 Example:
 ```bash
-yo angular:controller user
+yo angularfire:controller user
 ```
 
 Produces `app/scripts/controllers/user.js`:
@@ -100,7 +98,7 @@ Generates a directive in `app/scripts/directives`.
 
 Example:
 ```bash
-yo angular:directive myDirective
+yo angularfire:directive myDirective
 ```
 
 Produces `app/scripts/directives/myDirective.js`:
@@ -121,7 +119,7 @@ Generates a filter in `app/scripts/filters`.
 
 Example:
 ```bash
-yo angular:filter myFilter
+yo angularfire:filter myFilter
 ```
 
 Produces `app/scripts/filters/myFilter.js`:
@@ -138,7 +136,7 @@ Generates an HTML view file in `app/views`.
 
 Example:
 ```bash
-yo angular:view user
+yo angularfire:view user
 ```
 
 Produces `app/views/user.html`:
@@ -151,7 +149,7 @@ Generates an AngularJS service.
 
 Example:
 ```bash
-yo angular:service myService
+yo angularfire:service myService
 ```
 
 Produces `app/scripts/services/myService.js`:
@@ -161,14 +159,14 @@ angular.module('myMod').service('myService', function () {
 });
 ```
 
-You can also do `yo angular:factory`, `yo angular:provider`, `yo angular:value`, and `yo angular:constant` for other types of services.
+You can also do `yo angularfire:factory`, `yo angularfire:provider`, `yo angularfire:value`, and `yo angularfire:constant` for other types of services.
 
 ### Decorator
 Generates an AngularJS service decorator.
 
 Example:
 ```bash
-yo angular:decorator serviceName
+yo angularfire:decorator serviceName
 ```
 
 Produces `app/scripts/decorators/serviceNameDecorator.js`:
@@ -189,7 +187,7 @@ For generators that output scripts, the `--coffee` option will output CoffeeScri
 
 For example:
 ```bash
-yo angular:controller user --coffee
+yo angularfire:controller user --coffee
 ```
 
 Produces `app/scripts/controller/user.coffee`:
@@ -202,34 +200,6 @@ A project can mix CoffeScript and JavaScript files.
 
 To output JavaScript files, even if CoffeeScript files exist (the default is to output CoffeeScript files if the generator finds any in the project), use `--coffee=false`.
 
-### Minification Safe
-
-**Removed**
-
-[Related Issue #452](https://github.com/yeoman/generator-angular/issues/452): This option has been removed from the generator. Initially it was needed as ngMin was not entirely stable. As it has matured, the need to keep separate versions of the script templates has led to extra complexity and maintenance of the generator. By removing these extra burdens, new features and bug fixes should be easier to implement. If you are dependent on this option, please take a look at ngMin and seriously consider implementing it in your own code. It will help reduce the amount of typing you have to do (and look through) as well as make your code cleaner to look at.
-
-By default, generators produce unannotated code. Without annotations, AngularJS's DI system will break when minified. Typically, these annotations that make minification safe are added automatically at build-time, after application files are concatenated, but before they are minified. The annotations are important because minified code will rename variables, making it impossible for AngularJS to infer module names based solely on function parameters.
-
-The recommended build process uses `ngmin`, a tool that automatically adds these annotations. However, if you'd rather not use `ngmin`, you have to add these annotations manually yourself. **One thing to note is that `ngmin` does not produce minsafe code for things that are not main level elements like controller, services, providers, etc.:
-
-```javascript
-resolve: {
-  User: function(myService) {
-    return MyService();
-  }
-}
-```
-
-will need to be manually done like so:
-```javascript
-resolve: {
-  User: ['myService', function(myService) {
-    return MyService();
-  }]
-}
-```
-
-
 ### Add to Index
 By default, new scripts are added to the index.html file. However, this may not always be suitable. Some use cases:
 
@@ -239,7 +209,7 @@ By default, new scripts are added to the index.html file. However, this may not 
 
 To skip adding them to the index, pass in the skip-add argument:
 ```bash
-yo angular:service serviceName --skip-add
+yo angularfire:service serviceName --skip-add
 ```
 
 ## Bower Components
@@ -249,7 +219,7 @@ The following packages are always installed by the [app](#app) generator:
 * angular
 * angular-mocks
 * angular-scenario
-
+* firebase
 
 The following additional modules are available as components on bower, and installable via `bower install`:
 
@@ -257,8 +227,9 @@ The following additional modules are available as components on bower, and insta
 * angular-loader
 * angular-resource
 * angular-sanitize
+* firebase-simple-login
 
-All of these can be updated with `bower update` as new versions of AngularJS are released.
+All of these can be updated with `bower update` as new versions of AngularJS or Firebase are released.
 
 ## Configuration
 Yeoman generated projects can be further tweaked according to your needs by modifying project files appropriately.
@@ -281,21 +252,9 @@ This will cause Yeoman-generated client-side files to be placed in `public`.
 
 Running `grunt test` will run the unit tests with karma.
 
-## Contribute
-
-See the [contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md)
-
-When submitting an issue, please follow the [guidelines](https://github.com/yeoman/yeoman/blob/master/contributing.md#issue-submission). Especially important is to make sure Yeoman is up-to-date, and providing the command or commands that cause the issue.
-
-When submitting a PR, make sure that the commit messages match the [AngularJS conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/).
-
-When submitting a bugfix, write a test that exposes the bug and fails before applying your fix. Submit the test alongside the fix.
-
-When submitting a new feature, add tests that cover the feature.
-
 ## Changelog
 
-Recent changes can be viewed on Github on the [Releases Page](https://github.com/yeoman/generator-angular/releases)
+Recent changes can be viewed on Github on the [Releases Page](https://github.com/firebase/generator-angularfire/releases)
 
 ## License
 
