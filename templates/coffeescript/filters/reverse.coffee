@@ -1,4 +1,4 @@
 "use strict"
 angular.module("<%= scriptAppName %>").filter "reverse", ->
   (items) ->
-    items.slice().reverse()
+    if angular.isArray(items) then items.slice().reverse() else []

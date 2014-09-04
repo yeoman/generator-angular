@@ -2,7 +2,7 @@
   "bower": {
     "firebase": "1.0.x",
     "angularfire": "0.8.x",
-    "mockfirebase": "0.3.x",
+    "mockfirebase": "0.2.x",
     "simplelogin": "1.6.x"
   },
 

@@ -154,6 +154,14 @@ var Generator = module.exports = function Generator(args, options) {
 
     var jsExt = this.options.coffee ? 'coffee' : 'js';
 
+    var appFiles = ['app/scripts/**/*.' + jsExt ];
+    if( this.options.coffee ) {
+      //todo add these into coffeescript so we don't need this extra step
+      appFiles.push('app/scripts/angularFire/*.js');
+      appFiles.push('app/scripts/directives/ngHideAuth.js');
+      appFiles.push('app/scripts/directives/ngShowAuth.js');
+    }
+
     this.invoke('karma:app', {
       options: {
         'skip-install': this.options['skip-install'],
@@ -161,7 +169,8 @@ var Generator = module.exports = function Generator(args, options) {
         'coffee': this.options.coffee,
         'travis': true,
         'bower-components': enabledComponents,
-        'app-files': 'app/scripts/**/*.' + jsExt,
+//        'app-files': 'app/scripts/**/*.' + jsExt,
+        'app-files': appFiles.join(','), //angularfire
         'test-files': [
           'test/mock/**/*.' + jsExt,
           'test/spec/**/*.' + jsExt
@@ -486,7 +495,7 @@ Generator.prototype._tpl = function(src, dest) {
   if( !dest ) { dest = src; }
   var suff = this.options.coffee? '.coffee' : '.js';
   var destFileName = path.join('scripts', dest+suff);
-  this.angularFireSourceFiles.push(destFileName);
+  this.angularFireSourceFiles.push(path.join('scripts', dest+'.js'));
   this.template(
     // haaaaaack
     path.join('..', this.options.coffee? 'coffeescript' : 'javascript', src+suff),
