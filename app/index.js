@@ -9,7 +9,7 @@ var chalk = require('chalk');
 
 //angularfire
 var angularUtils = require('../util.js');
-var afconfig = require('../angularfire/config.js');
+var afconfig = require('../angularfire/config.json');
 var colors = require('../angularfire/colors.js');
 var FIREBASE_PROMPTS = [
   {
