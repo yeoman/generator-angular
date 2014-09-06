@@ -8,9 +8,9 @@ var wiredep = require('wiredep');
 var chalk = require('chalk');
 
 //angularfire
-var angularUtils = require(path.join(__dirname, '..', 'util.js'));
-var afconfig = require(path.join(__dirname, '..', 'angularfire-config.js'));
-var colors = require(path.join(__dirname, '..', 'util', 'colors.js'));
+var angularUtils = require('../util.js');
+var afconfig = require('../angularfire-config.js');
+var colors = require('../util/colors.js');
 var FIREBASE_PROMPTS = [
   {
     name: 'firebaseName',

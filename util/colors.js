@@ -3,7 +3,6 @@ var util = require('util');
 
 var CHALK_LIST = ['bold' ,'italic', 'underline', 'inverse', 'strikethrough', 'black', 'red', 'green', 'yellow',
   'blue', 'magenta', 'cyan', 'white', 'gray', 'bgBlack', 'bgRed', 'bgGreen', 'bgYellow', 'bgBlue', 'bgMagent', 'bgCyan', 'bgWhite'];
-
 var _LIST = '(?:'+CHALK_LIST.join('|')+')';
 var EXP_FIND = new RegExp('%('+_LIST+'(?:[:]'+_LIST+')*)(.+?)(%\\/\\1)', 'g');
 var EXP_END = new RegExp('%('+_LIST+'(?:[:]'+_LIST+')*)(.+?)$');
