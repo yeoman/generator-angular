@@ -11,6 +11,7 @@
     { "name": "Anonymous",      "value": "anonymous" },
     { "name": "Facebook",       "value": "facebook"  },
     { "name": "Google",         "value": "google"    },
-    { "name": "Twitter",        "value": "twitter"   }
+    { "name": "Twitter",        "value": "twitter"   },
+    { "name": "GitHub",         "value": "github"    }
   ]
 }
