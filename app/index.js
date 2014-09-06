@@ -2,15 +2,15 @@
 var fs = require('fs');
 var path = require('path');
 var util = require('util');
-var angularUtils = require('../util.js');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 var wiredep = require('wiredep');
 var chalk = require('chalk');
 
 //angularfire
-var afconfig = require('../angularfire-config.json');
-var colors = require('../util/colors.js');
+var angularUtils = require(path.join(__dirname, '..', 'util.js'));
+var afconfig = require(path.join(__dirname, '..', 'angularfire-config.js'));
+var colors = require(path.join(__dirname, '..', 'util', 'colors.js'));
 var FIREBASE_PROMPTS = [
   {
     name: 'firebaseName',
