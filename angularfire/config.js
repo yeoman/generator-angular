@@ -1,4 +1,4 @@
-{
+var config = {
   "bower": {
     "firebase": "1.0.x",
     "angularfire": "0.8.x",
@@ -15,3 +15,5 @@
     { "name": "GitHub",         "value": "github"    }
   ]
 }
+
+module.exports = config;
