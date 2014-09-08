@@ -1,3 +1,12 @@
+<a name="0.9.8"></a>
+### 0.9.8 (2014-09-08)
+
+
+#### Bug Fixes
+
+* **wiredep:** remove cwd property ([dbe5d3e5](yeoman/generator-angular/commit/dbe5d3e5d85965ba67e5a47dfc2abb959992791d))
+
+
 <a name="0.9.7"></a>
 ### 0.9.7 (2014-09-03)
 
