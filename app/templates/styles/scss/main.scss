@@ -18,11 +18,12 @@ $font-helvetica75: "HelveticaNeueW01-75Bold", "HelveticaNeueW02-75Bold", "Helvet
   background-color: #eee;
   border-radius: 6px;
   padding: 60px;
+
+  h1 {
+    font-family: $font-helvetica75;
+    font-size: 60px;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
 }
 
-.hero-unit h1 {
-  font-family: $font-helvetica75;
-  font-size: 60px;
-  line-height: 1;
-  letter-spacing: -1px;
-}
