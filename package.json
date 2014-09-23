@@ -43,7 +43,7 @@
     "chalk": "^0.4.0"
   },
   "peerDependencies": {
-    "generator-karma": ">=0.8.2",
+    "generator-karma": ">=0.9.0",
     "yo": ">=1.0.0"
   },
   "devDependencies": {
