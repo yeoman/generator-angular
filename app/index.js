@@ -158,16 +158,33 @@ Generator.prototype.welcome = function welcome() {
   }
 };
 
-Generator.prototype.askForCompass = function askForCompass() {
+Generator.prototype.askForStyles = function askForStyles() {
   var cb = this.async();
 
-  this.prompt([{
-    type: 'confirm',
-    name: 'compass',
-    message: 'Would you like to use Sass (with Compass)?',
-    default: true
-  }], function (props) {
-    this.compass = props.compass;
+  var prompts = [{
+    type: 'list',
+    name: 'modules',
+    message: 'Which style would you like to include?',
+    choices: [
+    {
+      value: 'css',
+      name: 'Plain CSS'
+    }, {
+      value: 'compass',
+      name: 'Compass'
+    }, {
+      value: 'less',
+      name: 'Less'
+    }
+    ]
+  }];
+
+  this.prompt(prompts, function (props) {
+    var hasMod = function (mod) { return props.modules.indexOf(mod) !== -1; };
+    this.compass = hasMod('compass');
+    this.less = hasMod('less');
+
+
 
     cb();
   }.bind(this));
@@ -284,7 +301,7 @@ Generator.prototype.readIndex = function readIndex() {
 };
 
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
-  var cssFile = 'styles/main.' + (this.compass ? 's' : '') + 'css';
+  var cssFile = 'styles/main.' + (this.less? 'less':(this.compass ? 's' : '') + 'css');
   this.copy(
     path.join('app', cssFile),
     path.join(this.appPath, cssFile)

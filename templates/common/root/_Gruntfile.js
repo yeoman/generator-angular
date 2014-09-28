@@ -55,7 +55,11 @@ module.exports = function (grunt) {
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
-      },<% } else { %>
+      },<% } else if (less) {%>
+      less: {
+        files: ['<%%= yeoman.app %>/styles/{,*/}*.less'],
+        tasks: ['less:server', 'autoprefixer']
+      },<% } else {%>
       styles: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
@@ -183,6 +187,11 @@ module.exports = function (grunt) {
         src: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
       }<% } %>
+      <% if (less) { %>,
+      less: {
+        src: ['<%%= yeoman.app %>/styles/{,*/}*.{less}'],
+        ignorePath: /(\.\.\/){1,2}bower_components\//
+      }<% } %>
     },<% if (coffee) { %>
 
     // Compiles CoffeeScript to JavaScript
@@ -238,8 +247,30 @@ module.exports = function (grunt) {
           debugInfo: true
         }
       }
-    },<% } %>
-
+    },<% } if(less) { %>
+    less: {
+      options: {
+        paths: ['./bower_components','<%%= yeoman.app %>/styles/']
+        //dumpLineNumbers: true
+      },
+      dist: {
+        expand: true, // set to true to enable options following options:
+        cwd: "<%%= yeoman.app %>/styles/", // all sources relative to this path
+        src: ['**/*.less'], // source folder patterns to match, relative to cwd
+        dest: ".tmp/styles/", // destination folder path prefix
+        ext: ".css", // replace any existing extension with this value in dest folder
+        flatten: true  // flatten folder structure to single level
+      },
+      server: {
+        expand: true, // set to true to enable options following options:
+        cwd: "<%%= yeoman.app %>/styles/", // all sources relative to this path
+        src: ['**/*.less'], // source folder patterns to match, relative to cwd
+        dest: ".tmp/styles/", // destination folder path prefix
+        ext: ".css", // replace any existing extension with this value in dest folder
+        flatten: true  // flatten folder structure to single level
+      }
+    },
+    <% } %>
     // Renames files for browser caching purposes
     filerev: {
       dist: {
@@ -413,7 +444,8 @@ module.exports = function (grunt) {
     concurrent: {
       server: [<% if (coffee) { %>
         'coffee:dist',<% } %><% if (compass) { %>
-        'compass:server'<% } else { %>
+        'compass:server'<% } else if(less) {%>
+        'less:server'<% } else { %>
         'copy:styles'<% } %>
       ],
       test: [<% if (coffee) { %>
@@ -423,8 +455,9 @@ module.exports = function (grunt) {
       ],
       dist: [<% if (coffee) { %>
         'coffee',<% } %><% if (compass) { %>
-        'compass:dist',<% } else { %>
-        'copy:styles',<% } %>
+        'compass:dist',<% } else { if(less){ %>
+        'less:dist',<% } else { %>
+        'copy:styles',<% }} %>
         'imagemin',
         'svgmin'
       ]
