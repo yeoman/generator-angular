@@ -1,3 +1,4 @@
+<% if (angularBootstrap) { %>.nav, .pagination, .carousel, .panel-title a { cursor: pointer; } /* recommendation by angular ui bootstrap project : http://angular-ui.github.io/bootstrap/ */<% } %>
 /* Space out content a bit */
 body {
   padding-top: 20px;

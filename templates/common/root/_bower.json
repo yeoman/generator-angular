@@ -12,7 +12,8 @@
     "angular-sanitize": "~<%= ngVer %>"<% } %><% if (animateModule) { %>,
     "angular-animate": "~<%= ngVer %>"<% } %><% if (touchModule) { %>,
     "angular-touch": "~<%= ngVer %>"<% } %><% if (routeModule) { %>,
-    "angular-route": "~<%= ngVer %>"<% } %>
+    "angular-route": "~<%= ngVer %>"<% } %><% if (angularBootstrap) { %>,
+    "angular-bootstrap" : "~0.11.0"<% } %>
   },
   "devDependencies": {
     "angular-mocks": "~<%= ngVer %>",
