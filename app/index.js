@@ -196,7 +196,7 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
     message: 'Would you like to use the Sass version of Bootstrap?',
     default: true,
     when: function (props) {
-      return ( props.bootstrap || props.angularBootstrap ) && compass;
+      return (props.bootstrap || props.angularBootstrap) && compass;
     }
   }], function (props) {
     this.angularBootstrap = props.angularBootstrap;
