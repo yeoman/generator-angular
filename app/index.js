@@ -187,7 +187,7 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
     name: 'bootstrap',
     message: 'Would you like to include Bootstrap?',
     default: true,
-    when: function(props){
+    when: function (props) {
       return !props.angularBootstrap;
     }
   }, {
