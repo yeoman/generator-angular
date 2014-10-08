@@ -4,7 +4,7 @@
   "dependencies": {
     "angular": "~<%= ngVer %>",
     "json3": "~3.3.1",
-    "es5-shim": "~3.1.0"<% if (bootstrap) { %>,<% if (!compassBootstrap) { %>
+    "es5-shim": "~4.0.3"<% if (bootstrap) { %>,<% if (!compassBootstrap) { %>
     "bootstrap": "~3.2.0"<% } else { %>
     "bootstrap-sass-official": "~3.2.0"<% } } %><% if (resourceModule) { %>,
     "angular-resource": "~<%= ngVer %>"<% } %><% if (cookiesModule) { %>,
