@@ -15,8 +15,9 @@ angular.module('<%= scriptAppName %>')
 
     # Private constructor
     class Greeter
-      @greet = ->
-        salutation
+      constructor: ->
+        @greet = () ->
+          salutation
 
     # Public API for configuration
     @setSalutation = (s) ->
