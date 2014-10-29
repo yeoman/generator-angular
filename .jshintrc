@@ -13,6 +13,5 @@
   "strict": false,
   "globalstrict": true,
   "trailing": true,
-  "smarttabs": true,
-  "node": true
+  "smarttabs": true
 }
