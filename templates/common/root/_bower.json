@@ -13,8 +13,8 @@
     "angular-animate": "<%= ngVer %>"<% } %><% if (touchModule) { %>,
     "angular-touch": "<%= ngVer %>"<% } %><% if (routeModule) { %>,
     "angular-route": "<%= ngVer %>",
-    "firebase": "<%= afconfig.bower.firebase %>",<% } %><% if (loginModule) { %>
-    "firebase-simple-login": "<%= afconfig.bower.simplelogin %>",<% } %>
+    "firebase": "<%= afconfig.bower.firebase %>"<% } %><% if (loginModule) { %>,
+    "firebase-simple-login": "<%= afconfig.bower.simplelogin %>"<% } %>,
     "angularfire": "<%= afconfig.bower.angularfire %>"
   },
   "devDependencies": {
