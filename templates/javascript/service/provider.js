@@ -1,14 +1,18 @@
-'use strict';
+(function() {
+  'use strict';
 
-/**
- * @ngdoc service
- * @name <%= scriptAppName %>.<%= cameledName %>
- * @description
- * # <%= cameledName %>
- * Provider in the <%= scriptAppName %>.
- */
-angular.module('<%= scriptAppName %>')
-  .provider('<%= cameledName %>', function () {
+  /**
+   * @ngdoc service
+   * @name <%= scriptAppName %>.<%= cameledName %>
+   * @description
+   * # <%= cameledName %>
+   * Provider in the <%= scriptAppName %>.
+   */
+  angular
+    .module('<%= scriptAppName %>')
+    .provider('<%= cameledName %>', <%= cameledName %>);
+
+  function <%= cameledName %>() {
 
     // Private variables
     var salutation = 'Hello';
@@ -29,4 +33,5 @@ angular.module('<%= scriptAppName %>')
     this.$get = function () {
       return new Greeter();
     };
-  });
+  }
+})();
