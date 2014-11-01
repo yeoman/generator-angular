@@ -11,8 +11,5 @@
   "noarg": true,
   "undef": true,
   "strict": false,
-  "globalstrict": true,
-  "trailing": true,
-  "smarttabs": true,
-  "node": true
+  "globalstrict": true
 }
