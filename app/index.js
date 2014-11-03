@@ -179,19 +179,28 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
 
   this.prompt([{
     type: 'confirm',
+    name: 'angularBootstrap',
+    message: 'Would you like to include Angular Bootstrap?',
+    default: true
+  }, {
+    type: 'confirm',
     name: 'bootstrap',
     message: 'Would you like to include Bootstrap?',
-    default: true
+    default: true,
+    when: function (props) {
+      return !props.angularBootstrap;
+    }
   }, {
     type: 'confirm',
     name: 'compassBootstrap',
     message: 'Would you like to use the Sass version of Bootstrap?',
     default: true,
     when: function (props) {
-      return props.bootstrap && compass;
+      return (props.bootstrap || props.angularBootstrap) && compass;
     }
   }], function (props) {
-    this.bootstrap = props.bootstrap;
+    this.angularBootstrap = props.angularBootstrap;
+    this.bootstrap = props.bootstrap || this.angularBootstrap;
     this.compassBootstrap = props.compassBootstrap;
 
     cb();
@@ -268,6 +277,10 @@ Generator.prototype.askForModules = function askForModules() {
 
     if (this.touchModule) {
       angMods.push("'ngTouch'");
+    }
+
+    if (this.angularBootstrap) {
+      angMods.push("'ui.bootstrap'");
     }
 
     if (angMods.length) {
