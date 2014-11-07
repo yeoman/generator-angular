@@ -1,3 +1,22 @@
+<a name="0.10.0"></a>
+## 0.10.0 (2014-11-07)
+
+
+#### Bug Fixes
+
+* **build:**
+  * allow to copy font files from subfolders ([eb5a096e](yeoman/generator-angular/commit/eb5a096e27c7c8a7f00541b97fffe2873bafd462))
+  * do not clean git related subfolders of dist ([00673f5e](yeoman/generator-angular/commit/00673f5e4385c106738837899b2b838a27c22499))
+* **gen:**
+  * replace named function with anonymous ([c82f336b](yeoman/generator-angular/commit/c82f336bbbdc9bcf44beddbd620b471a60f832eb))
+  * fix coffee service using wrong name ([3437a270](yeoman/generator-angular/commit/3437a270df349b0fbcd2855a530b208282ca170d))
+
+
+#### Features
+
+* **app:** add ngAria and ngMessages ([dfbfd1f4](yeoman/generator-angular/commit/dfbfd1f4feb788608dd71dbd54fced69c5a09fb3), closes [#917](yeoman/generator-angular/issues/917))
+
+
 <a name="0.9.8"></a>
 ### 0.9.8 (2014-09-08)
 
