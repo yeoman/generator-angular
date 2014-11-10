@@ -23,9 +23,9 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a ng-href="#">Home</a></li>
-          <li><a ng-href="<% if (ngRoute) { %>#/about<% } else { %>#<% } %>">About</a></li>
-          <li><a ng-href="#">Contact</a></li>
+          <li class="active"><a ng-href="#/">Home</a></li>
+          <li><a ng-href="<% if (ngRoute) { %>#/about<% } else { %>#/<% } %>">About</a></li>
+          <li><a ng-href="#/">Contact</a></li>
         </ul>
         <h3 class="text-muted"><%= appname %></h3>
       </div>
