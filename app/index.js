@@ -26,7 +26,7 @@ var Generator = module.exports = function Generator(args, options) {
 
   if (typeof this.env.options.appPath === 'undefined') {
     this.option('appPath', {
-      desc: 'Generate CoffeeScript instead of JavaScript'
+      desc: 'Allow to choose where to write the files'
     });
 
     this.env.options.appPath = this.options.appPath;
