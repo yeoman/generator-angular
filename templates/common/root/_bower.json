@@ -17,8 +17,8 @@
     "angular-touch": "^<%= ngVer %>"<% } %>
   },
   "devDependencies": {
-    "angular-mocks": "~<%= ngVer %>",
-    "angular-scenario": "~<%= ngVer %>"
+    "angular-mocks": "^<%= ngVer %>",
+    "angular-scenario": "^<%= ngVer %>"
   }<% if (appPath) { %>,
   "appPath": "<%= appPath %>"<% } %>
 }
