@@ -262,6 +262,11 @@ You can change the `app` directory by adding a `appPath` property to `bower.json
 ```
 This will cause Yeoman-generated client-side files to be placed in `public`.
 
+Note that you can also achieve the same results by adding an `--appPath` option when starting generator:
+```bash
+yo angular [app-name] --appPath=public
+```
+
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
