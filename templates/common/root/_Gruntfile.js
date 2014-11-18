@@ -55,7 +55,11 @@ module.exports = function (grunt) {
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
-      },<% } else { %>
+      },<% } else if (less) { %>
+      less: {
+        files: ['<%%= yeoman.app %>/styles/{,*/}*.less'],
+        tasks: ['less:dist', 'autoprefixer']
+      }, <% } else { %>
       styles: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
@@ -238,7 +242,23 @@ module.exports = function (grunt) {
           debugInfo: true
         }
       }
-    },<% } %>
+    },<% } else if (less) { %>
+      // Compiles Less to CSS and generates necessary files if requested
+    less: {
+      options: {
+        compile: true,
+        paths: ['./bower_components']
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%%= yeoman.app %>/styles',
+          src: '{,*/}*.less',
+          dest: '.tmp/styles/',
+          ext: '.css'
+        }]
+      }
+    }, <% } %>
 
     // Renames files for browser caching purposes
     filerev: {
@@ -413,17 +433,20 @@ module.exports = function (grunt) {
     concurrent: {
       server: [<% if (coffee) { %>
         'coffee:dist',<% } %><% if (compass) { %>
-        'compass:server'<% } else { %>
+        'compass:server'<% } else if (less) { %>
+        'less:dist' <% } else { %>
         'copy:styles'<% } %>
       ],
       test: [<% if (coffee) { %>
         'coffee',<% } %><% if (compass) { %>
-        'compass'<% } else { %>
+        'compass'<% } else if (less) { %>
+        'less' <% } else { %>
         'copy:styles'<% } %>
       ],
       dist: [<% if (coffee) { %>
         'coffee',<% } %><% if (compass) { %>
-        'compass:dist',<% } else { %>
+        'compass:dist',<% } else if (less) { %>
+        'less:dist',<% } else { %>
         'copy:styles',<% } %>
         'imagemin',
         'svgmin'
