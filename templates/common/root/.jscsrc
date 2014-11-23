@@ -4,5 +4,6 @@
   "disallowMultipleVarDecl": null,
   "requireMultipleVarDecl": null,
   "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
-  "disallowDanglingUnderscores": null
+  "disallowDanglingUnderscores": null,
+  "requireSpaceBeforeObjectValues": true
 }
