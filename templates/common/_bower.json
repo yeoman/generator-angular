@@ -16,17 +16,17 @@
   ],
   "dependencies": {
     "jquery": "~2.0.3",
-    "angular": "~1.2.0",
+    "angular": "~1.3.0",
     "angular-translate": "~1.1.0",
-    "angular-i18n": "~1.2.0",
+    "angular-i18n": "~1.3.0",
     "uri.js": "~1.13.1",
     "wix-angular": "~0.1.1"
   },
   "devDependencies": {
-    "angular-mocks": "~1.2.0",
+    "angular-mocks": "~1.3.0",
     "es5-shim": "~2.1.0"
   },
   "resolutions": {
-    "angular": "~1.2.0"
+    "angular": "~1.3.0"
   }
 }
