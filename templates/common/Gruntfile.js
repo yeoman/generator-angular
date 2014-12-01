@@ -15,6 +15,7 @@ module.exports = function (grunt) {
     port: 9000,
     preloadModule: '<%= scriptAppName %>Internal',
     translationsModule: '<%= simplename %>Translations',
+    svgFontName: '<%= _.slugify(_.humanize(simplename)) %>',
     unitTestFiles: unitTestFiles,
     protractor: true<% if (bowerComponent) { %>,
     bowerComponent: true<% } %>

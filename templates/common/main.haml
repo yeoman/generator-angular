@@ -1,5 +1,7 @@
 .hero-unit{:"ng-controller" => "<%= classedName %>Controller as <%= cameledName %>"}
-  %h1 {{'general.YO' | translate}}
+  %h1
+    {{'general.YO' | translate}}
+    %i.logo-on-header.<%= _.slugify(_.humanize(simplename)) %>-svg-font-icons-wix-logo
   %p You now have
   %ul
     %li{:"ng-repeat" => "thing in <%= cameledName %>.awesomeThings"} {{thing}}
