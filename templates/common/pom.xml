@@ -6,6 +6,7 @@
     <packaging>jar</packaging>
     <name><%= _.slugify(basename) %></name>
     <version>1.0.0-SNAPSHOT</version>
+    <description><%= _.slugify(basename).replace('-', ' ') %></description>
 
     <parent>
         <groupId>com.wixpress.common</groupId>
