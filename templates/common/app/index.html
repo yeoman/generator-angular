@@ -34,7 +34,11 @@
             <% } %>
             <a class="navbar-brand" href="#/"><%= appname %></a>
           </div>
-          <div class="collapse <% if (bootstrap) { %>navbar-collapse<% } %>" <% if (bootstrap) { %>id="js-navbar-collapse"<% } %>>
+          <% if (bootstrap) { %>
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+          <% } else { %>
+          <div class="collapse">
+          <% } %>
             <ul class="nav navbar-nav">
               <li class="active"><a href="#/">Home</a></li>
               <li><a ng-href="<% if (ngRoute) { %>#/about<% } else { %>#/<% } %>">About</a></li>
