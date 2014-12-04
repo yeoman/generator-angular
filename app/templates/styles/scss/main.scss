@@ -5,7 +5,7 @@
 // https://github.com/sapegin/grunt-webfont
 // ======================================================================
 
-@import '../../.tmp/styles/<%= simplename %>-svg-font-icons';
+@import '../../.tmp/styles/<%= _.slugify(_.humanize(simplename)) %>-svg-font-icons';
 
 $font-helvetica45: "HelveticaNeueW01-45Ligh", "HelveticaNeueW02-45Ligh", "HelveticaNeueW10-45Ligh", sans-serif;
 $font-helvetica55: "HelveticaNeueW01-55Roma", "HelveticaNeueW02-55Roma", "HelveticaNeueW10-55Roma", sans-serif;
