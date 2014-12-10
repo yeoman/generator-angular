@@ -9,8 +9,6 @@ module.exports = function (grunt) {
     });
   }});
   require('wix-gruntfile')(grunt, {
-    staging: 'pizza', //modify to your staging environment
-    subdomain: 'www', //modify to your sub-domain
     cdnify: 'vm',
     port: 9000,
     preloadModule: '<%= scriptAppName %>Internal',
@@ -19,6 +17,14 @@ module.exports = function (grunt) {
     unitTestFiles: unitTestFiles,
     protractor: true<% if (bowerComponent) { %>,
     bowerComponent: true<% } %>
+  });
+
+  grunt.modifyTask('yeoman', {
+    //the address to which your local /_api is proxied to (to workaround CORS issues)
+    api: 'http://www.pizza.wixpress.com/_api/',
+    //the address that opens in your browser in grunt serve
+    //(domain should be the same as staging so cookies will be sent in api requests)
+    local: 'http://local.pizza.wixpress.com:<%= connect.options.port %>/'
   });
 
   //Follow this URL for instructions on how to override built-in definitions:
