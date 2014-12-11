@@ -24,7 +24,7 @@ module.exports = function (grunt) {
     api: 'http://www.pizza.wixpress.com/_api/',
     //the address that opens in your browser in grunt serve
     //(domain should be the same as staging so cookies will be sent in api requests)
-    local: 'http://local.pizza.wixpress.com:<%= connect.options.port %>/'
+    local: 'http://local.pizza.wixpress.com:<%%= connect.options.port %>/'
   });
 
   //Follow this URL for instructions on how to override built-in definitions:
