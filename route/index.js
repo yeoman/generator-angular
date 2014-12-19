@@ -28,7 +28,7 @@ var Generator = module.exports = function Generator(name, skipFiles) {
     this.foundWhenForRoute = true;
   }
 
-  if( !skipFiles ) {
+  if( skipFiles !== true ) {
     this.hookFor('angularfire:controller');
     this.hookFor('angularfire:view');
   }
@@ -67,7 +67,9 @@ Generator.prototype.rewriteAppJs = function () {
     ]
   };
 
-  var whenMethod = this.env.options.authRequired? 'whenAuthenticated' : 'when';
+
+  var whenMethod = this.env.options.authRequired || this.options['auth-required']? 'whenAuthenticated' : 'when';
+  console.log(whenMethod, this.options);
 
   if (coffee) {
     config.splicable.unshift("." + whenMethod + " '/" + this.uri + "',");
