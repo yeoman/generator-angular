@@ -8,6 +8,11 @@ var angularUtils = require('../util.js');
 
 var Generator = module.exports = function Generator(name, skipFiles) {
   ScriptBase.apply(this, arguments);
+  this.option('uri', {
+    desc: 'Allow a custom uri for routing',
+    type: String,
+    required: false
+  });
 
   var bower = require(path.join(process.cwd(), 'bower.json'));
   var match = require('fs').readFileSync(path.join(

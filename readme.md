@@ -200,6 +200,17 @@ A project can mix CoffeScript and JavaScript files.
 
 To output JavaScript files, even if CoffeeScript files exist (the default is to output CoffeeScript files if the generator finds any in the project), use `--coffee=false`.
 
+### Minification Safe
+
+**tl;dr**: You don't need to write annotated code as the build step will
+handle it for you.
+
+By default, generators produce unannotated code. Without annotations, AngularJS's DI system will break when minified. Typically, these annotations that make minification safe are added automatically at build-time, after application files are concatenated, but before they are minified. The annotations are important because minified code will rename variables, making it impossible for AngularJS to infer module names based solely on function parameters.
+
+The recommended build process uses `ng-annotate`, a tool that automatically adds these annotations. However, if you'd rather not use it, you have to add these annotations manually yourself. Why would you do that though? If you find a bug
+in the annotated code, please file an issue at [ng-annotate](https://github.com/olov/ng-annotate/issues).
+
+
 ### Add to Index
 By default, new scripts are added to the index.html file. However, this may not always be suitable. Some use cases:
 
@@ -223,11 +234,12 @@ The following packages are always installed by the [app](#app) generator:
 
 The following additional modules are available as components on bower, and installable via `bower install`:
 
+* angular-animate
+* angular-aria
 * angular-cookies
-* angular-loader
+* angular-messages
 * angular-resource
 * angular-sanitize
-* firebase-simple-login
 
 All of these can be updated with `bower update` as new versions of AngularJS or Firebase are released.
 
@@ -247,6 +259,11 @@ You can change the `app` directory by adding a `appPath` property to `bower.json
 
 ```
 This will cause Yeoman-generated client-side files to be placed in `public`.
+
+Note that you can also achieve the same results by adding an `--appPath` option when starting generator:
+```bash
+yo angularfire [app-name] --appPath=public
+```
 
 ## Testing
 

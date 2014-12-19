@@ -30,7 +30,12 @@ module.exports = function (grunt) {
         bump: false, // we have our own bump
         file: 'package.json',
         commitMessage: 'chore(release): Release version <%= version %>',
-        tagName: 'v<%= version %>'
+        tagName: 'v<%= version %>',
+        github: {
+          repo: 'yeoman/generator-angular',
+          usernameVar: 'GITHUB_USERNAME',
+          passwordVar: 'GITHUB_AUTHTOKEN'
+        }
       }
     },
     stage: {
