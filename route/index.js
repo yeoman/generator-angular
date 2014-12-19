@@ -29,8 +29,8 @@ var Generator = module.exports = function Generator(name, skipFiles) {
   }
 
   if( !skipFiles ) {
-    this.hookFor('angular:controller');
-    this.hookFor('angular:view');
+    this.hookFor('angularfire:controller');
+    this.hookFor('angularfire:view');
   }
 };
 

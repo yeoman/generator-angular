@@ -42,7 +42,7 @@ describe('Angular generator', function () {
         done(err);
       }
       angular = helpers.createGenerator(
-        'angular:app',
+        'angularfire:app',
         [
           '../../app',
           '../../common',
@@ -97,7 +97,7 @@ describe('Angular generator', function () {
     var generatorTest = function (generatorType, specType, targetDirectory, scriptNameFn, specNameFn, suffix, done) {
       var name = 'foo';
       var deps = [path.join('../..', generatorType)];
-      var genTester = helpers.createGenerator('angular:' + generatorType, deps, [name], genOptions);
+      var genTester = helpers.createGenerator('angularfire:' + generatorType, deps, [name], genOptions);
 
       angular.run([], function () {
         genTester.run([], function () {
@@ -149,7 +149,7 @@ describe('Angular generator', function () {
     it('should generate a new view', function (done) {
       var angularView;
       var deps = ['../../view'];
-      angularView = helpers.createGenerator('angular:view', deps, ['foo'], genOptions);
+      angularView = helpers.createGenerator('angularfire:view', deps, ['foo'], genOptions);
 
       helpers.mockPrompt(angularView, mockPrompts);
       angularView.run([], function () {
@@ -161,7 +161,7 @@ describe('Angular generator', function () {
     it('should generate a new view in subdirectories', function (done) {
       var angularView;
       var deps = ['../../view'];
-      angularView = helpers.createGenerator('angular:view', deps, ['foo/bar'], genOptions);
+      angularView = helpers.createGenerator('angularfire:view', deps, ['foo/bar'], genOptions);
 
       helpers.mockPrompt(angularView, mockPrompts);
       angularView.run([], function () {

@@ -30,7 +30,7 @@ var FIREBASE_PROMPTS = [
     }
   }, {
     name: 'loginModule',
-    message: 'Use FirebaseSimpleLogin?',
+    message: 'Include Firebase auth and account tools?',
     type: 'confirm'
   }, {
     type: 'checkbox',
