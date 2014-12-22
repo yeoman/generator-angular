@@ -42,7 +42,7 @@ Available generators:
 **Note: Generators are to be run from the root directory of your app.**
 
 ### App
-Sets up a new AngularJS + Firebase app, generating all the boilerplate you need to get started. The app generator also optionally installs FirebaseSimpleLogin, Bootstrap and additional AngularJS modules, such as angular-resource (installed by default).
+Sets up a new AngularJS + Firebase app, generating all the boilerplate you need to get started. The app generator also optionally installs Firebase authentication and account management, Bootstrap and additional AngularJS modules, such as angular-resource (installed by default).
 
 Example:
 ```bash

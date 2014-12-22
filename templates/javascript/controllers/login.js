@@ -8,18 +8,28 @@
  */
 angular.module('<%= scriptAppName %>')
   .controller('LoginCtrl', function ($scope, simpleLogin, $location) {
-    <% if( hasOauthProviders ) { %>$scope.oauthlogin = function(provider) {
-      login(provider, {
-        rememberMe: true
-      });
+    <% if( hasOauthProviders ) { %>$scope.oauthLogin = function(provider) {
+      $scope.err = null;
+      simpleLogin.login(provider, {rememberMe: true}).then(
+        function() {
+          $location.path('/account');
+        },
+        function(err) {
+          $scope.err = err;
+        }
+      );
     };
 
     <% } %><% if( hasPasswordProvider ) { %>$scope.passwordLogin = function(email, pass) {
-      login('password', {
-        email: email,
-        password: pass,
-        rememberMe: true
-      });
+      $scope.err = null;
+      simpleLogin.passwordLogin({email: email, password: pass}, {rememberMe: true}).then(
+        function() {
+          $location.path('/account');
+        },
+        function(err) {
+          $scope.err = err;
+        }
+      );
     };
 
     $scope.createAccount = function(email, pass, confirm) {
@@ -31,7 +41,7 @@ angular.module('<%= scriptAppName %>')
         $scope.err = 'Passwords do not match';
       }
       else {
-        simpleLogin.createAccount(email, pass/*, name*/)
+        simpleLogin.createAccount(email, pass, {rememberMe: true})
           .then(function() {
             $location.path('/account');
           }, function(err) {
@@ -39,17 +49,6 @@ angular.module('<%= scriptAppName %>')
           });
       }
     };
-
-    <% } %>function login(provider, opts) {
-      $scope.err = null;
-      simpleLogin.login(provider, opts).then(
-        function() {
-          $location.path('/account');
-        },
-        function(err) {
-          $scope.err = err;
-        }
-      );
-    }
+    <% } %>
 
   });

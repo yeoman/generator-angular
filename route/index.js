@@ -6,7 +6,7 @@ var ScriptBase = require('../script-base.js');
 var angularUtils = require('../util.js');
 
 
-var Generator = module.exports = function Generator(name, skipFiles) {
+var Generator = module.exports = function Generator(name) {
   ScriptBase.apply(this, arguments);
   this.option('uri', {
     desc: 'Allow a custom uri for routing',
@@ -28,7 +28,7 @@ var Generator = module.exports = function Generator(name, skipFiles) {
     this.foundWhenForRoute = true;
   }
 
-  if( skipFiles !== true ) {
+  if( this.env.options.afconfig.specialRoutes[name] !== true) {
     this.hookFor('angularfire:controller');
     this.hookFor('angularfire:view');
   }
@@ -37,7 +37,7 @@ var Generator = module.exports = function Generator(name, skipFiles) {
 util.inherits(Generator, ScriptBase);
 
 //angularFire
-Generator.prototype.rewriteAppJs = function () {
+Generator.prototype.rewriteRoutesJs = function () {
   var coffee = this.env.options.coffee;
 
   if (!this.foundWhenForRoute) {
@@ -69,7 +69,6 @@ Generator.prototype.rewriteAppJs = function () {
 
 
   var whenMethod = this.env.options.authRequired || this.options['auth-required']? 'whenAuthenticated' : 'when';
-  console.log(whenMethod, this.options);
 
   if (coffee) {
     config.splicable.unshift("." + whenMethod + " '/" + this.uri + "',");

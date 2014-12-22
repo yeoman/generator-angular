@@ -12,8 +12,8 @@
 <% if( hasOauthProviders ) { %>
 <fieldset>
   <legend>Oauth</legend>
-  <p><% _.each( simpleLoginProviders, function( provider ) { %><% if ( provider.value !== 'password' ){ %>
-    <button <%= btnPrimary %> ng-click="oauthlogin('<%- provider.value %>')"><%- provider.name %></button><% } %><% }); %>
+  <p><% _.each( authProviders, function( provider ) { %><% if ( provider.value !== 'password' ){ %>
+    <button <%= btnPrimary %> ng-click="oauthLogin('<%- provider.value %>')"><%- provider.name %></button><% } %><% }); %>
   </p>
 </fieldset>
 <% } %><% if( hasPasswordProvider ) { %>

@@ -2,77 +2,81 @@
   'use strict';
   angular.module('simpleLogin', ['firebase', 'firebase.utils', 'firebase.config'])
 
-    // a simple wrapper on simpleLogin.getUser() that rejects the promise
+    // a simple wrapper that rejects the promise
     // if the user does not exists (i.e. makes user required), useful for
     // setting up secure routes that require authentication
     .factory('authRequired', function(simpleLogin, $q) {
       return function() {
-        return simpleLogin.getUser().then(function (user) {
+        return simpleLogin.auth.$requireAuth().then(function (user) {
           return user ? user : $q.reject({ authRequired: true });
         });
       };
     })
 
-    .factory('simpleLogin', function($firebaseSimpleLogin, fbutil, $q, $rootScope<% if( hasPasswordProvider ) { %>, createProfile, changeEmail<% } %>) {
-      var auth = $firebaseSimpleLogin(fbutil.ref());
+    .factory('simpleLogin', function($firebaseAuth, fbutil, $q, $rootScope<% if( hasPasswordProvider ) { %>, createProfile<% } %>) {
+      var auth = $firebaseAuth(fbutil.ref());
       var listeners = [];
 
       function statusChange() {
         fns.initialized = true;
-        fns.user = auth.user || null;
+        fns.user = auth.$getAuth() || null;
         angular.forEach(listeners, function(fn) {
           fn(fns.user);
         });
       }
 
       var fns = {
-        user: null,
+        auth: auth,
+
+        user: null, //todo use getUser() and remove this var
 
         initialized: false,
 
         getUser: function() {
-          return auth.$getCurrentUser();
+          return auth.$getAuth();
         },
 
         login: function(provider, opts) {
-          return auth.$login(provider, opts);
+          return auth.$authWithOAuthPopup(provider, opts);
+        },
+
+        passwordLogin: function(creds, opts) {
+          return auth.$authWithPassword(creds, opts);
         },
 
         logout: function() {
-          auth.$logout();
+          auth.$unauth();
         },<% if( hasPasswordProvider ) { %>
 
-        createAccount: function(email, pass, name) {
-          return auth.$createUser(email, pass)
+        createAccount: function(email, pass, opts) {
+          return auth.$createUser({email: email, password: pass})
             .then(function() {
               // authenticate so we have permission to write to Firebase
-              return fns.login('password', {email: email, password: pass});
+              return fns.passwordLogin({email: email, password: pass}, opts);
             })
             .then(function(user) {
               // store user data in Firebase after creating account
-              return createProfile(user.uid, email, name).then(function() {
+              return createProfile(user.uid, email/*, name*/).then(function() {
                 return user;
               });
             });
         },
 
         changePassword: function(email, oldpass, newpass) {
-          return auth.$changePassword(email, oldpass, newpass);
+          return auth.$changePassword({email: email, oldPassword: oldpass, newPassword: newpass});
         },
 
         changeEmail: function(password, newEmail) {
-          return changeEmail(password, fns.user.email, newEmail, this);
+          return auth.$changeEmail({password: password, oldEmail: fns.user.email, newEmail: newEmail});
         },
 
         removeUser: function(email, pass) {
-          return auth.$removeUser(email, pass);
+          return auth.$removeUser({email: email, password: pass});
         },<% } %>
 
         watch: function(cb, $scope) {
           listeners.push(cb);
-          fns.getUser().then(function(user) {
-            cb(user);
-          });
+          auth.$waitForAuth(cb);
           var unbind = function() {
             var i = listeners.indexOf(cb);
             if( i > -1 ) { listeners.splice(i, 1); }
@@ -84,10 +88,7 @@
         }
       };
 
-      $rootScope.$on('$firebaseSimpleLogin:login', statusChange);
-      $rootScope.$on('$firebaseSimpleLogin:logout', statusChange);
-      $rootScope.$on('$firebaseSimpleLogin:error', statusChange);
-      auth.$getCurrentUser(statusChange);
+      auth.$onAuth(statusChange);
 
       return fns;
     })<% if( hasPasswordProvider ) { %>
@@ -118,103 +119,6 @@
         }
 
         return def.promise;
-      };
-    })
-
-    .factory('changeEmail', function(fbutil, $q) {
-      return function(password, oldEmail, newEmail, simpleLogin) {
-        var ctx = { old: { email: oldEmail }, curr: { email: newEmail } };
-
-        // execute activities in order; first we authenticate the user
-        return authOldAccount()
-          // then we fetch old account details
-          .then( loadOldProfile )
-          // then we create a new account
-          .then( createNewAccount )
-          // then we copy old account info
-          .then( copyProfile )
-          // and once they safely exist, then we can delete the old ones
-          // we have to authenticate as the old user again
-          .then( authOldAccount )
-          .then( removeOldProfile )
-          .then( removeOldLogin )
-          // and now authenticate as the new user
-          .then( authNewAccount )
-          .catch(function(err) { console.error(err); return $q.reject(err); });
-
-        function authOldAccount() {
-          return simpleLogin.login('password', {email: ctx.old.email, password: password})
-            .then(function(user) {
-              ctx.old.uid = user.uid;
-            });
-        }
-
-        function loadOldProfile() {
-          var def = $q.defer();
-          ctx.old.ref = fbutil.ref('users', ctx.old.uid);
-          ctx.old.ref.once('value',
-            function(snap){
-              var dat = snap.val();
-              if( dat === null ) {
-                def.reject(oldEmail + ' not found');
-              }
-              else {
-                ctx.old.name = dat.name;
-                ctx.curr.name = dat.name;
-                def.resolve();
-              }
-            },
-            function(err){
-              def.reject(err);
-            });
-          return def.promise;
-        }
-
-        function createNewAccount() {
-          return simpleLogin.createAccount(ctx.curr.email, password, ctx.old.name).then(function(user) {
-            ctx.curr.uid = user.uid;
-          });
-        }
-
-        function copyProfile() {
-          var d = $q.defer();
-          ctx.curr.ref = fbutil.ref('users', ctx.curr.uid);
-          var profile = {email: ctx.curr.email, name: ctx.curr.name};
-          ctx.curr.ref.set(profile, function(err) {
-            if (err) {
-              d.reject(err);
-            } else {
-              d.resolve();
-            }
-          });
-          return d.promise;
-        }
-
-        function removeOldProfile() {
-          var d = $q.defer();
-          ctx.old.ref.remove(function(err) {
-            if (err) {
-              d.reject(err);
-            } else {
-              d.resolve();
-            }
-          });
-          return d.promise;
-        }
-
-        function removeOldLogin() {
-          var def = $q.defer();
-          simpleLogin.removeUser(ctx.old.email, password).then(function() {
-            def.resolve();
-          }, function(err) {
-            def.reject(err);
-          });
-          return def.promise;
-        }
-
-        function authNewAccount() {
-          return simpleLogin.login('password', {email: ctx.curr.email, password: password});
-        }
       };
     })<% } %>;
 })();

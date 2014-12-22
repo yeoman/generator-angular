@@ -7,7 +7,7 @@
 # routes.js
 
 Configure routes for use with Angular, and apply authentication security
-Add new routes to the ROUTES constant or use yo angularfire:route to create them
+Add new routes using `yo angularfire:route` with the optional --auth-required flag.
 
 Any controller can be secured so that it will only load if user is logged in by
 using `whenAuthenticated()` in place of `when()`. This requires the user to

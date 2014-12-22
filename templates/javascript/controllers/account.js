@@ -11,6 +11,7 @@ angular.module('<%= scriptAppName %>')
     $scope.user = user;
     $scope.logout = simpleLogin.logout;
     $scope.messages = [];
+    var profile;
     loadProfile(user);<% if( hasPasswordProvider ) { %>
 
     $scope.changePassword = function(oldPass, newPass, confirm) {
@@ -22,7 +23,7 @@ angular.module('<%= scriptAppName %>')
         error('Passwords do not match');
       }
       else {
-        simpleLogin.changePassword(user.email, oldPass, newPass)
+        simpleLogin.changePassword(profile.email, oldPass, newPass)
           .then(function() {
             success('Password changed');
           }, error);
@@ -56,9 +57,10 @@ angular.module('<%= scriptAppName %>')
     }<% } %>
 
     function loadProfile(user) {
-      if( $scope.profile ) {
-        $scope.profile.$destroy();
+      if( profile ) {
+        profile.$destroy();
       }
-      fbutil.syncObject('users/'+user.uid).$bindTo($scope, 'profile');
+      profile = fbutil.syncObject('users/'+user.uid);
+      profile.$bindTo($scope, 'profile');
     }
   });

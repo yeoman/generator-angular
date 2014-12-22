@@ -36,7 +36,7 @@ var FIREBASE_PROMPTS = [
     type: 'checkbox',
     name: 'providers',
     message: 'Which providers shall I install?',
-    choices: afconfig.simpleLoginProviders,
+    choices: afconfig.authProviders,
     when: function(answers) {
       return answers.loginModule;
     },
@@ -55,6 +55,7 @@ var Generator = module.exports = function Generator(args, options) {
 
   //angularfire
   this.afconfig = afconfig;
+  this.env.options.afconfig = afconfig;
   this.angularFireSourceFiles = [];
 
   this.option('app-suffix', {
@@ -194,25 +195,21 @@ var Generator = module.exports = function Generator(args, options) {
     });
 
     if (this.env.options.ngRoute) {
+      // this will not create controller or html because
+      // "chat" exists in config.json::specialRoutes
       this.invoke('angularfire:route', {
         //angularfire
-        args: ['chat', true]
+        args: ['chat']
       });
     }
 
     //angularfire
     if(this.env.options.loginModule) {
       if( this.env.options.ngRoute ) {
+        // this will not create controller or html because
+        // "login" exists in config.json::specialRoutes
         this.invoke('angularfire:route', {
-          args: ['login', true]
-        });
-      }
-      else {
-        this.invoke('angularfire:controller', {
-          args: ['login', true]
-        });
-        this.invoke('angularfire.view', {
-          args: ['login', true]
+          args: ['login']
         });
       }
     }
@@ -248,12 +245,12 @@ Generator.prototype.welcome = function welcome() {
 Generator.prototype.askFirebaseQuestions = function askForCompass() {
   this.firebaseName = null;
   this.loginModule = false;
-  this.simpleLoginProviders = [];
+  this.authProviders = [];
   this.hasOauthProviders = false;
   this.hasPasswordProvider = false;
 
   // allow firebase instance to be set on command line
-  this._defaultNamespace(this.options['instance'], FIREBASE_PROMPTS);
+  this._defaultNamespace(this.options.instance, FIREBASE_PROMPTS);
 
   var cb = this.async();
   this.prompt(FIREBASE_PROMPTS, function (props) {
@@ -531,15 +528,15 @@ Generator.prototype._tpl = function(src, dest) {
 
 //angularfire
 Generator.prototype._processProviders = function(list) {
-  var providerMap = {}, i = afconfig.simpleLoginProviders.length, p;
+  var providerMap = {}, i = afconfig.authProviders.length, p;
   while(i--) {
-    p = afconfig.simpleLoginProviders[i];
+    p = afconfig.authProviders[i];
     providerMap[p.value] = {name: p.name, value: p.value};
   }
   list.forEach(function(p) {
     if( p === 'password' ) { this.hasPasswordProvider = true; }
     else { this.hasOauthProviders = true; }
-    this.simpleLoginProviders.push(providerMap[p]);
+    this.authProviders.push(providerMap[p]);
   }, this);
 };
 

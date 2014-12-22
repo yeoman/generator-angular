@@ -12,9 +12,8 @@
     "angular-sanitize": "<%= ngVer %>"<% } %><% if (animateModule) { %>,
     "angular-animate": "<%= ngVer %>"<% } %><% if (touchModule) { %>,
     "angular-touch": "<%= ngVer %>"<% } %><% if (routeModule) { %>,
-    "angular-route": "<%= ngVer %>",
-    "firebase": "<%= afconfig.bower.firebase %>"<% } %><% if (loginModule) { %>,
-    "firebase-simple-login": "<%= afconfig.bower.simplelogin %>"<% } %>,
+    "angular-route": "<%= ngVer %>",<% } %>
+    "firebase": "<%= afconfig.bower.firebase %>",
     "angularfire": "<%= afconfig.bower.angularfire %>"
   },
   "devDependencies": {

@@ -75,7 +75,7 @@ angular.module('firebase.utils', ['firebase', 'firebase.config'])
     function syncData(path, props) {
       var ref = firebaseRef(path);
       props = angular.extend({}, props);
-      angular.forEach(['limit', 'startAt', 'endAt'], function(k) {
+      angular.forEach(['limitToFirst', 'limitToLast', 'orderByKey', 'orderByChild', 'orderByPriority', 'startAt', 'endAt'], function(k) {
         if( props.hasOwnProperty(k) ) {
           var v = props[k];
           ref = ref[k].apply(ref, angular.isArray(v)? v : [v]);
