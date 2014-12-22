@@ -1,0 +1,20 @@
+{
+  "bower": {
+    "firebase": "2.0.x",
+    "angularfire": "0.9.1",
+    "mockfirebase": "0.8.x"
+  },
+
+  "authProviders": [
+    { "name": "Email/Password", "value": "password", "checked": true },
+    { "name": "Anonymous",      "value": "anonymous" },
+    { "name": "Facebook",       "value": "facebook"  },
+    { "name": "Google",         "value": "google"    },
+    { "name": "Twitter",        "value": "twitter"   },
+    { "name": "GitHub",         "value": "github"    }
+  ],
+
+  "specialRoutes": {
+    "chat": true, "login": true, "account": true
+  }
+}

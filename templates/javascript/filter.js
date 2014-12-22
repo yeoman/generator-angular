@@ -14,3 +14,4 @@ angular.module('<%= scriptAppName %>')
       return '<%= cameledName %> filter: ' + input;
     };
   });
+

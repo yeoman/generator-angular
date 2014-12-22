@@ -6,7 +6,7 @@ var ScriptBase = require('../script-base.js');
 var angularUtils = require('../util.js');
 
 
-var Generator = module.exports = function Generator() {
+var Generator = module.exports = function Generator(name) {
   ScriptBase.apply(this, arguments);
   this.option('uri', {
     desc: 'Allow a custom uri for routing',
@@ -17,7 +17,7 @@ var Generator = module.exports = function Generator() {
   var bower = require(path.join(process.cwd(), 'bower.json'));
   var match = require('fs').readFileSync(path.join(
     this.env.options.appPath,
-    'scripts/app.' + (this.env.options.coffee ? 'coffee' : 'js')
+    'scripts/routes.' + (this.env.options.coffee ? 'coffee' : 'js')
   ), 'utf-8').match(/\.when/);
 
   if (
@@ -28,20 +28,23 @@ var Generator = module.exports = function Generator() {
     this.foundWhenForRoute = true;
   }
 
-  this.hookFor('angular:controller');
-  this.hookFor('angular:view');
+  if( this.env.options.afconfig.specialRoutes[name] !== true) {
+    this.hookFor('angularfire:controller');
+    this.hookFor('angularfire:view');
+  }
 };
 
 util.inherits(Generator, ScriptBase);
 
-Generator.prototype.rewriteAppJs = function () {
+//angularFire
+Generator.prototype.rewriteRoutesJs = function () {
   var coffee = this.env.options.coffee;
 
   if (!this.foundWhenForRoute) {
     this.on('end', function () {
       this.log(chalk.yellow(
         '\nangular-route is not installed. Skipping adding the route to ' +
-        'scripts/app.' + (coffee ? 'coffee' : 'js')
+        'scripts/routes.' + (coffee ? 'coffee' : 'js')
       ));
     });
     return;
@@ -55,7 +58,7 @@ Generator.prototype.rewriteAppJs = function () {
   var config = {
     file: path.join(
       this.env.options.appPath,
-      'scripts/app.' + (coffee ? 'coffee' : 'js')
+      'scripts/routes.' + (coffee ? 'coffee' : 'js')
     ),
     needle: '.otherwise',
     splicable: [
@@ -64,11 +67,14 @@ Generator.prototype.rewriteAppJs = function () {
     ]
   };
 
+
+  var whenMethod = this.env.options.authRequired || this.options['auth-required']? 'whenAuthenticated' : 'when';
+
   if (coffee) {
-    config.splicable.unshift(".when '/" + this.uri + "',");
+    config.splicable.unshift("." + whenMethod + " '/" + this.uri + "',");
   }
   else {
-    config.splicable.unshift(".when('/" + this.uri + "', {");
+    config.splicable.unshift("." + whenMethod + "('/" + this.uri + "', {");
     config.splicable.push("})");
   }
 
