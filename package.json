@@ -1,6 +1,6 @@
 {
   "name": "generator-wix-angular",
-  "version": "0.1.84",
+  "version": "0.1.85",
   "description": "Yeoman generator for AngularJS, Wix style (forked from generator-angular)",
   "keywords": [
     "yeoman-generator",
