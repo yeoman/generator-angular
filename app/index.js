@@ -148,11 +148,6 @@ var Generator = module.exports = function Generator(args, options) {
       enabledComponents.push('angular-touch/angular-touch.js');
     }
 
-    //angularfire
-    if (this.loginModule) {
-      enabledComponents.push('firebase-simple-login/firebase-simple-login.js');
-    }
-
     enabledComponents = [
       'angular/angular.js',
       'angular-mocks/angular-mocks.js',
