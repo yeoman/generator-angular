@@ -37,7 +37,12 @@
         },
 
         login: function(provider, opts) {
-          return auth.$authWithOAuthPopup(provider, opts);
+          if( provider === 'anonymous' ) {
+            return auth.$authAnonymously(opts);
+          }
+          else {
+            return auth.$authWithOAuthPopup(provider, opts);
+          }
         },
 
         passwordLogin: function(creds, opts) {

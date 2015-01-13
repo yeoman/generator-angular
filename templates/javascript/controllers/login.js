@@ -10,25 +10,18 @@ angular.module('<%= scriptAppName %>')
   .controller('LoginCtrl', function ($scope, simpleLogin, $location) {
     <% if( hasOauthProviders ) { %>$scope.oauthLogin = function(provider) {
       $scope.err = null;
-      simpleLogin.login(provider, {rememberMe: true}).then(
-        function() {
-          $location.path('/account');
-        },
-        function(err) {
-          $scope.err = err;
-        }
-      );
+      simpleLogin.login(provider, {rememberMe: true}).then(redirect, showError);
+    };
+
+    $scope.anonymousLogin = function() {
+      $scope.err = null;
+      simpleLogin.anonymousLogin({rememberMe: true}).then(redirect, showError);
     };
 
     <% } %><% if( hasPasswordProvider ) { %>$scope.passwordLogin = function(email, pass) {
       $scope.err = null;
       simpleLogin.passwordLogin({email: email, password: pass}, {rememberMe: true}).then(
-        function() {
-          $location.path('/account');
-        },
-        function(err) {
-          $scope.err = err;
-        }
+        redirect, showError
       );
     };
 
@@ -42,13 +35,18 @@ angular.module('<%= scriptAppName %>')
       }
       else {
         simpleLogin.createAccount(email, pass, {rememberMe: true})
-          .then(function() {
-            $location.path('/account');
-          }, function(err) {
-            $scope.err = err;
-          });
+          .then(redirect, showError);
       }
     };
     <% } %>
+
+    function redirect() {
+      $location.path('/account');
+    }
+
+    function showError(err) {
+      $scope.err = err;
+    }
+
 
   });

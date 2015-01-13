@@ -53,8 +53,9 @@ angular.module("<%= scriptAppName %>").controller "AccountCtrl", ($scope, user, 
 
   $scope.changeEmail = (pass, newEmail) ->
     $scope.err = null
-    simpleLogin.changeEmail(pass, newEmail).then ((user) ->
-      loadProfile user
+    simpleLogin.changeEmail(pass, newEmail, profile.email).then ((user) ->
+      profile.email = newEmail
+      profile.$save()
       success "Email changed"
       return
     ), error

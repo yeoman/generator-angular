@@ -8,28 +8,32 @@
 Manages authentication to any active providers.
 ###
 angular.module("<%= scriptAppName %>").controller "LoginCtrl", ($scope, simpleLogin, $location) ->
-  login = (provider, opts) ->
-    $scope.err = null
-    simpleLogin.login(provider, opts).then (->
-      $location.path "/account"
-      return
-    ), (err) ->
-      $scope.err = err
-      return
-
+  redirect = ->
+    $location.path "/account"
     return
-  <% if( hasOauthProviders ) { %>$scope.oauthlogin = (provider) ->
-    login provider,
-      rememberMe: true
+  showError = (err) ->
+    $scope.err = err
+    return
 
+  <% if( hasOauthProviders ) { %>$scope.oauthLogin = (provider) ->
+    $scope.err = null
+    simpleLogin.login(provider,
+      rememberMe: true
+    ).then redirect, showError
+    return
+
+  $scope.anonymousLogin = ->
+    simpleLogin.anonymousLogin(rememberMe: true).then redirect, showError
     return
   <% } %><% if( hasPasswordProvider ) { %>
   $scope.passwordLogin = (email, pass) ->
-    login "password",
+    $scope.err = null
+    simpleLogin.passwordLogin(
       email: email
       password: pass
+    ,
       rememberMe: true
-
+    ).then redirect, showError
     return
 
   $scope.createAccount = (email, pass, confirm) ->
@@ -39,12 +43,9 @@ angular.module("<%= scriptAppName %>").controller "LoginCtrl", ($scope, simpleLo
     else if pass isnt confirm
       $scope.err = "Passwords do not match"
     else
-      simpleLogin.createAccount(email, pass).then (->
-        $location.path "/account"
-        return
-      ), (err) ->
-        $scope.err = err
-        return
+      simpleLogin.createAccount(email, pass,
+        rememberMe: true
+      ).then redirect, showError
 
     return
   <% } %>
