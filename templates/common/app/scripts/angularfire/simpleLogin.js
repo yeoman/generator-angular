@@ -66,8 +66,8 @@
           return auth.$changePassword({email: email, oldPassword: oldpass, newPassword: newpass});
         },
 
-        changeEmail: function(password, newEmail) {
-          return auth.$changeEmail({password: password, oldEmail: fns.user.email, newEmail: newEmail});
+        changeEmail: function(password, newEmail, oldEmail) {
+          return auth.$changeEmail({password: password, oldEmail: oldEmail, newEmail: newEmail});
         },
 
         removeUser: function(email, pass) {

@@ -32,9 +32,10 @@ angular.module('<%= scriptAppName %>')
 
     $scope.changeEmail = function(pass, newEmail) {
       $scope.err = null;
-      simpleLogin.changeEmail(pass, newEmail)
-        .then(function(user) {
-          loadProfile(user);
+      simpleLogin.changeEmail(pass, newEmail, profile.email)
+        .then(function() {
+          profile.email = newEmail;
+          profile.$save();
           success('Email changed');
         })
         .catch(error);
@@ -49,7 +50,7 @@ angular.module('<%= scriptAppName %>')
     }
 
     function alert(msg, type) {
-      var obj = {text: msg, type: type};
+      var obj = {text: msg+'', type: type};
       $scope.messages.unshift(obj);
       $timeout(function() {
         $scope.messages.splice($scope.messages.indexOf(obj), 1);
