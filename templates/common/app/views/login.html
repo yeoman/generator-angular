@@ -13,7 +13,7 @@
 <fieldset>
   <legend>Oauth</legend>
   <p><% _.each( authProviders, function( provider ) { %><% if( provider.value === 'anonymous' ) { %>
-    <button <%= btnPrimary %> ng-click="anonymousLogin()"><%- provider.name %></button><% else if ( provider.value !== 'password' ){ %>
+    <button <%= btnPrimary %> ng-click="anonymousLogin()"><%- provider.name %></button><% } else if ( provider.value !== 'password' ){ %>
     <button <%= btnPrimary %> ng-click="oauthLogin('<%- provider.value %>')"><%- provider.name %></button><% } %><% }); %>
   </p>
 </fieldset>
