@@ -30,13 +30,13 @@ var FIREBASE_PROMPTS = [
     }
   }, {
     name: 'loginModule',
-    message: 'Use FirebaseSimpleLogin?',
+    message: 'Include Firebase auth and account tools?',
     type: 'confirm'
   }, {
     type: 'checkbox',
     name: 'providers',
     message: 'Which providers shall I install?',
-    choices: afconfig.simpleLoginProviders,
+    choices: afconfig.authProviders,
     when: function(answers) {
       return answers.loginModule;
     },
@@ -55,6 +55,7 @@ var Generator = module.exports = function Generator(args, options) {
 
   //angularfire
   this.afconfig = afconfig;
+  this.env.options.afconfig = afconfig;
   this.angularFireSourceFiles = [];
 
   this.option('app-suffix', {
@@ -69,7 +70,7 @@ var Generator = module.exports = function Generator(args, options) {
 
   if (typeof this.env.options.appPath === 'undefined') {
     this.option('appPath', {
-      desc: 'Generate CoffeeScript instead of JavaScript'
+      desc: 'Allow to choose where to write the files'
     });
 
     this.env.options.appPath = this.options.appPath;
@@ -119,8 +120,16 @@ var Generator = module.exports = function Generator(args, options) {
       enabledComponents.push('angular-animate/angular-animate.js');
     }
 
+    if (this.ariaModule) {
+      enabledComponents.push('angular-aria/angular-aria.js');
+    }
+
     if (this.cookiesModule) {
       enabledComponents.push('angular-cookies/angular-cookies.js');
+    }
+
+    if (this.messagesModule) {
+      enabledComponents.push('angular-messages/angular-messages.js');
     }
 
     if (this.resourceModule) {
@@ -137,11 +146,6 @@ var Generator = module.exports = function Generator(args, options) {
 
     if (this.touchModule) {
       enabledComponents.push('angular-touch/angular-touch.js');
-    }
-
-    //angularfire
-    if (this.loginModule) {
-      enabledComponents.push('firebase-simple-login/firebase-simple-login.js');
     }
 
     enabledComponents = [
@@ -186,25 +190,21 @@ var Generator = module.exports = function Generator(args, options) {
     });
 
     if (this.env.options.ngRoute) {
+      // this will not create controller or html because
+      // "chat" exists in config.json::specialRoutes
       this.invoke('angularfire:route', {
         //angularfire
-        args: ['chat', true]
+        args: ['chat']
       });
     }
 
     //angularfire
     if(this.env.options.loginModule) {
       if( this.env.options.ngRoute ) {
+        // this will not create controller or html because
+        // "login" exists in config.json::specialRoutes
         this.invoke('angularfire:route', {
-          args: ['login', true]
-        });
-      }
-      else {
-        this.invoke('angularfire:controller', {
-          args: ['login', true]
-        });
-        this.invoke('angularfire.view', {
-          args: ['login', true]
+          args: ['login']
         });
       }
     }
@@ -240,12 +240,12 @@ Generator.prototype.welcome = function welcome() {
 Generator.prototype.askFirebaseQuestions = function askForCompass() {
   this.firebaseName = null;
   this.loginModule = false;
-  this.simpleLoginProviders = [];
+  this.authProviders = [];
   this.hasOauthProviders = false;
   this.hasPasswordProvider = false;
 
   // allow firebase instance to be set on command line
-  this._defaultNamespace(this.options['instance'], FIREBASE_PROMPTS);
+  this._defaultNamespace(this.options.instance, FIREBASE_PROMPTS);
 
   var cb = this.async();
   this.prompt(FIREBASE_PROMPTS, function (props) {
@@ -313,6 +313,10 @@ Generator.prototype.askForModules = function askForModules() {
       name: 'angular-animate.js',
       checked: true
     }, {
+      value: 'ariaModule',
+      name: 'angular-aria.js',
+      checked: false
+    }, {
       value: 'cookiesModule',
       name: 'angular-cookies.js',
       checked: true
@@ -320,6 +324,10 @@ Generator.prototype.askForModules = function askForModules() {
       value: 'resourceModule',
       name: 'angular-resource.js',
       checked: true
+    }, {
+      value: 'messagesModule',
+      name: 'angular-messages.js',
+      checked: false
     }, {
       value: 'routeModule',
       name: 'angular-route.js',
@@ -339,7 +347,9 @@ Generator.prototype.askForModules = function askForModules() {
   this.prompt(prompts, function (props) {
     var hasMod = function (mod) { return props.modules.indexOf(mod) !== -1; };
     this.animateModule = hasMod('animateModule');
+    this.ariaModule = hasMod('ariaModule');
     this.cookiesModule = hasMod('cookiesModule');
+    this.messagesModule = hasMod('messagesModule');
     this.resourceModule = hasMod('resourceModule');
     this.routeModule = hasMod('routeModule');
     this.sanitizeModule = hasMod('sanitizeModule');
@@ -351,8 +361,16 @@ Generator.prototype.askForModules = function askForModules() {
       angMods.push("'ngAnimate'");
     }
 
+    if (this.ariaModule) {
+      angMods.push("'ngAria'");
+    }
+
     if (this.cookiesModule) {
       angMods.push("'ngCookies'");
+    }
+
+    if (this.messagesModule) {
+      angMods.push("'ngMessages'");
     }
 
     if (this.resourceModule) {
@@ -505,15 +523,15 @@ Generator.prototype._tpl = function(src, dest) {
 
 //angularfire
 Generator.prototype._processProviders = function(list) {
-  var providerMap = {}, i = afconfig.simpleLoginProviders.length, p;
+  var providerMap = {}, i = afconfig.authProviders.length, p;
   while(i--) {
-    p = afconfig.simpleLoginProviders[i];
+    p = afconfig.authProviders[i];
     providerMap[p.value] = {name: p.name, value: p.value};
   }
   list.forEach(function(p) {
     if( p === 'password' ) { this.hasPasswordProvider = true; }
     else { this.hasOauthProviders = true; }
-    this.simpleLoginProviders.push(providerMap[p]);
+    this.authProviders.push(providerMap[p]);
   }, this);
 };
 

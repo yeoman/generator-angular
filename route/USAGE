@@ -2,7 +2,7 @@ Description:
     Creates a new AngularJS route
 
 Example:
-    yo angular:route thing [--coffee] [--uri=path_to/thing]
+    yo angularfire:route thing [--coffee] [--uri=path_to/thing] [--auth-required]
 
     This will create:
         app/scripts/controllers/thing.js

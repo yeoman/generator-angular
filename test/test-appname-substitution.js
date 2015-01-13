@@ -23,7 +23,7 @@ describe('Angular generator template mechanism', function () {
         done(err);
       }
 
-      angular = helpers.createGenerator('angular:app', deps, [appName], {
+      angular = helpers.createGenerator('angularfire:app', deps, [appName], {
         'appPath': 'app',
         'skip-welcome-message': true,
         'skip-install': true,

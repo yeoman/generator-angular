@@ -1,6 +1,6 @@
 {
   "name": "generator-angularfire",
-  "version": "0.8.2-7",
+  "version": "0.9.1",
   "description": "Yeoman generator for Angular+Firebase",
   "keywords": [
     "yeoman-generator",
@@ -12,7 +12,7 @@
     "angular",
     "firebase"
   ],
-  "author": "Kato (with thanks to Yeoman team)",
+  "author": "Kato (with thanks to Yeoman and Angular teams)",
   "main": "app/index.js",
   "files": [
     "app",

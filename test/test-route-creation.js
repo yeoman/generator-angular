@@ -31,7 +31,7 @@ describe('Angular generator route mechanism', function () {
         done(err);
       }
       angular = helpers.createGenerator(
-        'angular:app',
+        'angularfire:app',
         [
           '../../app',
           '../../common',
@@ -49,7 +49,7 @@ describe('Angular generator route mechanism', function () {
       helpers.mockPrompt(angular, mockPrompts);
       angular.run({}, function () {
         angular = helpers.createGenerator(
-          'angular:route',
+          'angularfire:route',
           [
             '../../controller',
             '../../route',

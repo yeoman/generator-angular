@@ -9,7 +9,7 @@
 angular.module('<%= scriptAppName %>')
   .controller('ChatCtrl', function ($scope, fbutil, $timeout) {
     // synchronize a read-only, synchronized array of messages, limit to most recent 10
-    $scope.messages = fbutil.syncArray('messages', {limit: 10});
+    $scope.messages = fbutil.syncArray('messages', {limitToLast: 10});
 
     // display any errors
     $scope.messages.$loaded().catch(alert);

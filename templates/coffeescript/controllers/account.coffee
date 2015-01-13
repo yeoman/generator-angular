@@ -27,13 +27,15 @@ angular.module("<%= scriptAppName %>").controller "AccountCtrl", ($scope, user, 
     return
 
   <% } %>loadProfile = (user) ->
-    $scope.profile.$destroy()  if $scope.profile
-    fbutil.syncObject("users/" + user.uid).$bindTo $scope, "profile"
+    profile.$destroy()  if profile
+    profile = fbutil.syncObject("users/" + user.uid);
+    profile.$bindTo $scope, "profile"
     return
 
   $scope.user = user
   $scope.logout = simpleLogin.logout
   $scope.messages = []
+  profile = null
   loadProfile user
   <% if( hasPasswordProvider ) { %>
   $scope.changePassword = (oldPass, newPass, confirm) ->
@@ -43,7 +45,7 @@ angular.module("<%= scriptAppName %>").controller "AccountCtrl", ($scope, user, 
     else if newPass isnt confirm
       error "Passwords do not match"
     else
-      simpleLogin.changePassword(user.email, oldPass, newPass).then (->
+      simpleLogin.changePassword(profile.email, oldPass, newPass).then (->
         success "Password changed"
         return
       ), error

@@ -6,8 +6,13 @@ var ScriptBase = require('../script-base.js');
 var angularUtils = require('../util.js');
 
 
-var Generator = module.exports = function Generator(name, skipFiles) {
+var Generator = module.exports = function Generator(name) {
   ScriptBase.apply(this, arguments);
+  this.option('uri', {
+    desc: 'Allow a custom uri for routing',
+    type: String,
+    required: false
+  });
 
   var bower = require(path.join(process.cwd(), 'bower.json'));
   var match = require('fs').readFileSync(path.join(
@@ -23,16 +28,16 @@ var Generator = module.exports = function Generator(name, skipFiles) {
     this.foundWhenForRoute = true;
   }
 
-  if( !skipFiles ) {
-    this.hookFor('angular:controller');
-    this.hookFor('angular:view');
+  if( this.env.options.afconfig.specialRoutes[name] !== true) {
+    this.hookFor('angularfire:controller');
+    this.hookFor('angularfire:view');
   }
 };
 
 util.inherits(Generator, ScriptBase);
 
 //angularFire
-Generator.prototype.rewriteAppJs = function () {
+Generator.prototype.rewriteRoutesJs = function () {
   var coffee = this.env.options.coffee;
 
   if (!this.foundWhenForRoute) {
@@ -62,7 +67,8 @@ Generator.prototype.rewriteAppJs = function () {
     ]
   };
 
-  var whenMethod = this.env.options.authRequired? 'whenAuthenticated' : 'when';
+
+  var whenMethod = this.env.options.authRequired || this.options['auth-required']? 'whenAuthenticated' : 'when';
 
   if (coffee) {
     config.splicable.unshift("." + whenMethod + " '/" + this.uri + "',");
