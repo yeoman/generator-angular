@@ -338,6 +338,7 @@ Generator.prototype.packageFiles = function packageFiles() {
   this.template('root/_bowerrc', '.bowerrc');
   this.template('root/_package.json', 'package.json');
   this.template('root/_Gruntfile.js', 'Gruntfile.js');
+  this.template('root/README.md', 'README.md');
 };
 
 Generator.prototype._injectDependencies = function _injectDependencies() {
