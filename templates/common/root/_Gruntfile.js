@@ -55,6 +55,10 @@ module.exports = function (grunt) {
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
+      },<% } else if (less) { %>
+      less: {
+        files: ['<%%= yeoman.app %>/styles/{,*/}*.less'],
+        tasks: ['less:dist', 'autoprefixer']
       },<% } else { %>
       styles: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
@@ -177,11 +181,17 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%%= yeoman.app %>/index.html'],
-        ignorePath:  /\.\.\//
+        ignorePath:  /\.\.\//<% if (lessBootstrap) { %>,
+        exclude: ['bootstrap/dist/css/bootstrap.css']<% } %>
       }<% if (compass) { %>,
       sass: {
         src: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
+      }<% } else if (less) { %>,
+      less: {
+        src: ['<%%= yeoman.app %>/styles/{,*/}*.less'],
+        ignorePath: /(\.\.\/){1,2}bower_components\//<% if (!lessBootstrap) { %>,
+        exclude: ['bootstrap/less/bootstrap.less']<% } %>
       }<% } %>
     },<% if (coffee) { %>
 
@@ -237,6 +247,23 @@ module.exports = function (grunt) {
         options: {
           debugInfo: true
         }
+      }
+    },<% } else if (less) { %>
+
+    // Compiles Less to CSS and generates necessary files if requested
+    less: {
+      options: {
+        compile: true,
+        paths: ['./bower_components']
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%%= yeoman.app %>/styles',
+          src: '{,*/}*.less',
+          dest: '.tmp/styles/',
+          ext: '.css'
+        }]
       }
     },<% } %>
 
@@ -388,42 +415,48 @@ module.exports = function (grunt) {
           dest: '<%%= yeoman.dist %>/images',
           src: ['generated/*']
         }<% if (bootstrap) { %>, {
-          expand: true,
-          cwd: '<% if (!compassBootstrap) {
-              %>bower_components/bootstrap/dist<%
-            } else {
-              %>.<%
-            } %>',
-          src: '<% if (compassBootstrap) {
-              %>bower_components/bootstrap-sass-official/assets/fonts/bootstrap<%
-            } else { %>fonts<% }
-            %>/*',
+          expand: true,<% if (compassBootstrap) { %>
+          cwd: 'bower_components/bootstrap-sass-official/assets',
+          src: 'fonts/bootstrap/*'<% } else { %>
+          cwd: 'bower_components/bootstrap/dist',
+          src: 'fonts/*'<% } %>,
           dest: '<%%= yeoman.dist %>'
         }<% } %>]
-      },
+      }<% if (compassBootstrap || lessBootstrap) { %>,
+      server: {
+        expand: true,<% if (compassBootstrap) { %>
+        cwd: 'bower_components/bootstrap-sass-official/assets',
+        src: 'fonts/bootstrap/*'<% } else { %>
+        cwd: 'bower_components/bootstrap/dist',
+        src: 'fonts/*'<% } %>,
+        dest: '.tmp',
+      }<% } %><% if (!compass && !less) { %>,
       styles: {
         expand: true,
         cwd: '<%%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
-      }
+      }<% } %>
     },
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [<% if (coffee) { %>
         'coffee:dist',<% } %><% if (compass) { %>
-        'compass:server'<% } else { %>
+        'compass:server'<% } else if (less) { %>
+        'less:dist'<% } else { %>
         'copy:styles'<% } %>
       ],
       test: [<% if (coffee) { %>
         'coffee',<% } %><% if (compass) { %>
-        'compass'<% } else { %>
+        'compass'<% } else if (less) { %>
+        'less'<% } else { %>
         'copy:styles'<% } %>
       ],
       dist: [<% if (coffee) { %>
         'coffee',<% } %><% if (compass) { %>
-        'compass:dist',<% } else { %>
+        'compass:dist',<% } else if (less) { %>
+        'less:dist',<% } else { %>
         'copy:styles',<% } %>
         'imagemin',
         'svgmin'
@@ -449,7 +482,8 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
-      'clean:server',
+      'clean:server',<% if (compassBootstrap || lessBootstrap) { %>
+      'copy:server',<% } %>
       'wiredep',
       'concurrent:server',
       'autoprefixer',
