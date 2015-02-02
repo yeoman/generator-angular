@@ -242,6 +242,8 @@ The following additional modules are available as components on bower, and insta
 
 All of these can be updated with `bower update` as new versions of AngularJS are released.
 
+`json3` and `es5-shim` have been removed as Angular 1.3 has dropped IE8 support and that is the last version that needed these shims. If you still require these, you can include them with: `bower install --save json3 es5-shim`. `wiredep` should add them to your index.html file but if not you can manually add them.
+
 ## Configuration
 Yeoman generated projects can be further tweaked according to your needs by modifying project files appropriately.
 
