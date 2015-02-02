@@ -9,10 +9,8 @@
   padding: 0.2em 0;
 }
 
-/* Space out content a bit */
 body {
-  padding-top: 0;
-  padding-bottom: 0;
+  padding: 0;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -26,6 +24,7 @@ body {
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 10px;
 
   /* Make the masthead heading the same height as the navigation */
   h3 {
