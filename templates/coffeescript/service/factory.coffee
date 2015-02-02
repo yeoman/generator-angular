@@ -7,7 +7,7 @@
  # # <%= cameledName %>
  # Factory in the <%= scriptAppName %>.
 ###
-angular.module('<%= scriptAppName %>')
+angular.module '<%= scriptAppName %>'
   .factory '<%= cameledName %>', ->
     # Service logic
     # ...
@@ -15,7 +15,5 @@ angular.module('<%= scriptAppName %>')
     meaningOfLife = 42
 
     # Public API here
-    {
-      someMethod: ->
-        meaningOfLife
-    }
+    someMethod: ->
+      meaningOfLife
