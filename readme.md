@@ -229,7 +229,6 @@ The following packages are always installed by the [app](#app) generator:
 
 * angular
 * angular-mocks
-* angular-scenario
 
 
 The following additional modules are available as components on bower, and installable via `bower install`:
