@@ -1,3 +1,38 @@
+<a name="0.11.0"></a>
+## 0.11.0 (2015-02-02)
+
+
+#### Bug Fixes
+
+* **app:**
+  * remove IE8 support ([7c6f245b](yeoman/generator-angular/commit/7c6f245b73ce59782aed0a1efd300e83569eb0e8), closes [#923](yeoman/generator-angular/issues/923))
+  * add empty repository field ([668c0839](yeoman/generator-angular/commit/668c0839e83c1e3e54a0409f01b7cf6adc82e220))
+  * remove angular-scenario ([947b31b5](yeoman/generator-angular/commit/947b31b5f252446fd44c47866bbf830e4b3b4101))
+  * unify styles ([4a1f6ce9](yeoman/generator-angular/commit/4a1f6ce90a3028583ddfb0235980547d40e462da), closes [#945](yeoman/generator-angular/issues/945))
+  * change HTML markup for updated Bootstrap ([afc7b27f](yeoman/generator-angular/commit/afc7b27f6163ee226fc60915042e4858e741da72), closes [#943](yeoman/generator-angular/issues/943))
+  * update CoffeeScript syntax ([cf13f8bb](yeoman/generator-angular/commit/cf13f8bbcfcc7f6231eeadbc2661adf540cab97b), closes [#961](yeoman/generator-angular/issues/961))
+  * set jasmine: true in test/.jshint ([f3c75d83](yeoman/generator-angular/commit/f3c75d83de868d1484caafbbcb2ea57427d08fe8))
+* **view:** add forward slashes to menu items paths (href attribute) ([7ebd8d7b](yeoman/generator-angular/commit/7ebd8d7b6cd378b0ca80de1865102fbd8a176a8a))
+
+
+#### Features
+
+* **app:**
+  * generate readme.md in resulting project ([f4bcb712](yeoman/generator-angular/commit/f4bcb712f061dce8352872844065f4da9cd85a2c))
+  * support running form non-root folders ([17c820fc](yeoman/generator-angular/commit/17c820fc18fe72e18348619e39fb6c99d7c5193c))
+* **karma:** wiredep karma configuration ([198f8c46](yeoman/generator-angular/commit/198f8c46144bda40ab76038ee5a0f445776e97f4), closes [#856](yeoman/generator-angular/issues/856), [#859](yeoman/generator-angular/issues/859))
+
+
+#### Breaking Changes
+
+* Removed IE8 support files
+
+Fixes #923
+ ([7c6f245b](yeoman/generator-angular/commit/7c6f245b73ce59782aed0a1efd300e83569eb0e8))
+* no longer include angular-scenario
+ ([947b31b5](yeoman/generator-angular/commit/947b31b5f252446fd44c47866bbf830e4b3b4101))
+
+
 <a name="0.10.0"></a>
 ## 0.10.0 (2014-11-07)
 
