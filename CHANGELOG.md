@@ -5,22 +5,22 @@
 #### Bug Fixes
 
 * **app:**
-  * remove IE8 support ([7c6f245b](yeoman/generator-angular/commit/7c6f245b73ce59782aed0a1efd300e83569eb0e8), closes [#923](yeoman/generator-angular/issues/923))
-  * add empty repository field ([668c0839](yeoman/generator-angular/commit/668c0839e83c1e3e54a0409f01b7cf6adc82e220))
-  * remove angular-scenario ([947b31b5](yeoman/generator-angular/commit/947b31b5f252446fd44c47866bbf830e4b3b4101))
-  * unify styles ([4a1f6ce9](yeoman/generator-angular/commit/4a1f6ce90a3028583ddfb0235980547d40e462da), closes [#945](yeoman/generator-angular/issues/945))
-  * change HTML markup for updated Bootstrap ([afc7b27f](yeoman/generator-angular/commit/afc7b27f6163ee226fc60915042e4858e741da72), closes [#943](yeoman/generator-angular/issues/943))
-  * update CoffeeScript syntax ([cf13f8bb](yeoman/generator-angular/commit/cf13f8bbcfcc7f6231eeadbc2661adf540cab97b), closes [#961](yeoman/generator-angular/issues/961))
-  * set jasmine: true in test/.jshint ([f3c75d83](yeoman/generator-angular/commit/f3c75d83de868d1484caafbbcb2ea57427d08fe8))
-* **view:** add forward slashes to menu items paths (href attribute) ([7ebd8d7b](yeoman/generator-angular/commit/7ebd8d7b6cd378b0ca80de1865102fbd8a176a8a))
+  * remove IE8 support ([7c6f245b](http://github.com/yeoman/generator-angular/commit/7c6f245b73ce59782aed0a1efd300e83569eb0e8), closes [#923](http://github.com/yeoman/generator-angular/issues/923))
+  * add empty repository field ([668c0839](http://github.com/yeoman/generator-angular/commit/668c0839e83c1e3e54a0409f01b7cf6adc82e220))
+  * remove angular-scenario ([947b31b5](http://github.com/yeoman/generator-angular/commit/947b31b5f252446fd44c47866bbf830e4b3b4101))
+  * unify styles ([4a1f6ce9](http://github.com/yeoman/generator-angular/commit/4a1f6ce90a3028583ddfb0235980547d40e462da), closes [#945](http://github.com/yeoman/generator-angular/issues/945))
+  * change HTML markup for updated Bootstrap ([afc7b27f](http://github.com/yeoman/generator-angular/commit/afc7b27f6163ee226fc60915042e4858e741da72), closes [#943](http://github.com/yeoman/generator-angular/issues/943))
+  * update CoffeeScript syntax ([cf13f8bb](http://github.com/yeoman/generator-angular/commit/cf13f8bbcfcc7f6231eeadbc2661adf540cab97b), closes [#961](http://github.com/yeoman/generator-angular/issues/961))
+  * set jasmine: true in test/.jshint ([f3c75d83](http://github.com/yeoman/generator-angular/commit/f3c75d83de868d1484caafbbcb2ea57427d08fe8))
+* **view:** add forward slashes to menu items paths (href attribute) ([7ebd8d7b](http://github.com/yeoman/generator-angular/commit/7ebd8d7b6cd378b0ca80de1865102fbd8a176a8a))
 
 
 #### Features
 
 * **app:**
-  * generate readme.md in resulting project ([f4bcb712](yeoman/generator-angular/commit/f4bcb712f061dce8352872844065f4da9cd85a2c))
-  * support running form non-root folders ([17c820fc](yeoman/generator-angular/commit/17c820fc18fe72e18348619e39fb6c99d7c5193c))
-* **karma:** wiredep karma configuration ([198f8c46](yeoman/generator-angular/commit/198f8c46144bda40ab76038ee5a0f445776e97f4), closes [#856](yeoman/generator-angular/issues/856), [#859](yeoman/generator-angular/issues/859))
+  * generate readme.md in resulting project ([f4bcb712](http://github.com/yeoman/generator-angular/commit/f4bcb712f061dce8352872844065f4da9cd85a2c))
+  * support running form non-root folders ([17c820fc](http://github.com/yeoman/generator-angular/commit/17c820fc18fe72e18348619e39fb6c99d7c5193c))
+* **karma:** wiredep karma configuration ([198f8c46](http://github.com/yeoman/generator-angular/commit/198f8c46144bda40ab76038ee5a0f445776e97f4), closes [#856](http://github.com/yeoman/generator-angular/issues/856), [#859](http://github.com/yeoman/generator-angular/issues/859))
 
 
 #### Breaking Changes
@@ -28,9 +28,9 @@
 * Removed IE8 support files
 
 Fixes #923
- ([7c6f245b](yeoman/generator-angular/commit/7c6f245b73ce59782aed0a1efd300e83569eb0e8))
+ ([7c6f245b](http://github.com/yeoman/generator-angular/commit/7c6f245b73ce59782aed0a1efd300e83569eb0e8))
 * no longer include angular-scenario
- ([947b31b5](yeoman/generator-angular/commit/947b31b5f252446fd44c47866bbf830e4b3b4101))
+ ([947b31b5](http://github.com/yeoman/generator-angular/commit/947b31b5f252446fd44c47866bbf830e4b3b4101))
 
 
 <a name="0.10.0"></a>
@@ -40,16 +40,16 @@ Fixes #923
 #### Bug Fixes
 
 * **build:**
-  * allow to copy font files from subfolders ([eb5a096e](yeoman/generator-angular/commit/eb5a096e27c7c8a7f00541b97fffe2873bafd462))
-  * do not clean git related subfolders of dist ([00673f5e](yeoman/generator-angular/commit/00673f5e4385c106738837899b2b838a27c22499))
+  * allow to copy font files from subfolders ([eb5a096e](http://github.com/yeoman/generator-angular/commit/eb5a096e27c7c8a7f00541b97fffe2873bafd462))
+  * do not clean git related subfolders of dist ([00673f5e](http://github.com/yeoman/generator-angular/commit/00673f5e4385c106738837899b2b838a27c22499))
 * **gen:**
-  * replace named function with anonymous ([c82f336b](yeoman/generator-angular/commit/c82f336bbbdc9bcf44beddbd620b471a60f832eb))
-  * fix coffee service using wrong name ([3437a270](yeoman/generator-angular/commit/3437a270df349b0fbcd2855a530b208282ca170d))
+  * replace named function with anonymous ([c82f336b](http://github.com/yeoman/generator-angular/commit/c82f336bbbdc9bcf44beddbd620b471a60f832eb))
+  * fix coffee service using wrong name ([3437a270](http://github.com/yeoman/generator-angular/commit/3437a270df349b0fbcd2855a530b208282ca170d))
 
 
 #### Features
 
-* **app:** add ngAria and ngMessages ([dfbfd1f4](yeoman/generator-angular/commit/dfbfd1f4feb788608dd71dbd54fced69c5a09fb3), closes [#917](yeoman/generator-angular/issues/917))
+* **app:** add ngAria and ngMessages ([dfbfd1f4](http://github.com/yeoman/generator-angular/commit/dfbfd1f4feb788608dd71dbd54fced69c5a09fb3), closes [#917](http://github.com/yeoman/generator-angular/issues/917))
 
 
 <a name="0.9.8"></a>
@@ -58,7 +58,7 @@ Fixes #923
 
 #### Bug Fixes
 
-* **wiredep:** remove cwd property ([dbe5d3e5](yeoman/generator-angular/commit/dbe5d3e5d85965ba67e5a47dfc2abb959992791d))
+* **wiredep:** remove cwd property ([dbe5d3e5](http://github.com/yeoman/generator-angular/commit/dbe5d3e5d85965ba67e5a47dfc2abb959992791d))
 
 
 <a name="0.9.7"></a>
@@ -67,7 +67,7 @@ Fixes #923
 
 #### Bug Fixes
 
-* **deps:** use latest 1.2.x ng ([45c3eb67](yeoman/generator-angular/commit/45c3eb67b1440956fb2fdaf0d536ff766f13fa0f))
+* **deps:** use latest 1.2.x ng ([45c3eb67](http://github.com/yeoman/generator-angular/commit/45c3eb67b1440956fb2fdaf0d536ff766f13fa0f))
 
 
 <a name="0.9.6"></a>
@@ -76,9 +76,9 @@ Fixes #923
 
 #### Bug Fixes
 
-* **build:** no need to ngAnnotate oldieshim ([ed413a19](yeoman/generator-angular/commit/ed413a19880511f37f2b40c5c94ef0f675796e2f))
-* **deps:** update Angular to v1.2.23 ([8667f1cb](yeoman/generator-angular/commit/8667f1cbb29a1290b39ea67db8957683dce7295e))
-* **oldieshim:** avoid json3 being injected twice ([b421e13b](yeoman/generator-angular/commit/b421e13ba6029eeae3e43cd12b65813464471b5b))
+* **build:** no need to ngAnnotate oldieshim ([ed413a19](http://github.com/yeoman/generator-angular/commit/ed413a19880511f37f2b40c5c94ef0f675796e2f))
+* **deps:** update Angular to v1.2.23 ([8667f1cb](http://github.com/yeoman/generator-angular/commit/8667f1cbb29a1290b39ea67db8957683dce7295e))
+* **oldieshim:** avoid json3 being injected twice ([b421e13b](http://github.com/yeoman/generator-angular/commit/b421e13ba6029eeae3e43cd12b65813464471b5b))
 
 
 <a name="0.9.5"></a>
@@ -87,8 +87,8 @@ Fixes #923
 
 #### Bug Fixes
 
-* **app:** update bootstrap-sass font path ([7977147e](yeoman/generator-angular/commit/7977147ea45121493acc2eb0022b3cdc1e95e5bc))
-* **gen:** fix service using wrong name ([5e7f601f](yeoman/generator-angular/commit/5e7f601f89baec49b1ddd9cc250216b8800a85dc), closes [#772](yeoman/generator-angular/issues/772))
+* **app:** update bootstrap-sass font path ([7977147e](http://github.com/yeoman/generator-angular/commit/7977147ea45121493acc2eb0022b3cdc1e95e5bc))
+* **gen:** fix service using wrong name ([5e7f601f](http://github.com/yeoman/generator-angular/commit/5e7f601f89baec49b1ddd9cc250216b8800a85dc), closes [#772](http://github.com/yeoman/generator-angular/issues/772))
 
 
 <a name="0.9.3"></a>
@@ -97,8 +97,8 @@ Fixes #923
 
 #### Bug Fixes
 
-* **app:** wrap old IE files in a vendor shim ([627de2b0](yeoman/generator-angular/commit/627de2b089fab676a7d2db00fe333fab99aea8cc), closes [#692](yeoman/generator-angular/issues/692))
-* **deps:** upgrade Bootstrap dependency ([637c13b1](yeoman/generator-angular/commit/637c13b1bf3694a8b55b7a2476a89d0156a78625), closes [#767](yeoman/generator-angular/issues/767))
+* **app:** wrap old IE files in a vendor shim ([627de2b0](http://github.com/yeoman/generator-angular/commit/627de2b089fab676a7d2db00fe333fab99aea8cc), closes [#692](http://github.com/yeoman/generator-angular/issues/692))
+* **deps:** upgrade Bootstrap dependency ([637c13b1](http://github.com/yeoman/generator-angular/commit/637c13b1bf3694a8b55b7a2476a89d0156a78625), closes [#767](http://github.com/yeoman/generator-angular/issues/767))
 
 
 <a name="0.9.2"></a>
@@ -107,7 +107,7 @@ Fixes #923
 
 #### Bug Fixes
 
-* **app:** fix regex to escape `..` ([3a845550](yeoman/generator-angular/commit/3a8455501b6b7896e30d33ab15edf1e9096c2580), closes [#766](yeoman/generator-angular/issues/766))
+* **app:** fix regex to escape `..` ([3a845550](http://github.com/yeoman/generator-angular/commit/3a8455501b6b7896e30d33ab15edf1e9096c2580), closes [#766](http://github.com/yeoman/generator-angular/issues/766))
 
 
 <a name="0.9.1"></a>
@@ -116,7 +116,7 @@ Fixes #923
 
 #### Bug Fixes
 
-* **gen:** fix template variable ([794d2c67](yeoman/generator-angular/commit/794d2c677a8b5d247f0bb2b42a7c53a5fca9c7fa))
+* **gen:** fix template variable ([794d2c67](http://github.com/yeoman/generator-angular/commit/794d2c677a8b5d247f0bb2b42a7c53a5fca9c7fa))
 
 
 <a name="0.9.0"></a>
@@ -126,12 +126,12 @@ Fixes #923
 #### Bug Fixes
 
 * **app:**
-  * fix bower path problem ([db4ec0eb](yeoman/generator-angular/commit/db4ec0eb101b221135a353d008ed3c662814ac79), closes [#733](yeoman/generator-angular/issues/733))
-  * fix provider CoffeeScript template ([c2572d23](yeoman/generator-angular/commit/c2572d236cce5afe5a66037e558325018153ca97))
-  * correct cssmin/concat build-tag paths ([27dd848f](yeoman/generator-angular/commit/27dd848f58c45ba5536da502bfd5a147ced35572))
-* **gen:** fix ref to Karma config for --coffee ([380018f0](yeoman/generator-angular/commit/380018f0bbbb6a59d38ee86f39e3879e05c8b203), closes [#748](yeoman/generator-angular/issues/748))
-* **karma:** use the correct CoffeeScript extension ([ddbab964](yeoman/generator-angular/commit/ddbab9646fcc8883d3850e7e9a02daa32e8ea4d8), closes [#737](yeoman/generator-angular/issues/737))
-* **release:** get rid of circular loop ([293ca6a4](yeoman/generator-angular/commit/293ca6a4a365fdfe2f72fb406bd2f4d8f5b3b797))
+  * fix bower path problem ([db4ec0eb](http://github.com/yeoman/generator-angular/commit/db4ec0eb101b221135a353d008ed3c662814ac79), closes [#733](http://github.com/yeoman/generator-angular/issues/733))
+  * fix provider CoffeeScript template ([c2572d23](http://github.com/yeoman/generator-angular/commit/c2572d236cce5afe5a66037e558325018153ca97))
+  * correct cssmin/concat build-tag paths ([27dd848f](http://github.com/yeoman/generator-angular/commit/27dd848f58c45ba5536da502bfd5a147ced35572))
+* **gen:** fix ref to Karma config for --coffee ([380018f0](http://github.com/yeoman/generator-angular/commit/380018f0bbbb6a59d38ee86f39e3879e05c8b203), closes [#748](http://github.com/yeoman/generator-angular/issues/748))
+* **karma:** use the correct CoffeeScript extension ([ddbab964](http://github.com/yeoman/generator-angular/commit/ddbab9646fcc8883d3850e7e9a02daa32e8ea4d8), closes [#737](http://github.com/yeoman/generator-angular/issues/737))
+* **release:** get rid of circular loop ([293ca6a4](http://github.com/yeoman/generator-angular/commit/293ca6a4a365fdfe2f72fb406bd2f4d8f5b3b797))
 
 
 <a name="0.9.0-1"></a>
@@ -141,19 +141,19 @@ Fixes #923
 #### Bug Fixes
 
 * **gen:**
-  * update wiredep ignore path ([a9c4e354](yeoman/generator-angular/commit/a9c4e3541b50171868f700a0817a592e203e5410))
-  * remove font files ([f27566d5](yeoman/generator-angular/commit/f27566d50c56af8a9f8fa357565fc9810c5a8671))
+  * update wiredep ignore path ([a9c4e354](http://github.com/yeoman/generator-angular/commit/a9c4e3541b50171868f700a0817a592e203e5410))
+  * remove font files ([f27566d5](http://github.com/yeoman/generator-angular/commit/f27566d50c56af8a9f8fa357565fc9810c5a8671))
 
 
 #### Features
 
-* **app:** move bower_components to root folder ([396a2c04](yeoman/generator-angular/commit/396a2c04b3aeaaafddf9f68287208cee7e9e74e9))
+* **app:** move bower_components to root folder ([396a2c04](http://github.com/yeoman/generator-angular/commit/396a2c04b3aeaaafddf9f68287208cee7e9e74e9))
 
 
 #### Breaking Changes
 
 * bower_components is now in the /project_root directory
- ([396a2c04](yeoman/generator-angular/commit/396a2c04b3aeaaafddf9f68287208cee7e9e74e9))
+ ([396a2c04](http://github.com/yeoman/generator-angular/commit/396a2c04b3aeaaafddf9f68287208cee7e9e74e9))
 
 
 <a name="0.9.0-0"></a>
@@ -162,55 +162,55 @@ Fixes #923
 
 #### Bug Fixes
 
-* **Gruntfile:** fix usemin bug when using images in css ([fac3d108](yeoman/generator-angular/commit/fac3d1082a2c2120b9f92b86747c26b1421bd942))
+* **Gruntfile:** fix usemin bug when using images in css ([fac3d108](http://github.com/yeoman/generator-angular/commit/fac3d1082a2c2120b9f92b86747c26b1421bd942))
 * **app:**
-  * app is installed at appPath location ([947b872c](yeoman/generator-angular/commit/947b872c57eaaa3c0829d63ce31dcd355d452a82), closes [#578](yeoman/generator-angular/issues/578))
-  * app-suffix should populate to sub-generators ([02654419](yeoman/generator-angular/commit/026544191b4526b43517aad89c4f8a02c0271814), closes [#572](yeoman/generator-angular/issues/572))
-  * fix Bootstrap font issues ([0a66f54d](yeoman/generator-angular/commit/0a66f54d14f1ae6533e21153ee9e19b1da6626bc), closes [#552](yeoman/generator-angular/issues/552), [#638](yeoman/generator-angular/issues/638), [#645](yeoman/generator-angular/issues/645), [#661](yeoman/generator-angular/issues/661), [#662](yeoman/generator-angular/issues/662), [#665](yeoman/generator-angular/issues/665), [#667](yeoman/generator-angular/issues/667))
-  * prevent faulty bowerInstall ignorePath ([fa2e36b8](yeoman/generator-angular/commit/fa2e36b8874cc21c74dc0a740d6ece580c4f0f1f))
-  * Remove redundant bootstrap-sass import ([229e58ae](yeoman/generator-angular/commit/229e58aeca71a077f71ac60ae4eebd3b04b30889))
+  * app is installed at appPath location ([947b872c](http://github.com/yeoman/generator-angular/commit/947b872c57eaaa3c0829d63ce31dcd355d452a82), closes [#578](http://github.com/yeoman/generator-angular/issues/578))
+  * app-suffix should populate to sub-generators ([02654419](http://github.com/yeoman/generator-angular/commit/026544191b4526b43517aad89c4f8a02c0271814), closes [#572](http://github.com/yeoman/generator-angular/issues/572))
+  * fix Bootstrap font issues ([0a66f54d](http://github.com/yeoman/generator-angular/commit/0a66f54d14f1ae6533e21153ee9e19b1da6626bc), closes [#552](http://github.com/yeoman/generator-angular/issues/552), [#638](http://github.com/yeoman/generator-angular/issues/638), [#645](http://github.com/yeoman/generator-angular/issues/645), [#661](http://github.com/yeoman/generator-angular/issues/661), [#662](http://github.com/yeoman/generator-angular/issues/662), [#665](http://github.com/yeoman/generator-angular/issues/665), [#667](http://github.com/yeoman/generator-angular/issues/667))
+  * prevent faulty bowerInstall ignorePath ([fa2e36b8](http://github.com/yeoman/generator-angular/commit/fa2e36b8874cc21c74dc0a740d6ece580c4f0f1f))
+  * Remove redundant bootstrap-sass import ([229e58ae](http://github.com/yeoman/generator-angular/commit/229e58aeca71a077f71ac60ae4eebd3b04b30889))
 * **build:**
-  * update karma.conf.js file location in Gruntfile ([29b2d4d3](yeoman/generator-angular/commit/29b2d4d3db549183e101719290e01488a8e7d10e), closes [#706](yeoman/generator-angular/issues/706))
-  * use conservativeCollapse for htmlmin ([06a34d08](yeoman/generator-angular/commit/06a34d0815c3cc31d191f31ee2ef8ecd637142bc))
-  * clean subfolders of dist as well ([9db87bf6](yeoman/generator-angular/commit/9db87bf6f61252db604e9ae4e9b13360f8b96eef))
-  * change livereload to use connect options ([0f549060](yeoman/generator-angular/commit/0f5490600c1b4bb91a19958986aea63700035ac2), closes [#569](yeoman/generator-angular/issues/569), [#674](yeoman/generator-angular/issues/674))
-  * grunt-newer requires a src attribute ([6165b810](yeoman/generator-angular/commit/6165b8101f11ef37811305e6e5dd269da52a3ef2), closes [#620](yeoman/generator-angular/issues/620))
-  * add src property to jshint task ([4668e702](yeoman/generator-angular/commit/4668e7028c803da8ae4cdfadce5d7ec99f51843b), closes [#620](yeoman/generator-angular/issues/620))
-* **dep:** update and correct Bower dependencies ([9b592ca4](yeoman/generator-angular/commit/9b592ca4ff72f1c6f515fe63ee1088ac53049afc))
-* **docs:** add info about route generator uri option ([fc4bdc5f](yeoman/generator-angular/commit/fc4bdc5fa46677d381aaabacbd1c76f38153cdba), closes [#650](yeoman/generator-angular/issues/650))
+  * update karma.conf.js file location in Gruntfile ([29b2d4d3](http://github.com/yeoman/generator-angular/commit/29b2d4d3db549183e101719290e01488a8e7d10e), closes [#706](http://github.com/yeoman/generator-angular/issues/706))
+  * use conservativeCollapse for htmlmin ([06a34d08](http://github.com/yeoman/generator-angular/commit/06a34d0815c3cc31d191f31ee2ef8ecd637142bc))
+  * clean subfolders of dist as well ([9db87bf6](http://github.com/yeoman/generator-angular/commit/9db87bf6f61252db604e9ae4e9b13360f8b96eef))
+  * change livereload to use connect options ([0f549060](http://github.com/yeoman/generator-angular/commit/0f5490600c1b4bb91a19958986aea63700035ac2), closes [#569](http://github.com/yeoman/generator-angular/issues/569), [#674](http://github.com/yeoman/generator-angular/issues/674))
+  * grunt-newer requires a src attribute ([6165b810](http://github.com/yeoman/generator-angular/commit/6165b8101f11ef37811305e6e5dd269da52a3ef2), closes [#620](http://github.com/yeoman/generator-angular/issues/620))
+  * add src property to jshint task ([4668e702](http://github.com/yeoman/generator-angular/commit/4668e7028c803da8ae4cdfadce5d7ec99f51843b), closes [#620](http://github.com/yeoman/generator-angular/issues/620))
+* **dep:** update and correct Bower dependencies ([9b592ca4](http://github.com/yeoman/generator-angular/commit/9b592ca4ff72f1c6f515fe63ee1088ac53049afc))
+* **docs:** add info about route generator uri option ([fc4bdc5f](http://github.com/yeoman/generator-angular/commit/fc4bdc5fa46677d381aaabacbd1c76f38153cdba), closes [#650](http://github.com/yeoman/generator-angular/issues/650))
 * **gen:**
-  * update gen-karma and use its new options ([0f768f1d](yeoman/generator-angular/commit/0f768f1d7515b3d884555a8c5c8e3f01d117cf18), closes [#629](yeoman/generator-angular/issues/629))
-  * skip adding route to app file ([7a768583](yeoman/generator-angular/commit/7a7685833baf7be7d18c8fc9afedf76098ff64ba), closes [#694](yeoman/generator-angular/issues/694))
-  * fix more appPath, other changes ([36317404](yeoman/generator-angular/commit/36317404bee8edece2247ffc99b2f97e2a34ada5))
-  * move test into root folder ([53035aa1](yeoman/generator-angular/commit/53035aa18a26393f72769222f82fc7d0f315e46f))
-  * update color logging ([6aba417e](yeoman/generator-angular/commit/6aba417e3d7f00e5560142972a56d8211af7a499))
-  * move images to common generator ([cf3b6352](yeoman/generator-angular/commit/cf3b63525bb74e7faed36f45af02fc1d276ad7de))
-  * consolidate template files ([22f2f2c3](yeoman/generator-angular/commit/22f2f2c3abf3df58a37daec95e6c0e62b9120057))
-  * do not use console to display messages ([9f9831f5](yeoman/generator-angular/commit/9f9831f58e849a33d34e62c6f9bedec4d9896616))
-* **misc:** correct typo in readme ([7200ffcf](yeoman/generator-angular/commit/7200ffcf62827a732cd079eb39e22484eeabc139))
+  * update gen-karma and use its new options ([0f768f1d](http://github.com/yeoman/generator-angular/commit/0f768f1d7515b3d884555a8c5c8e3f01d117cf18), closes [#629](http://github.com/yeoman/generator-angular/issues/629))
+  * skip adding route to app file ([7a768583](http://github.com/yeoman/generator-angular/commit/7a7685833baf7be7d18c8fc9afedf76098ff64ba), closes [#694](http://github.com/yeoman/generator-angular/issues/694))
+  * fix more appPath, other changes ([36317404](http://github.com/yeoman/generator-angular/commit/36317404bee8edece2247ffc99b2f97e2a34ada5))
+  * move test into root folder ([53035aa1](http://github.com/yeoman/generator-angular/commit/53035aa18a26393f72769222f82fc7d0f315e46f))
+  * update color logging ([6aba417e](http://github.com/yeoman/generator-angular/commit/6aba417e3d7f00e5560142972a56d8211af7a499))
+  * move images to common generator ([cf3b6352](http://github.com/yeoman/generator-angular/commit/cf3b63525bb74e7faed36f45af02fc1d276ad7de))
+  * consolidate template files ([22f2f2c3](http://github.com/yeoman/generator-angular/commit/22f2f2c3abf3df58a37daec95e6c0e62b9120057))
+  * do not use console to display messages ([9f9831f5](http://github.com/yeoman/generator-angular/commit/9f9831f58e849a33d34e62c6f9bedec4d9896616))
+* **misc:** correct typo in readme ([7200ffcf](http://github.com/yeoman/generator-angular/commit/7200ffcf62827a732cd079eb39e22484eeabc139))
 * **test:**
-  * remove console.log statement ([096efbae](yeoman/generator-angular/commit/096efbae4bb3cddf0eff6e484734d6b8e6867389))
-  * remove old Karma testrunner ([bb5b5859](yeoman/generator-angular/commit/bb5b58592100e62588f705a1978f5f40a9d4c141))
-  * add test for testing loading ([f9085968](yeoman/generator-angular/commit/f90859684f3cb211508bf05f8d0ca21c9547f5f6))
-  * add test for eventual appPath option ([dd155b1f](yeoman/generator-angular/commit/dd155b1fea1a5dd87107e3439398c717a5ece8b5), closes [#630](yeoman/generator-angular/issues/630))
+  * remove console.log statement ([096efbae](http://github.com/yeoman/generator-angular/commit/096efbae4bb3cddf0eff6e484734d6b8e6867389))
+  * remove old Karma testrunner ([bb5b5859](http://github.com/yeoman/generator-angular/commit/bb5b58592100e62588f705a1978f5f40a9d4c141))
+  * add test for testing loading ([f9085968](http://github.com/yeoman/generator-angular/commit/f90859684f3cb211508bf05f8d0ca21c9547f5f6))
+  * add test for eventual appPath option ([dd155b1f](http://github.com/yeoman/generator-angular/commit/dd155b1fea1a5dd87107e3439398c717a5ece8b5), closes [#630](http://github.com/yeoman/generator-angular/issues/630))
 * **tests:**
-  * DRY up more code and update test folders ([ea33f7c1](yeoman/generator-angular/commit/ea33f7c169cf2f4b382d3cf34e1b9a463605478e))
-  * style and generator updates ([f8b31572](yeoman/generator-angular/commit/f8b31572c1e4a5700d9c81083899eac44ce14f96))
+  * DRY up more code and update test folders ([ea33f7c1](http://github.com/yeoman/generator-angular/commit/ea33f7c169cf2f4b382d3cf34e1b9a463605478e))
+  * style and generator updates ([f8b31572](http://github.com/yeoman/generator-angular/commit/f8b31572c1e4a5700d9c81083899eac44ce14f96))
 
 
 #### Features
 
 * **app:**
-  * add ngAnimate and ngTouch options ([0659621b](yeoman/generator-angular/commit/0659621bc7f810a0f128f71d6873550cb01d22f6), closes [#510](yeoman/generator-angular/issues/510))
-  * add a second route if ngRoute is chosen ([0d045f52](yeoman/generator-angular/commit/0d045f523880a55fe75cd237972249902c3e0166))
-  * specify uri while generating routes ([d3cea019](yeoman/generator-angular/commit/d3cea019117d975194c36c46c0489ea5e97b81dd), closes [#639](yeoman/generator-angular/issues/639))
+  * add ngAnimate and ngTouch options ([0659621b](http://github.com/yeoman/generator-angular/commit/0659621bc7f810a0f128f71d6873550cb01d22f6), closes [#510](http://github.com/yeoman/generator-angular/issues/510))
+  * add a second route if ngRoute is chosen ([0d045f52](http://github.com/yeoman/generator-angular/commit/0d045f523880a55fe75cd237972249902c3e0166))
+  * specify uri while generating routes ([d3cea019](http://github.com/yeoman/generator-angular/commit/d3cea019117d975194c36c46c0489ea5e97b81dd), closes [#639](http://github.com/yeoman/generator-angular/issues/639))
 * **build:**
-  * replace grunt-bower-install with grunt-wiredep ([60ef8d18](yeoman/generator-angular/commit/60ef8d18716a549b4204a471903bea9e87be70e8))
-  * replace grunt-rev with grunt-filerev ([149f1625](yeoman/generator-angular/commit/149f1625587dbf7ec68050262d1de17ce671e6e2), closes [#564](yeoman/generator-angular/issues/564))
-  * open browser when runnning `serve:dist` ([e9239e72](yeoman/generator-angular/commit/e9239e72d489448c71842df26ee3645f483b56e7))
+  * replace grunt-bower-install with grunt-wiredep ([60ef8d18](http://github.com/yeoman/generator-angular/commit/60ef8d18716a549b4204a471903bea9e87be70e8))
+  * replace grunt-rev with grunt-filerev ([149f1625](http://github.com/yeoman/generator-angular/commit/149f1625587dbf7ec68050262d1de17ce671e6e2), closes [#564](http://github.com/yeoman/generator-angular/issues/564))
+  * open browser when runnning `serve:dist` ([e9239e72](http://github.com/yeoman/generator-angular/commit/e9239e72d489448c71842df26ee3645f483b56e7))
 * **gen:**
-  * allow --appPath option for all generators ([d3dd42e3](yeoman/generator-angular/commit/d3dd42e3bae58f74b634920992a08bb2f3e28848))
-  * add grunt-ngdoc comments ([11edb9b3](yeoman/generator-angular/commit/11edb9b3841f561b6d1afeed1721f4df11fea0cb))
+  * allow --appPath option for all generators ([d3dd42e3](http://github.com/yeoman/generator-angular/commit/d3dd42e3bae58f74b634920992a08bb2f3e28848))
+  * add grunt-ngdoc comments ([11edb9b3](http://github.com/yeoman/generator-angular/commit/11edb9b3841f561b6d1afeed1721f4df11fea0cb))
 
 
 <a name="0.8.0"></a>
