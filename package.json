@@ -34,7 +34,7 @@
   ],
   "repository": "yeoman/generator-angular",
   "scripts": {
-    "test": "mocha"
+    "test": "rimraf test/tmp;mocha"
   },
   "dependencies": {
     "wiredep": "^1.0.0",
@@ -53,6 +53,7 @@
     "grunt-release": "~0.6.0",
     "load-grunt-tasks": "~0.3.0",
     "mocha": "*",
+    "rimraf": "^2.2.8",
     "semver": "~2.3.0",
     "underscore.string": "~2.3.1"
   },
