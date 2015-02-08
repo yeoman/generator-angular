@@ -22,7 +22,7 @@
     "grunt-filerev": "^2.1.2",
     "grunt-google-cdn": "^0.4.3",
     "grunt-newer": "^0.8.0",
-    "grunt-ng-annotate": "^0.8.0",
+    "grunt-ng-annotate": "^0.9.0",
     "grunt-svgmin": "^2.0.0",
     "grunt-usemin": "^2.6.2",
     "grunt-wiredep": "^2.0.0",
