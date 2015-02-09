@@ -27,6 +27,7 @@
     "grunt-usemin": "^2.6.2",
     "grunt-wiredep": "^2.0.0",
     "jshint-stylish": "^1.0.0",
+    "karma": "^0.12",
     "load-grunt-tasks": "^1.0.0",
     "time-grunt": "^1.0.0"
   },
