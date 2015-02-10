@@ -38,7 +38,7 @@ describe('Angular generator appPath option', function () {
   };
 
   beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'tmp'), function (err) {
+    helpers.testDirectory(path.join(__dirname, 'tmp', 'app'), function (err) {
       if (err) {
         done(err);
       }
@@ -46,13 +46,11 @@ describe('Angular generator appPath option', function () {
       angular = helpers.createGenerator(
         'angular:app',
         [
-          '../../app',
-          '../../common',
-          '../../controller',
-          '../../main', [
-            helpers.createDummyGenerator(),
-            'karma:app'
-          ]
+          '../../../app',
+          '../../../common',
+          '../../../controller',
+          '../../../main',
+          [ helpers.createDummyGenerator(), 'karma:app' ]
         ],
         false,
         genOptions
@@ -99,7 +97,7 @@ describe('Angular generator appPath option', function () {
     var generatorTest = function (generatorType, specType, targetDirectory, scriptNameFn, specNameFn, suffix, done) {
       var angularGenerator;
       var name = 'foo';
-      var deps = [path.join('../..', generatorType)];
+      var deps = [path.join('../../..', generatorType)];
       angularGenerator = helpers.createGenerator('angular:' + generatorType, deps, [name], genOptions);
 
       angular.run([], function () {
@@ -144,7 +142,7 @@ describe('Angular generator appPath option', function () {
   describe('View', function () {
     it('should generate a new view', function (done) {
       var angularView;
-      var deps = ['../../view'];
+      var deps = [ '../../../view' ];
       angularView = helpers.createGenerator('angular:view', deps, ['foo'], genOptions);
 
       helpers.mockPrompt(angular, mockPrompts);
@@ -158,7 +156,7 @@ describe('Angular generator appPath option', function () {
 
     it('should generate a new view in subdirectories', function (done) {
       var angularView;
-      var deps = ['../../view'];
+      var deps = [ '../../../view' ];
       angularView = helpers.createGenerator('angular:view', deps, ['foo/bar'], genOptions);
 
       helpers.mockPrompt(angular, mockPrompts);

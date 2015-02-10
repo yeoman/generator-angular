@@ -4,7 +4,7 @@
 var path = require('path');
 var helpers = require('yeoman-generator').test;
 
-describe('Angular generator template mechanism', function () {
+describe('Angular generator template', function () {
   var angular;
   var appName = 'upperCaseBug';
 
@@ -13,10 +13,8 @@ describe('Angular generator template mechanism', function () {
       '../../../app',
       '../../../common',
       '../../../controller',
-      '../../../main', [
-        helpers.createDummyGenerator(),
-        'karma:app'
-      ]
+      '../../../main',
+      [ helpers.createDummyGenerator(), 'karma:app' ]
     ];
     helpers.testDirectory(path.join(__dirname, 'tmp', appName), function (err) {
       if (err) {

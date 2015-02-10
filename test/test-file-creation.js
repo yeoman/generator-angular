@@ -5,7 +5,7 @@ var path = require('path');
 var helpers = require('yeoman-generator').test;
 var _ = require('underscore.string');
 
-describe('Angular generator', function () {
+describe('Angular generator file creation', function () {
   var angular;
   var expected = [
     'app/.htaccess',
@@ -37,20 +37,18 @@ describe('Angular generator', function () {
   };
 
   beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'tmp'), function (err) {
+    helpers.testDirectory(path.join(__dirname, 'tmp', 'file'), function (err) {
       if (err) {
         done(err);
       }
       angular = helpers.createGenerator(
         'angular:app',
         [
-          '../../app',
-          '../../common',
-          '../../controller',
-          '../../main', [
-            helpers.createDummyGenerator(),
-            'karma:app'
-          ]
+          '../../../app',
+          '../../../common',
+          '../../../controller',
+          '../../../main',
+          [ helpers.createDummyGenerator(), 'karma:app' ]
         ],
         false,
         genOptions
@@ -96,7 +94,7 @@ describe('Angular generator', function () {
   describe('Service Subgenerators', function () {
     var generatorTest = function (generatorType, specType, targetDirectory, scriptNameFn, specNameFn, suffix, done) {
       var name = 'foo';
-      var deps = [path.join('../..', generatorType)];
+      var deps = [path.join('../../..', generatorType)];
       var genTester = helpers.createGenerator('angular:' + generatorType, deps, [name], genOptions);
 
       angular.run([], function () {
@@ -148,7 +146,7 @@ describe('Angular generator', function () {
   describe('View', function () {
     it('should generate a new view', function (done) {
       var angularView;
-      var deps = ['../../view'];
+      var deps = [ '../../../view' ];
       angularView = helpers.createGenerator('angular:view', deps, ['foo'], genOptions);
 
       helpers.mockPrompt(angularView, mockPrompts);
@@ -160,7 +158,7 @@ describe('Angular generator', function () {
 
     it('should generate a new view in subdirectories', function (done) {
       var angularView;
-      var deps = ['../../view'];
+      var deps = [ '../../../view' ];
       angularView = helpers.createGenerator('angular:view', deps, ['foo/bar'], genOptions);
 
       helpers.mockPrompt(angularView, mockPrompts);
