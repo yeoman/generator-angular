@@ -1,3 +1,19 @@
+<a name="0.11.1"></a>
+### 0.11.1 (2015-02-10)
+
+
+#### Bug Fixes
+
+* **autoprefixer:** enable sourcemap for server target ([680255b5](yeoman/generator-angular/commit/680255b57d27c102cfc904c84c646ac86a08cbf5))
+* **docs:** replace relative links with absolute in changelog ([e4fd226d](yeoman/generator-angular/commit/e4fd226df89656248c60c3b59af5ad75d76b5026))
+* **karma:** compass and autoprefixer need wiredep:sass for test task ([d1c30616](yeoman/generator-angular/commit/d1c3061692149e24f8de60d47a6aac55885bf68f))
+
+
+#### Features
+
+* **app:** read module name form bower.json ([8ccf8c67](yeoman/generator-angular/commit/8ccf8c670a991d3fc8e1949d82575344d5f91cac))
+
+
 <a name="0.11.0"></a>
 ## 0.11.0 (2015-02-02)
 
