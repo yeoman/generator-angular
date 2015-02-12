@@ -21,6 +21,7 @@ module.exports = function (grunt) {
     },
     changelog: {
       options: {
+        repository: 'https://github.com/yeoman/generator-angular',
         dest: 'CHANGELOG.md',
         versionFile: 'package.json'
       }
