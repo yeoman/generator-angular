@@ -37,7 +37,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "chalk": "^0.5.1",
+    "chalk": "^1.0.0",
     "wiredep": "^2.2.0",
     "yeoman-generator": "^0.16.0",
     "yosay": "^1.0.2"
