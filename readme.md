@@ -6,9 +6,9 @@
 
 ## Usage
 
-Install `generator-angular`:
+Install `yo`, `grunt`, `bower`, `generator-angular` and `generator-karma`:
 ```
-npm install -g generator-angular
+npm install -g grunt bower yo generator-karma generator-angular
 ```
 
 Make a new directory, and `cd` into it:
