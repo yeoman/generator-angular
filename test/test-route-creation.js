@@ -1,4 +1,3 @@
-/*global describe, before, it, beforeEach */
 'use strict';
 
 var path = require('path');
