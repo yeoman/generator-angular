@@ -75,10 +75,10 @@ module.exports = function (grunt) {
       livereload: {
         bsFiles: {
           src: [
-            '<%%= yeoman.app %>/**/*.html',
-            '.tmp/styles/**/*.css',
-            '<%%= yeoman.app %>/scripts/**/*.js',
-            '<%%= yeoman.app %>/images/**/*.+(png/jpg/jpeg/gif/webp/svg)'
+            '<%%= yeoman.app %>/{,*/}*.html',
+            '.tmp/styles/{,*/}*.css',
+            '<%%= yeoman.app %>/scripts/{,*/}*.js',
+            '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
           ]
         },
         options: {
@@ -93,7 +93,7 @@ module.exports = function (grunt) {
       },
       dist: {
         bsFiles: {
-          src: '<%= yeoman.dist %>/**/*.html'
+          src: '<%%= yeoman.dist %>/{,*/}*.html'
         },
         options: {
           server: {
@@ -103,7 +103,7 @@ module.exports = function (grunt) {
       },
       test: {
         bsFiles: {
-          src: 'test/spec/**/*.js'
+          src: 'test/spec/{,*/}*.js'
         },
         options: {
           watchTask: true,
