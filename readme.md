@@ -2,6 +2,9 @@
 
 > Yeoman generator for AngularJS - lets you quickly set up a project with sensible defaults and best practices.
 
+This is one of many starting points for building a new single-page app.  For a more complete list of the options and their trade-offs,
+have a look at [this comparison](http://www.dancancro.com/comparison-of-angularjs-application-starters).
+
 [Roadmap for upcoming plans/features/fixes](https://github.com/yeoman/generator-angular/issues/553)
 
 ## Usage
