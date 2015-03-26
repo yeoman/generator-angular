@@ -9,7 +9,7 @@
  */
 angular.module('<%= scriptAppName %>')
   .controller('<%= classedName %>Ctrl', function () {
-    @awesomeThings = [
+    this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
