@@ -1,10 +1,9 @@
-/*global describe, before, it, beforeEach */
 'use strict';
 
 var path = require('path');
 var helpers = require('yeoman-generator').test;
 
-describe('Angular generator route mechanism', function () {
+describe('Angular generator route', function () {
   var angular;
   var route = 'simpleroute';
   var expected = [
@@ -26,22 +25,20 @@ describe('Angular generator route mechanism', function () {
   };
 
   beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'tmp'), function (err) {
+    helpers.testDirectory(path.join(__dirname, 'tmp', route), function (err) {
       if (err) {
         done(err);
       }
       angular = helpers.createGenerator(
         'angularfire:app',
         [
-          '../../app',
-          '../../common',
-          '../../controller',
-          '../../main',
-          '../../route',
-          '../../view', [
-            helpers.createDummyGenerator(),
-            'karma:app'
-          ]
+          '../../../app',
+          '../../../common',
+          '../../../controller',
+          '../../../main',
+          '../../../route',
+          '../../../view',
+          [ helpers.createDummyGenerator(), 'karma:app']
         ],
         false,
         genOptions
@@ -51,9 +48,9 @@ describe('Angular generator route mechanism', function () {
         angular = helpers.createGenerator(
           'angularfire:route',
           [
-            '../../controller',
-            '../../route',
-            '../../view'
+            '../../../controller',
+            '../../../route',
+            '../../../view'
           ],
           [route],
           genOptions

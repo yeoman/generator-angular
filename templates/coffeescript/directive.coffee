@@ -6,10 +6,9 @@
  # @description
  # # <%= cameledName %>
 ###
-angular.module('<%= scriptAppName %>')
-  .directive('<%= cameledName %>', ->
+angular.module '<%= scriptAppName %>'
+  .directive '<%= cameledName %>', ->
+    restrict: 'EA'
     template: '<div></div>'
-    restrict: 'E'
     link: (scope, element, attrs) ->
       element.text 'this is the <%= cameledName %> directive'
-  )

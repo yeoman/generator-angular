@@ -17,6 +17,7 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.copy('.editorconfig');
   this.copy('.gitattributes');
   this.copy('.jshintrc');
+  this.copy('.yo-rc.json');
   this.copy('gitignore', '.gitignore');
   this.directory('test');
 

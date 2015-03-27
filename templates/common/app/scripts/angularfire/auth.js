@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('simpleLogin', ['firebase', 'firebase.utils', 'firebase.config'])
+  angular.module('firebase.auth', ['firebase', 'firebase.utils', 'firebase.config'])
 
     // a simple wrapper that rejects the promise
     // if the user does not exists (i.e. makes user required), useful for
@@ -80,7 +80,7 @@
 
         watch: function(cb, $scope) {
           listeners.push(cb);
-          auth.$waitForAuth(cb);
+          auth.$waitForAuth().then(cb);
           var unbind = function() {
             var i = listeners.indexOf(cb);
             if( i > -1 ) { listeners.splice(i, 1); }

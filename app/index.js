@@ -114,47 +114,14 @@ var Generator = module.exports = function Generator(args, options) {
   });
 
   this.on('end', function () {
-    var enabledComponents = [];
-
-    if (this.animateModule) {
-      enabledComponents.push('angular-animate/angular-animate.js');
+    var bowerComments = [
+      'bower:js',
+      'endbower'
+    ];
+    if (this.options.coffee) {
+      bowerComments.push('bower:coffee');
+      bowerComments.push('endbower');
     }
-
-    if (this.ariaModule) {
-      enabledComponents.push('angular-aria/angular-aria.js');
-    }
-
-    if (this.cookiesModule) {
-      enabledComponents.push('angular-cookies/angular-cookies.js');
-    }
-
-    if (this.messagesModule) {
-      enabledComponents.push('angular-messages/angular-messages.js');
-    }
-
-    if (this.resourceModule) {
-      enabledComponents.push('angular-resource/angular-resource.js');
-    }
-
-    if (this.routeModule) {
-      enabledComponents.push('angular-route/angular-route.js');
-    }
-
-    if (this.sanitizeModule) {
-      enabledComponents.push('angular-sanitize/angular-sanitize.js');
-    }
-
-    if (this.touchModule) {
-      enabledComponents.push('angular-touch/angular-touch.js');
-    }
-
-    enabledComponents = [
-      'angular/angular.js',
-      'angular-mocks/angular-mocks.js',
-      //angularfire
-      'firebase/firebase.js',
-      'angularfire/dist/angularfire.js'
-    ].concat(enabledComponents).join(',');
 
     var jsExt = this.options.coffee ? 'coffee' : 'js';
 
@@ -172,8 +139,7 @@ var Generator = module.exports = function Generator(args, options) {
         'base-path': '../',
         'coffee': this.options.coffee,
         'travis': true,
-        'bower-components': enabledComponents,
-//        'app-files': 'app/scripts/**/*.' + jsExt,
+        'files-comments': bowerComments.join(','),
         'app-files': appFiles.join(','), //angularfire
         'test-files': [
           'test/mock/**/*.' + jsExt,
@@ -467,6 +433,7 @@ Generator.prototype.packageFiles = function packageFiles() {
   this.template('root/_bowerrc', '.bowerrc');
   this.template('root/_package.json', 'package.json');
   this.template('root/_Gruntfile.js', 'Gruntfile.js');
+  this.template('root/README.md', 'README.md');
 };
 
 Generator.prototype._injectDependencies = function _injectDependencies() {
@@ -478,19 +445,7 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
       '\n' + chalk.yellow.bold('grunt wiredep')
     );
   } else {
-    wiredep({
-      directory: 'bower_components',
-      bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
-      ignorePath: new RegExp('^(' + this.appPath + '|..)/'),
-      src: 'app/index.html',
-      fileTypes: {
-        html: {
-          replace: {
-            css: '<link rel="stylesheet" href="{{filePath}}">'
-          }
-        }
-      }
-    });
+    this.spawnCommand('grunt', ['wiredep']);
   }
 };
 

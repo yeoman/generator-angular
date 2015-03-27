@@ -1,7 +1,12 @@
-/* Space out content a bit */
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 0;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -15,6 +20,7 @@ body {
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 10px;
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
@@ -31,12 +37,6 @@ body {
   border-top: 1px solid #e5e5e5;
 }
 
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
 .container-narrow > hr {
   margin: 30px 0;
 }
@@ -61,6 +61,10 @@ body {
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+
   /* Remove the padding we set earlier */
   .header,
   .marketing,

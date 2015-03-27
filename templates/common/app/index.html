@@ -20,38 +20,57 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a ng-href="#">Home</a></li>
-          <!-- //angularfire -->
-          <%
-            if (ngRoute) {
-          %><li><a ng-href="#/chat">chat</a></li>
-          <%
+    <div class="header">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <% if (bootstrap) { %>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <% } %>
+            <a class="navbar-brand" href="#/"><%= appname %></a>
+          </div>
+          <% if (bootstrap) { %>
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+          <% } else { %>
+          <div class="collapse">
+          <% } %>
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#/">Home</a></li>
+              <!-- //angularfire -->
+              <%
+              if (ngRoute) {
+              %><li><a ng-href="#/chat">chat</a></li>
+              <%
               if (loginModule) {
-          %><li>
-            <a ng-hide-auth href="#/login">log in</a>
-            <a ng-show-auth href="#/account">account</a>
-          </li>
-          <%
-              }
-            } else {
-          %><li><a ng-href="#">link</a></li>
-          <% }
-        %></ul>
-        <h3 class="text-muted"><%= appname %></h3>
+              %><li>
+              <a ng-hide-auth href="#/login">log in</a>
+              <a ng-show-auth href="#/account">account</a>
+            </li>
+              <%
+              }}
+              %>
+            </ul>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <% if (ngRoute) {
-        %><div ng-view></div><%
-      } else {
-        <!-- //angularfire -->
-        %><div ng-include="'views/chat.html'" ng-controller="ChatCtrl"></div><%
-      } %>
+    <div class="container">
+    <% if (ngRoute) {
+      %><div ng-view></div><%
+    } else {
+      %><div ng-include="'views/chat.html'" ng-controller="ChatCtrl"></div><%
+    } %>
+    </div>
 
-      <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team, and from Firebase</p>
+    <div class="footer">
+      <div class="container">
+        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team and Firebase</p>
       </div>
     </div>
 
@@ -66,13 +85,6 @@
        ga('create', 'UA-XXXXX-X');
        ga('send', 'pageview');
     </script>
-
-    <!-- build:js(.) scripts/oldieshim.js -->
-    <!--[if lt IE 9]>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/json3/lib/json3.js"></script>
-    <![endif]-->
-    <!-- endbuild -->
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->

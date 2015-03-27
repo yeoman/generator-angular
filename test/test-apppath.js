@@ -1,4 +1,3 @@
-/*global describe, before, it, beforeEach */
 'use strict';
 
 var path = require('path');
@@ -38,7 +37,7 @@ describe('Angular generator appPath option', function () {
   };
 
   beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'tmp'), function (err) {
+    helpers.testDirectory(path.join(__dirname, 'tmp', 'app'), function (err) {
       if (err) {
         done(err);
       }
@@ -46,13 +45,11 @@ describe('Angular generator appPath option', function () {
       angular = helpers.createGenerator(
         'angularfire:app',
         [
-          '../../app',
-          '../../common',
-          '../../controller',
-          '../../main', [
-            helpers.createDummyGenerator(),
-            'karma:app'
-          ]
+          '../../../app',
+          '../../../common',
+          '../../../controller',
+          '../../../main',
+          [ helpers.createDummyGenerator(), 'karma:app' ]
         ],
         false,
         genOptions
