@@ -7,12 +7,13 @@
  * Provides rudimentary account management functions.
  */
 angular.module('<%= scriptAppName %>')
-  .controller('AccountCtrl', function ($scope, user, simpleLogin, fbutil, $timeout) {
+  .controller('AccountCtrl', function ($scope, user, Auth, Ref, $firebaseObject, $timeout) {
     $scope.user = user;
-    $scope.logout = simpleLogin.logout;
+    $scope.logout = function() { Auth.$unauth(); };
     $scope.messages = [];
-    var profile;
-    loadProfile(user);<% if( hasPasswordProvider ) { %>
+    var profile = $firebaseObject(Ref.child('users/'+user.uid));
+    profile.$bindTo($scope, 'profile');
+    <% if( hasPasswordProvider ) { %>
 
     $scope.changePassword = function(oldPass, newPass, confirm) {
       $scope.err = null;
@@ -23,7 +24,7 @@ angular.module('<%= scriptAppName %>')
         error('Passwords do not match');
       }
       else {
-        simpleLogin.changePassword(profile.email, oldPass, newPass)
+        Auth.$changePassword({email: profile.email, oldPassword: oldPass, newPassword: newPass})
           .then(function() {
             success('Password changed');
           }, error);
@@ -32,7 +33,7 @@ angular.module('<%= scriptAppName %>')
 
     $scope.changeEmail = function(pass, newEmail) {
       $scope.err = null;
-      simpleLogin.changeEmail(pass, newEmail, profile.email)
+      Auth.$changeEmail({password: pass, newEmail: newEmail, oldEmail: profile.email})
         .then(function() {
           profile.email = newEmail;
           profile.$save();
@@ -57,11 +58,4 @@ angular.module('<%= scriptAppName %>')
       }, 10000);
     }<% } %>
 
-    function loadProfile(user) {
-      if( profile ) {
-        profile.$destroy();
-      }
-      profile = fbutil.syncObject('users/'+user.uid);
-      profile.$bindTo($scope, 'profile');
-    }
   });

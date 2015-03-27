@@ -7,7 +7,7 @@
 # AccountCtrl
 Provides rudimentary account management functions.
 ###
-angular.module("<%= scriptAppName %>").controller "AccountCtrl", ($scope, user, simpleLogin, fbutil, $timeout) ->
+angular.module("<%= scriptAppName %>").controller "AccountCtrl", ($scope, user, Auth, Ref, $firebaseObject, $timeout) ->
   <% if( hasPasswordProvider ) { %>error = (err) ->
     alert err, "danger"
     return
@@ -26,17 +26,14 @@ angular.module("<%= scriptAppName %>").controller "AccountCtrl", ($scope, user, 
     ), 10000
     return
 
-  <% } %>loadProfile = (user) ->
-    profile.$destroy()  if profile
-    profile = fbutil.syncObject("users/" + user.uid);
-    profile.$bindTo $scope, "profile"
-    return
+  <% } %>
 
+  profile = $firebaseObject(Ref.child("users/" + user.uid))
+  profile.$bindTo $scope, "profile"
   $scope.user = user
-  $scope.logout = simpleLogin.logout
+  $scope.logout = () -> Auth.$unauth()
   $scope.messages = []
-  profile = null
-  loadProfile user
+
   <% if( hasPasswordProvider ) { %>
   $scope.changePassword = (oldPass, newPass, confirm) ->
     $scope.err = null
@@ -45,7 +42,7 @@ angular.module("<%= scriptAppName %>").controller "AccountCtrl", ($scope, user, 
     else if newPass isnt confirm
       error "Passwords do not match"
     else
-      simpleLogin.changePassword(profile.email, oldPass, newPass).then (->
+      Auth.$changePassword({email: profile.email, oldPassword: oldPass, newPassword: newPass}).then (->
         success "Password changed"
         return
       ), error
@@ -53,7 +50,7 @@ angular.module("<%= scriptAppName %>").controller "AccountCtrl", ($scope, user, 
 
   $scope.changeEmail = (pass, newEmail) ->
     $scope.err = null
-    simpleLogin.changeEmail(pass, newEmail, profile.email).then ((user) ->
+    Auth.$changeEmail({password: pass, oldEmail: profile.email, newEmail: newEmail}).then ((user) ->
       profile.email = newEmail
       profile.$save()
       success "Email changed"

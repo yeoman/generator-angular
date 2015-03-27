@@ -1,8 +1,8 @@
 {
   "bower": {
-    "firebase": "2.1.x",
-    "angularfire": "0.9.1",
-    "mockfirebase": "0.8.x"
+    "firebase": "2.2.2",
+    "angularfire": "1.0.0",
+    "mockfirebase": "0.11.0"
   },
 
   "authProviders": [
@@ -12,9 +12,5 @@
     { "name": "Google",         "value": "google"    },
     { "name": "Twitter",        "value": "twitter"   },
     { "name": "GitHub",         "value": "github"    }
-  ],
-
-  "specialRoutes": {
-    "chat": true, "login": true, "account": true
-  }
+  ]
 }

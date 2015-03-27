@@ -21,10 +21,5 @@ angular.module("<%= scriptAppName %>").config [
       controller: "MainCtrl"
     )
 
-    .when("/chat",
-      templateUrl: "views/chat.html"
-      controller: "ChatCtrl"
-    )
-
     .otherwise redirectTo: "/"
 ]

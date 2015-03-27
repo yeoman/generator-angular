@@ -3,16 +3,12 @@
  * @name <%= scriptAppName %>.directive:ngShowAuth
  * @description
  * # ngShowAuthDirective
- * A directive that shows elements only when user is logged in. It also waits for simpleLogin
+ * A directive that shows elements only when user is logged in. It also waits for Auth
  * to be initialized so there is no initial flashing of incorrect state.
  */
 angular.module('<%= scriptAppName %>')
-  .directive('ngShowAuth', ['simpleLogin', '$timeout', function (simpleLogin, $timeout) {
+  .directive('ngShowAuth', ['Auth', '$timeout', function (Auth, $timeout) {
     'use strict';
-    var isLoggedIn;
-    simpleLogin.watch(function(user) {
-      isLoggedIn = !!user;
-    });
 
     return {
       restrict: 'A',
@@ -23,12 +19,12 @@ angular.module('<%= scriptAppName %>')
           // sometimes if ngCloak exists on same element, they argue, so make sure that
           // this one always runs last for reliability
           $timeout(function () {
-            el.toggleClass('ng-cloak', !isLoggedIn);
+            el.toggleClass('ng-cloak', !Auth.$getAuth());
           }, 0);
         }
 
-        simpleLogin.watch(update, scope);
-        simpleLogin.getUser(update);
+        Auth.$onAuth(update);
+        update();
       }
     };
   }]);

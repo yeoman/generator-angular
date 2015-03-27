@@ -14,6 +14,9 @@ var Generator = module.exports = function Generator(name) {
     required: false
   });
 
+  console.log('options', this.options);
+  console.log('env', this.env.options);
+
   var bower = require(path.join(process.cwd(), 'bower.json'));
   var match = require('fs').readFileSync(path.join(
     this.env.options.appPath,
@@ -28,8 +31,10 @@ var Generator = module.exports = function Generator(name) {
     this.foundWhenForRoute = true;
   }
 
-  if( this.env.options.afconfig.specialRoutes[name] !== true) {
+  if( !this.options.skipController ) {
     this.hookFor('angularfire:controller');
+  }
+  if( !this.options.skipView ) {
     this.hookFor('angularfire:view');
   }
 };
@@ -68,7 +73,7 @@ Generator.prototype.rewriteRoutesJs = function () {
   };
 
 
-  var whenMethod = this.env.options.authRequired || this.options['auth-required']? 'whenAuthenticated' : 'when';
+  var whenMethod = this.options['authRequired']? 'whenAuthenticated' : 'when';
 
   if (coffee) {
     config.splicable.unshift("." + whenMethod + " '/" + this.uri + "',");

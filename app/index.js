@@ -155,25 +155,27 @@ var Generator = module.exports = function Generator(args, options) {
       callback: this._injectDependencies.bind(this)
     });
 
+    //angularfire
     if (this.env.options.ngRoute) {
-      // this will not create controller or html because
-      // "chat" exists in config.json::specialRoutes
       this.invoke('angularfire:route', {
-        //angularfire
-        args: ['chat']
+        args: ['chat'],
+        options: { skipController: true, skipView: true, authRequired: false }
       });
+
+      if(this.env.options.loginModule) {
+        this.invoke('angularfire:route', {
+          args: ['login'],
+          options: { skipController: true, skipView: true, authRequired: false }
+        });
+
+        this.invoke('angularfire:route', {
+          args: ['account'],
+          options: { skipController: true, skipView: true, authRequired: true }
+        })
+      }
     }
 
     //angularfire
-    if(this.env.options.loginModule) {
-      if( this.env.options.ngRoute ) {
-        // this will not create controller or html because
-        // "login" exists in config.json::specialRoutes
-        this.invoke('angularfire:route', {
-          args: ['login']
-        });
-      }
-    }
   });
 
   this.pkg = require('../package.json');
@@ -187,7 +189,7 @@ Generator.prototype.welcome = function welcome() {
     this.log(yosay());
     this.log(
       chalk.magenta(
-        'Out of the box I include Bootstrap and some AngularJS recommended modules, AngularFire, and Firebase Simple Login.' +
+        'Out of the box I include Bootstrap and some AngularJS recommended modules, AngularFire, and Firebase authentication.' +
         '\n'
       )
     );
@@ -358,10 +360,10 @@ Generator.prototype.askForModules = function askForModules() {
 
     //angularfire
     angMods.push("'firebase'");
-    angMods.push("'firebase.utils'");
+    angMods.push("'firebase.ref'");
     if( this.loginModule ) {
-      this.env.options.simpleLogin = true;
-      angMods.push("'simpleLogin'");
+      this.env.options.loginModule = true;
+      angMods.push("'firebase.auth'");
     }
 
     if (angMods.length) {
@@ -389,13 +391,13 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
 //angularfire
 Generator.prototype.copyAngularFireFiles = function() {
   this._common('scripts/angularfire/config.js');
-  this._common('scripts/angularfire/firebase.utils.js');
+  this._common('scripts/angularfire/firebase.ref.js');
   this._tpl('controllers/chat');
   this._htmlTpl('views/chat.html');
   this._tpl('filters/reverse');
 
   if( this.loginModule ) {
-    this._common('scripts/angularfire/simpleLogin.js');
+    this._common('scripts/angularfire/auth.js');
     this._tpl('controllers/login');
     this._tpl('controllers/account');
     this._htmlTpl('views/login.html');

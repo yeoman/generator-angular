@@ -22,15 +22,15 @@ but abstracting it makes things cleaner (controllers don't need to worry about a
 or timing of displaying its UI components; it can assume it is taken care of when it runs)
 
 resolve: {
-user: ['simpleLogin', function(simpleLogin) {
-return simpleLogin.getUser();
+user: ['Auth', function(Auth) {
+return Auth.$getAuth();
 }]
 }
 ###
 
 ###
 Adds a special `whenAuthenticated` method onto $routeProvider. This special method,
-when called, invokes the authRequired() service (see simpleLogin.js).
+when called, invokes Auth.$requireAuth() (see auth.js).
 
 The promise either resolves to the authenticated user object and makes it available to
 dependency injection (see AccountCtrl), or rejects the promise if user is not logged in,
@@ -47,14 +47,14 @@ forcing a redirect to the /login page
 
 ###
 Apply some route security. Any route's resolve method can reject the promise with
-{ authRequired: true } to force a redirect. This method enforces that and also watches
+"AUTH_REQUIRED" to force a redirect. This method enforces that and also watches
 for changes in auth status which might require us to navigate away from a path
 that we can no longer view.
 ###
 
 # watch for login status changes and redirect if appropriate
 
-# some of our routes may reject resolve promises with the special {authRequired: true} error
+# some of our routes may reject resolve promises with the special "AUTH_REQUIRED" error
 # this redirects to the login page whenever that is encountered
 
 # used by route security
@@ -65,9 +65,9 @@ angular.module("<%= scriptAppName %>").config([
     $routeProvider.whenAuthenticated = (path, route) ->
       route.resolve = route.resolve or {}
       route.resolve.user = [
-        "authRequired"
-        (authRequired) ->
-          return authRequired()
+        "Auth"
+        (Auth) ->
+          return Auth.$requireAuth()
       ]
       $routeProvider.when path, route
       SECURED_ROUTES[path] = true
@@ -81,38 +81,23 @@ angular.module("<%= scriptAppName %>").config([
       controller: "MainCtrl"
     )
 
-    .when("/login",
-      templateUrl: "views/login.html"
-      controller: "LoginCtrl"
-    )
-
-    .when("/chat",
-      templateUrl: "views/chat.html"
-      controller: "ChatCtrl"
-    )
-
-    .whenAuthenticated("/account",
-      templateUrl: "views/account.html"
-      controller: "AccountCtrl"
-    )
-
     .otherwise redirectTo: "/"
 
 ]).run([
   "$rootScope"
   "$location"
-  "simpleLogin"
+  "Auth"
   "SECURED_ROUTES"
   "loginRedirectPath"
-  ($rootScope, $location, simpleLogin, SECURED_ROUTES, loginRedirectPath) ->
+  ($rootScope, $location, Auth, SECURED_ROUTES, loginRedirectPath) ->
     check = (user) ->
       $location.path loginRedirectPath  if not user and authRequired($location.path())
       return
     authRequired = (path) ->
       SECURED_ROUTES.hasOwnProperty path
-    simpleLogin.watch check, $rootScope
+    Auth.$onAuth check
     $rootScope.$on "$routeChangeError", (e, next, prev, err) ->
-      $location.path loginRedirectPath  if angular.isObject(err) and err.authRequired
+      $location.path loginRedirectPath  if err is 'AUTH_REQUIRED'
       return
 
 ]).constant "SECURED_ROUTES", {}
