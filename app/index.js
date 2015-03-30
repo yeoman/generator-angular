@@ -171,7 +171,7 @@ var Generator = module.exports = function Generator(args, options) {
         this.invoke('angularfire:route', {
           args: ['account'],
           options: { skipController: true, skipView: true, authRequired: true }
-        })
+        });
       }
     }
 

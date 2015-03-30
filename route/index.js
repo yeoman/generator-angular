@@ -70,7 +70,7 @@ Generator.prototype.rewriteRoutesJs = function () {
   };
 
 
-  var whenMethod = this.options['authRequired']? 'whenAuthenticated' : 'when';
+  var whenMethod = this.options.authRequired? 'whenAuthenticated' : 'when';
 
   if (coffee) {
     config.splicable.unshift("." + whenMethod + " '/" + this.uri + "',");
