@@ -14,9 +14,6 @@ var Generator = module.exports = function Generator(name) {
     required: false
   });
 
-  console.log('options', this.options);
-  console.log('env', this.env.options);
-
   var bower = require(path.join(process.cwd(), 'bower.json'));
   var match = require('fs').readFileSync(path.join(
     this.env.options.appPath,
