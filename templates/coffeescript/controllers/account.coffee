@@ -7,7 +7,7 @@
 # AccountCtrl
 Provides rudimentary account management functions.
 ###
-angular.module("<%= scriptAppName %>").controller "AccountCtrl", ($scope, user, Auth, Ref, $firebaseObject, $timeout) ->
+angular.module("<%= scriptAppName %>").controller "AccountCtrl", ($scope, user, Auth, Ref, $firebaseObject<% if( hasPasswordProvider ) { %>, $timeout<% } %>) ->
   <% if( hasPasswordProvider ) { %>error = (err) ->
     alert err, "danger"
     return
