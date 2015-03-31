@@ -1,5 +1,24 @@
+# Dependency directory
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
 node_modules
 bower_components
+
+# Debug log from npm
+npm-debug.log
+
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+build/Release
+
+# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+dist
+/server/config/local.env.js
 test/temp
 demo
 .idea
