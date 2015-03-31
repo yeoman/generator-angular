@@ -17,8 +17,6 @@ pids
 *.pid
 *.seed
 
-dist
-/server/config/local.env.js
 test/temp
 demo
 .idea
