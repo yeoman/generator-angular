@@ -12,9 +12,9 @@ of the popular options, have a look at
 
 For step-by-step instructions on using Yeoman and this generator to build a TODO AngularJS application from scratch see [this tutorial.](http://yeoman.io/codelab/)
 
-Install `yo`, `grunt`, `bower`, `generator-angular` and `generator-karma`:
+Install `yo`, `grunt-cli`, `bower`, `generator-angular` and `generator-karma`:
 ```
-npm install -g grunt bower yo generator-karma generator-angular
+npm install -g grunt-cli bower yo generator-karma generator-angular
 ```
 
 Make a new directory, and `cd` into it:
