@@ -48,7 +48,7 @@ angular.module("<%= scriptAppName %>").controller "LoginCtrl", ($scope, Auth, $l
   $scope.createAccount = (email, pass, confirm) ->
 
     createProfile = (user) ->
-      ref = Ref.child('users', user.uid)
+      ref = Ref.child('users').child(user.uid)
       def = $q.defer()
       ref.set {
         email: email

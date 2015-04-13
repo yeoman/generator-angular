@@ -28,7 +28,7 @@ angular.module("<%= scriptAppName %>").controller "AccountCtrl", ($scope, user, 
 
   <% } %>
 
-  profile = $firebaseObject(Ref.child("users/" + user.uid))
+  profile = $firebaseObject(Ref.child("users").child(user.uid))
   profile.$bindTo $scope, "profile"
   $scope.user = user
   $scope.logout = () -> Auth.$unauth()
