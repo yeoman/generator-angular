@@ -11,7 +11,7 @@ angular.module('<%= scriptAppName %>')
     $scope.user = user;
     $scope.logout = function() { Auth.$unauth(); };
     $scope.messages = [];
-    var profile = $firebaseObject(Ref.child('users/'+user.uid));
+    var profile = $firebaseObject(Ref.child('users').child(user.uid));
     profile.$bindTo($scope, 'profile');
     <% if( hasPasswordProvider ) { %>
 
