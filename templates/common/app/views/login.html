@@ -29,7 +29,7 @@
   </p>
   <p class="form-group" ng-cloak ng-show="createMode">
     <label for="loginConfirm">confirm pass</label>
-    <input id="loginConfirm" required name="confirm" type="password" ng-model="confirm"<%= formCtrl %> />
+    <input id="loginConfirm" ng-required="createMode" name="confirm" type="password" ng-model="confirm"<%= formCtrl %> />
   </p>
 
   <p>
