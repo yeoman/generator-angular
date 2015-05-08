@@ -1,4 +1,5 @@
 {
+  "name": "<%= _.slugify(appname) %>",
   "private": true,
   "devDependencies": {
     "grunt": "^0.4.5",
@@ -7,7 +8,8 @@
     "grunt-concurrent": "^1.0.0",
     "grunt-contrib-clean": "^0.6.0",<% if (coffee) { %>
     "grunt-contrib-coffee": "^0.12.0",<% } %><% if (compass) { %>
-    "grunt-contrib-compass": "^1.0.0",<% } %>
+    "grunt-contrib-compass": "^1.0.0",<% } else if (sass) { %>
+    "grunt-sass": "^1.0.0",<% } %>
     "grunt-contrib-concat": "^0.5.0",
     "grunt-contrib-connect": "^0.9.0",
     "grunt-contrib-copy": "^0.7.0",
