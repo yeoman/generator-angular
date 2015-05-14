@@ -61,7 +61,7 @@ Generator.prototype.rewriteAppJs = function () {
     splicable: [
       "  templateUrl: 'views/" + this.name.toLowerCase() + ".html'" + (coffee ? "" : "," ),
       "  controller: '" + this.classedName + "Ctrl'" + (coffee ? "" : ","),
-      "  controllerAs: '" + this.classedName + "'"
+      "  controllerAs: '" + this.cameledName + "'"
     ]
   };
 
