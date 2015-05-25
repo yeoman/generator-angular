@@ -16,8 +16,7 @@ var Generator = module.exports = function Generator(args, options) {
 
   this.option('app-suffix', {
     desc: 'Allow a custom suffix to be added to the module name',
-    type: String,
-    required: 'false'
+    type: String
   });
   this.env.options['app-suffix'] = this.options['app-suffix'];
   this.scriptAppName = this.appname + angularUtils.appName(this);
