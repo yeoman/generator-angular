@@ -1,4 +1,5 @@
 {
+  "name": "<%= _.slugify(_.humanize(appname)) %>",
   "private": true,
   "devDependencies": {
     "grunt": "^0.4.5",
@@ -30,6 +31,5 @@
   },
   "engines": {
     "node": ">=0.10.0"
-  },
-  "name": "generator-angular-generated-application"
+  }
 }
