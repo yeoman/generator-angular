@@ -1,4 +1,5 @@
 {
+  "name": "<%= _.slugify(appname) %>",
   "private": true,
   "devDependencies": {
     "grunt": "^0.4.5",
