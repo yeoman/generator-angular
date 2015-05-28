@@ -56,6 +56,21 @@ var Generator = module.exports = function Generator(args, options) {
     this.env.options.coffee = this.options.coffee;
   }
 
+  if (typeof this.env.options.typescript === 'undefined') {
+    this.option('typescript', {
+      desc: 'Generate TypeScript instead of JavaScript'
+    });
+
+    // attempt to detect if user is using TS or not
+    // if cml arg provided, use that; else look for the existence of ts
+    if (!this.options.typescript &&
+      this.expandFiles(path.join(this.appPath, '/scripts/**/*.ts'), {}).length > 0) {
+      this.options.typescript = true;
+    }
+
+    this.env.options.typescript = this.options.typescript;
+  }
+
   this.hookFor('angular:common', {
     args: args
   });
@@ -303,10 +318,14 @@ Generator.prototype.createIndexHtml = function createIndexHtml() {
 
 Generator.prototype.packageFiles = function packageFiles() {
   this.coffee = this.env.options.coffee;
+  this.typescript = this.env.options.typescript;
   this.template('root/_bower.json', 'bower.json');
   this.template('root/_bowerrc', '.bowerrc');
   this.template('root/_package.json', 'package.json');
   this.template('root/_Gruntfile.js', 'Gruntfile.js');
+  if (this.typescript) {
+    this.template('root/_tsd.json', 'tsd.json');
+  }
   this.template('root/README.md', 'README.md');
 };
 
