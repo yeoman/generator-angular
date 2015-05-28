@@ -141,6 +141,36 @@ describe('Angular generator file creation', function () {
     it('should generate a new service', function (done) {
       generatorTest('service', 'service', 'services', _.capitalize, _.capitalize, '', done);
     });
+
+    it('creates typescript files', function (done) {
+      var expected = ['app/.htaccess',
+        'app/404.html',
+        'app/favicon.ico',
+        'app/robots.txt',
+        'app/styles/main.scss',
+        'app/views/main.html',
+        '.bowerrc',
+        'Gruntfile.js',
+        'package.json',
+        'bower.json',
+        'app/scripts/app.ts',
+        'app/index.html',
+        'app/scripts/controllers/main.ts',
+        'test/spec/controllers/main.ts'
+      ];
+      helpers.mockPrompt(angular, {
+        compass: true,
+        bootstrap: true,
+        compassBootstrap: true,
+        modules: []
+      });
+
+      angular.env.options.typescript = true;
+      angular.run([], function () {
+        helpers.assertFiles(expected);
+        done();
+      });
+    });
   });
 
   describe('View', function () {
