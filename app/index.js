@@ -135,15 +135,21 @@ Generator.prototype.welcome = function welcome() {
   }
 };
 
-Generator.prototype.askForCompass = function askForCompass() {
+Generator.prototype.askForSass = function askForSass() {
   var cb = this.async();
 
   this.prompt([{
     type: 'confirm',
-    name: 'compass',
-    message: 'Would you like to use Sass (with Compass)?',
+    name: 'sass',
+    message: 'Would you like to use Sass?',
     default: true
+  }, {
+    type: 'confirm',
+    name: 'compass',
+    message: 'Would you like to use Compass?',
+    default: false
   }], function (props) {
+    this.sass = props.sass;
     this.compass = props.compass;
 
     cb();
@@ -151,7 +157,7 @@ Generator.prototype.askForCompass = function askForCompass() {
 };
 
 Generator.prototype.askForBootstrap = function askForBootstrap() {
-  var compass = this.compass;
+  var sass = this.sass;
   var cb = this.async();
 
   this.prompt([{
@@ -161,15 +167,15 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
     default: true
   }, {
     type: 'confirm',
-    name: 'compassBootstrap',
+    name: 'sassBootstrap',
     message: 'Would you like to use the Sass version of Bootstrap?',
     default: true,
     when: function (props) {
-      return props.bootstrap && compass;
+      return props.bootstrap && sass;
     }
   }], function (props) {
     this.bootstrap = props.bootstrap;
-    this.compassBootstrap = props.compassBootstrap;
+    this.sassBootstrap = props.sassBootstrap;
 
     cb();
   }.bind(this));
@@ -279,7 +285,7 @@ Generator.prototype.readIndex = function readIndex() {
 };
 
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
-  var cssFile = 'styles/main.' + (this.compass ? 's' : '') + 'css';
+  var cssFile = 'styles/main.' + (this.sass ? 's' : '') + 'css';
   this.copy(
     path.join('app', cssFile),
     path.join(this.appPath, cssFile)

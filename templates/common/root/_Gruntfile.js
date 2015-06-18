@@ -57,6 +57,10 @@ module.exports = function (grunt) {
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
+      },<% } else if (sass) { %>
+      sass: {
+        files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        tasks: ['sass:server', 'autoprefixer']
       },<% } else { %>
       styles: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
@@ -222,7 +226,7 @@ module.exports = function (grunt) {
               }
             }<% } %>
           }
-      }<% if (compass) { %>,
+      }<% if (sass) { %>,
       sass: {
         src: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
@@ -281,6 +285,33 @@ module.exports = function (grunt) {
         options: {
           sourcemap: true
         }
+      }
+    },<% } else { %>
+
+    // Compiles Sass to CSS and generates necessary files if requested
+    sass: {
+      options: {
+        includePaths: [
+          'bower_components'
+        ]
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>/styles',
+          src: ['*.scss'],
+          dest: '.tmp/styles',
+          ext: '.css'
+        }]
+      },
+      server: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>/styles',
+          src: ['*.scss'],
+          dest: '.tmp/styles',
+          ext: '.css'
+        }]
       }
     },<% } %>
 
@@ -452,12 +483,12 @@ module.exports = function (grunt) {
           src: ['generated/*']
         }<% if (bootstrap) { %>, {
           expand: true,
-          cwd: '<% if (!compassBootstrap) {
+          cwd: '<% if (!sassBootstrap) {
               %>bower_components/bootstrap/dist<%
             } else {
               %>.<%
             } %>',
-          src: '<% if (compassBootstrap) {
+          src: '<% if (sassBootstrap) {
               %>bower_components/bootstrap-sass-official/assets/fonts/bootstrap<%
             } else { %>fonts<% }
             %>/*',
@@ -476,17 +507,19 @@ module.exports = function (grunt) {
     concurrent: {
       server: [<% if (coffee) { %>
         'coffee:dist',<% } %><% if (compass) { %>
-        'compass:server'<% } else { %>
+        'compass:server',<% } else if (sass) { %>
+        'sass:server',<% } else { %>
         'copy:styles'<% } %>
       ],
       test: [<% if (coffee) { %>
         'coffee',<% } %><% if (compass) { %>
-        'compass'<% } else { %>
+        'compass',<% } else { %>
         'copy:styles'<% } %>
       ],
       dist: [<% if (coffee) { %>
         'coffee',<% } %><% if (compass) { %>
-        'compass:dist',<% } else { %>
+        'compass:dist',<% } else if (sass) { %>
+        'sass',<% } else { %>
         'copy:styles',<% } %>
         'imagemin',
         'svgmin'

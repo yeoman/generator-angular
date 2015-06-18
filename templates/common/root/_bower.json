@@ -2,7 +2,7 @@
   "name": "<%= _.slugify(_.humanize(appname)) %>",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "^<%= ngVer %>"<% if (bootstrap) { %>,<% if (!compassBootstrap) { %>
+    "angular": "^<%= ngVer %>"<% if (bootstrap) { %>,<% if (!sassBootstrap) { %>
     "bootstrap": "^3.2.0"<% } else { %>
     "bootstrap-sass-official": "^3.2.0"<% } } %><% if (animateModule) { %>,
     "angular-animate": "^<%= ngVer %>"<% } %><% if (ariaModule) { %>,
