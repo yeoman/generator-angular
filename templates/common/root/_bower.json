@@ -18,5 +18,14 @@
     "angular-mocks": "^<%= ngVer %>"
   }<% if (appPath) { %>,
   "appPath": "<%= appPath %>"<% } %>,
-  "moduleName": "<%= scriptAppName %>"
+  "moduleName": "<%= scriptAppName %>"<% if (bootstrap) { %>,
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  }<% } %>
 }
