@@ -1,6 +1,5 @@
-'use strict';
-
 describe('Controller: <%= classedName %>Ctrl', function () {
+  'use strict';
 
   // load the controller's module
   beforeEach(module('<%= scriptAppName %>'));
