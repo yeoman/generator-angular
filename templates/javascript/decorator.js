@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc function
  * @name <%= scriptAppName %>.decorator:<%= classedName %>
@@ -9,6 +7,8 @@
  */
 angular.module('<%= scriptAppName %>')
   .config(function ($provide) {
+    'use strict';
+
     $provide.decorator('<%= cameledName %>', function ($delegate) {
       // decorate the $delegate
       return $delegate;
