@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc overview
  * @name <%= scriptAppName %>
@@ -11,6 +9,8 @@
 angular
   .module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) { %>
   .config(function ($routeProvider) {
+    'use strict';
+
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
