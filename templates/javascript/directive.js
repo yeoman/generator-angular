@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc directive
  * @name <%= scriptAppName %>.directive:<%= cameledName %>
@@ -8,6 +6,8 @@
  */
 angular.module('<%= scriptAppName %>')
   .directive('<%= cameledName %>', function () {
+    'use strict';
+
     return {
       template: '<div></div>',
       restrict: 'E',
