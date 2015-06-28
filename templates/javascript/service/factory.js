@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc service
  * @name <%= scriptAppName %>.<%= cameledName %>
@@ -9,6 +7,8 @@
  */
 angular.module('<%= scriptAppName %>')
   .factory('<%= cameledName %>', function () {
+    'use strict';
+
     // Service logic
     // ...
 
