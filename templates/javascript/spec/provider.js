@@ -1,6 +1,5 @@
-'use strict';
-
 describe('Service: <%= cameledName %>', function () {
+  'use strict';
 
   // instantiate service
   var <%= cameledName %>,
