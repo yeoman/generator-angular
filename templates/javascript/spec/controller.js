@@ -1,12 +1,12 @@
 'use strict';
 
 describe('Controller: <%= classedName %>Ctrl', function () {
-  var scope;
 
   // load the controller's module
   beforeEach(module('<%= scriptAppName %>'));
 
-  var <%= classedName %>Ctrl;
+  var <%= classedName %>Ctrl,
+    scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {

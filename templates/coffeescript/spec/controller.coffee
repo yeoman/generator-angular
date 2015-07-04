@@ -7,8 +7,11 @@ describe 'Controller: <%= classedName %>Ctrl', ->
 
   <%= classedName %>Ctrl = {}
 
+  scope = {}
+
   # Initialize the controller and a mock scope
   beforeEach inject ($controller, $rootScope) ->
+    scope = $rootScope.$new()
     <%= classedName %>Ctrl = $controller '<%= classedName %>Ctrl', {
       # place here mocked dependencies
     }
