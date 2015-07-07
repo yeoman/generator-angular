@@ -1,3 +1,45 @@
+<a name"0.12.1"></a>
+### 0.12.1 (2015-07-07)
+
+
+#### Bug Fixes
+* **app:**
+  * create new $scope for controller tests ([76b213e2](https://github.com/yeoman/generator-angular/commit/76b213e2))
+  * create new $scope for controller tests ([10676458](https://github.com/yeoman/generator-angular/commit/10676458))
+
+
+<a name"0.12.0"></a>
+### 0.12.0 (2015-07-01)
+
+
+#### Bug Fixes
+
+* **app:**
+  * add an override for bootstrap/bower ([209100d9](https://github.com/yeoman/generator-angular/commit/209100d9))
+  * remove invalid parameter in app-suffix option config ([aacd52b4](https://github.com/yeoman/generator-angular/commit/aacd52b4))
+  * remove IE6/7 CSS hacks ([81a42bcb](https://github.com/yeoman/generator-angular/commit/81a42bcb))
+  * Add `Disallow:` to robots.txt ([fd942ce9](https://github.com/yeoman/generator-angular/commit/fd942ce9))
+  * use `https://` in the Analytics script ([76de76e0](https://github.com/yeoman/generator-angular/commit/76de76e0))
+  * remove `no-js` class ([4ccfbac9](https://github.com/yeoman/generator-angular/commit/4ccfbac9))
+  * update `browsehappy` conditional comment ([c7bb7ff8](https://github.com/yeoman/generator-angular/commit/c7bb7ff8))
+* **build:** update jit config for other modules ([3eb78fe9](https://github.com/yeoman/generator-angular/commit/3eb78fe9), closes [#1129](https://github.com/yeoman/generator-angular/issues/1129))
+* **gen:**
+  * switch ctrlAs name to a cameledName ([b0809c0f](https://github.com/yeoman/generator-angular/commit/b0809c0f))
+  * use absolute paths in generated .gitignore ([1f907d3c](https://github.com/yeoman/generator-angular/commit/1f907d3c))
+  * revert issues introduced in #1041 ([1486af10](https://github.com/yeoman/generator-angular/commit/1486af10))
+* **htmlmin:** disable the removeOptionalTags option. ([f3d592ff](https://github.com/yeoman/generator-angular/commit/f3d592ff))
+* **ngtemplates:** should build dest into .tmp ([bb4babf6](https://github.com/yeoman/generator-angular/commit/bb4babf6))
+* **watch:** sourcemap not updated on sass file change ([5248054d](https://github.com/yeoman/generator-angular/commit/5248054d))
+
+
+#### Features
+
+* **app:**
+  * add grunt-angular-templates to the build ([b7b72b00](https://github.com/yeoman/generator-angular/commit/b7b72b00), closes [#277](https://github.com/yeoman/generator-angular/issues/277))
+  * use `controller as` syntax ([570fbf25](https://github.com/yeoman/generator-angular/commit/570fbf25))
+* **templates:** add provider test scafolding ([7ec5f63d](https://github.com/yeoman/generator-angular/commit/7ec5f63d))
+
+
 <a name="0.11.1"></a>
 ### 0.11.1 (2015-02-10)
 
