@@ -69,6 +69,7 @@ describe('Angular generator file creation', function () {
     it('creates expected JS files', function (done) {
       angular.run({}, function() {
         helpers.assertFile([].concat(expected, [
+          '.jscsrc',
           'app/scripts/app.js',
           'app/scripts/controllers/main.js',
           'test/spec/controllers/main.js'
