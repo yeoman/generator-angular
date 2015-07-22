@@ -19,10 +19,18 @@ module.exports = function (grunt) {
         ]
       }
     },
-    changelog: {
-      options: {
-        dest: 'CHANGELOG.md',
-        versionFile: 'package.json'
+    conventionalGithubReleaser: {
+      release: {
+        options: {
+          auth: {
+            type: 'oauth',
+            token: process.env.GITHUB_AUTHTOKEN
+          },
+          changelogOpts: {
+            preset: 'angular',
+            releaseCount: 0
+          }
+        },
       }
     },
     release: {
@@ -86,9 +94,9 @@ module.exports = function (grunt) {
     grunt.task.run([
       'default',
       'bump' + (type ? ':' + type : ''),
-      'changelog',
       'stage',
-      'release'
+      'release',
+      'conventionalGithubReleaser'
     ]);
   });
 };
