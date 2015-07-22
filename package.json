@@ -58,9 +58,5 @@
   "engines": {
     "node": ">=0.10.0"
   },
-  "licenses": [
-    {
-      "type": "BSD"
-    }
-  ]
+  "license": "BSD-2-Clause"
 }
