@@ -177,17 +177,17 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '.tmp/styles',
+          cwd: '.tmp/styles/',
           src: '{,*/}*.css',
-          dest: '.tmp/styles'
+          dest: '.tmp/styles/'
         }]
       },
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/styles',
+          cwd: '.tmp/styles/',
           src: '{,*/}*.css',
-          dest: '.tmp/styles'
+          dest: '.tmp/styles/'
         }]
       }
     },
