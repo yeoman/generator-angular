@@ -16,6 +16,9 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.sourceRoot(join(__dirname, '../templates/common/root'));
   this.copy('.editorconfig');
   this.copy('.gitattributes');
+  if (!this.env.options.coffee) {
+    this.copy('.jscsrc');
+  }
   this.copy('.jshintrc');
   this.copy('.yo-rc.json');
   this.copy('gitignore', '.gitignore');
