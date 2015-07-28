@@ -30,7 +30,6 @@ Generator.prototype.setupEnv = function setupEnv() {
     this.copy(join('app', dest), join(appPath, dest));
   }.bind(this);
 
-  copy('.buildignore');
   copy('404.html');
   copy('favicon.ico');
   copy('robots.txt');
