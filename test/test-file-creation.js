@@ -7,7 +7,6 @@ var _ = require('underscore.string');
 describe('Angular generator file creation', function () {
   var angular;
   var expected = [
-    'app/.htaccess',
     'app/404.html',
     'app/favicon.ico',
     'app/robots.txt',
@@ -143,7 +142,7 @@ describe('Angular generator file creation', function () {
     });
 
     it('creates typescript files', function (done) {
-      var expected = ['app/.htaccess',
+      var expected = [
         'app/404.html',
         'app/favicon.ico',
         'app/robots.txt',

@@ -8,7 +8,6 @@ describe('Angular generator appPath option', function () {
   var angular;
   var appPath = 'customAppPath';
   var expected = [
-    appPath + '/.htaccess',
     appPath + '/404.html',
     appPath + '/favicon.ico',
     appPath + '/robots.txt',
