@@ -126,11 +126,11 @@ gulp.task('watch', function () {
   gulp.watch('bower.json', ['bower']);
 });
 
-gulp.task('serve', function (callback) {
+gulp.task('serve', function (cb) {
   runSequence('clean:tmp',
     ['lint:scripts'],
     ['start:client'],
-    'watch', callback);
+    'watch', cb);
 });
 
 gulp.task('serve:prod', function() {
@@ -164,7 +164,7 @@ gulp.task('bower', function () {
 // Build //
 ///////////
 
-gulp.task('clean:dist', function () {
+gulp.task('clean:dist', function (cb) {
   rimraf('./dist', cb);
 });
 
