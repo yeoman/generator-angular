@@ -164,12 +164,6 @@ gulp.task('bower', function () {
 // Build //
 ///////////
 
-gulp.task('build', function (callback) {
-  runSequence('clean:dist',
-    ['images', 'copy:extras', 'copy:fonts', 'client:build'],
-    callback);
-});
-
 gulp.task('clean:dist', function () {
   rimraf('./dist', cb);
 });
@@ -218,3 +212,9 @@ gulp.task('copy:fonts', function () {
   return gulp.src(yeoman.app + '/fonts/**/*')
     .pipe(gulp.dest(yeoman.dist + '/fonts'));
 });
+
+gulp.task('build', ['clean:dist'], function () {
+  runSequence(['images', 'copy:extras', 'copy:fonts', 'client:build');
+});
+
+gulp.task('default', ['build']);
