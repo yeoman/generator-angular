@@ -48,8 +48,8 @@ var lintScripts = lazypipe()<% if (coffee) { %>
   .pipe($.jshint.reporter, 'jshint-stylish');<% } %>
 
 var styles = lazypipe()<% if (sass) { %>
-  .pipe($.rubySass, {
-    style: 'expanded',
+  .pipe($.sass, {
+    outputStyle: 'expanded',
     precision: 10
   })<% } %>
   .pipe($.autoprefixer, 'last 1 version')
@@ -102,35 +102,34 @@ gulp.task('start:server:test', function() {
 });
 
 gulp.task('watch', function () {
-
-  $.watch({glob: paths.styles})
+  $.watch(paths.styles)
     .pipe($.plumber())
     .pipe(styles())
     .pipe($.connect.reload());
 
-  $.watch({glob: paths.views.files})
+  $.watch(paths.views.files)
     .pipe($.plumber())
     .pipe($.connect.reload());
 
-  $.watch({glob: paths.scripts})
+  $.watch(paths.scripts)
     .pipe($.plumber())
     .pipe(lintScripts())<% if (coffee) { %>
     .pipe($.coffee({bare: true}).on('error', $.util.log))
     .pipe(gulp.dest('.tmp/scripts'))<% } %>
     .pipe($.connect.reload());
 
-  $.watch({glob: paths.test})
+  $.watch(paths.test)
     .pipe($.plumber())
     .pipe(lintScripts());
 
   gulp.watch('bower.json', ['bower']);
 });
 
-gulp.task('serve', function (callback) {
+gulp.task('serve', function (cb) {
   runSequence('clean:tmp',
     ['lint:scripts'],
     ['start:client'],
-    'watch', callback);
+    'watch', cb);
 });
 
 gulp.task('serve:prod', function() {
@@ -164,13 +163,7 @@ gulp.task('bower', function () {
 // Build //
 ///////////
 
-gulp.task('build', function (callback) {
-  runSequence('clean:dist',
-    ['images', 'copy:extras', 'copy:fonts', 'client:build'],
-    callback);
-});
-
-gulp.task('clean:dist', function () {
+gulp.task('clean:dist', function (cb) {
   rimraf('./dist', cb);
 });
 
@@ -218,3 +211,9 @@ gulp.task('copy:fonts', function () {
   return gulp.src(yeoman.app + '/fonts/**/*')
     .pipe(gulp.dest(yeoman.dist + '/fonts'));
 });
+
+gulp.task('build', ['clean:dist'], function () {
+  runSequence(['images', 'copy:extras', 'copy:fonts', 'client:build');
+});
+
+gulp.task('default', ['build']);
