@@ -353,7 +353,7 @@ Generator.prototype.packageFiles = function packageFiles() {
   this.template('root/_bowerrc', '.bowerrc');
   this.template('root/_package.json', 'package.json');
   if (this.gulp) {
-    this.template('root/_Gulpfile.js', 'Gulpfile.js');
+    this.template('root/_gulpfile.js', 'gulpfile.js');
   } else {
     this.template('root/_Gruntfile.js', 'Gruntfile.js');
   }
@@ -361,7 +361,7 @@ Generator.prototype.packageFiles = function packageFiles() {
     this.template('root/_tsd.json', 'tsd.json');
   }
   this.template('root/README.md', 'README.md');
-  
+
 };
 
 Generator.prototype._injectDependencies = function _injectDependencies() {
