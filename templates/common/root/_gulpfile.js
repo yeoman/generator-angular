@@ -48,8 +48,8 @@ var lintScripts = lazypipe()<% if (coffee) { %>
   .pipe($.jshint.reporter, 'jshint-stylish');<% } %>
 
 var styles = lazypipe()<% if (sass) { %>
-  .pipe($.rubySass, {
-    style: 'expanded',
+  .pipe($.sass, {
+    outputStyle: 'expanded',
     precision: 10
   })<% } %>
   .pipe($.autoprefixer, 'last 1 version')
