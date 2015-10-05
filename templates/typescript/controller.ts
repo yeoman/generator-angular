@@ -3,19 +3,12 @@
 'use strict';
 
 module <%= scriptAppName %> {
-  export interface I<%= classedName %>Scope extends ng.IScope {
-    awesomeThings: any[];
-  }
-
   export class <%= classedName %>Ctrl {
-
-    constructor (private $scope: I<%= classedName %>Scope) {
-      $scope.awesomeThings = [
+    public awesomeThings: string[] = [
         'HTML5 Boilerplate',
         'AngularJS',
         'Karma'
-      ];
-    }
+    ];
   }
 }
 
