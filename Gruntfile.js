@@ -45,11 +45,6 @@ module.exports = function (grunt) {
           passwordVar: 'GITHUB_AUTHTOKEN'
         }
       }
-    },
-    stage: {
-      options: {
-        files: ['CHANGELOG.md']
-      }
     }
   });
 
@@ -94,7 +89,6 @@ module.exports = function (grunt) {
     grunt.task.run([
       'default',
       'bump' + (type ? ':' + type : ''),
-      'stage',
       'release',
       'conventionalGithubReleaser'
     ]);
