@@ -39,6 +39,7 @@ module.exports = function (grunt) {
         file: 'package.json',
         commitMessage: 'chore(release): Release version <%= version %>',
         tagName: 'v<%= version %>',
+        pushTags: false,
         github: {
           repo: 'yeoman/generator-angular',
           usernameVar: 'GITHUB_USERNAME',
