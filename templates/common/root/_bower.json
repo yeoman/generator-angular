@@ -1,4 +1,4 @@
-{<% var ngVer = "1.3.0" %>
+{<% var ngVer = "1.4.0" %>
   "name": "<%= _.slugify(_.humanize(appname)) %>",
   "version": "0.0.0",
   "dependencies": {
