@@ -40,7 +40,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('npmPublish', 'Publish to npm', function () {
     grunt.util.spawn({
-      cmd: 'npm publish',
+      cmd: 'npm',
+      args: ['publish']
     }, grunt.task.current.async());
   });
 
