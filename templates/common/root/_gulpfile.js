@@ -172,7 +172,7 @@ gulp.task('client:build', ['html', 'styles'], function () {
   var cssFilter = $.filter('**/*.css');
 
   return gulp.src(paths.views.main)
-    .pipe($.useref.assets({searchPath: [yeoman.app, '.tmp']}))
+    .pipe($.useref({searchPath: [yeoman.app, '.tmp']}))
     .pipe(jsFilter)
     .pipe($.ngAnnotate())
     .pipe($.uglify())
@@ -181,9 +181,7 @@ gulp.task('client:build', ['html', 'styles'], function () {
     .pipe($.minifyCss({cache: true}))
     .pipe(cssFilter.restore())
     .pipe($.rev())
-    .pipe($.useref.restore())
     .pipe($.revReplace())
-    .pipe($.useref())
     .pipe(gulp.dest(yeoman.dist));
 });
 
