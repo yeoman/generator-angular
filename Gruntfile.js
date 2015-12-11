@@ -25,14 +25,15 @@ module.exports = function (grunt) {
           },
           changelogOpts: {
             preset: 'angular',
-            releaseCount: 0
+            releaseCount: 1
           }
         },
       }
     },
     bump: {
-      files: ['package.json'],
-      commitMessage: 'chore(release): Release version <%= version %>'
+      options: {
+        commitMessage: 'chore(release): Release version <%= version %>'
+      }
     }
   });
 
