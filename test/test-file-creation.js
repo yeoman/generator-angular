@@ -2,6 +2,7 @@
 
 var path = require('path');
 var helpers = require('yeoman-generator').test;
+var assert = require('yeoman-assert');
 var _ = require('underscore.string');
 
 describe('Angular generator file creation', function () {
@@ -60,14 +61,14 @@ describe('Angular generator file creation', function () {
   describe('App files', function () {
     it('should generate dotfiles', function (done) {
       angular.run({}, function () {
-        helpers.assertFile(expected);
+        assert.file(expected);
         done();
       });
     });
 
     it('creates expected JS files', function (done) {
       angular.run({}, function() {
-        helpers.assertFile([].concat(expected, [
+        assert.file([].concat(expected, [
           '.jscsrc',
           'app/scripts/app.js',
           'app/scripts/controllers/main.js',
@@ -80,7 +81,7 @@ describe('Angular generator file creation', function () {
     it('creates CoffeeScript files', function (done) {
       angular.env.options.coffee = true;
       angular.run([], function () {
-        helpers.assertFile([].concat(expected, [
+        assert.file([].concat(expected, [
           'app/scripts/app.coffee',
           'app/scripts/controllers/main.coffee',
           'test/spec/controllers/main.coffee'
@@ -98,7 +99,7 @@ describe('Angular generator file creation', function () {
 
       angular.run([], function () {
         genTester.run([], function () {
-          helpers.assertFileContent([
+          assert.fileContent([
             [
               path.join('app/scripts', targetDirectory, name + '.js'),
               new RegExp(
@@ -166,7 +167,7 @@ describe('Angular generator file creation', function () {
 
       angular.env.options.typescript = true;
       angular.run([], function () {
-        helpers.assertFiles(expected);
+        assert.file(expected);
         done();
       });
     });
@@ -180,7 +181,7 @@ describe('Angular generator file creation', function () {
 
       helpers.mockPrompt(angularView, mockPrompts);
       angularView.run([], function () {
-        helpers.assertFile(['app/views/foo.html']);
+        assert.file(['app/views/foo.html']);
         done();
       });
     });
@@ -192,7 +193,7 @@ describe('Angular generator file creation', function () {
 
       helpers.mockPrompt(angularView, mockPrompts);
       angularView.run([], function () {
-        helpers.assertFile(['app/views/foo/bar.html']);
+        assert.file(['app/views/foo/bar.html']);
         done();
       });
     });

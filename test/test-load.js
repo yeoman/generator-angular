@@ -1,6 +1,6 @@
 'use strict';
 
-var assert = require('yeoman-generator').assert;
+var assert = require('assert');
 
 describe('Angular-Module generator load test', function () {
   it('can be imported without blowing up', function () {

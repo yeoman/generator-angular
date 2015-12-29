@@ -2,6 +2,8 @@
 
 var path = require('path');
 var helpers = require('yeoman-generator').test;
+var assert = require('yeoman-assert');
+
 
 describe('Angular generator template', function () {
   var angular;
@@ -40,27 +42,27 @@ describe('Angular generator template', function () {
 
   it('should generate the same appName in every file', function (done) {
     angular.run({}, function () {
-      helpers.assertFile([
+      assert.file([
         'app/scripts/app.js',
         'app/scripts/controllers/main.js',
         'app/index.html',
         'test/spec/controllers/main.js'
       ]);
 
-      helpers.assertFileContent(
+      assert.fileContent(
         'app/scripts/app.js',
         new RegExp('module\\(\'' + appName + 'App\'')
       );
-      helpers.assertFileContent(
+      assert.fileContent(
         'app/scripts/controllers/main.js',
         new RegExp('module\\(\'' + appName + 'App\'')
       );
-      helpers.assertFileContent(
+      assert.fileContent(
         'test/spec/controllers/main.js',
         new RegExp('module\\(\'' + appName + 'App\'')
       );
 
-      helpers.assertFileContent(
+      assert.fileContent(
         'app/index.html',
         new RegExp('ng-app=\"' + appName + 'App\"')
       );
