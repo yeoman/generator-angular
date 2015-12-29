@@ -2,6 +2,7 @@
 
 var path = require('path');
 var helpers = require('yeoman-generator').test;
+var assert = require('yeoman-assert');
 
 describe('Angular generator route', function () {
   var angular;
@@ -64,8 +65,8 @@ describe('Angular generator route', function () {
   describe('create routes', function () {
     it('should generate default route items', function(done){
       angular.run({}, function(e) {
-        helpers.assertFile(expected);
-        helpers.assertFileContent(
+        assert.file(expected);
+        assert.fileContent(
           'app/scripts/app.js',
           new RegExp('when\\(\'/' + route + '\'')
         );
@@ -80,8 +81,8 @@ describe('Angular generator route', function () {
 
       angular.options.uri = uri;
       angular.run({}, function() {
-        helpers.assertFile(expected);
-        helpers.assertFileContent(
+        assert.file(expected);
+        assert.fileContent(
           'app/scripts/app.js',
           new RegExp('when\\(\'/' + uri + '\'')
         );

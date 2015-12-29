@@ -2,6 +2,7 @@
 
 var path = require('path');
 var helpers = require('yeoman-generator').test;
+var assert = require('yeoman-assert');
 var _ = require('underscore.string');
 
 describe('Angular generator appPath option', function () {
@@ -62,14 +63,14 @@ describe('Angular generator appPath option', function () {
   describe('App files', function () {
     it('should generate dotfiles for apppath', function (done) {
       angular.run({}, function () {
-        helpers.assertFile(expected);
+        assert.file(expected);
         done();
       });
     });
 
     it('creates expected JS files', function (done) {
       angular.run({}, function() {
-        helpers.assertFile([].concat(expected, [
+        assert.file([].concat(expected, [
           '.jscsrc',
           appPath + '/scripts/app.js',
           appPath + '/scripts/controllers/main.js',
@@ -82,7 +83,7 @@ describe('Angular generator appPath option', function () {
     it('creates CoffeeScript files', function (done) {
       angular.env.options.coffee = true;
       angular.run([], function () {
-        helpers.assertFile([].concat(expected, [
+        assert.file([].concat(expected, [
           appPath + '/scripts/app.coffee',
           appPath + '/scripts/controllers/main.coffee',
           'test/spec/controllers/main.coffee'
@@ -101,7 +102,7 @@ describe('Angular generator appPath option', function () {
 
       angular.run([], function () {
         angularGenerator.run([], function () {
-          helpers.assertFileContent([
+          assert.fileContent([
             [
               path.join(appPath + '/scripts', targetDirectory, name + '.js'),
               new RegExp(
@@ -147,7 +148,7 @@ describe('Angular generator appPath option', function () {
       helpers.mockPrompt(angular, mockPrompts);
       angular.run([], function () {
         angularView.run([], function () {
-          helpers.assertFile([appPath + '/views/foo.html']);
+          assert.file([appPath + '/views/foo.html']);
           done();
         });
       });
@@ -161,7 +162,7 @@ describe('Angular generator appPath option', function () {
       helpers.mockPrompt(angular, mockPrompts);
       angular.run([], function () {
         angularView.run([], function () {
-          helpers.assertFile([appPath + '/views/foo/bar.html']);
+          assert.file([appPath + '/views/foo/bar.html']);
           done();
         });
       });
