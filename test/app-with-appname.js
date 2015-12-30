@@ -4,7 +4,6 @@ var path = require('path');
 var helpers = require('yeoman-test');
 var assert = require('yeoman-assert');
 
-
 describe('angular:app appName', function () {
   beforeEach(function (done) {
     helpers
