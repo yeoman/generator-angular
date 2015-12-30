@@ -9,12 +9,6 @@ describe('angular:controller', function () {
     helpers
       .run(require.resolve('../controller'))
       .withArguments('foo')
-      .inTmpDir(function (dir) {
-        fs.writeFileSync(
-          path.join(dir, 'bower.json'),
-          '{"appPath": "app"}'
-        );
-      })
       .on('end', done);
   });
 
