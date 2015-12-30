@@ -45,7 +45,7 @@
     "grunt-contrib-uglify": "^0.7.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-filerev": "^2.1.2",
-    "grunt-google-cdn": "^0.4.3",<% if (!coffee) { %>
+    "grunt-google-cdn": "github:btford/grunt-google-cdn#bca6658",<% if (!coffee) { %>
     "grunt-jscs": "^1.8.0",<% } %>
     "grunt-newer": "^1.1.0",
     "grunt-ng-annotate": "^0.9.2",
