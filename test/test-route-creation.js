@@ -1,94 +1,84 @@
 'use strict';
 
 var path = require('path');
-var helpers = require('yeoman-generator').test;
+var helpers = require('yeoman-test');
 var assert = require('yeoman-assert');
 
-describe('Angular generator route', function () {
-  var angular;
-  var route = 'simpleroute';
-  var expected = [
-    'app/scripts/controllers/' + route + '.js',
-    'test/spec/controllers/' + route + '.js',
-    'app/views/' + route + '.html'
-  ];
-  var genOptions = {
-    'appPath': 'app',
-    'skip-install': true,
-    'skip-welcome-message': true,
-    'skip-message': true
-  };
-  var mockPrompts = {
-    compass: true,
-    bootstrap: true,
-    compassBootstrap: true,
-    modules: ['routeModule']
-  };
+function generateFullProject(cb) {
+  helpers.run(require.resolve('../app'))
+    .withGenerators([
+      require.resolve('../common'),
+      require.resolve('../controller'),
+      require.resolve('../main'),
+      require.resolve('../route'),
+      require.resolve('../view'),
+      [ helpers.createDummyGenerator(), 'karma:app']
+    ])
+    .withOptions({
+      'appPath': 'app',
+      'skip-welcome-message': true,
+      'skip-message': true
+    })
+    .withPrompts({
+      compass: true,
+      bootstrap: true,
+      compassBootstrap: true,
+      modules: ['routeModule']
+    })
+    .on('end', cb);
+}
 
+describe('angular:route', function () {
   beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'tmp', route), function (err) {
-      if (err) {
-        done(err);
-      }
-      angular = helpers.createGenerator(
-        'angular:app',
-        [
-          '../../../app',
-          '../../../common',
-          '../../../controller',
-          '../../../main',
-          '../../../route',
-          '../../../view',
-          [ helpers.createDummyGenerator(), 'karma:app']
-        ],
-        false,
-        genOptions
+    generateFullProject(function () {
+      this.angularRoute = helpers.run(require.resolve('../route'))
+        .withGenerators([
+          require.resolve('../controller'),
+          require.resolve('../view')
+        ])
+        .withOptions({
+          appPath: 'app'
+        })
+        .withArguments(['simpleroute']);
+
+      // Hack to not clear the directory
+      this.angularRoute.inDirSet = true;
+
+      done();
+    }.bind(this));
+  });
+
+  it('generates default route items', function (done) {
+    this.angularRoute.on('end', function () {
+      assert.file([
+        'app/scripts/controllers/simpleroute.js',
+        'test/spec/controllers/simpleroute.js',
+        'app/views/simpleroute.html'
+      ]);
+      assert.fileContent(
+        'app/scripts/app.js',
+        /when\('\/simpleroute'/
       );
-      helpers.mockPrompt(angular, mockPrompts);
-      angular.run({}, function () {
-        angular = helpers.createGenerator(
-          'angular:route',
-          [
-            '../../../controller',
-            '../../../route',
-            '../../../view'
-          ],
-          [route],
-          genOptions
-        );
-        helpers.mockPrompt(angular, mockPrompts);
-        done();
-      });
+      done();
     });
   });
 
-  describe('create routes', function () {
-    it('should generate default route items', function(done){
-      angular.run({}, function(e) {
-        assert.file(expected);
+  it('generates route items with the route uri given', function (done) {
+    this.angularRoute
+      .withOptions({
+        uri: 'segment1/segment2/:parameter'
+      })
+      .on('end', function () {
+        assert.file([
+          'app/scripts/controllers/simpleroute.js',
+          'test/spec/controllers/simpleroute.js',
+          'app/views/simpleroute.html'
+        ]);
         assert.fileContent(
           'app/scripts/app.js',
-          new RegExp('when\\(\'/' + route + '\'')
+          /when\('\/segment1\/segment2\/\:parameter'/
         );
-
         done();
       });
-    });
-
-    // Test with URI specified explicitly
-    it('should generate route items with the route uri given', function(done){
-      var uri = 'segment1/segment2/:parameter';
-
-      angular.options.uri = uri;
-      angular.run({}, function() {
-        assert.file(expected);
-        assert.fileContent(
-          'app/scripts/app.js',
-          new RegExp('when\\(\'/' + uri + '\'')
-        );
-
-        done();
-      });
-    });
   });
 });
