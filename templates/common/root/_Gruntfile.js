@@ -363,7 +363,7 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: '<%%= yeoman.app %>/index.html',
+      html: '<%%= yeoman.dist %>/index.html',
       options: {
         dest: '<%%= yeoman.dist %>',
         flow: {
@@ -391,6 +391,17 @@ module.exports = function (grunt) {
         ],
         patterns: {
           js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
+        },
+        blockReplacements: {
+          // Include cdnified scripts followed by usemin dest script
+          js: function (block) {
+            var scripts = block.src.filter(function (src) {
+              return src.startsWith('//');
+            }).concat(block.dest);
+            return scripts.map(function (src) {
+              return '<script src="' + src + '"></script>';
+            }).join('\n');
+          }
         }
       }
     },
@@ -495,6 +506,14 @@ module.exports = function (grunt) {
 
     // Copies remaining files to places other tasks can use
     copy: {
+      html: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>',
+          src: '*.html',
+          dest: '<%= yeoman.dist %>',
+        }],
+      },
       dist: {
         files: [{
           expand: true,
@@ -503,7 +522,6 @@ module.exports = function (grunt) {
           dest: '<%%= yeoman.dist %>',
           src: [
             '*.{ico,png,txt}',
-            '*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
           ]
@@ -606,6 +624,8 @@ module.exports = function (grunt) {
     'clean:dist',
     'wiredep',<% if (typescript) { %>
     'tsd:refresh',<% } %>
+    'copy:html',
+    'cdnify',
     'useminPrepare',
     'concurrent:dist',
     'postcss',
@@ -613,7 +633,6 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    'cdnify',
     'cssmin',
     'uglify',
     'filerev',
