@@ -17,7 +17,7 @@ Install `yo`, `grunt-cli`, `bower`, `generator-angular` and `generator-karma`:
 npm install -g grunt-cli bower yo generator-karma generator-angular
 ```
 
-Install Ruby (required in order to install compass which is used by this generator)
+Install Ruby and the compass gem. (sass may be deselected later) -
 - Download Ruby here:   http://rubyinstaller.org/downloads/. 
 - Once Ruby is installed, install the compass gem:
 ```
