@@ -234,11 +234,6 @@ angular.module('demoApp')
   .controller('UserCtrl', demoApp.UserCtrl);
 ```
 
-
-A project can mix TypeScript, CoffeScript, and JavaScript files.
-
-To output JavaScript files, even if CoffeeScript (or TypeScript) files exist (the default is to output CoffeeScript files if the generator finds any in the project), use `--coffee=false` and/or `--typescript=false`.
-
 ### Minification Safe
 
 **tl;dr**: You don't need to write annotated code as the build step will
