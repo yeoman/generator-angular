@@ -87,7 +87,7 @@ describe('angular:app', function () {
       }).on('end', done);
     });
 
-    it('generates CoffeeScript files', function () {
+    it('generates TypeScript files', function () {
       assert.file([].concat(getDefaultFilesForAppPath('app'), [
         'app/scripts/app.ts',
         'app/scripts/controllers/main.ts',
