@@ -10,16 +10,11 @@ var chalk = require('chalk');
 
 var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
-  this.argument('appname', { type: String, required: false });
-  this.appname = this.appname || path.basename(process.cwd());
-  this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
-
   this.option('app-suffix', {
     desc: 'Allow a custom suffix to be added to the module name',
     type: String
   });
   this.env.options['app-suffix'] = this.options['app-suffix'];
-  this.scriptAppName = this.appname + angularUtils.appName(this);
 
   args = ['main'];
 
@@ -71,18 +66,6 @@ var Generator = module.exports = function Generator(args, options) {
     this.env.options.typescript = this.options.typescript;
   }
 
-  this.hookFor('angular:common', {
-    args: args
-  });
-
-  this.hookFor('angular:main', {
-    args: args
-  });
-
-  this.hookFor('angular:controller', {
-    args: args
-  });
-
   this.on('end', function () {
     var jsExt = this.options.coffee ? 'coffee' : 'js';
 
@@ -95,7 +78,7 @@ var Generator = module.exports = function Generator(args, options) {
       bowerComments.push('endbower');
     }
 
-    this.invoke('karma:app', {
+    this.composeWith('karma:app', {
       options: {
         'skip-install': this.options['skip-install'],
         'base-path': '../',
@@ -118,7 +101,7 @@ var Generator = module.exports = function Generator(args, options) {
     });
 
     if (this.env.options.ngRoute) {
-      this.invoke('angular:route', {
+      this.composeWith('angular:route', {
         args: ['about']
       });
     }
@@ -129,6 +112,13 @@ var Generator = module.exports = function Generator(args, options) {
 };
 
 util.inherits(Generator, yeoman.generators.Base);
+
+Generator.prototype.initializing = function initializing() {
+  this.argument('appname', { type: String, required: false });
+  this.appname = this.appname || path.basename(process.cwd());
+  this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
+  this.scriptAppName = this.appname + angularUtils.appName(this);
+}
 
 Generator.prototype.welcome = function welcome() {
   if (!this.options['skip-welcome-message']) {
@@ -376,4 +366,11 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
   } else {
     this.spawnCommand(taskRunner, ['wiredep']);
   }
+};
+
+Generator.prototype.install = function install() {
+  var args = ['main'];
+  this.composeWith('angular:common', {args: args});
+  this.composeWith('angular:main', {args: args});
+  this.composeWith('angular:controller', {args: args});
 };

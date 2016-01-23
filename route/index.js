@@ -29,9 +29,6 @@ var Generator = module.exports = function Generator() {
   ) {
     this.foundWhenForRoute = true;
   }
-
-  this.hookFor('angular:controller');
-  this.hookFor('angular:view');
 };
 
 util.inherits(Generator, ScriptBase);
@@ -77,4 +74,10 @@ Generator.prototype.rewriteAppJs = function () {
   }
 
   angularUtils.rewriteFile(config);
+};
+
+Generator.prototype.install = function install() {
+  var args = [this.name];
+  this.composeWith('angular:controller', {args: args});
+  this.composeWith('angular:view', {args: args});
 };
