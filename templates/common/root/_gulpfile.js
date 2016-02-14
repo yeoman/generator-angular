@@ -81,12 +81,12 @@ gulp.task('clean:tmp', function (cb) {
 });
 
 gulp.task('start:client', ['start:server', <% if (coffee) { %>'coffee', <% } %>'styles'], function () {
-  openURL('http://localhost:9000');
+  openURL('http://localhost:9000/app');
 });
 
 gulp.task('start:server', function() {
   $.connect.server({
-    root: [yeoman.app, '.tmp'],
+    root: '.',
     livereload: true,
     // Change this to '0.0.0.0' to access the server from outside.
     port: 9000
@@ -153,10 +153,10 @@ gulp.task('test', ['start:server:test'], function () {
 gulp.task('bower', function () {
   return gulp.src(paths.views.main)
     .pipe(wiredep({
-      directory: yeoman.app + '/bower_components',
+      directory: './bower_components',
       ignorePath: '..'
     }))
-  .pipe(gulp.dest(yeoman.app + '/views'));
+  .pipe(gulp.dest(yeoman.app));
 });
 
 ///////////
