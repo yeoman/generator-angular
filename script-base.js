@@ -121,7 +121,7 @@ Generator.prototype.addScriptToIndex = function (script) {
 
 Generator.prototype.generateSourceAndTest = function (appTemplate, testTemplate, targetDirectory, skipAdd) {
   // Services use classified names
-  if (this.generatorName.toLowerCase() === 'service') {
+  if (this.rootGeneratorName().toLowerCase() === 'service') {
     this.cameledName = this.classedName;
   }
 
