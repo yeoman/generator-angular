@@ -23,6 +23,10 @@ If you are planning on using Sass, you will need to first install Ruby and Compa
 ```
 gem install compass
 ```
+If you have problem with the command above, you can use this below.
+```
+sudo gem install -n /usr/local/bin compass
+```
 
 Make a new directory, and `cd` into it:
 ```
