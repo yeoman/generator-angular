@@ -27,6 +27,11 @@ Run `yo angular`, optionally passing an app name:
 yo angular [app-name]
 ```
 
+Pull in the project dependencies:
+```
+npm install
+```
+
 Run `grunt` for building and `grunt serve` for preview
 
 
