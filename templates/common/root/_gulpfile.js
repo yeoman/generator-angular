@@ -24,16 +24,20 @@ var paths = {
   styles: [yeoman.app + '/styles/**/*.' + cssx],
   test: ['test/spec/**/*.' + jsx],
   testRequire: [
-    yeoman.app + '/bower_components/angular/angular.js',
-    yeoman.app + '/bower_components/angular-mocks/angular-mocks.js',
-    yeoman.app + '/bower_components/angular-resource/angular-resource.js',
-    yeoman.app + '/bower_components/angular-cookies/angular-cookies.js',
-    yeoman.app + '/bower_components/angular-sanitize/angular-sanitize.js',
-    yeoman.app + '/bower_components/angular-route/angular-route.js',
+    'bower_components/angular/angular.js',
+    'bower_components/angular-mocks/angular-mocks.js',
+    'bower_components/angular-resource/angular-resource.js',
+    'bower_components/angular-cookies/angular-cookies.js',
+    'bower_components/angular-sanitize/angular-sanitize.js',
+    'bower_components/angular-route/angular-route.js',
+    'bower_components/angular-animate/angular-animate.js',
+    'bower_components/angular-touch/angular-touch.js',
+    'bower_components/angular-ui-sortable/sortable.js',
+    'bower_components/angular-local-storage/dist/angular-local-storage.js',
     'test/mock/**/*.' + jsx,
     'test/spec/**/*.' + jsx
   ],
-  karma: 'karma.conf.js',
+  karma: yeoman.test + '/karma.conf.js',
   views: {
     main: yeoman.app + '/index.html',
     bowermain: yeoman.temp + '/index.html',
@@ -98,7 +102,7 @@ gulp.task('start:client', ['start:server', <% if (coffee) { %>'coffee', <% } els
 
 gulp.task('start:server', function() {
   $.connect.server({
-    root: [yeoman.app, yeoman.temp],
+    root: [yeoman.temp, yeoman.app],
     livereload: true,
     // Change this to '0.0.0.0' to access the server from outside.
     port: 9000,
@@ -108,7 +112,7 @@ gulp.task('start:server', function() {
 
 gulp.task('start:server:test', function() {
   $.connect.server({
-    root: [yeoman.test, yeoman.app, yeoman.temp],
+    root: [yeoman.temp, yeoman.test, yeoman.app],
     livereload: true,
     port: 9001,
     middleware: serveStaticBower
@@ -152,7 +156,7 @@ gulp.task('serve', function (cb) {
 gulp.task('serve:prod', function() {
   $.connect.server({
     root: [yeoman.dist],
-    livereload: true
+    livereload: true,
     port: argv.port || 80,
     middleware: serveStaticBower
   });
@@ -171,7 +175,7 @@ gulp.task('test', ['start:server:test'], function () {
 gulp.task('bower', function () {
   return gulp.src(paths.views.main)
     .pipe(wiredep({
-      directory: /*yeoman.app + */'/bower_components',
+      directory: /*yeoman.app + */'./bower_components',
       ignorePath: '..'
     }))
   // .pipe(gulp.dest(yeoman.app + '/views'));
