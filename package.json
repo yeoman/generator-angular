@@ -1,7 +1,7 @@
 {
   "name": "generator-angular",
   "version": "0.15.1",
-  "description": "Yeoman generator for AngularJS",
+  "description": "Yeoman generator for AngularJS (with support for Angular-UI router)",
   "keywords": [
     "yeoman-generator",
     "scaffold",
@@ -25,6 +25,7 @@
     "main",
     "provider",
     "route",
+    "state",
     "service",
     "templates",
     "value",

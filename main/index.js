@@ -16,5 +16,6 @@ Generator.prototype.createAppFile = function createAppFile() {
   this.ngResource = this.env.options.ngResource;
   this.ngSanitize = this.env.options.ngSanitize;
   this.ngRoute = this.env.options.ngRoute;
+  this.uiRouter = this.env.options.uiRouter;
   this.appTemplate('app', 'scripts/app');
 };
