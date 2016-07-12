@@ -139,10 +139,10 @@ yo angular:component myComponent
 Produces `app/scripts/components/myComponent.js`:
 ```javascript
 angular.module('myMod').component('myComponent', {
-    template: '<div>{{$ctrl.message}}',
-    controller: function () {
-        this.message = 'this is the myComponent component';
-    }
+  template: '<div>{{$ctrl.message}}</div>',
+  controller: function () {
+    this.message = 'this is the myComponent component';
+  }
 });
 ```
 
