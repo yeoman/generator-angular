@@ -80,6 +80,22 @@ describe('angular:app', function () {
     });
   });
 
+  describe('--javascript', function () {
+    beforeEach(function (done) {
+      this.angular.withOptions({
+        javascript: true
+      }).on('end', done);
+    });
+
+    it('generates JavaScript files', function () {
+      assert.file([].concat(getDefaultFilesForAppPath('app'), [
+            'app/scripts/app.js',
+            'app/scripts/controllers/main.js',
+            'test/spec/controllers/main.js'
+      ]));
+    });
+  });
+
   describe('--typescript', function () {
     beforeEach(function (done) {
       this.angular.withOptions({
