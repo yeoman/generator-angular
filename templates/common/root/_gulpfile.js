@@ -168,18 +168,18 @@ gulp.task('clean:dist', function (cb) {
 });
 
 gulp.task('client:build', ['html', 'styles'], function () {
-  var jsFilter = $.filter('**/*.js');
-  var cssFilter = $.filter('**/*.css');
+  var jsFilter = $.filter('**/*.js', {restore: true});
+  var cssFilter = $.filter('**/*.css', {restore: true});
 
   return gulp.src(paths.views.main)
     .pipe($.useref({searchPath: [yeoman.app, '.tmp']}))
     .pipe(jsFilter)
     .pipe($.ngAnnotate())
     .pipe($.uglify())
-    .pipe(jsFilter.restore())
+    .pipe(jsFilter.restore)
     .pipe(cssFilter)
     .pipe($.minifyCss({cache: true}))
-    .pipe(cssFilter.restore())
+    .pipe(cssFilter.restore)
     .pipe($.rev())
     .pipe($.revReplace())
     .pipe(gulp.dest(yeoman.dist));
