@@ -161,7 +161,7 @@ gulp.task('bower', function () {
     .pipe(wiredep({
       ignorePath: '..'
     }))
-  .pipe(gulp.dest(yeoman.app + '/views'));
+  .pipe(gulp.dest(yeoman.app));
 });
 
 ///////////
