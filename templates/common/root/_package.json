@@ -57,7 +57,8 @@
     "grunt-wiredep": "^2.0.0",
     "jit-grunt": "^0.9.1",
     "time-grunt": "^1.0.0"<% } %>,
-    "jshint-stylish": "^2.2.1"
+    "jshint-stylish": "^2.2.1",
+    "jshint": "^2.9.3"
   },
   "engines": {
     "node": ">=0.10.0"
