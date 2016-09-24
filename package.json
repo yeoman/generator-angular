@@ -11,7 +11,7 @@
     "app",
     "angular"
   ],
-  "author": "The Yeoman Team",
+  "author": "Haider Ghaleb",
   "main": "app/index.js",
   "files": [
     "app",
@@ -32,12 +32,15 @@
     "script-base.js",
     "util.js"
   ],
-  "repository": "yeoman/generator-angular",
+  "repository": "haiderghaleb/generator-angular",
   "scripts": {
     "test": "mocha"
   },
   "dependencies": {
     "chalk": "^1.0.0",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "util": "^0.10.3",
     "wiredep": "^2.2.0",
     "yeoman-generator": "^0.16.0",
     "yosay": "^1.0.2"
