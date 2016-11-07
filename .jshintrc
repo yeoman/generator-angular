@@ -1,0 +1,14 @@
+{
+  "bitwise": true,
+  "curly": true,
+  "eqeqeq": true,
+  "eqnull": true,
+  "esnext": true,
+  "globalstrict": true,
+  "latedef": true,
+  "mocha" : true,
+  "noarg": true,
+  "node": true,
+  "strict": true,
+  "undef": true
+}

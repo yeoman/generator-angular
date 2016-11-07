@@ -1,0 +1,31 @@
+{<% var ngVer = "1.4.0" %>
+  "name": "<%= _.slugify(_.humanize(appname)) %>",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "^<%= ngVer %>"<% if (bootstrap) { %>,<% if (!compassBootstrap) { %>
+    "bootstrap": "^3.2.0"<% } else { %>
+    "bootstrap-sass-official": "^3.2.0"<% } } %><% if (animateModule) { %>,
+    "angular-animate": "^<%= ngVer %>"<% } %><% if (ariaModule) { %>,
+    "angular-aria": "^<%= ngVer %>"<% } %><% if (cookiesModule) { %>,
+    "angular-cookies": "^<%= ngVer %>"<% } %><% if (messagesModule) { %>,
+    "angular-messages": "^<%= ngVer %>"<% } %><% if (resourceModule) { %>,
+    "angular-resource": "^<%= ngVer %>"<% } %><% if (routeModule) { %>,
+    "angular-route": "^<%= ngVer %>"<% } %><% if (sanitizeModule) { %>,
+    "angular-sanitize": "^<%= ngVer %>"<% } %><% if (touchModule) { %>,
+    "angular-touch": "^<%= ngVer %>"<% } %>
+  },
+  "devDependencies": {
+    "angular-mocks": "^<%= ngVer %>"
+  }<% if (appPath) { %>,
+  "appPath": "<%= appPath %>"<% } %>,
+  "moduleName": "<%= scriptAppName %>"<% if (bootstrap) { %>,
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  }<% } %>
+}

@@ -1,0 +1,8 @@
+Description:
+    Creates a new AngularJS view
+
+Example:
+    yo angular:view thing
+
+    This will create:
+        app/views/thing.html

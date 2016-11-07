@@ -1,0 +1,11 @@
+Description:
+    Creates a new AngularJS route
+
+Example:
+    yo angular:route thing [--coffee] [--uri=path_to/thing]
+
+    This will create:
+        app/scripts/controllers/thing.js
+        app/views/thing.html
+    And add routing to:
+        app.js
