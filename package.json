@@ -1,15 +1,15 @@
 {
-  "name": "generator-angular",
-  "version": "0.15.1",
-  "description": "Yeoman generator for AngularJS",
+  "name": "generator-oas",
+  "version": "0.0.1",
+  "description": "base Yeoman generator + estilos oas",
   "keywords": [
-    "yeoman-generator",
-    "scaffold",
+    "oas-generator",
     "framework",
     "component",
     "front-end",
     "app",
-    "angular"
+    "angular",
+    "style-oas"
   ],
   "author": "The Yeoman Team",
   "main": "app/index.js",
@@ -32,7 +32,7 @@
     "script-base.js",
     "util.js"
   ],
-  "repository": "yeoman/generator-angular",
+  "repository": "fabianLeon/oas",
   "scripts": {
     "test": "mocha"
   },
@@ -40,7 +40,8 @@
     "chalk": "^1.0.0",
     "wiredep": "^2.2.0",
     "yeoman-generator": "^0.16.0",
-    "yosay": "^1.0.2"
+    "yosay": "^1.0.2",
+    "assets-oas":"1.0.0"
   },
   "peerDependencies": {
     "generator-karma": ">=0.9.0"
