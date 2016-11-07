@@ -40,8 +40,7 @@
     "chalk": "^1.0.0",
     "wiredep": "^2.2.0",
     "yeoman-generator": "^0.16.0",
-    "yosay": "^1.0.2",
-    "assets-oas":"1.0.0"
+    "yosay": "^1.0.2"
   },
   "peerDependencies": {
     "generator-karma": ">=0.9.0"
@@ -55,7 +54,8 @@
     "mocha": "*",
     "underscore.string": "^3.0.3",
     "yeoman-assert": "^2.1.1",
-    "yeoman-test": "^1.0.0"
+    "yeoman-test": "^1.0.0",
+    "assets-oas":"1.0.0"
   },
   "engines": {
     "node": ">=0.10.0"
