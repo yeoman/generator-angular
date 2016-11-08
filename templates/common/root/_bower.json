@@ -2,7 +2,8 @@
   "name": "<%= _.slugify(_.humanize(appname)) %>",
   "version": "0.0.0",
   "dependencies": {
-    "metismenu":"*",
+    "metisMenu":"*",
+    "components-font-awesome":"*",
     "angular": "^<%= ngVer %>"<% if (bootstrap) { %>,<% if (!compassBootstrap) { %>
     "bootstrap": "^3.2.0"<% } else { %>
     "bootstrap-sass-official": "^3.2.0"<% } } %><% if (animateModule) { %>,

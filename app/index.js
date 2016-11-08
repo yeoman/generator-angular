@@ -333,16 +333,31 @@ Generator.prototype.readIndex = function readIndex() {
 
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   var sass = this.compass || this.sass;
-  var cssFile = 'styles/oas-style.' + (sass ? 's' : '') + 'css';
+  var cssFile1 = 'styles/oas-style.css';
    this.copy(
-    path.join('app', cssFile),
-    path.join(this.appPath, cssFile)
+    path.join('app', cssFile1),
+    path.join(this.appPath, cssFile1)
   );
    var cssFile2 = 'styles/table-demo.css';
    this.copy(
     path.join('app', cssFile2),
     path.join(this.appPath, cssFile2)
   );
+  var cssFile3 = 'styles/sb-admin-2.css';
+  this.copy(
+   path.join('app', cssFile3),
+   path.join(this.appPath, cssFile3)
+ );
+ var cssFile4 = 'styles/timeline.css';
+ this.copy(
+  path.join('app', cssFile4),
+  path.join(this.appPath, cssFile4)
+);
+var cssFile5 = 'views/menu.html';
+this.copy(
+ path.join('app', cssFile5),
+ path.join(this.appPath, cssFile5)
+);
 };
 
 Generator.prototype.appJs = function appJs() {
