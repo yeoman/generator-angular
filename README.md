@@ -1,41 +1,11 @@
 # AngularJS generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular.svg?branch=master)](http://travis-ci.org/yeoman/generator-angular) [![Gitter](https://img.shields.io/badge/Gitter-Join_the_Yeoman_chat_%E2%86%92-00d06f.svg)](https://gitter.im/yeoman/yeoman)
 
-> Yeoman generator for AngularJS - lets you quickly set up a project with sensible defaults and best practices.
-
-There are many starting points for building a new Angular single page app, in addition to this one. To see a comparison 
-of the popular options, have a look at 
-[this comparison](http://www.dancancro.com/comparison-of-angularjs-application-starters).
-
-[Roadmap for upcoming plans/features/fixes](https://github.com/yeoman/generator-angular/issues/553)
-
 ## Usage
 
-For step-by-step instructions on using Yeoman and this generator to build a TODO AngularJS application from scratch see [this tutorial.](http://yeoman.io/codelab/)
-
-Install `yo`, `grunt-cli`, `bower`, `generator-angular` and `generator-karma`:
+Install `yo`, `grunt-cli`, `bower`, `generator-oas` and `generator-karma`:
 ```
-npm install -g grunt-cli bower yo generator-karma generator-angular
+npm install -g grunt-cli bower yo generator-karma generator-oas
 ```
-
-If you are planning on using Sass, you will need to first install Ruby and Compass:
-- Install Ruby by downloading from [here](http://rubyinstaller.org/downloads/) or use Homebrew
-- Install the compass gem:
-```
-gem install compass
-```
-
-Make a new directory, and `cd` into it:
-```
-mkdir my-new-project && cd $_
-```
-
-Run `yo angular`, optionally passing an app name:
-```
-yo angular [app-name]
-```
-
-Run `grunt` for building and `grunt serve` for preview
-
 
 ## Generators
 
@@ -59,7 +29,7 @@ Sets up a new AngularJS app, generating all the boilerplate you need to get star
 
 Example:
 ```bash
-yo angular
+yo oas 
 ```
 
 ### Route
@@ -67,7 +37,7 @@ Generates a controller and view, and configures a route in `app/scripts/app.js` 
 
 Example:
 ```bash
-yo angular:route myroute
+yo oas:route myroute
 ```
 
 Produces `app/scripts/controllers/myroute.js`:
@@ -86,7 +56,7 @@ Produces `app/views/myroute.html`:
 
 Example:
 ```bash
-yo angular:route myRoute --uri=my/route
+yo oas:route myRoute --uri=my/route
 ```
 
 Produces controller and view as above and adds a route to `app/scripts/app.js`
@@ -97,7 +67,7 @@ Generates a controller in `app/scripts/controllers`.
 
 Example:
 ```bash
-yo angular:controller user
+yo oas:controller user
 ```
 
 Produces `app/scripts/controllers/user.js`:
@@ -111,7 +81,7 @@ Generates a directive in `app/scripts/directives`.
 
 Example:
 ```bash
-yo angular:directive myDirective
+yo oas:directive myDirective
 ```
 
 Produces `app/scripts/directives/myDirective.js`:
@@ -132,7 +102,7 @@ Generates a filter in `app/scripts/filters`.
 
 Example:
 ```bash
-yo angular:filter myFilter
+yo oas:filter myFilter
 ```
 
 Produces `app/scripts/filters/myFilter.js`:
@@ -149,7 +119,7 @@ Generates an HTML view file in `app/views`.
 
 Example:
 ```bash
-yo angular:view user
+yo oas:view user
 ```
 
 Produces `app/views/user.html`:
@@ -162,7 +132,7 @@ Generates an AngularJS service.
 
 Example:
 ```bash
-yo angular:service myService
+yo oas:service myService
 ```
 
 Produces `app/scripts/services/myService.js`:
@@ -179,7 +149,7 @@ Generates an AngularJS service decorator.
 
 Example:
 ```bash
-yo angular:decorator serviceName
+yo oas:decorator serviceName
 ```
 
 Produces `app/scripts/decorators/serviceNameDecorator.js`:
@@ -200,7 +170,7 @@ For generators that output scripts, the `--coffee` option will output CoffeeScri
 
 For example:
 ```bash
-yo angular:controller user --coffee
+yo oas:controller user --coffee
 ```
 
 Produces `app/scripts/controller/user.coffee`:
@@ -211,7 +181,7 @@ angular.module('myMod')
 
 For example:
 ```bash
-yo angular:controller user --typescript
+yo oas:controller user --typescript
 ```
 
 Produces `app/scripts/controller/user.ts`:
