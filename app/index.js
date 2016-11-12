@@ -263,12 +263,7 @@ Generator.prototype.askForModules = function askForModules() {
       value: 'touchModule',
       name: 'angular-touch.js',
       checked: true
-    }, {
-      value: 'metisMenu',
-      name: 'metisMenu.js',
-      checked: true
     }
-
     ]
   }];
 
@@ -353,11 +348,32 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   path.join('app', cssFile4),
   path.join(this.appPath, cssFile4)
 );
-var cssFile5 = 'views/menu.html';
+var htmlFile1 = 'views/menu.html';
 this.copy(
- path.join('app', cssFile5),
- path.join(this.appPath, cssFile5)
+ path.join('app', htmlFile1),
+ path.join(this.appPath, htmlFile1)
 );
+var jsFile1 = 'scripts/menu.js';
+this.copy(
+ path.join('app', jsFile1),
+ path.join(this.appPath, jsFile1)
+);
+var jsFont1 = 'fonts/roboto-light-webfont.eot';
+this.copy(
+ path.join('app', jsFont1),
+ path.join(this.appPath, jsFont1)
+);
+var jsFont2 = 'fonts/roboto-light-webfont.woff2';
+this.copy(
+ path.join('app', jsFont2),
+ path.join(this.appPath, jsFont2)
+);
+var jsFont3 = 'fonts/roboto-light-webfont.woff';
+this.copy(
+ path.join('app', jsFont3),
+ path.join(this.appPath, jsFont3)
+);
+
 };
 
 Generator.prototype.appJs = function appJs() {
