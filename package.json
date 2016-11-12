@@ -1,6 +1,6 @@
 {
   "name": "generator-oas",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "base Yeoman generator + estilos oas",
   "keywords": [
     "oas-generator",
@@ -11,7 +11,7 @@
     "angular",
     "style-oas"
   ],
-  "author": "The Yeoman Team",
+  "author": "The Yeoman Team && OAS",
   "main": "app/index.js",
   "files": [
     "app",
