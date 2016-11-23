@@ -14,8 +14,9 @@
     "angular-sanitize": "^<%= ngVer %>"<% } %><% if (touchModule) { %>,
     "angular-touch": "^<%= ngVer %>"<% } %>,
     "components-font-awesome":"*",
-    "angular-ui-grid":"*"
-
+    "angular-ui-grid":"*",
+    "angular-oauth2":"*",
+    "angular-material":"*"
   },
   "devDependencies": {
     "angular-mocks": "^<%= ngVer %>"
