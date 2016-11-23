@@ -46,6 +46,7 @@ Available generators:
 * [angular:directive](#directive)
 * [angular:filter](#filter)
 * [angular:route](#route)
+* [angular:state](#state)
 * [angular:service](#service)
 * [angular:provider](#service)
 * [angular:factory](#service)
@@ -91,6 +92,36 @@ yo angular:route myRoute --uri=my/route
 
 Produces controller and view as above and adds a route to `app/scripts/app.js`
 with URI `my/route`
+
+### State
+Generates a controller and view, and configures a state in `app/scripts/app.js` connecting them.
+
+Example:
+```bash
+yo angular:state mystate
+```
+
+Produces `app/scripts/controllers/mystate.js`:
+```javascript
+angular.module('myMod').controller('MystateCtrl', function ($scope) {
+  // ...
+});
+```
+
+Produces `app/views/mystate.html`:
+```html
+<p>This is the mystate view</p>
+```
+
+**Explicitly provide state URI**
+
+Example:
+```bash
+yo angular:state myState --uri=my/state/uri
+```
+
+Produces controller and view as above and adds a state to `app/scripts/app.js`
+with URI `my/state/uri`
 
 ### Controller
 Generates a controller in `app/scripts/controllers`.

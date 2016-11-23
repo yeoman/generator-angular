@@ -122,6 +122,12 @@ var Generator = module.exports = function Generator(args, options) {
         args: ['about']
       });
     }
+
+    if (this.env.options.uiRouter) {
+      this.invoke('angular:state', {
+        args: ['about']
+      });
+    }
   });
 
   this.pkg = require('../package.json');
@@ -250,6 +256,10 @@ Generator.prototype.askForModules = function askForModules() {
     }, {
       value: 'routeModule',
       name: 'angular-route.js',
+      checked: false
+    }, {
+      value: 'uiRouterModule',
+      name: 'angular-ui-router.js',
       checked: true
     }, {
       value: 'sanitizeModule',
@@ -271,6 +281,7 @@ Generator.prototype.askForModules = function askForModules() {
     this.messagesModule = hasMod('messagesModule');
     this.resourceModule = hasMod('resourceModule');
     this.routeModule = hasMod('routeModule');
+    this.uiRouterModule = hasMod('uiRouterModule');
     this.sanitizeModule = hasMod('sanitizeModule');
     this.touchModule = hasMod('touchModule');
 
@@ -296,6 +307,11 @@ Generator.prototype.askForModules = function askForModules() {
       angMods.push("'ngResource'");
     }
 
+    if (this.uiRouterModule) {
+      angMods.push("'ui.router'");
+      this.env.options.uiRouter = true;
+    }
+
     if (this.routeModule) {
       angMods.push("'ngRoute'");
       this.env.options.ngRoute = true;
@@ -319,6 +335,7 @@ Generator.prototype.askForModules = function askForModules() {
 
 Generator.prototype.readIndex = function readIndex() {
   this.ngRoute = this.env.options.ngRoute;
+  this.uiRouter = this.env.options.uiRouter;
   this.indexFile = this.engine(this.read('app/index.html'), this);
 };
 
@@ -349,6 +366,8 @@ Generator.prototype.createIndexHtml = function createIndexHtml() {
 Generator.prototype.packageFiles = function packageFiles() {
   this.coffee = this.env.options.coffee;
   this.typescript = this.env.options.typescript;
+  this.uiRouter = this.env.options.uiRouter;
+
   this.template('root/_bower.json', 'bower.json');
   this.template('root/_bowerrc', '.bowerrc');
   this.template('root/_package.json', 'package.json');

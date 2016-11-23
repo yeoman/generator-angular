@@ -41,7 +41,13 @@
           <% } %>
             <ul class="nav navbar-nav">
               <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="<% if (ngRoute) { %>#/about<% } else { %>#/<% } %>">About</a></li>
+            <% if (ngRoute) { %>
+              <li><a ng-href="#/about">About</a></li>
+            <% } else if (uiRouter) { %>
+              <li><a ui-sref="about">About</a></li>
+            <% } else { %>
+              <li><a ng-href="#/">About</a></li>
+            <% } %>
               <li><a ng-href="#/">Contact</a></li>
             </ul>
           </div>
@@ -50,11 +56,13 @@
     </div>
 
     <div class="container">
-    <% if (ngRoute) {
-      %><div ng-view></div><%
-    } else {
-      %><div ng-include="'views/main.html'" ng-controller="MainCtrl"></div><%
-    } %>
+    <% if (ngRoute) { %>
+      <div ng-view></div>
+    <% } else if (uiRouter) { %>
+      <div ui-view></div>
+    <% } else { %>
+      <div ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
+    <% } %>
     </div>
 
     <div class="footer">

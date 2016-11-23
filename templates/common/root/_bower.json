@@ -11,7 +11,8 @@
     "angular-messages": "^<%= ngVer %>"<% } %><% if (resourceModule) { %>,
     "angular-resource": "^<%= ngVer %>"<% } %><% if (routeModule) { %>,
     "angular-route": "^<%= ngVer %>"<% } %><% if (sanitizeModule) { %>,
-    "angular-sanitize": "^<%= ngVer %>"<% } %><% if (touchModule) { %>,
+    "angular-ui-router": "^<%= ngVer %>"<% } %><% if (uiRouter) { %>,
+    "angular-sanitize": "^0.3.1"<% } %><% if (touchModule) { %>,
     "angular-touch": "^<%= ngVer %>"<% } %>
   },
   "devDependencies": {
