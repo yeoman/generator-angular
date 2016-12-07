@@ -15,8 +15,10 @@
     "angular-touch": "^<%= ngVer %>"<% } %>,
     "components-font-awesome":"*",
     "angular-ui-grid":"*",
-    "angular-oauth2":"*",
-    "angular-material":"*"
+    "AngularJS-OAuth2": "angularjs-oauth2#^1.2.1",
+    "angular-material":"*",
+    "angular-tree-control":"*",
+    "pdfmake":"*"
   },
   "devDependencies": {
     "angular-mocks": "^<%= ngVer %>"

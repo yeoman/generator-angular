@@ -71,15 +71,15 @@ var Generator = module.exports = function Generator(args, options) {
     this.env.options.typescript = this.options.typescript;
   }
 
-  this.hookFor('angular:common', {
+  this.hookFor('oas:common', {
     args: args
   });
 
-  this.hookFor('angular:main', {
+  this.hookFor('oas:main', {
     args: args
   });
 
-  this.hookFor('angular:controller', {
+  this.hookFor('oas:controller', {
     args: args
   });
 
@@ -118,7 +118,7 @@ var Generator = module.exports = function Generator(args, options) {
     });
 
     if (this.env.options.ngRoute) {
-      this.invoke('angular:route', {
+      this.invoke('oas:route', {
         args: ['about']
       });
     }
@@ -132,10 +132,10 @@ util.inherits(Generator, yeoman.generators.Base);
 
 Generator.prototype.welcome = function welcome() {
   if (!this.options['skip-welcome-message']) {
-    this.log(yosay());
+    this.log(yosay('Welcome to generator-oas'));
     this.log(
       chalk.magenta(
-        'Out of the box I include Bootstrap and some AngularJS recommended modules.' +
+        'Welcome to the generator system ' +
         '\n'
       )
     );
@@ -173,7 +173,7 @@ Generator.prototype.askForStyles = function askForStyles() {
     type: 'confirm',
     name: 'sass',
     message: 'Would you like to use Sass?',
-    default: true,
+    default: false,
     when: function () {
       return gulp;
     }
@@ -181,7 +181,7 @@ Generator.prototype.askForStyles = function askForStyles() {
     type: 'confirm',
     name: 'compass',
     message: 'Would you like to use Sass (with Compass)?',
-    default: true,
+    default: false,
     when: function () {
       return !gulp;
     }
@@ -260,8 +260,12 @@ Generator.prototype.askForModules = function askForModules() {
       name: 'angular-touch.js',
       checked: true
     }, {
-      value: 'touchModule',
-      name: 'angular-touch.js',
+      value: 'afOAuth2',
+      name: 'angularjs-oauth.js',
+      checked: true
+    }, {
+      value: 'treeControl',
+      name: 'angular-tree-control.js',
       checked: true
     }
     ]
@@ -277,8 +281,11 @@ Generator.prototype.askForModules = function askForModules() {
     this.routeModule = hasMod('routeModule');
     this.sanitizeModule = hasMod('sanitizeModule');
     this.touchModule = hasMod('touchModule');
+    this.afOAuth2 = hasMod('afOAuth2');
+    this.treeControl = hasMod('treeControl');
 
     var angMods = [];
+
 
     if (this.animateModule) {
       angMods.push("'ngAnimate'");
@@ -312,6 +319,26 @@ Generator.prototype.askForModules = function askForModules() {
     if (this.touchModule) {
       angMods.push("'ngTouch'");
     }
+
+    if (this.afOAuth2) {
+      angMods.push("'afOAuth2'");
+    }
+
+    if (this.treeControl) {
+      angMods.push("'treeControl'");
+    }
+
+    angMods.push("'ngMaterial'");
+  //  angMods.push("'material.svgAssetsCache'");
+    angMods.push("'ui.grid'");
+    angMods.push("'ui.grid.edit'");
+    angMods.push("'ui.grid.rowEdit'");
+    angMods.push("'ui.grid.cellNav'");
+    angMods.push("'ui.grid.treeView'");
+    angMods.push("'ui.grid.selection'");
+    angMods.push("'ui.grid.exporter'")
+
+
 
     if (angMods.length) {
       this.env.options.angularDeps = '\n    ' + angMods.join(',\n    ') + '\n  ';
@@ -352,6 +379,11 @@ var htmlFile1 = 'views/menu.html';
 this.copy(
  path.join('app', htmlFile1),
  path.join(this.appPath, htmlFile1)
+);
+var htmlFile2 = 'views/main.html';
+this.copy(
+ path.join('app', htmlFile2),
+ path.join(this.appPath, htmlFile2)
 );
 var jsFile1 = 'scripts/menu.js';
 this.copy(
@@ -406,7 +438,6 @@ Generator.prototype.packageFiles = function packageFiles() {
     this.template('root/_tsd.json', 'tsd.json');
   }
   this.template('root/README.md', 'README.md');
-
 };
 
 Generator.prototype._injectDependencies = function _injectDependencies() {

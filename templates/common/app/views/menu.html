@@ -11,9 +11,7 @@
   <!-- /.navbar-header -->
 
   <ul class="nav navbar-top-links navbar-right">
-    <li class="active"><a ng-href="#/">Home</a></li>
     <li><a ng-href="#/about">About</a></li>
-    <li><a ng-href="#/">Contact</a></li>
     <li class="dropdown"><a ng-href="actual" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><a ng-href="actual">Dropdown Link 1</a></li>
@@ -39,22 +37,6 @@
                 <li><a ng-href="#/">Dropdown Submenu Link 5.4.1</a></li>
                 <li><a ng-href="#/">Dropdown Submenu Link 5.4.2</a></li>
                 <li class="divider"></li>
-                <li class="dropdown dropdown-submenu"><a ng-href="#/" class="dropdown-toggle" data-toggle="dropdown">Dropdown Submenu Link 5.4.3</a>
-                  <ul class="dropdown-menu">
-                    <li><a ng-href="#/">Dropdown Submenu Link 5.4.3.1</a></li>
-                    <li><a ng-href="#/">Dropdown Submenu Link 5.4.3.2</a></li>
-                    <li><a ng-href="#/">Dropdown Submenu Link 5.4.3.3</a></li>
-                    <li><a ng-href="#/">Dropdown Submenu Link 5.4.3.4</a></li>
-                  </ul>
-                </li>
-                <li class="dropdown dropdown-submenu"><a ng-href="#/" class="dropdown-toggle" data-toggle="dropdown">Dropdown Submenu Link 5.4.4</a>
-                  <ul class="dropdown-menu">
-                    <li><a ng-href="#/">Dropdown Submenu Link 5.4.4.1</a></li>
-                    <li><a ng-href="#/">Dropdown Submenu Link 5.4.4.2</a></li>
-                    <li><a ng-href="#/">Dropdown Submenu Link 5.4.4.3</a></li>
-                    <li><a ng-href="#/">Dropdown Submenu Link 5.4.4.4</a></li>
-                  </ul>
-                </li>
               </ul>
             </li>
           </ul>
@@ -179,7 +161,16 @@
         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
       </a>
       <ul class="dropdown-menu dropdown-user">
-        <li><a ><i class="fa fa-user fa-fw"></i> User Profile</a>
+        <li><a >
+          <oauth2
+              authorization-url="{{AUTORIZATION_URL}}"
+              client-id="{{CLIENTE_ID}}"
+              redirect-url="{{REDIRECT_URL}}"
+              response-type="{{RESPONSE_TYPE}}"
+              scope="{{SCOPE}}">
+            </oauth2>
+          </a>
+        </li>
         </li>
         <li><a ><i class="fa fa-gear fa-fw"></i> Settings</a>
         </li>

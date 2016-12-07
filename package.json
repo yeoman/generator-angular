@@ -1,18 +1,95 @@
 {
-  "name": "generator-oas",
-  "version": "0.0.3",
-  "description": "base Yeoman generator + estilos oas",
-  "keywords": [
-    "oas-generator",
-    "framework",
-    "component",
-    "front-end",
-    "app",
-    "angular",
-    "style-oas"
+  "_args": [
+    [
+      {
+        "raw": "generator-oas",
+        "scope": null,
+        "escapedName": "generator-oas",
+        "name": "generator-oas",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/home/fabianLeon/Documentos/proyectos oas/proti"
+    ],
+    [
+      {
+        "raw": "generator-oas",
+        "scope": null,
+        "escapedName": "generator-oas",
+        "name": "generator-oas",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/home/fabianLeon"
+    ]
   ],
-  "author": "The Yeoman Team && OAS",
-  "main": "app/index.js",
+  "_from": "generator-oas",
+  "_id": "generator-oas@0.0.3",
+  "_inCache": true,
+  "_location": "/generator-oas",
+  "_nodeVersion": "6.9.1",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/generator-oas-0.0.3.tgz_1479889143073_0.9715015285182744"
+  },
+  "_npmUser": {
+    "name": "fabianleon",
+    "email": "fadarsaleeing@gmail.com"
+  },
+  "_npmVersion": "3.10.8",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "generator-oas",
+    "scope": null,
+    "escapedName": "generator-oas",
+    "name": "generator-oas",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/generator-oas/-/generator-oas-0.0.3.tgz",
+  "_shasum": "b397587e9db950e23a268dae0c0b78205d090e56",
+  "_shrinkwrap": null,
+  "_spec": "generator-oas",
+  "_where": "/home/fabianLeon",
+  "author": {
+    "name": "The Yeoman Team && OAS"
+  },
+  "bugs": {
+    "url": "https://github.com/fabianleon/oas/issues"
+  },
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "wiredep": "^2.2.0",
+    "yeoman-generator": "^0.16.0",
+    "yosay": "^1.0.2"
+  },
+  "description": "base Yeoman generator + estilos oas",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-bump": "^0.6.0",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-conventional-github-releaser": "^0.5.0",
+    "load-grunt-tasks": "^3.1.0",
+    "metismenu": "*",
+    "mocha": "*",
+    "underscore.string": "^3.0.3",
+    "yeoman-assert": "^2.1.1",
+    "yeoman-test": "^1.0.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "b397587e9db950e23a268dae0c0b78205d090e56",
+    "tarball": "https://registry.npmjs.org/generator-oas/-/generator-oas-0.0.3.tgz"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
   "files": [
     "app",
     "common",
@@ -32,33 +109,37 @@
     "script-base.js",
     "util.js"
   ],
-  "repository": "fabianLeon/oas",
-  "scripts": {
-    "test": "mocha"
-  },
-  "dependencies": {
-    "chalk": "^1.0.0",
-    "wiredep": "^2.2.0",
-    "yeoman-generator": "^0.16.0",
-    "yosay": "^1.0.2"
-  },
+  "gitHead": "8f6a0a63a0a28ed823a5b9e46b12e29d3b2b4d44",
+  "homepage": "https://github.com/fabianleon/oas#readme",
+  "keywords": [
+    "oas-generator",
+    "framework",
+    "component",
+    "front-end",
+    "app",
+    "angular",
+    "style-oas"
+  ],
+  "license": "BSD-2-Clause",
+  "main": "app/index.js",
+  "maintainers": [
+    {
+      "name": "fabianleon",
+      "email": "fadarsaleeing@gmail.com"
+    }
+  ],
+  "name": "generator-oas",
+  "optionalDependencies": {},
   "peerDependencies": {
     "generator-karma": ">=0.9.0"
   },
-  "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-bump": "^0.6.0",
-    "grunt-contrib-jshint": "^0.11.0",
-    "grunt-conventional-github-releaser": "^0.5.0",
-    "load-grunt-tasks": "^3.1.0",
-    "mocha": "*",
-    "underscore.string": "^3.0.3",
-    "yeoman-assert": "^2.1.1",
-    "yeoman-test": "^1.0.0",
-    "metismenu":"*"
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabianleon/oas.git"
   },
-  "engines": {
-    "node": ">=0.10.0"
+  "scripts": {
+    "test": "mocha"
   },
-  "license": "BSD-2-Clause"
+  "version": "0.0.3"
 }

@@ -1,7 +1,9 @@
 'use strict';
+var path = require('path');
+var chalk = require('chalk');
 var util = require('util');
 var ScriptBase = require('../script-base.js');
-
+var angularUtils = require('../util.js');
 
 var Generator = module.exports = function Generator() {
   ScriptBase.apply(this, arguments);
@@ -16,4 +18,5 @@ Generator.prototype.createDirectiveFiles = function createDirectiveFiles() {
     'directives',
     this.options['skip-add'] || false
   );
+
 };
