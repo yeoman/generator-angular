@@ -3,11 +3,11 @@ angular.module('<%= scriptAppName %>')
   var ctrl = this;
   ctrl.actual = $location.path();
   //Configuracion de parametros identificacion unica
-  $scope.AUTORIZATION_URL = "https://accounts.google.com/o/oauth2/v2/auth";
-  $scope.CLIENTE_ID       = "794841744026-6p2i7lmiho204r4li2bb1ektd7j9dbd4.apps.googleusercontent.com";
-  $scope.REDIRECT_URL     = "https://oauth2-login-demo.example.com/code";
+  $scope.AUTORIZATION_URL = "https://wso2.intranetoas.udistrital.edu.co:9443/oauth2/authorize";
+  $scope.CLIENTE_ID       = "mEEMLpePonJ91jKYB_s8sbE8slQa";
+  $scope.REDIRECT_URL     = "http://10.20.0.254/prototipo/app";
   $scope.RESPONSE_TYPE    = "code";
-  $scope.SCOPE            = "openid email";
+  $scope.SCOPE            = "openid";
 
   var memoryToken;
     $scope.memoryTokenHandler = {
