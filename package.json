@@ -23,22 +23,34 @@
         "type": "tag"
       },
       "/home/fabianLeon"
+    ],
+    [
+      {
+        "raw": "generator-oas",
+        "scope": null,
+        "escapedName": "generator-oas",
+        "name": "generator-oas",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/home/fabianLeon/go/src/github.com/fabianLeon/testApi"
     ]
   ],
   "_from": "generator-oas",
-  "_id": "generator-oas@0.0.3",
+  "_id": "generator-oas@0.0.4",
   "_inCache": true,
   "_location": "/generator-oas",
-  "_nodeVersion": "6.9.1",
+  "_nodeVersion": "7.2.0",
   "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/generator-oas-0.0.3.tgz_1479889143073_0.9715015285182744"
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/generator-oas-0.0.4.tgz_1481305863368_0.9693342053797096"
   },
   "_npmUser": {
     "name": "fabianleon",
     "email": "fadarsaleeing@gmail.com"
   },
-  "_npmVersion": "3.10.8",
+  "_npmVersion": "3.10.9",
   "_phantomChildren": {},
   "_requested": {
     "raw": "generator-oas",
@@ -52,11 +64,11 @@
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "https://registry.npmjs.org/generator-oas/-/generator-oas-0.0.3.tgz",
-  "_shasum": "b397587e9db950e23a268dae0c0b78205d090e56",
+  "_resolved": "https://registry.npmjs.org/generator-oas/-/generator-oas-0.0.4.tgz",
+  "_shasum": "ffaebd520af161715f91ecd3519f04e263b19b36",
   "_shrinkwrap": null,
   "_spec": "generator-oas",
-  "_where": "/home/fabianLeon",
+  "_where": "/home/fabianLeon/go/src/github.com/fabianLeon/testApi",
   "author": {
     "name": "The Yeoman Team && OAS"
   },
@@ -84,8 +96,8 @@
   },
   "directories": {},
   "dist": {
-    "shasum": "b397587e9db950e23a268dae0c0b78205d090e56",
-    "tarball": "https://registry.npmjs.org/generator-oas/-/generator-oas-0.0.3.tgz"
+    "shasum": "ffaebd520af161715f91ecd3519f04e263b19b36",
+    "tarball": "https://registry.npmjs.org/generator-oas/-/generator-oas-0.0.5.tgz"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -141,5 +153,5 @@
   "scripts": {
     "test": "mocha"
   },
-  "version": "0.0.3"
+  "version": "0.0.5"
 }
