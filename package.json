@@ -35,16 +35,40 @@
         "type": "tag"
       },
       "/home/fabianLeon/go/src/github.com/fabianLeon/testApi"
+    ],
+    [
+      {
+        "raw": "generator-oas",
+        "scope": null,
+        "escapedName": "generator-oas",
+        "name": "generator-oas",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/home/fabianLeon/Documentos/oas/oas"
+    ],
+    [
+      {
+        "raw": "generator-oas",
+        "scope": null,
+        "escapedName": "generator-oas",
+        "name": "generator-oas",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/home/fabianLeon/Documentos/oas"
     ]
   ],
   "_from": "generator-oas",
-  "_id": "generator-oas@0.0.4",
+  "_id": "generator-oas@0.0.6",
   "_inCache": true,
   "_location": "/generator-oas",
   "_nodeVersion": "7.2.0",
   "_npmOperationalInternal": {
-    "host": "packages-18-east.internal.npmjs.com",
-    "tmp": "tmp/generator-oas-0.0.4.tgz_1481305863368_0.9693342053797096"
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/generator-oas-0.0.6.tgz_1481561961468_0.18970106611959636"
   },
   "_npmUser": {
     "name": "fabianleon",
@@ -64,11 +88,11 @@
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "https://registry.npmjs.org/generator-oas/-/generator-oas-0.0.4.tgz",
-  "_shasum": "ffaebd520af161715f91ecd3519f04e263b19b36",
+  "_resolved": "https://registry.npmjs.org/generator-oas/-/generator-oas-0.0.6.tgz",
+  "_shasum": "efeaa0ecdb836191784a7624f2873c52b8afb81f",
   "_shrinkwrap": null,
   "_spec": "generator-oas",
-  "_where": "/home/fabianLeon/go/src/github.com/fabianLeon/testApi",
+  "_where": "/home/fabianLeon/Documentos/oas",
   "author": {
     "name": "The Yeoman Team && OAS"
   },
@@ -96,8 +120,8 @@
   },
   "directories": {},
   "dist": {
-    "shasum": "ffaebd520af161715f91ecd3519f04e263b19b36",
-    "tarball": "https://registry.npmjs.org/generator-oas/-/generator-oas-0.0.5.tgz"
+    "shasum": "efeaa0ecdb836191784a7624f2873c52b8afb81f",
+    "tarball": "https://registry.npmjs.org/generator-oas/-/generator-oas-0.0.6.tgz"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -153,5 +177,5 @@
   "scripts": {
     "test": "mocha"
   },
-  "version": "0.0.5"
+  "version": "0.0.7"
 }

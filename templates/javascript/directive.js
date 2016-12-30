@@ -10,7 +10,7 @@ angular.module('<%= scriptAppName %>')
   .directive('<%= cameledName %>', function () {
     return {
       restrict: 'E',
-      /*scope{
+      /*scope:{
           var:'='
         },
       */

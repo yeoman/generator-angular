@@ -18,7 +18,9 @@
     "AngularJS-OAuth2": "angularjs-oauth2#^1.2.1",
     "angular-material":"*",
     "angular-tree-control":"*",
-    "pdfmake":"*"
+    "pdfmake":"*",
+    "ngstorage": "^0.3.11",
+    "kjur-jsrsasign": "jsrsasign#^7.0.0"
   },
   "devDependencies": {
     "angular-mocks": "^<%= ngVer %>"

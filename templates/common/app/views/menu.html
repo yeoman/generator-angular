@@ -8,185 +8,186 @@
     </button>
     <a class="navbar-brand" ng-href="#/"><%= scriptAppName %></a>
   </div>
+  <div id="navbar" class="navbar-collapse collapse in">
+    <ul class="nav navbar-top-links navbar-right">
+      <li><a ng-href="#/about">About</a></li>
+      <li class="dropdown"><a ng-href="{{menuCtrl.actual}}" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a ng-href="{{menuCtrl.actual}}">Dropdown Link 1</a></li>
+          <li><a ng-href="{{menuCtrl.actual}}">Dropdown Link 2</a></li>
+          <li><a ng-href="{{menuCtrl.actual}}">Dropdown Link 3</a></li>
+          <li class="divider"></li>
+          <li class="dropdown dropdown-submenu"><a ng-href="{{menuCtrl.actual}}" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 4</a>
+            <ul class="dropdown-menu">
+              <li><a ng-href="{{menuCtrl.actual}}">Dropdown Submenu Link 4.1</a></li>
+              <li><a ng-href="{{menuCtrl.actual}}">Dropdown Submenu Link 4.2</a></li>
+              <li><a ng-href="{{menuCtrl.actual}}">Dropdown Submenu Link 4.3</a></li>
+              <li><a ng-href="{{menuCtrl.actual}}">Dropdown Submenu Link 4.4</a></li>
+            </ul>
+          </li>
+          <li class="dropdown dropdown-submenu"><a ng-href="{{menuCtrl.actual}}" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 5</a>
+            <ul class="dropdown-menu">
+              <li><a ng-href="{{menuCtrl.actual}}">Dropdown Submenu Link 5.1</a></li>
+              <li><a ng-href="{{menuCtrl.actual}}">Dropdown Submenu Link 5.2</a></li>
+              <li><a ng-href="{{menuCtrl.actual}}">Dropdown Submenu Link 5.3</a></li>
+              <li class="divider"></li>
+              <li class="dropdown dropdown-submenu"><a ng-href="{{menuCtrl.actual}}" class="dropdown-toggle" data-toggle="dropdown">Dropdown Submenu Link 5.4</a>
+                <ul class="dropdown-menu">
+                  <li><a ng-href="{{menuCtrl.actual}}">Dropdown Submenu Link 5.4.1</a></li>
+                  <li><a ng-href="{{menuCtrl.actual}}">Dropdown Submenu Link 5.4.2</a></li>
+                  <li class="divider"></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" ng-href="{{menuCtrl.actual}}">
+          <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-messages">
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <strong>John Smith</strong>
+                <span class="pull-right text-muted">
+                  <em>Yesterday</em>
+                </span>
+              </div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <strong>John Smith</strong>
+                <span class="pull-right text-muted">
+                  <em>Yesterday</em>
+                </span>
+              </div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <strong>John Smith</strong>
+                <span class="pull-right text-muted">
+                  <em>Yesterday</em>
+                </span>
+              </div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a class="text-center" ng-href="{{menuCtrl.actual}}">
+              <strong>Read All Messages</strong>
+              <i class="fa fa-angle-right"></i>
+            </a>
+          </li>
+        </ul>
+        <!-- /.dropdown-messages -->
+      </li>
+      <!-- /.dropdown -->
+      <!-- /.dropdown-tasks -->
+      <!-- /.dropdown -->
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#/">
+          <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-alerts">
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <i class="fa fa-comment fa-fw"></i> New Comment
+                <span class="pull-right text-muted small">4 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                <span class="pull-right text-muted small">12 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <i class="fa fa-envelope fa-fw"></i> Message Sent
+                <span class="pull-right text-muted small">4 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <i class="fa fa-tasks fa-fw"></i> New Task
+                <span class="pull-right text-muted small">4 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                <span class="pull-right text-muted small">4 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a class="text-center" ng-href="{{menuCtrl.actual}}">
+              <strong>See All Alerts</strong>
+              <i class="fa fa-angle-right"></i>
+            </a>
+          </li>
+        </ul>
+        <!-- /.dropdown-alerts -->
+      </li>
+      <!-- /.dropdown -->
+      <li class="dropdown" ng-if="token_service.live_token()">
+        <a class="dropdown-toggle" data-toggle="dropdown" ng-href="{{menuCtrl.actual}}">
+          <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user" >
+          <li><a ng-click="">
+              <i class="fa fa-sign-in fa-fw"></i> {{token_service.token.name}}</a>
+            </a>
+          </li>
+          <li><a ><i class="fa fa-gear fa-fw"></i> Settings</a>
+          </li>
+          <li class="divider"></li>
+          <li><a ng-click="token_service.logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+          </li>
+        </ul>
+        <!-- /.dropdown-user -->
+      </li>
+      <li ng-if="!token_service.live_token()">
+        <oauth2
+            authorization-url="{{token_service.config.AUTORIZATION_URL}}"
+            client-id="{{token_service.config.CLIENTE_ID}}"
+            redirect-url="{{token_service.config.REDIRECT_URL}}"
+            response-type="{{token_service.config.RESPONSE_TYPE}}"
+            scope="{{token_service.config.SCOPE}}"
+            button-class="{{token_service.config.BUTTON_CLASS}}">
+          </oauth2>
+      </li>
+      <!-- /.dropdown -->
+    </ul>
+  </div>
   <!-- /.navbar-header -->
 
-  <ul class="nav navbar-top-links navbar-right">
-    <li><a ng-href="#/about">About</a></li>
-    <li class="dropdown"><a ng-href="actual" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-      <ul class="dropdown-menu">
-        <li><a ng-href="actual">Dropdown Link 1</a></li>
-        <li><a ng-href="actual">Dropdown Link 2</a></li>
-        <li><a ng-href="actual">Dropdown Link 3</a></li>
-        <li class="divider"></li>
-        <li class="dropdown dropdown-submenu"><a ng-href="#/" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 4</a>
-          <ul class="dropdown-menu">
-            <li><a ng-href="#/">Dropdown Submenu Link 4.1</a></li>
-            <li><a ng-href="#/">Dropdown Submenu Link 4.2</a></li>
-            <li><a ng-href="#/">Dropdown Submenu Link 4.3</a></li>
-            <li><a ng-href="#/">Dropdown Submenu Link 4.4</a></li>
-          </ul>
-        </li>
-        <li class="dropdown dropdown-submenu"><a ng-href="#/" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 5</a>
-          <ul class="dropdown-menu">
-            <li><a ng-href="#/">Dropdown Submenu Link 5.1</a></li>
-            <li><a ng-href="#/">Dropdown Submenu Link 5.2</a></li>
-            <li><a ng-href="#/">Dropdown Submenu Link 5.3</a></li>
-            <li class="divider"></li>
-            <li class="dropdown dropdown-submenu"><a ng-href="#/" class="dropdown-toggle" data-toggle="dropdown">Dropdown Submenu Link 5.4</a>
-              <ul class="dropdown-menu">
-                <li><a ng-href="#/">Dropdown Submenu Link 5.4.1</a></li>
-                <li><a ng-href="#/">Dropdown Submenu Link 5.4.2</a></li>
-                <li class="divider"></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li class="dropdown">
-      <a ng-href="/#/" class="dropdown-toggle" data-toggle="dropdown" href="#/">
-        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
-      </a>
-      <ul class="dropdown-menu dropdown-messages">
-        <li>
-          <a ng-href="#/">
-            <div>
-              <strong>John Smith</strong>
-              <span class="pull-right text-muted">
-                <em>Yesterday</em>
-              </span>
-            </div>
-            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-          </a>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <a ng-href="#/">
-            <div>
-              <strong>John Smith</strong>
-              <span class="pull-right text-muted">
-                <em>Yesterday</em>
-              </span>
-            </div>
-            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-          </a>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <a ng-href="#/">
-            <div>
-              <strong>John Smith</strong>
-              <span class="pull-right text-muted">
-                <em>Yesterday</em>
-              </span>
-            </div>
-            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-          </a>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <a class="text-center" href="#/">
-            <strong>Read All Messages</strong>
-            <i class="fa fa-angle-right"></i>
-          </a>
-        </li>
-      </ul>
-      <!-- /.dropdown-messages -->
-    </li>
-    <!-- /.dropdown -->
-    <!-- /.dropdown-tasks -->
-    <!-- /.dropdown -->
-    <li class="dropdown">
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#/">
-        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
-      </a>
-      <ul class="dropdown-menu dropdown-alerts">
-        <li>
-          <a ng-href="#/">
-            <div>
-              <i class="fa fa-comment fa-fw"></i> New Comment
-              <span class="pull-right text-muted small">4 minutes ago</span>
-            </div>
-          </a>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <a ng-href="#/">
-            <div>
-              <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-              <span class="pull-right text-muted small">12 minutes ago</span>
-            </div>
-          </a>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <a ng-href="#/">
-            <div>
-              <i class="fa fa-envelope fa-fw"></i> Message Sent
-              <span class="pull-right text-muted small">4 minutes ago</span>
-            </div>
-          </a>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <a ng-href="#/">
-            <div>
-              <i class="fa fa-tasks fa-fw"></i> New Task
-              <span class="pull-right text-muted small">4 minutes ago</span>
-            </div>
-          </a>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <a ng-href="#/">
-            <div>
-              <i class="fa fa-upload fa-fw"></i> Server Rebooted
-              <span class="pull-right text-muted small">4 minutes ago</span>
-            </div>
-          </a>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <a class="text-center" href="#/">
-            <strong>See All Alerts</strong>
-            <i class="fa fa-angle-right"></i>
-          </a>
-        </li>
-      </ul>
-      <!-- /.dropdown-alerts -->
-    </li>
-    <!-- /.dropdown -->
-    <li class="dropdown">
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#/">
-        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-      </a>
-      <ul class="dropdown-menu dropdown-user">
 
-        <li><a >
-          <oauth2
-              authorization-url="{{AUTORIZATION_URL}}"
-              client-id="{{CLIENTE_ID}}"
-              redirect-url="{{REDIRECT_URL}}"
-              response-type="{{RESPONSE_TYPE}}"
-              scope="{{SCOPE}}">
-            </oauth2>
-          </a>
-        </li>
-        <li><a>
-            {{memoryTokenHandler.get}}
-          </a>
-        </li>
-        </li>
-        <li><a ><i class="fa fa-gear fa-fw"></i> Settings</a>
-        </li>
-        <li class="divider"></li>
-        <li><a ng-click="{{memoryTokenHandler.clear}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-        </li>
-      </ul>
-      <!-- /.dropdown-user -->
-    </li>
-    <!-- /.dropdown -->
-  </ul>
   <!-- /.navbar-top-links -->
   <!-- /.navbar-static-side -->
 </nav>

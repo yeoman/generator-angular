@@ -29,7 +29,7 @@
         %><div ng-include="'views/main.html'" ng-controller="MainCtrl"></div><%
       } %>
     </div>
-
+  <div ng-include="'views/footer.html'" ng-controller="footerCtrl"></div>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -49,5 +49,7 @@
     <!-- endbuild -->
 
   </body>
-  <script src="scripts/menu.js"></script>
+  <script src="scripts/services/token.js"></script>
+  <script src="scripts/controllers/menu.js"></script>
+  <script src="scripts/controllers/footer.js"></script>
   </html>

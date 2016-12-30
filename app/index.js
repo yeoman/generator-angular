@@ -342,7 +342,8 @@ Generator.prototype.askForModules = function askForModules() {
     angMods.push("'ui.grid.cellNav'");
     angMods.push("'ui.grid.treeView'");
     angMods.push("'ui.grid.selection'");
-    angMods.push("'ui.grid.exporter'")
+    angMods.push("'ui.grid.exporter'");
+    angMods.push("'ngStorage'");
 
 
 
@@ -391,10 +392,25 @@ this.copy(
  path.join('app', htmlFile2),
  path.join(this.appPath, htmlFile2)
 );
-var jsFile1 = 'scripts/menu.js';
+var htmlFile3 = 'views/footer.html';
+this.copy(
+ path.join('app', htmlFile3),
+ path.join(this.appPath, htmlFile3)
+);
+var jsFile1 = 'scripts/controllers/menu.js';
 this.copy(
  path.join('app', jsFile1),
  path.join(this.appPath, jsFile1)
+);
+var jsFile2 = 'scripts/controllers/footer.js';
+this.copy(
+ path.join('app', jsFile2),
+ path.join(this.appPath, jsFile2)
+);
+var jsFile3 = 'scripts/services/token.js';
+this.copy(
+ path.join('app', jsFile3),
+ path.join(this.appPath, jsFile3)
 );
 var jsFont1 = 'fonts/roboto-light-webfont.eot';
 this.copy(
