@@ -174,7 +174,7 @@
     "url": "git+https://github.com/fabianleon/oas.git"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "echo mocha"
   },
   "version": "0.0.8"
 }
