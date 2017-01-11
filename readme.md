@@ -1,65 +1,35 @@
-# AngularJS generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular.svg?branch=master)](http://travis-ci.org/yeoman/generator-angular) [![Gitter](https://img.shields.io/badge/Gitter-Join_the_Yeoman_chat_%E2%86%92-00d06f.svg)](https://gitter.im/yeoman/yeoman)
-
-> Yeoman generator for AngularJS - lets you quickly set up a project with sensible defaults and best practices.
-
-There are many starting points for building a new Angular single page app, in addition to this one. You can find
-other options in this list at 
-[Yeoman.io](http://yeoman.io/generators).
-
-[Roadmap for upcoming plans/features/fixes](https://github.com/yeoman/generator-angular/issues/553)
+# AngularJS generator (generator-oas) [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular.svg?branch=master)](http://travis-ci.org/yeoman/generator-angular) [![Gitter](https://img.shields.io/badge/Gitter-Join_the_Yeoman_chat_%E2%86%92-00d06f.svg)](https://gitter.im/yeoman/yeoman)
 
 ## Usage
 
-For step-by-step instructions on using Yeoman and this generator to build a TODO AngularJS application from scratch see [this tutorial.](http://yeoman.io/codelab/)
-
-Install `yo`, `grunt-cli`, `bower`, `generator-angular` and `generator-karma`:
+Install `yo`, `grunt-cli`, `bower`, `generator-oas` and `generator-karma`:
 ```
-npm install -g grunt-cli bower yo generator-karma generator-angular
+npm install -g grunt-cli bower yo generator-karma generator-oas
 ```
-
-If you are planning on using Sass, you will need to first install Ruby and Compass:
-- Install Ruby by downloading from [here](http://rubyinstaller.org/downloads/) or use Homebrew
-- Install the compass gem:
-```
-gem install compass
-```
-
-Make a new directory, and `cd` into it:
-```
-mkdir my-new-project && cd $_
-```
-
-Run `yo angular`, optionally passing an app name:
-```
-yo angular [app-name]
-```
-
-Run `grunt` for building and `grunt serve` for preview
-
 
 ## Generators
 
 Available generators:
 
-* [angular](#app) (aka [angular:app](#app))
-* [angular:controller](#controller)
-* [angular:directive](#directive)
-* [angular:filter](#filter)
-* [angular:route](#route)
-* [angular:service](#service)
-* [angular:provider](#service)
-* [angular:factory](#service)
-* [angular:value](#service)
-* [angular:constant](#service)
-* [angular:decorator](#decorator)
-* [angular:view](#view)
+* [oas](#app) (aka [oas:app](#app))
+* [oas:controller](#controller)
+* [oas:directive](#directive)
+* [oas:filter](#filter)
+* [oas:route](#route)
+* [oas:service](#service)
+* [oas:provider](#service)
+* [oas:factory](#service)
+* [oas:value](#service)
+* [oas:constant](#service)
+* [oas:decorator](#decorator)
+* [oas:view](#view)
 
 ### App
-Sets up a new AngularJS app, generating all the boilerplate you need to get started. The app generator also optionally installs Bootstrap and additional AngularJS modules, such as angular-resource (installed by default).
+Sets up a new oasJS app, generating all the boilerplate you need to get started. The app generator also optionally installs Bootstrap and additional oasJS modules, such as oas-resource (installed by default).
 
 Example:
 ```bash
-yo angular
+yo oas
 ```
 
 ### Route
@@ -67,26 +37,38 @@ Generates a controller and view, and configures a route in `app/scripts/app.js` 
 
 Example:
 ```bash
-yo angular:route myroute
+yo oas:route myroute
 ```
 
 Produces `app/scripts/controllers/myroute.js`:
 ```javascript
-angular.module('myMod').controller('MyrouteCtrl', function ($scope) {
+oas.module('myMod').controller('MyrouteCtrl', function ($scope) {
   // ...
 });
 ```
 
 Produces `app/views/myroute.html`:
 ```html
-<p>This is the myroute view</p>
+  <div class="panel panel-default">
+      <div class="panel-heading">
+          <%= name %>.
+      </div>
+      <div class="panel-body">
+          <p>
+            Ahora puede empezar a construir la vista de <%= name %>.
+          </p>
+      </div>
+      <div class="panel-footer">
+          Panel Footer
+      </div>
+  </div>
 ```
 
 **Explicitly provide route URI**
 
 Example:
 ```bash
-yo angular:route myRoute --uri=my/route
+yo oas:route myRoute --uri=my/route
 ```
 
 Produces controller and view as above and adds a route to `app/scripts/app.js`
@@ -97,12 +79,12 @@ Generates a controller in `app/scripts/controllers`.
 
 Example:
 ```bash
-yo angular:controller user
+yo oas:controller user
 ```
 
 Produces `app/scripts/controllers/user.js`:
 ```javascript
-angular.module('myMod').controller('UserCtrl', function ($scope) {
+oas.module('myMod').controller('UserCtrl', function ($scope) {
   // ...
 });
 ```
@@ -111,12 +93,12 @@ Generates a directive in `app/scripts/directives`.
 
 Example:
 ```bash
-yo angular:directive myDirective
+yo oas:directive myDirective
 ```
 
 Produces `app/scripts/directives/myDirective.js`:
 ```javascript
-angular.module('myMod').directive('myDirective', function () {
+oas.module('myMod').directive('myDirective', function () {
   return {
     template: '<div></div>',
     restrict: 'E',
@@ -132,12 +114,12 @@ Generates a filter in `app/scripts/filters`.
 
 Example:
 ```bash
-yo angular:filter myFilter
+yo oas:filter myFilter
 ```
 
 Produces `app/scripts/filters/myFilter.js`:
 ```javascript
-angular.module('myMod').filter('myFilter', function () {
+oas.module('myMod').filter('myFilter', function () {
   return function (input) {
     return 'myFilter filter:' + input;
   };
@@ -149,7 +131,7 @@ Generates an HTML view file in `app/views`.
 
 Example:
 ```bash
-yo angular:view user
+yo oas:view user
 ```
 
 Produces `app/views/user.html`:
@@ -158,33 +140,33 @@ Produces `app/views/user.html`:
 ```
 
 ### Service
-Generates an AngularJS service.
+Generates an oasJS service.
 
 Example:
 ```bash
-yo angular:service myService
+yo oas:service myService
 ```
 
 Produces `app/scripts/services/myService.js`:
 ```javascript
-angular.module('myMod').service('myService', function () {
+oas.module('myMod').service('myService', function () {
   // ...
 });
 ```
 
-You can also do `yo angular:factory`, `yo angular:provider`, `yo angular:value`, and `yo angular:constant` for other types of services.
+You can also do `yo oas:factory`, `yo oas:provider`, `yo oas:value`, and `yo oas:constant` for other types of services.
 
 ### Decorator
-Generates an AngularJS service decorator.
+Generates an oasJS service decorator.
 
 Example:
 ```bash
-yo angular:decorator serviceName
+yo oas:decorator serviceName
 ```
 
 Produces `app/scripts/decorators/serviceNameDecorator.js`:
 ```javascript
-angular.module('myMod').config(function ($provide) {
+oas.module('myMod').config(function ($provide) {
     $provide.decorator('serviceName', function ($delegate) {
       // ...
       return $delegate;
@@ -200,18 +182,18 @@ For generators that output scripts, the `--coffee` option will output CoffeeScri
 
 For example:
 ```bash
-yo angular:controller user --coffee
+yo oas:controller user --coffee
 ```
 
 Produces `app/scripts/controller/user.coffee`:
 ```coffeescript
-angular.module('myMod')
+oas.module('myMod')
   .controller 'UserCtrl', ($scope) ->
 ```
 
 For example:
 ```bash
-yo angular:controller user --typescript
+yo oas:controller user --typescript
 ```
 
 Produces `app/scripts/controller/user.ts`:
@@ -224,20 +206,19 @@ module demoApp {
     export interface IUserScope extends ng.IScope {
         awesomeThings: any[];
     }
-    
     export class UserCtrl {
 
         constructor (private $scope:IUserScope) {
 	        $scope.awesomeThings = [
               'HTML5 Boilerplate',
-              'AngularJS',
+              'oasJS',
               'Karma'
             ];
         }
     }
 }
 
-angular.module('demoApp')
+oas.module('demoApp')
   .controller('UserCtrl', demoApp.UserCtrl);
 ```
 
@@ -246,7 +227,7 @@ angular.module('demoApp')
 **tl;dr**: You don't need to write annotated code as the build step will
 handle it for you.
 
-By default, generators produce unannotated code. Without annotations, AngularJS's DI system will break when minified. Typically, these annotations that make minification safe are added automatically at build-time, after application files are concatenated, but before they are minified. The annotations are important because minified code will rename variables, making it impossible for AngularJS to infer module names based solely on function parameters.
+By default, generators produce unannotated code. Without annotations, oasJS's DI system will break when minified. Typically, these annotations that make minification safe are added automatically at build-time, after application files are concatenated, but before they are minified. The annotations are important because minified code will rename variables, making it impossible for oasJS to infer module names based solely on function parameters.
 
 The recommended build process uses `ng-annotate`, a tool that automatically adds these annotations. However, if you'd rather not use it, you have to add these annotations manually yourself. Why would you do that though? If you find a bug
 in the annotated code, please file an issue at [ng-annotate](https://github.com/olov/ng-annotate/issues).
@@ -261,15 +242,15 @@ By default, new scripts are added to the index.html file. However, this may not 
 
 To skip adding them to the index, pass in the skip-add argument:
 ```bash
-yo angular:service serviceName --skip-add
+yo oas:service serviceName --skip-add
 ```
 
 ## Bower Components
 
 The following packages are always installed by the [app](#app) generator:
 
-* angular
-* angular-mocks
+* oas
+* oas-mocks
 
 
 The following additional modules are available as components on bower, and installable via `bower install`:

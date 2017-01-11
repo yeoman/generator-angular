@@ -1,0 +1,28 @@
+.demoTable td:last-child {
+    min-width: 90px;
+}
+
+/** Editable table
+------------------------- */
+
+.editable-table > tbody > tr > td {
+    padding: 4px
+}
+.editable-text {
+    padding-left: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    display: inline-block;
+}
+.editable-table tbody > tr > td > .controls {
+//width: 100%
+}
+.editable-input {
+    padding-left: 3px;
+}
+.editable-input.input-sm {
+    height: 30px;
+    font-size: 14px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}

@@ -1,83 +1,55 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-  </head>
-  <body ng-app="<%= scriptAppName %>">
+<head>
+  <meta charset="utf-8">
+  <title><%= scriptAppName %></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/oas-style.css">
+  <link rel="stylesheet" href="styles/sb-admin-2.css">
+  <link rel="stylesheet" href="styles/table-demo.css">
+  <link rel="stylesheet" href="styles/timeline.css">
+  <!-- endbuild -->
+</head>
+<body ng-app="<%= scriptAppName %>">
+  <div ng-include="'views/menu.html'" ng-controller="menuCtrl"></div>
     <!--[if lte IE 8]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
-    <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-            <% if (bootstrap) { %>
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <% } %>
-            <a class="navbar-brand" href="#/"><%= appname %></a>
-          </div>
-          <% if (bootstrap) { %>
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
-          <% } else { %>
-          <div class="collapse">
-          <% } %>
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="<% if (ngRoute) { %>#/about<% } else { %>#/<% } %>">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <div class="container-fluid">
+      <% if (ngRoute) {
+        %><div ng-view></div><%
+      } else {
+        %><div ng-include="'views/main.html'" ng-controller="MainCtrl"></div><%
+      } %>
     </div>
-
-    <div class="container">
-    <% if (ngRoute) {
-      %><div ng-view></div><%
-    } else {
-      %><div ng-include="'views/main.html'" ng-controller="MainCtrl"></div><%
-    } %>
-    </div>
-
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
-    </div>
+  <div ng-include="'views/footer.html'" ng-controller="footerCtrl"></div>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    <script>
+    !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+      (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+      r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+    }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
     </script>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <!-- endbower -->
     <!-- endbuild -->
+
   </body>
-</html>
+  <script src="scripts/services/token.js"></script>
+  <script src="scripts/controllers/menu.js"></script>
+  <script src="scripts/controllers/footer.js"></script>
+  </html>

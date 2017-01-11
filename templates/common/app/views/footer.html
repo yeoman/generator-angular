@@ -1,0 +1,60 @@
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 footerleft ">
+        <div class="logofooter"> Universidad Distrital Francisco José de Caldas</div>
+        <p> Institución de Educación Superior sujeta a inspección y vigilancia por el Ministerio de Educación Nacional Adscrita a la Alcaldía Mayor de Bogotá Distrito Capital </p>
+        <p><i class="fa fa-map-pin"></i> Carrera 7 # 40B - 53 - Bogotá D.C. - Colombia</p>
+        <p><i class="fa fa-phone"></i> Teléfono (Colombia) : +57 3 323 9300</p>
+        <p><i class="fa fa-envelope"></i> E-mail : atencion@udistrital.edu.co</p>
+        <p><i class="fa fa-handshake-o"></i> Lunes a Viernes de 8:00 a.m. a 5:00 p.m.</p>
+
+        <div class="logofooter"> Redes Sociales</div>
+        <div class="col-md-4">
+          <a href="https://es-la.facebook.com/UniversidadDistrital/" target="_blank">
+            <i class="fa fa-facebook-square fa-3x" aria-hidden="true"></i> </a>
+        </div>
+        <div class="col-md-4">
+          <a href="https://plus.google.com/106543869133961089207?hl=es" target="_blank">
+            <i class="fa fa-google-plus fa-3x" aria-hidden="true"></i></a>
+        </div>
+        <div class="col-md-4">
+          <a href="https://plus.google.com/106543869133961089207?hl=es" target="_blank">
+            <i class="fa fa-twitter fa-3x" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 paddingtop-bottom">
+        <h6 class="heading7">ENLACES UNIVERSITARIOS</h6>
+        <ul class="footer-ul">
+          <li ng-repeat="elemento in enlaces_universitarios">
+            <a href="{{elemento.link}}"> {{elemento.nombre}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-4 col-sm-6 paddingtop-bottom">
+        <h6 class="heading7">ENLACES DE INTERÉS</h6>
+        <ul class="footer-ul">
+          <li ng-repeat="elemento in enlaces_universitarios">
+            <a href="{{elemento.link}}"> {{elemento.nombre}}</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</footer>
+<div class="copyright">
+  <div class="container">
+    <div class="col-md-6">
+      <p>{{copyright}}</p>
+    </div>
+    <div class="col-md-6">
+      <ul class="bottom_ul">
+        <li ng-repeat="elemento in map">
+          <a href="{{elemento.link}}"> {{elemento.nombre}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
