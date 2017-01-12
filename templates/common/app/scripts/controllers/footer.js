@@ -1,6 +1,8 @@
+'use strict';
+
 angular.module('<%= scriptAppName %>')
   .controller('footerCtrl', function($scope) {
-    var ctrl = this;
+    //var ctrl = this;
     $scope.enlaces_universitarios = [{
               nombre: 'Transparencia',
               link: '#/'

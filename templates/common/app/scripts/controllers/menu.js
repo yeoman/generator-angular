@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('<%= scriptAppName %>')
   .controller('menuCtrl', function($location, $http, $scope, token_service) {
     var ctrl = this;
