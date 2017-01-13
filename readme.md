@@ -1,3 +1,59 @@
+# generator-oas
+
+## Componentes
+
+ - Hojas de estilo de la oficina asesora de sistemas publicado en la dirección: http://10.20.0.254/assets-oas/pages/index.html
+ - generator-angular: https://github.com/yeoman/generator-angular
+ - La libreria ui-grud: http://ui-grid.info/
+ - La libreria angular-material: https://material.angularjs.org/latest/
+ - El generador se encuentra en: https://www.npmjs.com/package/generator-oas
+
+## Instalación
+
+```
+npm install -g grunt-cli bower yo generator-karma generator-oas
+```
+
+## Uso
+
+Para crear un aplicación con este componente es necesario crear el directorio donde se desea crear y luego:
+
+```
+yo oas "Nombre de la aplicacion"
+     ╔══════════════════════════════════════════════════════════╗
+     ║                                                          ║
+     ║             ██████╗      █████╗     ███████╗             ║
+     ║            ██╔═══██╗    ██╔══██╗    ██╔════╝             ║
+     ║            ██║   ██║    ███████║    ███████╗             ║
+     ║            ██║   ██║    ██╔══██║    ╚════██║             ║
+     ║            ╚██████╔╝    ██║  ██║    ███████║             ║
+     ║             ╚═════╝     ╚═╝  ╚═╝    ╚══════╝             ║
+     ║              𝕎𝕖𝕝𝕔𝕠𝕞𝕖 𝕥𝕠 𝕥𝕙𝕖 𝕘𝕖𝕟𝕖𝕣𝕒𝕥𝕠𝕣-𝕠𝕒𝕤                ║
+     ║                                                          ║
+     ╚══════════════════════════════════════════════════════════╝
+
+? Would you like to use Gulp (experimental) instead of Grunt? (y/N)
+
+
+ Welcome to the generator system
+
+ ? Would you like to use Gulp (experimental) instead of Grunt? No
+ ? Would you like to use Sass (with Compass)? No
+ ? Would you like to include Bootstrap? Yes
+```
+
+Se recomienda dejar los componentes de angular predefinidos (Enter)
+
+Luego solicitará que version de angular se desea instalar, se recomienda seleccionar la opcion # 3 que instala la version de angular 1.6.1
+
+Finalmente para lanzar el proyecto
+
+```
+grunt serve
+```
+
+# Documentación original
+
 # AngularJS generator (generator-oas) [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular.svg?branch=master)](http://travis-ci.org/yeoman/generator-angular) [![Gitter](https://img.shields.io/badge/Gitter-Join_the_Yeoman_chat_%E2%86%92-00d06f.svg)](https://gitter.im/yeoman/yeoman)
 
 ## Usage
