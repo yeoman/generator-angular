@@ -1,6 +1,6 @@
 language: node_js
 node_js:
   - '7'
-install:
+script:
   - echo $NPMRC_TOKEN_CONTENT >> ~/.npmrc
-  - npm publish
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm publish; fi'
