@@ -3,4 +3,4 @@ node_js:
   - '7'
 script:
   - echo $NPMRC_TOKEN_CONTENT >> ~/.npmrc
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm publish; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" && "$TRAVIS_BRANCH" = "master" ]; then npm publish; fi'
