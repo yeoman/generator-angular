@@ -62,7 +62,7 @@
     ]
   ],
   "_from": "generator-oas",
-  "_id": "generator-oas@0.0.6",
+  "_id": "generator-oas@0.0.11",
   "_inCache": true,
   "_location": "/generator-oas",
   "_nodeVersion": "7.2.0",
@@ -71,8 +71,7 @@
     "tmp": "tmp/generator-oas-0.0.6.tgz_1481561961468_0.18970106611959636"
   },
   "_npmUser": {
-    "name": "fabianleon",
-    "email": "fadarsaleeing@gmail.com"
+    "name": "udistrital",
   },
   "_npmVersion": "3.10.9",
   "_phantomChildren": {},
@@ -97,7 +96,7 @@
     "name": "The Yeoman Team && OAS"
   },
   "bugs": {
-    "url": "https://github.com/fabianleon/oas/issues"
+    "url": "https://github.com/udistrital/generator-oas/issues"
   },
   "dependencies": {
     "chalk": "^1.0.0",
@@ -146,7 +145,7 @@
     "util.js"
   ],
   "gitHead": "8f6a0a63a0a28ed823a5b9e46b12e29d3b2b4d44",
-  "homepage": "https://github.com/fabianleon/oas#readme",
+  "homepage": "https://github.com/udistrital/generator-oas#readme",
   "keywords": [
     "oas-generator",
     "framework",
@@ -171,10 +170,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fabianleon/oas.git"
+    "url": "git+https://github.com/udistrital/generator-oas.git"
   },
   "scripts": {
     "test": "echo mocha"
   },
-  "version": "0.0.10"
+  "version": "0.0.11"
 }
