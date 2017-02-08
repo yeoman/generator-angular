@@ -1,0 +1,211 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" ng-href="#/"><%= scriptAppName %></a>
+  </div>
+  <div id="navbar" class="navbar-collapse collapse in">
+    <ul class="nav navbar-top-links navbar-right">
+      <li ng-repeat="nivel_1 in menu_service">
+        <a ng-if="nivel_1.Opciones === null" ng-href="{{'#/' + nivel_1.Url}}" >
+          {{nivel_1.Nombre}}
+        </a>
+      </li>
+      <li ng-repeat="nivel_1 in menu_service" class="dropdown">
+        <a ng-if="nivel_1.Opciones !== null" ng-href="{{actual}}" class="dropdown-toggle" data-toggle="dropdown">
+            {{nivel_1.Nombre}} <b class="caret">
+          </b>
+        </a>
+        <ul class="dropdown-menu">
+          <li ng-repeat="nivel_2 in nivel_1.Opciones">
+            <a ng-href="{{'#/' + nivel_2.Url}}" ng-if="nivel_2.Opciones === null" >
+              {{nivel_2.Nombre}}
+            </a>
+          </li>
+          <li class="dropdown dropdown-submenu" ng-repeat="nivel_2 in nivel_1.Opciones">
+            <a ng-href="{{actual}}" class="dropdown-toggle" data-toggle="dropdown" ng-if="nivel_2.Opciones !== null">
+              {{nivel_2.Nombre}}
+            </a>
+            <ul class="dropdown-menu">
+              <li ng-repeat="nivel_3 in nivel_2.Opciones">
+                <a ng-href="{{'#/' + nivel_3.Url}}" ng-if="nivel_3.Opciones === null" >
+                  {{nivel_3.Nombre}}
+                </a>
+              </li>
+              <li class="dropdown dropdown-submenu" ng-repeat="nivel_3 in nivel_2.Opciones">
+                <a ng-href="{{actual}}" class="dropdown-toggle" data-toggle="dropdown" ng-if="nivel_3.Opciones !== null">{{nivel_3.Nombre}}
+                </a>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="nivel_4 in nivel_3.Opciones">
+                    <a ng-href="{{'#/' + nivel_4.Url}}">
+                      {{nivel_4.Nombre}}
+                    </a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" ng-href="{{menuCtrl.actual}}">
+          <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-messages">
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <strong>John Smith</strong>
+                <span class="pull-right text-muted">
+                  <em>Yesterday</em>
+                </span>
+              </div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <strong>John Smith</strong>
+                <span class="pull-right text-muted">
+                  <em>Yesterday</em>
+                </span>
+              </div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <strong>John Smith</strong>
+                <span class="pull-right text-muted">
+                  <em>Yesterday</em>
+                </span>
+              </div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a class="text-center" ng-href="{{menuCtrl.actual}}">
+              <strong>Read All Messages</strong>
+              <i class="fa fa-angle-right"></i>
+            </a>
+          </li>
+        </ul>
+        <!-- /.dropdown-messages -->
+      </li>
+      <!-- /.dropdown -->
+      <!-- /.dropdown-tasks -->
+      <!-- /.dropdown -->
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#/">
+          <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-alerts">
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <i class="fa fa-comment fa-fw"></i> New Comment
+                <span class="pull-right text-muted small">4 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                <span class="pull-right text-muted small">12 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <i class="fa fa-envelope fa-fw"></i> Message Sent
+                <span class="pull-right text-muted small">4 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <i class="fa fa-tasks fa-fw"></i> New Task
+                <span class="pull-right text-muted small">4 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a ng-href="{{menuCtrl.actual}}">
+              <div>
+                <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                <span class="pull-right text-muted small">4 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a class="text-center" ng-href="{{menuCtrl.actual}}">
+              <strong>See All Alerts</strong>
+              <i class="fa fa-angle-right"></i>
+            </a>
+          </li>
+        </ul>
+        <!-- /.dropdown-alerts -->
+      </li>
+      <!-- /.dropdown -->
+      <li class="dropdown" ng-if="token_service.live_token()">
+        <a class="dropdown-toggle" data-toggle="dropdown" ng-href="{{menuCtrl.actual}}">
+          <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+          <li>
+            <a ng-click="">
+              <i class="fa fa-sign-in fa-fw"></i> {{token_service.token.name}}</a>
+            </a>
+          </li>
+          <li><a><i class="fa fa-gear fa-fw"></i> Settings</a>
+          </li>
+          <li class="divider"></li>
+          <li><a ng-click="token_service.logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+          </li>
+        </ul>
+        <!-- /.dropdown-user -->
+      </li>
+      <li ng-if="!token_service.live_token()">
+        <oauth2
+          authorization-url="{{token_service.config.AUTORIZATION_URL}}"
+          client-id="{{token_service.config.CLIENTE_ID}}"
+          redirect-url="{{token_service.config.REDIRECT_URL}}"
+          response-type="{{token_service.config.RESPONSE_TYPE}}"
+          scope="{{token_service.config.SCOPE}}"
+          button-class="{{token_service.config.BUTTON_CLASS}}">
+        </oauth2>
+      </li>
+      <!-- /.dropdown -->
+    </ul>
+  </div>
+  <!-- /.navbar-header -->
+  <!-- /.navbar-top-links -->
+  <!-- /.navbar-static-side -->
+</nav>
+<ul class="breadcrumb">
+  <li ng-repeat="option in breadcrumb" ng-if="option === ''" class="breadcrumb-item">
+    <a href="#"><i class="fa fa-home" aria-hidden="true"></i>{{option}}</a>
+  </li>
+  <li ng-repeat="option in breadcrumb" ng-if="$middle" class="breadcrumb-item">
+    <a href="#">{{option}}</a>
+  </li>
+  <li ng-repeat="option in breadcrumb" ng-if="$last" class="breadcrumb-item active">
+    {{option}}
+  </li>
+</ul>

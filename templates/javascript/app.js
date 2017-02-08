@@ -10,8 +10,9 @@
  */
 angular
   .module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) { %>
-  .config(function ($routeProvider) {
-    $routeProvider
+    .config(['$locationProvider','$routeProvider', function($locationProvider, $routeProvider) {
+      $locationProvider.hashPrefix("");
+      $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
@@ -20,4 +21,4 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  })<% } %>;
+  }])<% } %>;

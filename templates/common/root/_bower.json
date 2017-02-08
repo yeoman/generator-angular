@@ -12,7 +12,15 @@
     "angular-resource": "^<%= ngVer %>"<% } %><% if (routeModule) { %>,
     "angular-route": "^<%= ngVer %>"<% } %><% if (sanitizeModule) { %>,
     "angular-sanitize": "^<%= ngVer %>"<% } %><% if (touchModule) { %>,
-    "angular-touch": "^<%= ngVer %>"<% } %>
+    "angular-touch": "^<%= ngVer %>"<% } %>,
+    "components-font-awesome":"*",
+    "angular-ui-grid":"*",
+    "AngularJS-OAuth2": "angularjs-oauth2#^1.2.1",
+    "angular-material":"*",
+    "angular-tree-control":"*",
+    "pdfmake":"*",
+    "ngstorage": "^0.3.11",
+    "kjur-jsrsasign": "jsrsasign#^7.0.0"
   },
   "devDependencies": {
     "angular-mocks": "^<%= ngVer %>"

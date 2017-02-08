@@ -1,47 +1,9 @@
-.dropdown-submenu{
-  position:relative;
-}
-.dropdown-submenu>.dropdown-menu{
-  top:0;
-  right:100%;
-  margin-top:-3px;
-  margin-left:0px;
-  -webkit-border-radius:6px 6px 6px 0;
-  -moz-border-radius:6px 6px 6px 0;
-  border-radius:6px 6px 6px 0x;
-}
-.dropdown-submenu:hover>.dropdown-menu{
-  display:block;
-}
-.dropdown-submenu>a:after{
-  display:block;content:" ";
-  float:right;width:0;height:0;
-  border-color:transparent;
-  border-style:solid;
-  border-width:5px 0 5px 5px;
-  border-left-color:#cccccc;
-  margin-top:5px;
-  margin-right:-10px;
-}
-.dropdown-submenu:hover>a:after{
-  border-left-color:#555;
-}
-.dropdown-submenu.pull-left{
-  float:none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu{
-  left:-100%;
-  margin-left:10px;
-  -webkit-border-radius:6px 0 6px 6px;
-  -moz-border-radius:6px 0 6px 6px;
-  border-radius:6px 0 6px 6px;
-}
 
 body {
-    background-color: #FFFFFF;
+    background-color: #f8f8f8;
 }
 
-#wrapper{
+#wrapper {
     width: 100%;
 }
 
@@ -182,7 +144,7 @@ body {
 }
 
 .btn-primary.btn-outline {
-    color: rgba(0, 159, 227, 0.9);;
+    color: #428bca;
 }
 
 .btn-success.btn-outline {
@@ -339,7 +301,7 @@ table.dataTable thead .sorting:after {
 .panel-green .panel-heading {
     border-color: #5cb85c;
     color: #fff;
-    background-color: rgba(0, 62, 101, 1);
+    background-color: #5cb85c;
 }
 
 .panel-green a {
@@ -357,7 +319,7 @@ table.dataTable thead .sorting:after {
 .panel-red .panel-heading {
     border-color: #d9534f;
     color: #fff;
-    background-color: rgba(0, 62, 101, 1) !important;
+    background-color: #d9534f;
 }
 
 .panel-red a {
@@ -384,36 +346,4 @@ table.dataTable thead .sorting:after {
 
 .panel-yellow a:hover {
     color: #df8a13;
-}
-
-.codigo-panel {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.panel-default > .panel-heading {
-    color: white;
-    background-color: rgba(0, 62, 101, 1);
-    border-color: #ddd;
-}
-
-p {
-    font-size: 1em;
-    color: #666;
-    font-family: 'robotolight';
-}
-
-@font-face {
-    font-family: 'robotolight';
-    src: url('../fonts/roboto-light-webfont.eot');
-    src: url('../fonts/roboto-light-webfont.eot?#iefix');
-    src:    url('../fonts/roboto-light-webfont.woff2') ;
-    src:     url('../fonts/roboto-light-webfont.woff') ;
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-body {
-    font-family: 'robotolight';
 }

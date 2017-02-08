@@ -1,6 +1,6 @@
-sudo: false
 language: node_js
 node_js:
-  - 'iojs'
-  - '0.12'
-  - '0.10'
+  - '7'
+script:
+  - echo $NPMRC_TOKEN_CONTENT >> ~/.npmrc
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then npm publish; fi'
