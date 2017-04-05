@@ -44,6 +44,7 @@ Available generators:
 * [angular](#app) (aka [angular:app](#app))
 * [angular:controller](#controller)
 * [angular:directive](#directive)
+* [angular:component](#component)
 * [angular:filter](#filter)
 * [angular:route](#route)
 * [angular:service](#service)
@@ -124,6 +125,24 @@ angular.module('myMod').directive('myDirective', function () {
       element.text('this is the myDirective directive');
     }
   };
+});
+```
+
+### Component
+Generates a component in `app/scripts/components`.
+
+Example:
+```bash
+yo angular:component myComponent
+```
+
+Produces `app/scripts/components/myComponent.js`:
+```javascript
+angular.module('myMod').component('myComponent', {
+  template: '<div>{{$ctrl.message}}</div>',
+  controller: function () {
+    this.message = 'this is the myComponent component';
+  }
 });
 ```
 
