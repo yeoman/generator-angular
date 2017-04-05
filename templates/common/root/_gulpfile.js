@@ -8,6 +8,7 @@ var lazypipe = require('lazypipe');
 var rimraf = require('rimraf');
 var wiredep = require('wiredep').stream;
 var runSequence = require('run-sequence');
+var st = require('st');
 
 var yeoman = {
   app: require('./bower.json').appPath || 'app',
@@ -89,7 +90,12 @@ gulp.task('start:server', function() {
     root: [yeoman.app, '.tmp'],
     livereload: true,
     // Change this to '0.0.0.0' to access the server from outside.
-    port: 9000
+    port: 9000,
+    middleware: function (connect, opt) {
+            return [
+                st({ path: 'bower_components', url: '/bower_components' })
+            ];
+        }
   });
 });
 
@@ -136,7 +142,12 @@ gulp.task('serve:prod', function() {
   $.connect.server({
     root: [yeoman.dist],
     livereload: true,
-    port: 9000
+    port: 9000,
+    middleware: function (connect, opt) {
+            return [
+                st({ path: 'bower_components', url: '/bower_components' })
+            ];
+        }
   });
 });
 
