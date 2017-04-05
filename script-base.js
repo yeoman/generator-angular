@@ -31,6 +31,18 @@ var Generator = module.exports = function Generator() {
     this.env.options.appPath = this.options.appPath || bowerJson.appPath || 'app';
     this.options.appPath = this.env.options.appPath;
   }
+  if (typeof this.env.options.appScriptsPrefixPath === 'undefined') {
+    this.env.options.appScriptsPrefixPath = this.options.appScriptsPrefixPath || bowerJson.appScriptsPrefixPath;
+    // Add 'scripts' only if none of the other options has set. We have to allow '' option.
+    if(this.env.options.appScriptsPrefixPath === undefined) {
+      this.env.options.appScriptsPrefixPath = 'scripts';
+    }
+    this.options.appScriptsPrefixPath = this.env.options.appScriptsPrefixPath;
+  }
+  if (typeof this.env.options.appTestPrefixPath === 'undefined') {
+    this.env.options.appTestPrefixPath = this.options.appTestPrefixPath || bowerJson.appTestPrefixPath || '';
+    this.options.appTestPrefixPath = this.env.options.appTestPrefixPath;
+  }
 
   this.env.options.testPath = this.env.options.testPath || bowerJson.testPath || 'test/spec';
 
@@ -125,8 +137,8 @@ Generator.prototype.generateSourceAndTest = function (appTemplate, testTemplate,
     this.cameledName = this.classedName;
   }
 
-  this.appTemplate(appTemplate, path.join('scripts', targetDirectory, this.name));
-  this.testTemplate(testTemplate, path.join(targetDirectory, this.name));
+  this.appTemplate(appTemplate, path.join(this.env.options.appScriptsPrefixPath, targetDirectory, this.name));
+  this.testTemplate(testTemplate, path.join(this.env.options.appTestPrefixPath,targetDirectory, this.name));
   if (!skipAdd) {
     this.addScriptToIndex(path.join(targetDirectory, this.name));
   }
