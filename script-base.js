@@ -75,6 +75,13 @@ var Generator = module.exports = function Generator() {
     this.scriptSuffix = '.ts';
   }
 
+  // add the option to generate javascript files even if we already have coffeescript or typescript or both.
+  this.env.options.javascript = this.options.javascript;
+  if (this.env.options.javascript) {
+    sourceRoot = '/templates/javascript';
+    this.scriptSuffix = '.js';
+  }
+
   this.sourceRoot(path.join(__dirname, sourceRoot));
 };
 
