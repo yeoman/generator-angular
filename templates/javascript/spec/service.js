@@ -1,6 +1,5 @@
-'use strict';
-
 describe('Service: <%= cameledName %>', function () {
+  'use strict';
 
   // load the service's module
   beforeEach(module('<%= scriptAppName %>'));

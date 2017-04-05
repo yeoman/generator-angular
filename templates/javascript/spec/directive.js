@@ -1,6 +1,5 @@
-'use strict';
-
 describe('Directive: <%= cameledName %>', function () {
+  'use strict';
 
   // load the directive's module
   beforeEach(module('<%= scriptAppName %>'));

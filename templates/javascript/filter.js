@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc filter
  * @name <%= scriptAppName %>.filter:<%= cameledName %>
@@ -10,6 +8,8 @@
  */
 angular.module('<%= scriptAppName %>')
   .filter('<%= cameledName %>', function () {
+    'use strict';
+
     return function (input) {
       return '<%= cameledName %> filter: ' + input;
     };
