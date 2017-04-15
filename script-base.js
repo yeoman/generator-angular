@@ -48,6 +48,10 @@ var Generator = module.exports = function Generator() {
     this.env.options.typescript = this.options.typescript;
   }
 
+  if (typeof this.env.options.js === 'undefined') {
+    this.option('js');
+  }
+
   this.env.options.coffee = this.options.coffee;
   if (typeof this.env.options.coffee === 'undefined') {
     this.option('coffee');
@@ -55,6 +59,7 @@ var Generator = module.exports = function Generator() {
     // attempt to detect if user is using CS or not
     // if cml arg provided, use that; else look for the existence of cs
     if (!this.options.coffee &&
+      !this.options.js &&
       this.expandFiles(path.join(this.env.options.appPath, '/scripts/**/*.coffee'), {}).length > 0) {
       this.options.coffee = true;
     }
