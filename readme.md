@@ -296,11 +296,13 @@ You can change the `app` directory by adding an `appPath` property to `bower.jso
   "name": "yo-test",
   "version": "0.0.0",
   ...
-  "appPath": "public"
+  "appPath": "public",
+  "indexPath": "folderName/index.html"
 }
 
 ```
-This will cause Yeoman-generated client-side files to be placed in `public`.
+Yeoman-generated client-side files to be placed in the `public` folder.
+Yeoman will add the script references into the `folderName/index.html` file.
 
 Note that you can also achieve the same results by adding an `--appPath` option when starting generator:
 ```bash
