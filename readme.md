@@ -42,6 +42,7 @@ Run `grunt` for building and `grunt serve` for preview
 Available generators:
 
 * [angular](#app) (aka [angular:app](#app))
+* [angular:route](#route)
 * [angular:controller](#controller)
 * [angular:directive](#directive)
 * [angular:filter](#filter)
