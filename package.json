@@ -32,7 +32,10 @@
     "script-base.js",
     "util.js"
   ],
-  "repository": "yeoman/generator-angular",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yeoman/generator-angular.git"
+  }
   "scripts": {
     "test": "mocha"
   },
