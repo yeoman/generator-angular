@@ -34,7 +34,7 @@ Run `yo angular`, optionally passing an app name:
 yo angular [app-name]
 ```
 
-Run `grunt` for building and `grunt serve` for preview
+Run `grunt` for building and `grunt serve` for dev preview or `grunt serve:dist` for prod-ready preview.
 
 
 ## Generators
