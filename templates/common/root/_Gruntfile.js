@@ -22,7 +22,8 @@ module.exports = function (grunt) {
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
-    dist: 'dist'
+    dist: 'dist',
+    vendor: ((grunt.file.exists('./.bowerrc')) ? grunt.file.readJSON('./.bowerrc').directory : 'bower_components') || 'bower_components'
   };
 
   // Define the configuration for all the tasks
@@ -103,8 +104,8 @@ module.exports = function (grunt) {
             return [
               connect.static('.tmp'),
               connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
+                '<%%= yeoman.vendor %>',
+                connect.static('<%%= yeoman.vendor %>')
               ),
               connect().use(
                 '/app/styles',
@@ -123,8 +124,8 @@ module.exports = function (grunt) {
               connect.static('.tmp'),
               connect.static('test'),
               connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
+                '<%%= yeoman.vendor %>',
+                connect.static('<%%= yeoman.vendor %>')
               ),
               connect.static(appConfig.app)
             ];
@@ -254,7 +255,7 @@ module.exports = function (grunt) {
       }<% if (compass) { %>,
       sass: {
         src: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        ignorePath: /(\.\.\/){1,2}bower_components\//
+        ignorePath: /(\.\.\/){1,2}<%%= yeoman.vendor %>\//
       }<% } %>
     }, <% if (typescript) { %>
     // Compiles TypeScript to JavaScript
@@ -327,7 +328,7 @@ module.exports = function (grunt) {
         imagesDir: '<%%= yeoman.app %>/images',
         javascriptsDir: '<%%= yeoman.app %>/scripts',
         fontsDir: '<%%= yeoman.app %>/styles/fonts',
-        importPath: './bower_components',
+        importPath: '<%%= yeoman.vendor %>',
         httpImagesPath: '/images',
         httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',
@@ -515,12 +516,12 @@ module.exports = function (grunt) {
         }<% if (bootstrap) { %>, {
           expand: true,
           cwd: '<% if (!compassBootstrap) {
-              %>bower_components/bootstrap/dist<%
+              %><%%= yeoman.vendor %>/bootstrap/dist<%
             } else {
               %>.<%
             } %>',
           src: '<% if (compassBootstrap) {
-              %>bower_components/bootstrap-sass-official/assets/fonts/bootstrap<%
+              %><%%= yeoman.vendor %>/bootstrap-sass-official/assets/fonts/bootstrap<%
             } else { %>fonts<% }
             %>/*',
           dest: '<%%= yeoman.dist %>'
