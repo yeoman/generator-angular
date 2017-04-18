@@ -395,6 +395,12 @@ module.exports = function (grunt) {
       }
     },
 
+    cssmin: {
+      options: {
+        keepSpecialComments: 0
+      }
+    },
+
     // The following *-min tasks will produce minified files in the dist folder
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
