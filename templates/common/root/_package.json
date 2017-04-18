@@ -55,6 +55,7 @@
     "grunt-typescript": "^0.8.0",<% } %>
     "grunt-usemin": "^3.0.0",
     "grunt-wiredep": "^2.0.0",
+    "grunt-karma": "^0.12.1",
     "jit-grunt": "^0.9.1",
     "time-grunt": "^1.0.0"<% } %>,
     "jshint-stylish": "^1.0.0"
