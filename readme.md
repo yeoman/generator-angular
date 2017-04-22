@@ -1,5 +1,7 @@
 # AngularJS generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular.svg?branch=master)](http://travis-ci.org/yeoman/generator-angular) [![Gitter](https://img.shields.io/badge/Gitter-Join_the_Yeoman_chat_%E2%86%92-00d06f.svg)](https://gitter.im/yeoman/yeoman)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/yeoman/generator-angular.svg)](https://greenkeeper.io/)
+
 > Yeoman generator for AngularJS - lets you quickly set up a project with sensible defaults and best practices.
 
 There are many starting points for building a new Angular single page app, in addition to this one. You can find
